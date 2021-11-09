@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/countryFragment"
+        android:title="TODO" />
+    <!--
+            android:icon="@drawable/ic_statistics_white_24dp"
+        android:title="@string/menu_total_stat_title_text"
+        -->
+
+    <item
+        android:id="@+id/cityFragment"
+        android:title="TODO2"/>
+    <!--android:icon="@drawable/ic_statistics_white_24dp"
+    android:title="@string/menu_total_stat_title_text"-->
+
+    <item
+        android:id="@+id/updateFragment"
+        android:title="TODO3"/>
+    <!--android:icon="@drawable/ic_update_white_24dp"
+    android:title="@string/menu_ready_title_text"-->
+
+</menu>
