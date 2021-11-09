@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/editProfileFragment">
+    <fragment
+        android:id="@+id/acceptInvitationFragment"
+        android:name="org.sehproject.sss.AcceptInvitationFragment"
+        android:label="fragment_accept_invitation"
+        tools:layout="@layout/fragment_accept_invitation" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="org.sehproject.sss.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="org.sehproject.sss.MyPageFragment"
+        android:label="fragment_my_page"
+        tools:layout="@layout/fragment_my_page" >
+        <action
+            android:id="@+id/action_myPageFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="org.sehproject.sss.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="org.sehproject.sss.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="org.sehproject.sss.view.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+</navigation>

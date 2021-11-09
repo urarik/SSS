@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfileFragment">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileNickName"
+        app:layout_constraintEnd_toEndOf="@+id/editProfileNickName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editProfileNickName" />
+
+    <EditText
+        android:id="@+id/editProfileNickName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="닉네임"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileName"
+        app:layout_constraintEnd_toEndOf="@+id/editProfileName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editProfileName" />
+
+    <EditText
+        android:id="@+id/editProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="이름"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileAge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfileNickName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나이"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileAge"
+        app:layout_constraintEnd_toEndOf="@+id/editProfileAge"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editProfileAge" />
+
+    <EditText
+        android:id="@+id/editProfileAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="나이"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/radioGender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editProfileName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="성별"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/radioGender"
+        app:layout_constraintStart_toStartOf="@+id/radioGender" />
+
+    <RadioGroup
+        android:id="@+id/radioGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/imageEditProfile"
+        app:layout_constraintStart_toStartOf="@+id/editProfileAge"
+        app:layout_constraintTop_toBottomOf="@id/editProfileAge">
+
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="남" />
+
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="프로필 사진"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageEditProfile"
+        app:layout_constraintEnd_toEndOf="@+id/imageEditProfile"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageEditProfile" />
+
+    <ImageView
+        android:id="@+id/imageEditProfile"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSaveProfile"
+        app:layout_constraintStart_toStartOf="@+id/radioGender"
+        app:layout_constraintTop_toBottomOf="@+id/radioGender"
+        app:srcCompat="@drawable/temp" />
+
+    <Button
+        android:id="@+id/buttonSaveProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="저장"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageEditProfile" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
