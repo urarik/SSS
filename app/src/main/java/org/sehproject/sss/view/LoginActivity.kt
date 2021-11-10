@@ -77,9 +77,9 @@ class LoginActivity : AppCompatActivity(), ActivityNavigation {
         val mOAuthLoginModule = OAuthLogin.getInstance()
         mOAuthLoginModule.init(
             this,
-            "oG9t60dhDXU6bNYSbpdK",
-            "mL_2dNGHcu",
-            "LoginMine"
+            "a7XW5Z1zpCBPzzIUT1FS",
+            "HtKAgnWhV6",
+            "SSS"
         )
         val mOAuthLoginHandler =
             LoginViewModel.NaverLoginHandler(this, mOAuthLoginModule, loginViewModel::naverLogInCallback)
