@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "719717179769",
+    "project_id": "saehoonssss",
+    "storage_bucket": "saehoonssss.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719717179769:android:d1824358d4b6c1c39a4fa8",
+        "android_client_info": {
+          "package_name": "org.sehproject.sss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719717179769-0endaj9nh4tiii2peadpllgh813vaicm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.sehproject.sss",
+            "certificate_hash": "dcda28dbe57f6972bd1d0326481b5e24694b6d19"
+          }
+        },
+        {
+          "client_id": "719717179769-hioneutqehn7rhma34ekf5rmgl07v0hl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.sehproject.sss",
+            "certificate_hash": "61907e077e5b7a7661e999c0974c83ba69ad3d82"
+          }
+        },
+        {
+          "client_id": "719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkljaNGOf-eIsHR1p2l16j7VnnB8PAjzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

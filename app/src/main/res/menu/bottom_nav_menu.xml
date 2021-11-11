@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/planListFragment"
+        android:icon="@drawable/color_red"
+        android:title="약속 목록" />
+    <item
+        android:id="@+id/recommendFragment"
+        android:icon="@drawable/color_red"
+        android:title="인기 약속 장소" />
+    <item
+        android:id="@+id/groupListFragment"
+        android:icon="@drawable/color_red"
+        android:title="그룹 목록" />
+    <item
+        android:id="@+id/friendListFragment"
+        android:icon="@drawable/color_red"
+        android:title="친구 목록" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/color_red"
+        android:title="마이 페이지" />
+</menu>

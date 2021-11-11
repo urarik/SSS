@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools">
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="org.sehproject.sss.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="org.sehproject.sss.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/groupDetailFragment"
+        android:name="org.sehproject.sss.view.GroupDetailFragment"
+        android:label="fragment_group_detail"
+        tools:layout="@layout/fragment_group_detail" >
+        <action
+            android:id="@+id/action_groupDetailFragment_to_groupEditFragment"
+            app:destination="@id/groupEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupListFragment"
+        android:name="org.sehproject.sss.view.GroupListFragment"
+        android:label="fragment_group_list"
+        tools:layout="@layout/fragment_group_list" >
+        <action
+            android:id="@+id/action_groupListFragment_to_groupDetailFragment"
+            app:destination="@id/groupDetailFragment" />
+        <action
+            android:id="@+id/action_groupListFragment_to_groupEditFragment"
+            app:destination="@id/groupEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/planDetailFragment"
+        android:name="org.sehproject.sss.view.PlanDetailFragment"
+        android:label="fragment_plan_detail"
+        tools:layout="@layout/fragment_plan_detail" >
+        <action
+            android:id="@+id/action_planDetailFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_planDetailFragment_to_planEditFragment"
+            app:destination="@id/planEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/planListFragment"
+        android:name="org.sehproject.sss.view.PlanListFragment"
+        android:label="fragment_plan_list"
+        tools:layout="@layout/fragment_plan_list" >
+        <action
+            android:id="@+id/action_planListFragment_to_planDetailFragment"
+            app:destination="@id/planDetailFragment" />
+        <action
+            android:id="@+id/action_planListFragment_to_planEditFragment"
+            app:destination="@id/planEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/planEditFragment"
+        android:name="org.sehproject.sss.view.PlanEditFragment"
+        android:label="fragment_plan_edit"
+        tools:layout="@layout/fragment_plan_edit" >
+        <action
+            android:id="@+id/action_planEditFragment_to_planListFragment"
+            app:destination="@id/planListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupEditFragment"
+        android:name="org.sehproject.sss.view.GroupEditFragment"
+        android:label="fragment_group_edit"
+        tools:layout="@layout/fragment_group_edit" >
+        <action
+            android:id="@+id/action_groupEditFragment_to_groupListFragment"
+            app:destination="@id/groupListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendListFragment"
+        android:name="org.sehproject.sss.view.FriendListFragment"
+        android:label="fragment_friend_list"
+        tools:layout="@layout/fragment_friend_list" >
+        <action
+            android:id="@+id/action_friendListFragment_to_userSearchFragment"
+            app:destination="@id/userSearchFragment" />
+        <action
+            android:id="@+id/action_friendListFragment_to_friendProfileFragment"
+            app:destination="@id/friendProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="org.sehproject.sss.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_profileEditFragment"
+            app:destination="@id/profileEditFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/invitationFragment"
+        android:name="org.sehproject.sss.InvitationFragment"
+        android:label="fragment_invitation"
+        tools:layout="@layout/fragment_invitation" />
+    <fragment
+        android:id="@+id/userSearchFragment"
+        android:name="org.sehproject.sss.view.UserSearchFragment"
+        android:label="fragment_user_search"
+        tools:layout="@layout/fragment_user_search" />
+    <fragment
+        android:id="@+id/friendProfileFragment"
+        android:name="org.sehproject.sss.view.FriendProfileFragment"
+        android:label="fragment_friend_profile"
+        tools:layout="@layout/fragment_friend_profile" />
+    <fragment
+        android:id="@+id/profileEditFragment"
+        android:name="org.sehproject.sss.ProfileEditFragment"
+        android:label="fragment_profile_edit"
+        tools:layout="@layout/fragment_profile_edit" >
+        <action
+            android:id="@+id/action_profileEditFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recommendFragment"
+        android:name="org.sehproject.sss.view.RecommendFragment"
+        android:label="fragment_recommend"
+        tools:layout="@layout/fragment_recommend" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="org.sehproject.sss.view.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+</navigation>

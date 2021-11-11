@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name = "peopleNum">
+        <item> 5 </item>
+        <item> 10 </item>
+        <item> 15 </item>
+        <item> 20 </item>
+    </string-array>
+
+    <string-array name = "groupColor">
+        <item> 빨강 </item>
+        <item> 파랑 </item>
+    </string-array>
+
+    <string-array name = "groupOrder">
+        <item> 이름순 </item>
+        <item> 인원수순 </item>
+    </string-array>
+
+    <string-array name = "planOrder">
+        <item> 시간순 </item>
+        <item> 카테고리순 </item>
+    </string-array>
+
+    <string-array name = "planReiteration">
+        <item> 반복 없음 </item>
+        <item> 매일 </item>
+        <item> 매주 </item>
+        <item> 매월 </item>
+    </string-array>
+
+    <string-array name = "planCategory">
+        <item> 카테고리 없음 </item>
+        <item> 새 카테고리 </item>
+    </string-array>
+
+    <string-array name = "planGroup">
+        <item> 그룹 없음 </item>
+        <item> Young University </item>
+    </string-array>
+</resources>
