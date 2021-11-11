@@ -2,12 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/planListFragment">
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/registerFragment"
         android:name="org.sehproject.sss.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="org.sehproject.sss.view.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/settingFragment"
         android:name="org.sehproject.sss.SettingFragment"
