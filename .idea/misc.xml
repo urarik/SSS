@@ -20,6 +20,7 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_edit.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_list.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_list2.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_invitation.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_invite_friend.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_login.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_make_group.xml" value="0.25364583333333335" />
@@ -27,6 +28,8 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_map.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_my_page.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_paln_list.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_create_ocr.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_create_type.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_detail.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_details.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_edit.xml" value="0.25364583333333335" />
@@ -36,8 +39,12 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_real_time_location.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_recommend.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_recommend_place.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_register.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_search_friend.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_setting.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_statistics_point.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_user_search.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/friend_list_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/navigation_activity.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/user_serach_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/view_plan_item.xml" value="0.25364583333333335" />

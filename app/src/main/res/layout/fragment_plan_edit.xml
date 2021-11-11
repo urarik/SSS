@@ -62,46 +62,24 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonStartTime" />
 
     <TextView
-        android:id="@+id/textViewPlanReiteration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
-        android:text="반복 여부"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPlanPlace" />
-
-    <TextView
         android:id="@+id/textViewPlanCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
         android:text="카테고리"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerPlanReiteration" />
+        tools:layout_editor_absoluteY="342dp" />
 
     <TextView
         android:id="@+id/textViewPlanGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="156dp"
         android:text="그룹"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerPlanReiteration" />
-
-    <Spinner
-        android:id="@+id/spinnerPlanReiteration"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPlanReiteration" />
+        tools:layout_editor_absoluteY="342dp" />
 
     <Spinner
         android:id="@+id/spinnerPlanCategory"

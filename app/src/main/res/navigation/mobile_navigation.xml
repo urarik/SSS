@@ -62,6 +62,12 @@
         <action
             android:id="@+id/action_planListFragment_to_planEditFragment"
             app:destination="@id/planEditFragment" />
+        <action
+            android:id="@+id/action_planListFragment_to_planCreateTypeFragment"
+            app:destination="@id/planCreateTypeFragment" />
+        <action
+            android:id="@+id/action_planListFragment_to_planCreateOCRFragment"
+            app:destination="@id/planCreateOCRFragment" />
     </fragment>
     <fragment
         android:id="@+id/planEditFragment"
@@ -139,4 +145,14 @@
         android:name="org.sehproject.sss.view.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/planCreateOCRFragment"
+        android:name="org.sehproject.sss.view.PlanCreateOCRFragment"
+        android:label="fragment_plan_create_ocr"
+        tools:layout="@layout/fragment_plan_create_ocr" />
+    <fragment
+        android:id="@+id/planCreateTypeFragment"
+        android:name="org.sehproject.sss.view.PlanCreateTypeFragment"
+        android:label="fragment_plan_create_type"
+        tools:layout="@layout/fragment_plan_create_type" />
 </navigation>
