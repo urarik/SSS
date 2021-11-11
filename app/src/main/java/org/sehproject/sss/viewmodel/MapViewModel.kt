@@ -9,7 +9,7 @@ import java.time.LocalTime
 class MapViewModel : ViewModel() {
     val mapLogic = MapLogic(this)
 
-    val locationLiveData = MutableLiveData<List<Coordinate>>()
+    // val locationLiveData = MutableLiveData<List<Coordinate>>()
     val etaLiveData = MutableLiveData<List<LocalTime>>()
     val trackEvent = SingleLiveEvent<Any>()
     val locationUpdateEvent = SingleLiveEvent<Any>()

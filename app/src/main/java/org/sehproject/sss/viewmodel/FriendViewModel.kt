@@ -3,6 +3,7 @@ package org.sehproject.sss.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sehproject.sss.datatype.User
+import org.sehproject.sss.logic.FriendLogic
 import org.sehproject.sss.utils.SingleLiveEvent
 
 class FriendViewModel : ViewModel() {

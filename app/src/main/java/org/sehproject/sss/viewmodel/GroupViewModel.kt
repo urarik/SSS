@@ -1,6 +1,7 @@
 package org.sehproject.sss.viewmodel
 
 import androidx.lifecycle.ViewModel
+import org.sehproject.sss.logic.GroupLogic
 import org.sehproject.sss.utils.SingleLiveEvent
 
 class GroupViewModel : ViewModel() {
