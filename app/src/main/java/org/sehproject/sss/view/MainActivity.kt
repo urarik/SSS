@@ -15,13 +15,11 @@ import org.sehproject.sss.databinding.ActivityLoginBinding
 import org.sehproject.sss.datatype.User
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mainBinding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainBinding = DataBindingUtil.setContentView(this, R.layout.navigation_activity)
+        setContentView(R.layout.navigation_activity)
         Log.d("tag", "...${UserInfo.userName}")
-        mainBinding.user = User()
 
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.loginFragment) as NavHostFragment? ?: return
