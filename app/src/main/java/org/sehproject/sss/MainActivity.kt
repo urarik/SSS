@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.loginFragment) as NavHostFragment? ?: return
         val navController = host.navController
         setupBottomNavMenu(navController)
+        Log.d("tag", "123")
     }
 
     private fun setupBottomNavMenu(navController: NavController) {
