@@ -19,13 +19,14 @@ import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.ActivityLoginBinding
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.utils.ActivityNavigation
-import org.sehproject.sss.viewmodel.LoginViewModel
+import org.sehproject.sss.viewmodel.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.nhn.android.naverlogin.OAuthLogin
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.repository.LoginRepository.Companion.get
 
 
@@ -33,9 +34,9 @@ class LoginActivity : AppCompatActivity(), ActivityNavigation {
 
     lateinit var loginBinding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
-    private val user = User()
-    private val loginViewModel: LoginViewModel by lazy {
-            ViewModelProvider(this).get(LoginViewModel::class.java)
+    private val user = Account("", "")
+    private val loginViewModel: UserViewModel by lazy {
+            ViewModelProvider(this).get(UserViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +83,7 @@ class LoginActivity : AppCompatActivity(), ActivityNavigation {
             "SSS"
         )
         val mOAuthLoginHandler =
-            LoginViewModel.NaverLoginHandler(this, mOAuthLoginModule, loginViewModel::naverLogInCallback)
+            UserViewModel.NaverLoginHandler(this, mOAuthLoginModule, loginViewModel::naverLogInCallback)
         loginBinding.buttonNaverLogin.setOAuthLoginHandler(mOAuthLoginHandler)
         loginBinding.buttonNaverLogin.setBgResourceId(R.drawable.btn_ag)
     }
@@ -134,5 +135,4 @@ class LoginActivity : AppCompatActivity(), ActivityNavigation {
                     }
                 }
     }
-
 }

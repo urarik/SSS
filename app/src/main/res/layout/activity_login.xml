@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewmodel"
-            type="org.sehproject.sss.viewmodel.LoginViewModel"/>
+            type="org.sehproject.sss.viewmodel.UserViewModel"/>
         <variable
             name="user"
-            type="org.sehproject.sss.datatype.User" />
+            type="org.sehproject.sss.datatype.Account" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,7 +71,7 @@
                         android:layout_height="40dp"
                         android:imeOptions="actionNext"
                         android:inputType="text"
-                        android:text="@={user.email}"
+                        android:text="@={user.userId}"
                         android:textColor="#383838"
                         android:textSize="20sp" />
 

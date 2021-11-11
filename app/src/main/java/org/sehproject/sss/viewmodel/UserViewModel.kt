@@ -11,6 +11,7 @@ import com.nhn.android.naverlogin.OAuthLoginHandler
 import org.json.JSONObject
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.dao.NaverAsyncTask
+import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.UserLogic
 import org.sehproject.sss.repository.LoginRepository
@@ -39,10 +40,10 @@ class UserViewModel : ViewModel() {
     fun setGoogleClient(_googleSignInClient: GoogleSignInClient) {
         googleSignInClient = _googleSignInClient
     }
-    fun onLogin(user: User) {
+    fun onLogin(user: Account) {
         Log.d("tag", user.toString())
-        if (checkValidate(user.email, user.password)) {
-            val nickname = loginRepository.login(user.email, user.password)
+        if (checkValidate(user.userId, user.password)) {
+            val nickname = loginRepository.login(user.userId, user.password)
             if (nickname.isNotEmpty()) {
                 updateUI(nickname)
             }
@@ -73,7 +74,7 @@ class UserViewModel : ViewModel() {
     }
 
     //nested class: outer class의 member를 사용할 수 없다.
-    class NaverLoginHandler(private val context: Context,
+    public class NaverLoginHandler(private val context: Context,
                             private val mOAuthLoginModule: OAuthLogin,
                             private val callback: (String) -> Unit) : OAuthLoginHandler() {
         override fun run(p0: Boolean) {

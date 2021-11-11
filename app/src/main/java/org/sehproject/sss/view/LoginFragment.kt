@@ -23,7 +23,7 @@ import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.ActivityLoginBinding
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.utils.ActivityNavigation
-import org.sehproject.sss.viewmodel.LoginViewModel
+import org.sehproject.sss.viewmodel.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -31,6 +31,7 @@ import com.nhn.android.naverlogin.OAuthLogin
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import org.sehproject.sss.databinding.FragmentLoginBinding
+import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.repository.LoginRepository.Companion.get
 
 
@@ -38,15 +39,15 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     lateinit var loginBinding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
-    private val user = User()
-    private val loginViewModel: LoginViewModel by lazy {
-            ViewModelProvider(this).get(LoginViewModel::class.java)
+    private val user = Account("", "")
+    private val userViewModel: UserViewModel by lazy {
+            ViewModelProvider(this).get(UserViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
         loginBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
-        loginBinding.viewmodel = loginViewModel
+        loginBinding.viewmodel = userViewModel
         loginBinding.user = user
         initObservers()
         initNaverLogin()
@@ -61,12 +62,12 @@ class LoginFragment : Fragment(), ActivityNavigation {
             //val intent = Intent(this, MainActivity::class.java)
             //startActivity(intent)
         }
-        loginViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+        userViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
                 transact()
             }
         })
-        loginViewModel.cheatEvent.observe(this, {
+        userViewModel.cheatEvent.observe(this, {
             val editText = EditText(context)
 
             val builder = AlertDialog.Builder(requireContext())
@@ -88,8 +89,9 @@ class LoginFragment : Fragment(), ActivityNavigation {
             "HtKAgnWhV6",
             "SSS"
         )
+
         val mOAuthLoginHandler =
-            LoginViewModel.NaverLoginHandler(requireContext(), mOAuthLoginModule, loginViewModel::naverLogInCallback)
+            UserViewModel.NaverLoginHandler(requireContext(), mOAuthLoginModule, userViewModel::naverLogInCallback)
         loginBinding.buttonNaverLogin.setOAuthLoginHandler(mOAuthLoginHandler)
         loginBinding.buttonNaverLogin.setBgResourceId(R.drawable.btn_ag)
     }
@@ -102,18 +104,18 @@ class LoginFragment : Fragment(), ActivityNavigation {
         Log.d("tag", "...${gso.toString()}" )
         val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         auth = FirebaseAuth.getInstance()
-        loginViewModel.setGoogleClient(googleSignInClient)
-        loginViewModel.googleLoginEvent.setEventReceiver(this, this)
+        userViewModel.setGoogleClient(googleSignInClient)
+        userViewModel.googleLoginEvent.setEventReceiver(this, this)
         loginBinding.buttonGoogleLogin.setOnClickListener {
             Log.d("TAG", "!!")
-            loginViewModel.onGoogleLogin()
+            userViewModel.onGoogleLogin()
         }
         val textView = loginBinding.buttonGoogleLogin.getChildAt(0) as TextView
         textView.text = getString(R.string.google_login)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == loginViewModel.RC_SIGN_IN) {
+        if(requestCode == userViewModel.RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
@@ -134,7 +136,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("tag", "signInWithCredential:success")
                         val user = auth.currentUser
-                        loginViewModel.updateUI(user!!.email!!)
+                        userViewModel.updateUI(user!!.email!!)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("tag", "signInWithCredential:failure", task.exception)
