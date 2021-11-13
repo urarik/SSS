@@ -1,5 +1,7 @@
 package org.sehproject.sss.logic
 
+import android.util.Log
+import org.sehproject.sss.datatype.Friend
 import org.sehproject.sss.viewmodel.GroupViewModel
 
 class GroupLogic(val groupViewModel: GroupViewModel) {
@@ -45,7 +47,8 @@ class GroupLogic(val groupViewModel: GroupViewModel) {
 
     fun onInviteGroupClick()
     {
-
+        Log.d("TAG", "!@#")
+        groupViewModel.inviteGroupEvent.call()
     }
 
     fun onInviteGroupDoneClick()
@@ -65,6 +68,10 @@ class GroupLogic(val groupViewModel: GroupViewModel) {
 
     fun getGroup(groupid: Int)
     {
+
+    }
+
+    fun onItemClick(user: Friend) {
 
     }
 }

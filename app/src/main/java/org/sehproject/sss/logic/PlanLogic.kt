@@ -1,5 +1,6 @@
 package org.sehproject.sss.logic
 
+import org.sehproject.sss.datatype.Friend
 import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.viewmodel.PlanViewModel
 
@@ -33,5 +34,8 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onOcrDoneClick() {}
     fun onPreviousPlanListToggle() {}
     fun onViewPlanClick(pid: Int, isPrevious: Boolean) {}
+    fun onItemClick(user: Friend) {
+        TODO("Not yet implemented")
+    }
 
 }
