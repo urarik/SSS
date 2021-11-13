@@ -6,8 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
+import org.sehproject.sss.databinding.FragmentGroupEditBinding
+import org.sehproject.sss.databinding.FragmentInviteFriendBinding
+import org.sehproject.sss.viewmodel.GroupViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +25,11 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class GroupEditFragment : Fragment() {
+    private val groupViewModel by lazy {
+        ViewModelProvider(this).get(GroupViewModel::class.java)
+    }
+
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,7 +47,17 @@ class GroupEditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_group_edit, container, false)
+        val editGroupBinding: FragmentGroupEditBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_group_edit, container, false)
+        val view = editGroupBinding.root
+        editGroupBinding.groupLogic = groupViewModel.groupLogic
+        initObserver()
+
+        return view
+    }
+    private fun initObserver() {
+        groupViewModel.inviteGroupEvent.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.groupInviteFragment)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
