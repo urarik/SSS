@@ -45,7 +45,7 @@ class PlanEditFragment : Fragment() {
 
         val button = view.findViewById<Button>(R.id.buttonSavePlan)
         button?.setOnClickListener {
-            findNavController().navigate(R.id.planListFragment, null)
+            findNavController().navigate(R.id.action_planEditFragment_to_planListFragment, null)
         }
     }
 

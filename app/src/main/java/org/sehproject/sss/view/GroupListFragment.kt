@@ -47,6 +47,11 @@ class GroupListFragment : Fragment() {
         button?.setOnClickListener {
             findNavController().navigate(R.id.groupEditFragment, null)
         }
+
+        val buttonMap = view.findViewById<Button>(R.id.btn_map_test)
+        buttonMap?.setOnClickListener {
+            findNavController().navigate(R.id.mapFragment, null)
+        }
     }
 
     companion object {
