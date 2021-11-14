@@ -18,7 +18,7 @@ class FriendRepository {
         .build()
     private var friendService: FriendService = retrofit.create(FriendService::class.java)
 
-    fun searchUser(userId: String, onResult: (Int, List<User>) -> Unit) {
+    fun searchUser(userId: String, onResult: (Int, List<User>?) -> Unit) {
         friendService.searchUserRequest(userId)
             .enqueue(object : Callback<UserListResponse> {
                 override fun onResponse(
@@ -26,16 +26,16 @@ class FriendRepository {
                     response: Response<UserListResponse>
                 ) {
                     val code = response.body()?.code
-                    val userList = response.body()?.userList!!
                     if (code == 0) {
+                        val userList = response.body()?.userList
                         onResult(0, userList)
                     } else {
-                        onResult(1, emptyList())
+                        onResult(1, null)
                     }
                 }
 
                 override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
-                    onResult(-1, emptyList())
+                    onResult(-1, null)
                 }
             })
     }
@@ -103,7 +103,7 @@ class FriendRepository {
             })
     }
 
-    fun getFriendList(onResult: (Int, List<Friend>) -> Unit) {
+    fun getFriendList(onResult: (Int, List<Friend>?) -> Unit) {
         friendService.getFriendListRequest(UserInfo.userId)
             .enqueue(object : Callback<FriendListResponse> {
                 override fun onResponse(
@@ -111,16 +111,16 @@ class FriendRepository {
                     response: Response<FriendListResponse>
                 ) {
                     val code = response.body()?.code
-                    val friendList = response.body()?.friendList!!
                     if (code == 0) {
+                        val friendList = response.body()?.friendList
                         onResult(0, friendList)
                     } else {
-                        onResult(1, emptyList())
+                        onResult(1, null)
                     }
                 }
 
                 override fun onFailure(call: Call<FriendListResponse>, t: Throwable) {
-                    onResult(-1, emptyList())
+                    onResult(-1, null)
                 }
             })
     }

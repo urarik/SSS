@@ -8,7 +8,7 @@ import retrofit2.http.POST
 
 interface UserService {
 
-    @POST("login")
+    @POST("user/login")
     @FormUrlEncoded
     fun loginRequest(
         @Field("userid")
@@ -18,7 +18,7 @@ interface UserService {
         password: String,
     ): Call<GenericResponse>
 
-    @POST("register")
+    @POST("user/register")
     @FormUrlEncoded
     fun registerRequest(
         @Field("userid")
