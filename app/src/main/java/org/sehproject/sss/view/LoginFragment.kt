@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -18,6 +19,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.ActivityLoginBinding
@@ -46,8 +48,9 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
-        loginBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
-        loginBinding.viewmodel = userViewModel
+        loginBinding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
+        loginBinding.userLogic = userViewModel.userLogic
         loginBinding.user = user
         initObservers()
         initNaverLogin()
@@ -57,15 +60,14 @@ class LoginFragment : Fragment(), ActivityNavigation {
     }
 
     private fun initObservers() {
-        val transact = {
-            //Toast.makeText(this, "welcome, ${UserInfo.userName}", Toast.LENGTH_LONG).show()
-            //val intent = Intent(this, MainActivity::class.java)
-            //startActivity(intent)
-        }
         userViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
-                transact()
+                findNavController().navigate(R.id.planListFragment, null)
             }
+        })
+        userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
+            Log.d("TAG", "eeeeeeee")
+            findNavController().navigate(R.id.registerFragment, null)
         })
         userViewModel.cheatEvent.observe(this, {
             val editText = EditText(context)

@@ -49,7 +49,11 @@ class UserViewModel : ViewModel() {
             }
         }
     }
-
+    fun updateUI(name: String) {
+        UserInfo.isLogin = true
+        UserInfo.userName = name
+        isLogin.value = true// thread 사용시 바꿔야함
+    }
     fun onCheat() {
         cheatEvent.call()
     }
@@ -63,11 +67,6 @@ class UserViewModel : ViewModel() {
         updateUI(email)
     }
 
-    fun updateUI(name: String) {
-        UserInfo.isLogin = true
-        UserInfo.userName = name
-        isLogin.value = true// thread 사용시 바꿔야함
-    }
     fun onGoogleLogin() {
         val signInIntent = googleSignInClient.signInIntent
         googleLoginEvent.sendEvent { startActivityForResult(signInIntent, RC_SIGN_IN) }
