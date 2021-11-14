@@ -12,6 +12,7 @@ import org.json.JSONObject
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.dao.NaverAsyncTask
 import org.sehproject.sss.datatype.Account
+import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.UserLogic
 import org.sehproject.sss.repository.LoginRepository
@@ -40,7 +41,7 @@ class UserViewModel : ViewModel() {
     fun setGoogleClient(_googleSignInClient: GoogleSignInClient) {
         googleSignInClient = _googleSignInClient
     }
-    fun onLogin(user: Account) {
+    fun onLogin(user: AccountXML) {
         Log.d("tag", user.toString())
         if (checkValidate(user.userId, user.password)) {
             val nickname = loginRepository.login(user.userId, user.password)

@@ -2,11 +2,12 @@ package org.sehproject.sss.logic
 
 import android.util.Log
 import org.sehproject.sss.datatype.Account
+import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.UserViewModel
 
 class UserLogic(val userViewModel: UserViewModel) {
-    fun onLoginClick(user: Account)
+    fun onLoginClick(user: AccountXML)
     {
         userViewModel.onLogin(user)
         userViewModel.loginEvent.call()

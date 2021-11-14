@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.sehproject.sss.R
 import org.sehproject.sss.UserInfo
+// import org.sehproject.sss.databinding.ActivityMainBinding
 import org.sehproject.sss.datatype.User
 
 class MainActivity : AppCompatActivity() {

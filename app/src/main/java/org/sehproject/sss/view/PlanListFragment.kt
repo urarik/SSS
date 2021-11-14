@@ -35,8 +35,8 @@ class PlanListFragment : Fragment() {
         planListBinding.planLogic = planViewModel.planLogic
         initObserver()
 
-        val floatingButton = planListBinding.floatingActionButton3
-        val buttonList = mutableListOf<FloatingActionButton>()
+        /*val floatingButton = planListBinding.floatingActionButton3
+        val buttonList = mutableListOf<View>()
         buttonList.add(planListBinding.MakePlanFloatingActionButton)
         buttonList.add(planListBinding.MakePlanOCRFloatingActionButton)
         buttonList.add(planListBinding.MakePlanTypeFloatingActionButton)
@@ -56,7 +56,7 @@ class PlanListFragment : Fragment() {
                 }
                 isOpen = true;
             }
-        }
+        }*/
 
         return planListBinding.root
     }
