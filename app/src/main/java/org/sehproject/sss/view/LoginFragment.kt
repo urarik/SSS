@@ -18,6 +18,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import org.sehproject.sss.R
+import org.sehproject.sss.UserInfo
+// import org.sehproject.sss.databinding.ActivityLoginBinding
+import org.sehproject.sss.datatype.User
+import org.sehproject.sss.utils.ActivityNavigation
+import org.sehproject.sss.viewmodel.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
