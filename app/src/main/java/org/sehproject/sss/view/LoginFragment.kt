@@ -22,7 +22,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.databinding.ActivityLoginBinding
+// import org.sehproject.sss.databinding.ActivityLoginBinding
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.utils.ActivityNavigation
 import org.sehproject.sss.viewmodel.UserViewModel

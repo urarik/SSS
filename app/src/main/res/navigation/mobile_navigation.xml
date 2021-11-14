@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_groupListFragment_to_groupEditFragment"
             app:destination="@id/groupEditFragment" />
+        <action
+            android:id="@+id/action_groupListFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/planDetailFragment"
@@ -83,9 +86,6 @@
         <action
             android:id="@+id/action_planListFragment_to_planCreateOCRFragment"
             app:destination="@id/planCreateOCRFragment" />
-        <action
-            android:id="@+id/action_planListFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/planEditFragment"
@@ -117,11 +117,7 @@
         android:name="org.sehproject.sss.view.GroupInviteDialogFragment"
         android:label="fragment_group_invite"
         tools:layout="@layout/fragment_invite_friend"
-        >
-        <action
-            android:id="@+id/action_groupInviteFragment_to_groupListFragment"
-            app:destination="@id/groupListFragment" />
-    </fragment>
+        />
     <fragment
         android:id="@+id/friendListFragment"
         android:name="org.sehproject.sss.view.FriendListFragment"
