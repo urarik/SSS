@@ -86,7 +86,16 @@
         <action
             android:id="@+id/action_groupEditFragment_to_groupListFragment"
             app:destination="@id/groupListFragment" />
+        <action
+            android:id="@+id/action_groupEditFragment_to_groupInviteFragment"
+            app:destination="@id/groupInviteFragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/groupInviteFragment"
+        android:name="org.sehproject.sss.view.GroupInviteDialogFragment"
+        android:label="fragment_group_invite"
+        tools:layout="@layout/fragment_invite_friend"
+        />
     <fragment
         android:id="@+id/friendListFragment"
         android:name="org.sehproject.sss.view.FriendListFragment"
