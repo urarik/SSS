@@ -10,44 +10,44 @@ import retrofit2.http.POST
 
 interface FriendService {
 
-    @POST("searchuser")
+    @POST("friend/search")
     @FormUrlEncoded
     fun searchUserRequest(
-        @Field("useridornickname")
+        @Field("userid_or_nickname")
         userId: String
     ): Call<UserListResponse>
 
-    @POST("addfriend")
+    @POST("friend/add")
     @FormUrlEncoded
     fun addFriendRequest(
         @Field("userid")
         userId: String,
 
-        @Field("frienduserid")
+        @Field("friend_userid")
         friendUserId: String
     ): Call<GenericResponse>
 
-    @POST("deletefriend")
+    @POST("friend/delete")
     @FormUrlEncoded
     fun deleteFriendRequest(
         @Field("userid")
         userId: String,
 
-        @Field("frienduserid")
+        @Field("friend_userid")
         friendUserId: String
     ): Call<GenericResponse>
 
-    @POST("blockfriend")
+    @POST("friend/block")
     @FormUrlEncoded
     fun blockFriendRequest(
         @Field("userid")
         userId: String,
 
-        @Field("frienduserid")
+        @Field("friend_userid")
         friendUserId: String
     ): Call<GenericResponse>
 
-    @POST("getfriendlist")
+    @POST("friend/list")
     @FormUrlEncoded
     fun getFriendListRequest(
         @Field("userid")
