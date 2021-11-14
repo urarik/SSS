@@ -18,7 +18,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onKickOutPlanDoneClick() {}
     fun onKickOutPlanExitClick() {}
     fun onCancelPlanClick() {}
-    fun onCancelPlanComfirmClick() {}
+    fun onCancelPlanConfirmClick() {}
     fun onTrackClick() {}
     fun onCreateMemoClick() {}
     fun onCreateMemoDoneClick(memo: String) {}
