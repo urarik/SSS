@@ -1,5 +1,21 @@
 package org.sehproject.sss.datatype
 
-data class Setting(var notification: Boolean,
-                   var friendInvitation: Boolean,
-                   var planInvitation: Boolean)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class Setting(
+    @PrimaryKey
+    @ColumnInfo
+    val userId: String,
+
+    @ColumnInfo
+    val notification: Boolean,
+
+    @ColumnInfo
+    val friendInvitation: Boolean,
+
+    @ColumnInfo
+    val planInvitation: Boolean
+)
