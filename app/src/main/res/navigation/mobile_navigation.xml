@@ -10,7 +10,9 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -22,7 +24,9 @@
             app:destination="@id/registerFragment" />
         <action
             android:id="@+id/action_loginFragment_to_planListFragment"
-            app:destination="@id/planListFragment" />
+            app:destination="@id/planListFragment"
+            app:popUpTo="@id/planListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
@@ -79,6 +83,9 @@
         <action
             android:id="@+id/action_planListFragment_to_planCreateOCRFragment"
             app:destination="@id/planCreateOCRFragment" />
+        <action
+            android:id="@+id/action_planListFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/planEditFragment"
@@ -87,7 +94,9 @@
         tools:layout="@layout/fragment_plan_edit" >
         <action
             android:id="@+id/action_planEditFragment_to_planListFragment"
-            app:destination="@id/planListFragment" />
+            app:destination="@id/planListFragment"
+            app:popUpTo="@id/planListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/groupEditFragment"
@@ -96,7 +105,9 @@
         tools:layout="@layout/fragment_group_edit" >
         <action
             android:id="@+id/action_groupEditFragment_to_groupListFragment"
-            app:destination="@id/groupListFragment" />
+            app:destination="@id/groupListFragment"
+            app:popUpTo="@id/groupListFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_groupEditFragment_to_groupInviteFragment"
             app:destination="@id/groupInviteFragment"/>
@@ -106,7 +117,11 @@
         android:name="org.sehproject.sss.view.GroupInviteDialogFragment"
         android:label="fragment_group_invite"
         tools:layout="@layout/fragment_invite_friend"
-        />
+        >
+        <action
+            android:id="@+id/action_groupInviteFragment_to_groupListFragment"
+            app:destination="@id/groupListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/friendListFragment"
         android:name="org.sehproject.sss.view.FriendListFragment"
@@ -153,7 +168,9 @@
         tools:layout="@layout/fragment_profile_edit" >
         <action
             android:id="@+id/action_profileEditFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/recommendFragment"

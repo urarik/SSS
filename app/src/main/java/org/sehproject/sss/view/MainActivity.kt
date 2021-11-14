@@ -26,6 +26,16 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.loginFragment) as NavHostFragment? ?: return
         val navController = host.navController
         setupBottomNavMenu(navController)
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.loginFragment || destination.id == R.id.registerFragment) {
+                bottomNav.visibility = View.GONE
+            } else {
+                bottomNav.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun setupBottomNavMenu(navController: NavController) {

@@ -65,7 +65,7 @@ class GroupEditFragment : Fragment() {
 
         val button = view.findViewById<Button>(R.id.buttonMakeGroup)
         button?.setOnClickListener {
-            findNavController().navigate(R.id.groupListFragment, null)
+            findNavController().navigate(R.id.action_groupEditFragment_to_groupListFragment, null)
         }
     }
 
