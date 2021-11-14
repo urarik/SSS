@@ -2,51 +2,52 @@ package org.sehproject.sss.view
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
-import org.sehproject.sss.R
-import org.sehproject.sss.UserInfo
-import org.sehproject.sss.databinding.ActivityLoginBinding
-import org.sehproject.sss.datatype.User
-import org.sehproject.sss.utils.ActivityNavigation
-import org.sehproject.sss.viewmodel.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.nhn.android.naverlogin.OAuthLogin
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.nhn.android.idp.common.util.DeviceAppInfo.getPackageName
+import com.nhn.android.naverlogin.OAuthLogin
+import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentLoginBinding
-import org.sehproject.sss.datatype.Account
-import org.sehproject.sss.repository.LoginRepository.Companion.get
+import org.sehproject.sss.datatype.AccountXML
+import org.sehproject.sss.utils.ActivityNavigation
+import org.sehproject.sss.viewmodel.UserViewModel
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 class LoginFragment : Fragment(), ActivityNavigation {
 
     lateinit var loginBinding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
-    private val user = Account("", "")
+    private val user = AccountXML("", "")
     private val userViewModel: UserViewModel by lazy {
             ViewModelProvider(this).get(UserViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
         loginBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
@@ -55,9 +56,30 @@ class LoginFragment : Fragment(), ActivityNavigation {
         initObservers()
         initNaverLogin()
         initGoogleLogin()
+        getHashKey()
 
         return loginBinding.root
     }
+    private fun getHashKey() {
+        var packageInfo: PackageInfo? = null
+        try {
+            packageInfo =
+                requireContext().packageManager.getPackageInfo(getPackageName(context), PackageManager.GET_SIGNATURES)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        if (packageInfo == null) Log.e("KeyHash", "KeyHash:null")
+        for (signature in packageInfo!!.signatures) {
+            try {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            } catch (e: NoSuchAlgorithmException) {
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=$signature", e)
+            }
+        }
+    }
+
 
     private fun initObservers() {
         userViewModel.isLogin.observe(viewLifecycleOwner, Observer {
@@ -75,8 +97,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("메모")
             builder.setView(editText)
-            builder.setPositiveButton("입력", DialogInterface.OnClickListener{
-                dialog, which ->
+            builder.setPositiveButton("입력", DialogInterface.OnClickListener { dialog, which ->
                 //Toast.makeText(applicationContext, editText.text, Toast.LENGTH_SHORT).show()
             })
             builder.show()
@@ -93,7 +114,11 @@ class LoginFragment : Fragment(), ActivityNavigation {
         )
 
         val mOAuthLoginHandler =
-            UserViewModel.NaverLoginHandler(requireContext(), mOAuthLoginModule, userViewModel::naverLogInCallback)
+            UserViewModel.NaverLoginHandler(
+                requireContext(),
+                mOAuthLoginModule,
+                userViewModel::naverLogInCallback
+            )
         loginBinding.buttonNaverLogin.setOAuthLoginHandler(mOAuthLoginHandler)
         loginBinding.buttonNaverLogin.setBgResourceId(R.drawable.btn_ag)
     }
@@ -103,7 +128,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                 .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
                 .requestEmail()
                 .build()
-        Log.d("tag", "...${gso.toString()}" )
+        Log.d("tag", "...${gso.toString()}")
         val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         auth = FirebaseAuth.getInstance()
         userViewModel.setGoogleClient(googleSignInClient)
