@@ -5,11 +5,11 @@
     tools:context=".view.LoginFragment">
     <data>
         <variable
-            name="viewmodel"
-            type="org.sehproject.sss.viewmodel.UserViewModel"/>
-        <variable
             name="user"
             type="org.sehproject.sss.datatype.Account" />
+        <variable
+            name="userLogic"
+            type="org.sehproject.sss.logic.UserLogic" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,17 +123,16 @@
                     android:layout_width="152dp"
                     android:layout_height="38dp"
                     android:layout_marginEnd="16dp"
-                    android:enabled="@{viewmodel.btnSelected}"
-                    android:onClick="@{()->viewmodel.onLogin(user)}"
+                    android:onClick="@{()->userLogic.onRegisterClick()}"
                     android:text="@string/register" />
+                <!--android:enabled="@{viewmodel.btnSelected}"-->
 
                 <Button
                     android:id="@+id/btn_login"
                     style="@style/ButtonStyle"
                     android:layout_width="152dp"
                     android:layout_height="38dp"
-                    android:enabled="@{viewmodel.btnSelected}"
-                    android:onClick="@{()->viewmodel.onLogin(user)}"
+                    android:onClick="@{()->userLogic.onLoginClick(user)}"
                     android:text="@string/login" />
             </LinearLayout>
             <TextView
@@ -169,7 +168,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cheat"
-                android:onClick="@{()->viewmodel.onCheat()}"
                 />
 
         </LinearLayout>
