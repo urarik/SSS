@@ -31,11 +31,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.nhn.android.idp.common.util.DeviceAppInfo.getPackageName
 import com.nhn.android.naverlogin.OAuthLogin
-import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentLoginBinding
 import org.sehproject.sss.datatype.AccountXML
-import org.sehproject.sss.utils.ActivityNavigation
-import org.sehproject.sss.viewmodel.UserViewModel
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 

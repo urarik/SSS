@@ -1,13 +1,22 @@
 package org.sehproject.sss.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
+import org.sehproject.sss.databinding.FragmentFriendListBinding
+import org.sehproject.sss.databinding.FragmentGroupEditBinding
+import org.sehproject.sss.databinding.FragmentPlanListBinding
+import org.sehproject.sss.viewmodel.FriendViewModel
+import org.sehproject.sss.viewmodel.PlanViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +33,10 @@ class FriendListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val friendViewModel: FriendViewModel by lazy {
+        ViewModelProvider(this).get(FriendViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,17 +49,16 @@ class FriendListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friend_list, container, false)
+        val friendListBinding: FragmentFriendListBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_friend_list, container, false)
+        friendListBinding.friendLogic = friendViewModel.friendLogic
+        initObserver()
+        return friendListBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val button = view.findViewById<Button>(R.id.buttonUserSearch)
-        button?.setOnClickListener {
-            findNavController().navigate(R.id.userSearchFragment, null)
-        }
+    private fun initObserver() {
+        friendViewModel.searchUserEvent.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.userSearchFragment)
+        })
     }
 
     companion object {
