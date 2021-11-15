@@ -6,7 +6,7 @@ import org.sehproject.sss.viewmodel.FriendViewModel
 class FriendLogic(val friendViewModel: FriendViewModel) {
     fun onSearchUserClick()
     {
-
+        friendViewModel.searchUserEvent.call()
     }
 
     fun onAddFriendClick(friendId: String)
