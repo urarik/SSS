@@ -4,6 +4,8 @@ import org.sehproject.sss.ServerApi
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.GenericResponse
+import org.sehproject.sss.datatype.User
+import org.sehproject.sss.datatype.UserResponse
 import org.sehproject.sss.service.UserService
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +22,7 @@ class UserRepository(private val appDatabase: AppDatabase) {
     private var userService: UserService = retrofit.create(UserService::class.java)
 
     fun login(userId: String, password: String, onResult: (Int) -> Unit) {
-        userService.loginRequest(userId, password)
+        userService.requestLogin(userId, password)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
@@ -41,7 +43,7 @@ class UserRepository(private val appDatabase: AppDatabase) {
     }
 
     fun register(userId: String, password: String, nickName: String, onResult: (Int) -> Unit) {
-        userService.registerRequest(userId, password, nickName)
+        userService.requestRegister(userId, password, nickName)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
@@ -57,6 +59,28 @@ class UserRepository(private val appDatabase: AppDatabase) {
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
                     onResult(-1)
+                }
+            })
+    }
+
+    fun getUser(userId: String, onResult: (Int, User?) -> Unit) {
+        userService.requestGetUser(userId)
+            .enqueue(object : Callback<UserResponse> {
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                    val code = response.body()?.code
+                    if (code == 0) {
+                        val user = response.body()?.user
+                        onResult(0, user)
+                    } else {
+                        onResult(1, null)
+                    }
+                }
+
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    onResult(-1, null)
                 }
             })
     }

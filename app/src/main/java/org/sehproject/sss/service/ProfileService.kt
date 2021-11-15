@@ -18,8 +18,8 @@ interface ProfileService {
         @Field("nickname")
         nickName: String,
 
-        @Field("name")
-        name: String,
+        @Field("username")
+        username: String,
 
         @Field("age")
         age: Int,

@@ -18,8 +18,8 @@ class FriendRepository {
         .build()
     private var friendService: FriendService = retrofit.create(FriendService::class.java)
 
-    fun searchUser(userId: String, onResult: (Int, List<User>?) -> Unit) {
-        friendService.searchUserRequest(userId)
+    fun searchUser(userIdOrNickName: String, onResult: (Int, List<User>?) -> Unit) {
+        friendService.requestSearchUser(userIdOrNickName)
             .enqueue(object : Callback<UserListResponse> {
                 override fun onResponse(
                     call: Call<UserListResponse>,
@@ -41,7 +41,7 @@ class FriendRepository {
     }
 
     fun addFriend(friendUserId: String, onResult: (Int) -> Unit) {
-        friendService.addFriendRequest(UserInfo.userId, friendUserId)
+        friendService.requestAddFriend(UserInfo.userId, friendUserId)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
@@ -62,7 +62,7 @@ class FriendRepository {
     }
 
     fun deleteFriend(friendUserId: String, onResult: (Int) -> Unit) {
-        friendService.deleteFriendRequest(UserInfo.userId, friendUserId)
+        friendService.requestDeleteFriend(UserInfo.userId, friendUserId)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
@@ -83,7 +83,7 @@ class FriendRepository {
     }
 
     fun blockFriend(friendUserId: String, onResult: (Int) -> Unit) {
-        friendService.blockFriendRequest(UserInfo.userId, friendUserId)
+        friendService.requestBlockFriend(UserInfo.userId, friendUserId)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
@@ -103,23 +103,23 @@ class FriendRepository {
             })
     }
 
-    fun getFriendList(onResult: (Int, List<Friend>?) -> Unit) {
-        friendService.getFriendListRequest(UserInfo.userId)
-            .enqueue(object : Callback<FriendListResponse> {
+    fun getFriendList(onResult: (Int, List<User>?) -> Unit) {
+        friendService.requestGetFriendList(UserInfo.userId)
+            .enqueue(object : Callback<UserListResponse> {
                 override fun onResponse(
-                    call: Call<FriendListResponse>,
-                    response: Response<FriendListResponse>
+                    call: Call<UserListResponse>,
+                    response: Response<UserListResponse>
                 ) {
                     val code = response.body()?.code
                     if (code == 0) {
-                        val friendList = response.body()?.friendList
-                        onResult(0, friendList)
+                        val userList = response.body()?.userList
+                        onResult(0, userList)
                     } else {
                         onResult(1, null)
                     }
                 }
 
-                override fun onFailure(call: Call<FriendListResponse>, t: Throwable) {
+                override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
                     onResult(-1, null)
                 }
             })
