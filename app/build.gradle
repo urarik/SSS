@@ -47,7 +47,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     compile files('libs/naveridlogin_android_sdk_4.2.5.aar')
+    compile files('libs/libDaumMapAndroid.jar')
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
 
     implementation 'com.google.firebase:firebase-analytics'
@@ -70,6 +72,13 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
     implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+
+    kapt "com.android.databinding:compiler:$android_plugin_version"
+}
+
+kapt {
+    generateStubs = true
 }
 
 apply plugin: 'com.android.application'

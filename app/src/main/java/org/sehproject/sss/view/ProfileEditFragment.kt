@@ -44,7 +44,7 @@ class ProfileEditFragment : Fragment() {
 
         val button = view.findViewById<Button>(R.id.buttonSaveProfile)
         button?.setOnClickListener {
-            findNavController().navigate(R.id.profileFragment, null)
+            findNavController().navigate(R.id.action_profileEditFragment_to_profileFragment, null)
         }
     }
 

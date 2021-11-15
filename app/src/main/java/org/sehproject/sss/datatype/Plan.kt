@@ -9,5 +9,7 @@ data class Plan(
     var location: String,
     var category: String,
     var creator: String?,
-    var participants: List<User>?
-)
+    var participants: List<User>? = null) {
+  init {
+      participants = mutableListOf()
+              }}
