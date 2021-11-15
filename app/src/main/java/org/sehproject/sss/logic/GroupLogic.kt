@@ -1,7 +1,6 @@
 package org.sehproject.sss.logic
 
 import android.util.Log
-import org.sehproject.sss.datatype.Friend
 import org.sehproject.sss.viewmodel.GroupViewModel
 
 class GroupLogic(val groupViewModel: GroupViewModel) {

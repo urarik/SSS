@@ -2,7 +2,6 @@ package org.sehproject.sss.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.sehproject.sss.datatype.Friend
 import org.sehproject.sss.logic.GroupLogic
 import org.sehproject.sss.repository.GroupRepository
 import org.sehproject.sss.utils.SingleLiveEvent

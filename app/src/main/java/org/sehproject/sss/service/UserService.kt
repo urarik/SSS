@@ -1,6 +1,7 @@
 package org.sehproject.sss.service
 
 import org.sehproject.sss.datatype.GenericResponse
+import org.sehproject.sss.datatype.UserResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -10,7 +11,7 @@ interface UserService {
 
     @POST("user/login")
     @FormUrlEncoded
-    fun loginRequest(
+    fun requestLogin(
         @Field("userid")
         userId: String,
 
@@ -20,7 +21,7 @@ interface UserService {
 
     @POST("user/register")
     @FormUrlEncoded
-    fun registerRequest(
+    fun requestRegister(
         @Field("userid")
         userId: String,
 
@@ -30,4 +31,11 @@ interface UserService {
         @Field("nickname")
         nickName: String
     ): Call<GenericResponse>
+
+    @POST("user/user")
+    @FormUrlEncoded
+    fun requestGetUser(
+        @Field("userid")
+        userId: String
+    ): Call<UserResponse>
 }

@@ -1,6 +1,5 @@
 package org.sehproject.sss.service
 
-import org.sehproject.sss.datatype.FriendListResponse
 import org.sehproject.sss.datatype.GenericResponse
 import org.sehproject.sss.datatype.UserListResponse
 import retrofit2.Call
@@ -12,14 +11,14 @@ interface FriendService {
 
     @POST("friend/search")
     @FormUrlEncoded
-    fun searchUserRequest(
+    fun requestSearchUser(
         @Field("userid_or_nickname")
-        userId: String
+        userIdOrNickName: String
     ): Call<UserListResponse>
 
     @POST("friend/add")
     @FormUrlEncoded
-    fun addFriendRequest(
+    fun requestAddFriend(
         @Field("userid")
         userId: String,
 
@@ -29,7 +28,7 @@ interface FriendService {
 
     @POST("friend/delete")
     @FormUrlEncoded
-    fun deleteFriendRequest(
+    fun requestDeleteFriend(
         @Field("userid")
         userId: String,
 
@@ -39,7 +38,7 @@ interface FriendService {
 
     @POST("friend/block")
     @FormUrlEncoded
-    fun blockFriendRequest(
+    fun requestBlockFriend(
         @Field("userid")
         userId: String,
 
@@ -49,8 +48,8 @@ interface FriendService {
 
     @POST("friend/list")
     @FormUrlEncoded
-    fun getFriendListRequest(
+    fun requestGetFriendList(
         @Field("userid")
         userId: String
-    ) : Call<FriendListResponse>
+    ) : Call<UserListResponse>
 }
