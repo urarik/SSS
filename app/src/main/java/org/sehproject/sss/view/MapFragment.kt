@@ -25,7 +25,9 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MapFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener, MapView.MapViewEventListener  {
+class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
+    MapView.MapViewEventListener,
+    MapView.CurrentLocationEventListener {
     // TODO: Rename and change types of parameters
     private lateinit var mapBinding: FragmentMapBinding
 
@@ -34,6 +36,8 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener, M
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //주의!! 지도는 가상에뮬레이터로 실행 불가능.
+        //실제 폰만 가능!!
         mapBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_map,
@@ -46,6 +50,8 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener, M
         mapView.setDaumMapApiKey("3549708e5615a6373ce58622aae7434d")
         mapView.setOpenAPIKeyAuthenticationResultListener(this)
         mapView.mapType = MapView.MapType.Standard
+        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading;
+        mapView.setCurrentLocationEventListener(this)
 
         with(mapView) {
          if(this.parent != null) {
@@ -69,6 +75,24 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener, M
         )
     }
 
+    override fun onCurrentLocationUpdate(p0: MapView?, p1: MapPoint?, p2: Float) {
+        Log.d("TAG", "!@#!")
+        Log.d("TAG", p0.toString())
+        Log.d("TAG", p1.toString())
+        Log.d("TAG", p2.toString())
+    }
+
+    override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCurrentLocationUpdateFailed(p0: MapView?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCurrentLocationUpdateCancelled(p0: MapView?) {
+        TODO("Not yet implemented")
+    }
 
     override fun onMapViewInitialized(p0: MapView?) {
         TODO("Not yet implemented")

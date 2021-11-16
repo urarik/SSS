@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.ItemUserBinding
+import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.PlanViewModel
 
@@ -16,21 +17,21 @@ open class DialogFragment(protected var groupViewModel: GroupViewModel? = null, 
 
     protected inner class UserHolder(val itemUserBinding: ItemUserBinding) : RecyclerView.ViewHolder(itemUserBinding.root) {
 
-        fun bind(user: Friend) {
+        fun bind(user: User) {
             itemUserBinding.user = user
             itemUserBinding.itemUser.setOnClickListener {
                 Log.d("TAG", "123")
                 groupViewModel?.let {
-                    groupViewModel!!.groupLogic.onItemClick(itemUserBinding.user as Friend)
+                    groupViewModel!!.groupLogic.onItemClick(itemUserBinding.user as User)
                 }?: let {
-                    planViewModel!!.planLogic.onItemClick(itemUserBinding.user as Friend)
+                    planViewModel!!.planLogic.onItemClick(itemUserBinding.user as User)
                 }
                 it.setBackgroundColor(resources.getColor(R.color.gray)) // gray
             }
         }
     }
 
-    protected inner class UserAdapter(val users: List<Friend>) :
+    protected inner class UserAdapter(val users: List<User>) :
         RecyclerView.Adapter<UserHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
