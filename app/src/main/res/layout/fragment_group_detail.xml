@@ -31,16 +31,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewGroupName" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="40dp"
-        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:fab_labelsPosition="left"
+        app:fab_labelStyle="@style/menu_labels_style">
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/editGroupFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/edit"
+            app:fab_size="mini"
+            app:fab_title="그룹 수정"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteGroupFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/delete"
+            app:fab_size="mini"
+            app:fab_title="그룹 삭제" />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/inviteGroupFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/invite"
+            app:fab_size="mini"
+            app:fab_title="친구 초대"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/kickOutGroupFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/kick_out"
+            app:fab_size="mini"
+            app:fab_title="강제 퇴장" />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/exitGroupFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/exit"
+            app:fab_size="mini"
+            app:fab_title="그룹 탈퇴"/>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     <TextView
         android:id="@+id/textViewGroupExplanationDetails"

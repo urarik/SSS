@@ -75,16 +75,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPlanCategoryDetails" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="40dp"
-        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:fab_labelsPosition="left"
+        app:fab_labelStyle="@style/menu_labels_style">
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/editPlanFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/edit"
+            app:fab_size="mini"
+            app:fab_title="약속 수정"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deletePlanTypeFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/delete"
+            app:fab_size="mini"
+            app:fab_title="약속 삭제" />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/completePlanFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/complete"
+            app:fab_size="mini"
+            app:fab_title="약속 완료"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/invitePlanTypeFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/invite"
+            app:fab_size="mini"
+            app:fab_title="친구 초대" />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/kickOutPlanFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/kick_out"
+            app:fab_size="mini"
+            app:fab_title="강제퇴장"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cancelPlanFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/delete"
+            app:fab_size="mini"
+            app:fab_title="참석 취소"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addMemoFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/memo"
+            app:fab_size="mini"
+            app:fab_title="메모 등록"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/sharingFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/map"
+            app:fab_size="mini"
+            app:fab_title="위치 공유"/>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerViewMemo2"

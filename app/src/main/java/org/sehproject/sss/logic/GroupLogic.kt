@@ -1,6 +1,7 @@
 package org.sehproject.sss.logic
 
 import android.util.Log
+import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.GroupViewModel
 
 class GroupLogic(val groupViewModel: GroupViewModel) {
@@ -70,7 +71,7 @@ class GroupLogic(val groupViewModel: GroupViewModel) {
 
     }
 
-    fun onItemClick(user: Friend) {
+    fun onItemClick(user: User) {
 
     }
 }
