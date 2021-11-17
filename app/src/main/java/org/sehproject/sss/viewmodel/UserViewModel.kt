@@ -10,18 +10,21 @@ import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import org.json.JSONObject
 import org.sehproject.sss.UserInfo
+import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.dao.NaverAsyncTask
 import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.UserLogic
 import org.sehproject.sss.repository.LoginRepository
+import org.sehproject.sss.repository.UserRepository
 import org.sehproject.sss.utils.ActivityNavigation
 import org.sehproject.sss.utils.LiveMessageEvent
 import org.sehproject.sss.utils.SingleLiveEvent
 
 class UserViewModel : ViewModel() {
     val userLogic = UserLogic(this)
+    private val userRepository = UserRepository(AppDatabase.getInstance());
 
     val userId = MutableLiveData("")
     val password = MutableLiveData("")
@@ -34,27 +37,30 @@ class UserViewModel : ViewModel() {
     val isLogin = MutableLiveData(false)
     val googleLoginEvent = LiveMessageEvent<ActivityNavigation>()
     val cheatEvent = SingleLiveEvent<Any>()
-    private val loginRepository = LoginRepository.get()
     private lateinit var googleSignInClient: GoogleSignInClient
     val RC_SIGN_IN = 9001
 
     fun setGoogleClient(_googleSignInClient: GoogleSignInClient) {
         googleSignInClient = _googleSignInClient
     }
+
     fun onLogin(user: AccountXML) {
         Log.d("tag", user.toString())
         if (checkValidate(user.userId, user.password)) {
-            val nickname = loginRepository.login(user.userId, user.password)
-            if (nickname.isNotEmpty()) {
-                updateUI(nickname)
+            userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
+                if(code == 0) {
+                    updateUI(nickName!!)
+                }
             }
         }
     }
+
     fun updateUI(name: String) {
         UserInfo.isLogin = true
         UserInfo.userName = name
         isLogin.value = true// thread 사용시 바꿔야함
     }
+
     fun onCheat() {
         cheatEvent.call()
     }
@@ -74,9 +80,11 @@ class UserViewModel : ViewModel() {
     }
 
     //nested class: outer class의 member를 사용할 수 없다.
-    public class NaverLoginHandler(private val context: Context,
-                            private val mOAuthLoginModule: OAuthLogin,
-                            private val callback: (String) -> Unit) : OAuthLoginHandler() {
+    public class NaverLoginHandler(
+        private val context: Context,
+        private val mOAuthLoginModule: OAuthLogin,
+        private val callback: (String) -> Unit
+    ) : OAuthLoginHandler() {
         override fun run(p0: Boolean) {
             if (p0) {
                 val accessToken = mOAuthLoginModule.getAccessToken(context)
