@@ -1,10 +1,13 @@
 package org.sehproject.sss.view
 
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -36,20 +39,35 @@ class PlanDetailFragment : Fragment() {
     }
 
     fun initObserver() {
+        val navController = findNavController()
         planViewModel.editPlanEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.planEditFragment)
+            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanEditFragment(it)
+            navController.navigate(action)
         })
 
         planViewModel.kickOutPlanEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.groupInviteFragment)
+            navController.navigate(R.id.groupInviteFragment)
         })
 
         planViewModel.invitePlanEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.groupInviteFragment)
+            navController.navigate(R.id.groupInviteFragment)
         })
 
         mapViewModel.trackEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.mapFragment)
+            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToMapFragment(it)
+            navController.navigate(action)
+        })
+
+        planViewModel.createMemoEvent.observe(viewLifecycleOwner, {
+            val editText = EditText(context)
+
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("메모")
+            builder.setView(editText)
+            builder.setPositiveButton("입력", DialogInterface.OnClickListener { dialog, which ->
+                //Toast.makeText(applicationContext, editText.text, Toast.LENGTH_SHORT).show()
+            })
+            builder.show()
         })
     }
 }

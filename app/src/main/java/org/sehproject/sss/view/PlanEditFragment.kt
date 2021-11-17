@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentPlanDetailBinding
 import org.sehproject.sss.databinding.FragmentPlanEditBinding
@@ -19,6 +20,8 @@ class PlanEditFragment : Fragment() {
     val planViewModel: PlanViewModel by lazy {
         ViewModelProvider(this).get(PlanViewModel::class.java)
     }
+    private val safeArgs: PlanEditFragmentArgs by navArgs() //plan
+    //plan id가 null이면 create else edit
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -7,11 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentGroupListBinding
+import org.sehproject.sss.datatype.Group
+import org.sehproject.sss.viewmodel.GroupViewModel
 
 class GroupListFragment : Fragment() {
+    private val groupViewModel: GroupViewModel by lazy {
+        ViewModelProvider(this).get(GroupViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,27 +29,30 @@ class GroupListFragment : Fragment() {
             container,
             false
         )
-
+        //리사이클러뷰 추가할 때 각 아이템에 대해 click listener 달아줘야함.
+        //xml 파일에서 가능할거임. 모르면 말하고
         initObserver(groupListBinding.root)
         return groupListBinding.root
     }
 
     private fun initObserver(view: View) {
-
-        val button = view.findViewById<Button>(R.id.buttonMakeGroupList)
-        button?.setOnClickListener {
-            findNavController().navigate(R.id.groupEditFragment, null)
-        }
+        val navController = findNavController()
+        groupViewModel.createGroupEvent.observe(this, {
+            val action = GroupListFragmentDirections.actionGroupListFragmentToGroupEditFragment(
+                Group()
+            )
+            navController.navigate(action)
+        })
 
         val buttonMap = view.findViewById<Button>(R.id.btn_map_test)
         buttonMap?.setOnClickListener {
             findNavController().navigate(R.id.mapFragment, null)
         }
 
-        val buttonDetail = view.findViewById<Button>(R.id.btn_group_detail)
-        buttonDetail?.setOnClickListener {
-            findNavController().navigate(R.id.groupDetailFragment, null)
-        }
+        groupViewModel.viewGroupDetailsEvent.observe(this, {
+            val action = GroupListFragmentDirections.actionGroupListFragmentToGroupDetailFragment(it)
+            navController.navigate(action)
+        })
     }
 
 }

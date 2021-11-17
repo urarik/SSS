@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.DialogFragment
 import java.lang.ClassCastException
 
+
 class NoticeDialogFragment: DialogFragment() {
     internal lateinit var listener: NoticeDialogListener
 

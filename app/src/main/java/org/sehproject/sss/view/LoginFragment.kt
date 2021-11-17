@@ -97,17 +97,6 @@ class LoginFragment : Fragment(), ActivityNavigation {
             Log.d("TAG", "eeeeeeee")
             findNavController().navigate(R.id.registerFragment, null)
         })
-        userViewModel.cheatEvent.observe(this, {
-            val editText = EditText(context)
-
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("메모")
-            builder.setView(editText)
-            builder.setPositiveButton("입력", DialogInterface.OnClickListener { dialog, which ->
-                //Toast.makeText(applicationContext, editText.text, Toast.LENGTH_SHORT).show()
-            })
-            builder.show()
-        })
     }
 
     private fun initNaverLogin() {

@@ -34,26 +34,29 @@ class PlanListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         planListBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_list, container, false)
         planListBinding.planLogic = planViewModel.planLogic
-        initObserver(planListBinding.root)
+        initObserver()
 
         return planListBinding.root
     }
 
-    private fun initObserver(view: View) {
+    private fun initObserver() {
+        val navController = findNavController()
+
         planViewModel.viewPlanDetailsEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.planDetailFragment)
+            navController.navigate(R.id.planDetailFragment)
         })
 
         planViewModel.createPlanEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.planEditFragment)
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanEditFragment(Plan())
+            navController.navigate(action)
         })
 
         planViewModel.createPlanOcrEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.planCreateOCRFragment)
+            navController.navigate(R.id.planCreateOCRFragment)
         })
 
         planViewModel.createPlanTypeEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.planCreateTypeFragment)
+            navController.navigate(R.id.planCreateTypeFragment)
         })
     }
 

@@ -3,9 +3,9 @@ package org.sehproject.sss.logic
 import org.sehproject.sss.viewmodel.MapViewModel
 
 class MapLogic(val mapViewModel: MapViewModel) {
-    fun onShareMyLocationClick()
+    fun onShareMyLocationClick(pid: Int)
     {
-        mapViewModel.trackEvent.call()
+        mapViewModel.trackEvent.value = pid
     }
 
     fun onCancelClick()

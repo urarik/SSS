@@ -9,7 +9,7 @@ import org.sehproject.sss.utils.SingleLiveEvent
 class PlanViewModel: ViewModel() {
     val planLogic = PlanLogic(this)
 
-    val editPlanEvent = SingleLiveEvent<Any>()
+    val editPlanEvent = SingleLiveEvent<Plan>()
     val editCompletePlanEvent = SingleLiveEvent<Int>()
     val deletePlanEvent = SingleLiveEvent<Any>()
     val deletePlanCompleteEvent = SingleLiveEvent<Int>()

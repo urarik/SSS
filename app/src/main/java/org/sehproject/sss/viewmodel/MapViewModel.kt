@@ -11,7 +11,7 @@ class MapViewModel : ViewModel() {
 
     // val locationLiveData = MutableLiveData<List<Coordinate>>()
     val etaLiveData = MutableLiveData<List<LocalTime>>()
-    val trackEvent = SingleLiveEvent<Any>()
+    val trackEvent = SingleLiveEvent<Int>()
     val locationUpdateEvent = SingleLiveEvent<Any>()
     val etaUpdateEvent = SingleLiveEvent<Any>()
 }

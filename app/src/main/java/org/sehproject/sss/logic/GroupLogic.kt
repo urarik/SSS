@@ -8,7 +8,7 @@ import org.sehproject.sss.viewmodel.GroupViewModel
 class GroupLogic(private val groupViewModel: GroupViewModel) {
     fun onCreateGroupClick()
     {
-
+        groupViewModel.createGroupEvent.call()
     }
 
     fun onCreateGroupCompleteClick()
@@ -34,7 +34,7 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
         groupViewModel.editGroupEvent.value = group
     }
 
-    fun onEditGroupCompleteClick()
+    fun onEditGroupCompleteClick(gid: Int)
     {
 
     }
