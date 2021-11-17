@@ -18,4 +18,9 @@ class UserLogic(val userViewModel: UserViewModel) {
         Log.d("TAG","erer")
         userViewModel.registerEvent.call()
     }
+
+    fun onRegisterCompleteClick()
+    {
+        userViewModel.registerCompleteEvent.call()
+    }
 }

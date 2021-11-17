@@ -32,6 +32,7 @@ class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
     val nickName = MutableLiveData("")
     val loginEvent = SingleLiveEvent<Any>()
     val registerEvent = SingleLiveEvent<Any>()
+    val registerCompleteEvent = SingleLiveEvent<Any>()
 
     val btnSelected = MutableLiveData(true)
     val isLogin = MutableLiveData(false)

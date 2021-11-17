@@ -7,12 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileBinding
+import org.sehproject.sss.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment() {
+    private val profileViewModel: ProfileViewModel by lazy {
+        ViewModelProvider(this).get(ProfileViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,21 +29,19 @@ class ProfileFragment : Fragment() {
             container,
             false
         )
+        profileBinding.profileLogic = profileViewModel.profileLogic
 
-        initObserver(profileBinding.root)
+        initObserver()
         return profileBinding.root
     }
 
-    private fun initObserver(view: View) {
+    fun initObserver() {
+        profileViewModel.editProfileEvent.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.profileEditFragment)
+        })
 
-        val buttonEdit = view.findViewById<Button>(R.id.buttonMyPageEditProfile)
-        buttonEdit?.setOnClickListener {
-            findNavController().navigate(R.id.profileEditFragment, null)
-        }
-
-        val buttonSetting = view.findViewById<Button>(R.id.buttonSetting)
-        buttonSetting?.setOnClickListener {
-            findNavController().navigate(R.id.settingFragment, null)
-        }
+        profileViewModel.selectOptionEvent.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.settingFragment)
+        })
     }
 }

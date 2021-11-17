@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import org.sehproject.sss.R
-import org.sehproject.sss.databinding.FragmentPlanCreateOcrBinding
+import org.sehproject.sss.databinding.FragmentPlanCreateTypeBinding
 import org.sehproject.sss.viewmodel.PlanViewModel
 
 class PlanCreateTypeFragment : Fragment() {
@@ -20,7 +20,7 @@ class PlanCreateTypeFragment : Fragment() {
             ViewModelProvider(this).get(PlanViewModel::class.java)
         }
 
-        val planCreateTypeBinding: FragmentPlanCreateOcrBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_create_type, container, false)
+        val planCreateTypeBinding: FragmentPlanCreateTypeBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_create_type, container, false)
         planCreateTypeBinding.planLogic = planViewModel.planLogic
         val view = planCreateTypeBinding.root
 

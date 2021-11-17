@@ -7,11 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileEditBinding
+import org.sehproject.sss.viewmodel.PlanViewModel
+import org.sehproject.sss.viewmodel.ProfileViewModel
 
 class ProfileEditFragment : Fragment() {
+    private val profileViewModel: ProfileViewModel by lazy {
+        ViewModelProvider(this).get(ProfileViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,17 +29,16 @@ class ProfileEditFragment : Fragment() {
             container,
             false
         )
+        profileEditBinding.profileLogic = profileViewModel.profileLogic
 
         initObserver(profileEditBinding.root)
         return profileEditBinding.root
     }
 
     private fun initObserver(view: View) {
-
-        val button = view.findViewById<Button>(R.id.buttonSaveProfile)
-        button?.setOnClickListener {
-            findNavController().navigate(R.id.action_profileEditFragment_to_profileFragment, null)
-        }
+        profileViewModel.editProfileCompleteEvent.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.action_profileEditFragment_to_profileFragment)
+        })
     }
 
 }
