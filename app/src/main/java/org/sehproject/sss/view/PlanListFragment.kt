@@ -35,29 +35,6 @@ class PlanListFragment : Fragment() {
         planListBinding.planLogic = planViewModel.planLogic
         initObserver()
 
-        /*val floatingButton = planListBinding.floatingActionButton3
-        val buttonList = mutableListOf<View>()
-        buttonList.add(planListBinding.MakePlanFloatingActionButton)
-        buttonList.add(planListBinding.MakePlanOCRFloatingActionButton)
-        buttonList.add(planListBinding.MakePlanTypeFloatingActionButton)
-        floatingButton.setOnClickListener { view ->
-            if (isOpen) {
-                for (button in buttonList) {
-                    val anim = AnimationUtils.loadAnimation(context, R.anim.fab_close)
-                    button.startAnimation(anim)
-                    button.isClickable = false
-                }
-                isOpen = false;
-            } else {
-                val anim = AnimationUtils.loadAnimation(context, R.anim.fab_open)
-                for (button in buttonList) {
-                    button.startAnimation(anim)
-                    button.isClickable = true
-                }
-                isOpen = true;
-            }
-        }*/
-
         return planListBinding.root
     }
 
