@@ -15,27 +15,26 @@ import org.sehproject.sss.databinding.FragmentPlanEditBinding
 import org.sehproject.sss.viewmodel.PlanViewModel
 
 class PlanEditFragment : Fragment() {
+    val planViewModel: PlanViewModel by lazy {
+        ViewModelProvider(this).get(PlanViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val planViewModel: PlanViewModel by lazy {
-            ViewModelProvider(this).get(PlanViewModel::class.java)
-        }
-
         val planEditBinding: FragmentPlanEditBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_edit, container, false)
         planEditBinding.planLogic = planViewModel.planLogic
         val view = planEditBinding.root
 
+        initObserver()
+
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val button = view.findViewById<Button>(R.id.buttonSavePlan)
-        button?.setOnClickListener {
-            findNavController().navigate(R.id.action_planEditFragment_to_planListFragment, null)
-        }
+    fun initObserver() {
+        planViewModel.editPlanEvent.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.action_planEditFragment_to_planListFragment)
+        })
     }
 }
