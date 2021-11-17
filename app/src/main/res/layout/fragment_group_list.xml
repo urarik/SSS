@@ -60,9 +60,19 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="40dp"
-        android:text="Button"
+        android:text="맵"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonMakeGroupList" />
+
+    <Button
+        android:id="@+id/btn_group_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="40dp"
+        android:text="상세 정보"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonMakeGroupList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

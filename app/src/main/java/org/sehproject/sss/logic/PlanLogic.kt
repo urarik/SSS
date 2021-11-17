@@ -24,12 +24,18 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onCreateMemoDoneClick(memo: String) {}
     fun onCreateMemoExitClick() {}
     fun onDeleteMemoClick() {}
-    fun onCreatePlanClick() {}
+    fun onCreatePlanClick() {
+        planViewModel.createPlanEvent.call()
+    }
     fun onCreatePlanDoneClick(plan: Plan) {}
-    fun onCreateTypeClick() {}
+    fun onCreateTypeClick() {
+        planViewModel.createPlanOcrEvent.call()
+    }
     fun onTypeDoneClick() {}
     fun onPublicPlanClick() {}
-    fun onCreateOcrClick() {}
+    fun onCreateOcrClick() {
+        planViewModel.createPlanTypeEvent.call()
+    }
     fun onOcrImgClick() {}
     fun onOcrDoneClick() {}
     fun onPreviousPlanListToggle() {}

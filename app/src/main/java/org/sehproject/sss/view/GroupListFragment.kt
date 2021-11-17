@@ -9,7 +9,6 @@ import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
-import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentGroupListBinding
 
 class GroupListFragment : Fragment() {
@@ -39,6 +38,11 @@ class GroupListFragment : Fragment() {
         val buttonMap = view.findViewById<Button>(R.id.btn_map_test)
         buttonMap?.setOnClickListener {
             findNavController().navigate(R.id.mapFragment, null)
+        }
+
+        val buttonDetail = view.findViewById<Button>(R.id.btn_group_detail)
+        buttonDetail?.setOnClickListener {
+            findNavController().navigate(R.id.groupDetailFragment, null)
         }
     }
 
