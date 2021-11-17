@@ -3,9 +3,13 @@ package org.sehproject.sss.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sehproject.sss.datatype.*
+import org.sehproject.sss.logic.PlanLogic
+import org.sehproject.sss.logic.ProfileLogic
 import org.sehproject.sss.utils.SingleLiveEvent
 
 class ProfileViewModel: ViewModel() {
+    val profileLogic = ProfileLogic(this)
+
     val viewProfileEvent = SingleLiveEvent<Int>()
     val editProfileEvent = SingleLiveEvent<Any>()
     val editProfileCompleteEvent = SingleLiveEvent<Int>()

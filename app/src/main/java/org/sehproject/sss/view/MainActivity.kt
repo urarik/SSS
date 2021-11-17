@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 bottomNav.visibility = View.VISIBLE
             }
+            // destination.id == R.id.loginFragment ||
         }
     }
 

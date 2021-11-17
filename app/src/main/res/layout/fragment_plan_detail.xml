@@ -1,164 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
+            name="plan"
+            type="org.sehproject.sss.datatype.Plan" />
+        <variable
             name="planLogic"
             type="org.sehproject.sss.logic.PlanLogic" />
+        <variable
+            name="mapLogic"
+            type="org.sehproject.sss.logic.MapLogic" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.PlanDetailFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.PlanDetailFragment">
 
-    <TextView
-        android:id="@+id/textViewPlanDateDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:text="2021년 10월 31일"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewPlanTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="13 : 30 ~ 18 : 00"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPlanDateDetails" />
-
-    <TextView
-        android:id="@+id/textViewPlanPlaceDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="영남대학교 IT관"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPlanTime" />
-
-    <TextView
-        android:id="@+id/textViewPlanReiterationDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
-        android:text="반복 여부: 반복 없음"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPlanPlaceDetails" />
-
-    <TextView
-        android:id="@+id/textViewPlanCategoryDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="카테고리: 카테고리 없음"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPlanReiterationDetails" />
-
-    <TextView
-        android:id="@+id/textViewPlanGroupDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="그룹: Young University"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPlanCategoryDetails" />
-
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:fab_labelsPosition="left"
-        app:fab_labelStyle="@style/menu_labels_style">
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/editPlanFloatingActionButton"
+        <TextView
+            android:id="@+id/textViewPlanDateDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_icon="@drawable/edit"
-            app:fab_size="mini"
-            app:fab_title="약속 수정"/>
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/deletePlanTypeFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/delete"
-            app:fab_size="mini"
-            app:fab_title="약속 삭제" />
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/completePlanFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/complete"
-            app:fab_size="mini"
-            app:fab_title="약속 완료"/>
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/invitePlanTypeFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/invite"
-            app:fab_size="mini"
-            app:fab_title="친구 초대" />
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/kickOutPlanFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/kick_out"
-            app:fab_size="mini"
-            app:fab_title="강제퇴장"/>
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/cancelPlanFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/delete"
-            app:fab_size="mini"
-            app:fab_title="참석 취소"/>
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addMemoFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/memo"
-            app:fab_size="mini"
-            app:fab_title="메모 등록"/>
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/sharingFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/map"
-            app:fab_size="mini"
-            app:fab_title="위치 공유"/>
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:text="@{plan.date}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerViewMemo2"
-        android:layout_width="383dp"
-        android:layout_height="182dp"
-        android:layout_marginTop="24dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPlanGroupDetails"
-        tools:listitem="@layout/view_memo_item" />
+        <TextView
+            android:id="@+id/textViewPlanTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="@{plan.startTime}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanDateDetails" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewPlanPlaceDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="@{plan.location}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanTime" />
+
+        <TextView
+            android:id="@+id/textViewPlanReiterationDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="36dp"
+            android:text="반복 여부: 반복 없음"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanPlaceDetails" />
+
+        <TextView
+            android:id="@+id/textViewPlanCategoryDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="@{plan.category}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanReiterationDetails" />
+
+        <TextView
+            android:id="@+id/textViewPlanGroupDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="그룹: Young University"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanCategoryDetails" />
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            app:fab_labelStyle="@style/menu_labels_style"
+            app:fab_labelsPosition="left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/editPlanFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onEditPlanClick()}"
+                app:fab_icon="@drawable/edit"
+                app:fab_size="mini"
+                app:fab_title="약속 수정" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/deletePlanTypeFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onDeletePlanClick()}"
+                app:fab_icon="@drawable/delete"
+                app:fab_size="mini"
+                app:fab_title="약속 삭제" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/completePlanFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onCompletePlanClick()}"
+                app:fab_icon="@drawable/complete"
+                app:fab_size="mini"
+                app:fab_title="약속 완료" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/invitePlanTypeFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onInvitePlanClick()}"
+                app:fab_icon="@drawable/invite"
+                app:fab_size="mini"
+                app:fab_title="친구 초대" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/kickOutPlanFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onKickOutPlanClick()}"
+                app:fab_icon="@drawable/kick_out"
+                app:fab_size="mini"
+                app:fab_title="강제퇴장" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/cancelPlanFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onCancelPlanClick()}"
+                app:fab_icon="@drawable/delete"
+                app:fab_size="mini"
+                app:fab_title="참석 취소" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addMemoFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onCreateMemoClick()}"
+                app:fab_icon="@drawable/memo"
+                app:fab_size="mini"
+                app:fab_title="메모 등록" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/sharingFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->mapLogic.onShareMyLocationClick()}"
+                app:fab_icon="@drawable/map"
+                app:fab_size="mini"
+                app:fab_title="위치 공유" />
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewMemo2"
+            android:layout_width="383dp"
+            android:layout_height="182dp"
+            android:layout_marginTop="24dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.484"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanGroupDetails"
+            tools:listitem="@layout/view_memo_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

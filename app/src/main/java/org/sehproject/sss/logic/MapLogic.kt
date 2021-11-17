@@ -5,7 +5,7 @@ import org.sehproject.sss.viewmodel.MapViewModel
 class MapLogic(val mapViewModel: MapViewModel) {
     fun onShareMyLocationClick()
     {
-
+        mapViewModel.trackEvent.call()
     }
 
     fun onCancelClick()

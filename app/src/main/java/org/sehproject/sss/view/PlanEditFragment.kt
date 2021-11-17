@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentPlanDetailBinding
 import org.sehproject.sss.databinding.FragmentPlanEditBinding
+import org.sehproject.sss.viewmodel.MapViewModel
 import org.sehproject.sss.viewmodel.PlanViewModel
 
 class PlanEditFragment : Fragment() {
@@ -33,7 +34,7 @@ class PlanEditFragment : Fragment() {
     }
 
     fun initObserver() {
-        planViewModel.editPlanEvent.observe(viewLifecycleOwner, {
+        planViewModel.editCompletePlanEvent.observe(viewLifecycleOwner, {
             findNavController().navigate(R.id.action_planEditFragment_to_planListFragment)
         })
     }

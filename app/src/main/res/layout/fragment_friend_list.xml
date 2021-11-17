@@ -41,6 +41,7 @@
             android:id="@+id/searchFriendFloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{()->friendLogic.onSearchUserClick()}"
             app:fab_icon="@drawable/temp"
             app:fab_size="mini"
             app:fab_title="친구 검색"/>

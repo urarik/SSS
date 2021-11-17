@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentFriendListBinding
 import org.sehproject.sss.databinding.FragmentRegisterBinding
@@ -25,6 +26,14 @@ class RegisterFragment : Fragment() {
         val registerBinding: FragmentRegisterBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_register, container, false)
         registerBinding.userLogic = userViewModel.userLogic
 
+        initObserver()
+
         return view
+    }
+
+    private fun initObserver() {
+        userViewModel.registerCompleteEvent.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.loginFragment)
+        })
     }
 }
