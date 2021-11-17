@@ -31,8 +31,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.nhn.android.idp.common.util.DeviceAppInfo.getPackageName
 import com.nhn.android.naverlogin.OAuthLogin
+import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentLoginBinding
 import org.sehproject.sss.datatype.AccountXML
+import org.sehproject.sss.utils.UserViewModelFactory
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -43,7 +45,8 @@ class LoginFragment : Fragment(), ActivityNavigation {
     private lateinit var auth: FirebaseAuth
     private val user = AccountXML("", "")
     private val userViewModel: UserViewModel by lazy {
-            ViewModelProvider(this).get(UserViewModel::class.java)
+        val appDatabase = AppDatabase.getInstance(requireContext())!!
+            ViewModelProvider(this, UserViewModelFactory(appDatabase)).get(UserViewModel::class.java)
     }
 
     override fun onCreateView(

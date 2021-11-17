@@ -1,10 +1,11 @@
 package org.sehproject.sss.logic
 
 import android.util.Log
+import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.GroupViewModel
 
-class GroupLogic(val groupViewModel: GroupViewModel) {
+class GroupLogic(private val groupViewModel: GroupViewModel) {
     fun onCreateGroupClick()
     {
 
@@ -15,9 +16,11 @@ class GroupLogic(val groupViewModel: GroupViewModel) {
 
     }
 
-    fun onDeleteGroupClick()
+    fun onDeleteGroupClick(groupId: Int)
     {
+        groupViewModel.groupRepository.deleteGroup(groupId) {
 
+        }
     }
 
     fun onDeleteGroupCompleteClick()
@@ -25,9 +28,10 @@ class GroupLogic(val groupViewModel: GroupViewModel) {
 
     }
 
-    fun onEditGroupClick()
+    fun onEditGroupClick(group: Group)
     {
-
+        Log.d("TAG", "edit")
+        groupViewModel.editGroupEvent.value = group
     }
 
     fun onEditGroupCompleteClick()
@@ -40,15 +44,24 @@ class GroupLogic(val groupViewModel: GroupViewModel) {
 
     }
 
-    fun onRefuseGroupClick(groupid: Int)
+    fun onRefuseGroupClick(groupId: Int)
     {
 
     }
 
-    fun onInviteGroupClick()
+    fun onKickOutGroupClick(gid: Int) {
+        groupViewModel.kickOutGroupEvent.value = gid
+    }
+
+    fun onExitGroupClick(gid: Int) {
+    //    groupViewModel.groupRepository.exitGroup(gid) { code ->
+    //
+    //    }
+    }
+
+    fun onInviteGroupClick(gid: Int)
     {
-        Log.d("TAG", "!@#")
-        groupViewModel.inviteGroupEvent.call()
+        groupViewModel.inviteGroupEvent.value = gid
     }
 
     fun onInviteGroupDoneClick()

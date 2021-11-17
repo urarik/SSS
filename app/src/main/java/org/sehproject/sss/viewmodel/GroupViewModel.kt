@@ -2,6 +2,7 @@ package org.sehproject.sss.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.GroupLogic
 import org.sehproject.sss.repository.FriendRepository
@@ -22,13 +23,12 @@ class GroupViewModel : ViewModel() {
 
     val createGroupEvent = SingleLiveEvent<Any>()
     val createGroupCompleteEvent = SingleLiveEvent<Any>()
-    val deleteGroupEvent = SingleLiveEvent<Any>()
     val deleteGroupCompleteEvent = SingleLiveEvent<Any>()
-    val editGroupEvent = SingleLiveEvent<Any>()
+    val editGroupEvent = SingleLiveEvent<Group>()
     val editGroupCompleteEvent = SingleLiveEvent<Any>()
-    val inviteGroupEvent = SingleLiveEvent<Any>()
+    val inviteGroupEvent = SingleLiveEvent<Int>()
     val inviteGroupCompleteEvent = SingleLiveEvent<Any>()
-    val kickOutGroupEvent = SingleLiveEvent<Any>()
+    val kickOutGroupEvent = SingleLiveEvent<Int>()
     val kickOutGroupCompleteEvent = SingleLiveEvent<Any>()
     val viewGroupDetailsEvent = SingleLiveEvent<Any>()
     val viewGroupDetailsCompleteEvent = SingleLiveEvent<Any>()

@@ -1,113 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:backgroundTint="#FFFFFF"
-    tools:context=".view.GroupDetailFragment">
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="groupLogic"
+            type="org.sehproject.sss.logic.GroupLogic" />
+        <variable
+            name="group"
+            type="org.sehproject.sss.datatype.Group" />
+    </data>
 
-    <TextView
-        android:id="@+id/textViewGroupName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:text="Young University"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF">
 
-    <TextView
-        android:id="@+id/textViewMemberNumDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="인원 수: 2 / 5 명"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewGroupName" />
-
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:fab_labelsPosition="left"
-        app:fab_labelStyle="@style/menu_labels_style">
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/editGroupFloatingActionButton"
+        <TextView
+            android:id="@+id/textViewGroupName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_icon="@drawable/edit"
-            app:fab_size="mini"
-            app:fab_title="그룹 수정"/>
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/deleteGroupFloatingActionButton"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:text="Young University"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewMemberNumDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_icon="@drawable/delete"
-            app:fab_size="mini"
-            app:fab_title="그룹 삭제" />
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/inviteGroupFloatingActionButton"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="인원 수: 2 / 5 명"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewGroupName" />
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/floatingActionsMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_icon="@drawable/invite"
-            app:fab_size="mini"
-            app:fab_title="친구 초대"/>
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/kickOutGroupFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/kick_out"
-            app:fab_size="mini"
-            app:fab_title="강제 퇴장" />
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/exitGroupFloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/exit"
-            app:fab_size="mini"
-            app:fab_title="그룹 탈퇴"/>
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="2dp"
+            app:fab_labelStyle="@style/menu_labels_style"
+            app:fab_labelsPosition="left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/textViewGroupExplanationDetails"
-        android:layout_width="365dp"
-        android:layout_height="107dp"
-        android:layout_marginTop="24dp"
-        android:text="팀 프로젝트 그룹.\n일정 약속을 편하게 잡기 위해 만들어졌습니다."
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMemberNumDetails" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/editGroupFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                android:onClick="@{_ -> groupLogic.onEditGroupClick(group)}"
+                app:fab_icon="@drawable/edit"
+                app:fab_size="mini"
+                app:fab_title="그룹 수정" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewGroupDetails1"
-        android:layout_width="364dp"
-        android:layout_height="230dp"
-        android:layout_marginTop="24dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewGroupExplanationDetails"
-        app:layout_constraintVertical_bias="0.012"
-        tools:listitem="@layout/view_item" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/deleteGroupFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{_ -> groupLogic.onDeleteGroupClick(group.gid)}"
+                app:fab_icon="@drawable/delete"
+                app:fab_size="mini"
+                app:fab_title="그룹 삭제" />
 
-    <ImageView
-        android:id="@+id/imageViewGroupColor"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toEndOf="@+id/textViewGroupName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/color_red" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/inviteGroupFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{_ -> groupLogic.onInviteGroupClick(group.gid)}"
+                app:fab_icon="@drawable/invite"
+                app:fab_size="mini"
+                app:fab_title="친구 초대" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/kickOutGroupFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{_ -> groupLogic.onKickOutGroupClick(group.gid)}"
+                app:fab_icon="@drawable/kick_out"
+                app:fab_size="mini"
+                app:fab_title="강제 퇴장" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/exitGroupFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{_ -> groupLogic.onExitGroupClick(group.gid)}"
+                app:fab_icon="@drawable/exit"
+                app:fab_size="mini"
+                app:fab_title="그룹 탈퇴" />
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+        <TextView
+            android:id="@+id/textViewGroupExplanationDetails"
+            android:layout_width="365dp"
+            android:layout_height="107dp"
+            android:layout_marginTop="24dp"
+            android:text="팀 프로젝트 그룹.\n일정 약속을 편하게 잡기 위해 만들어졌습니다."
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMemberNumDetails" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewGroupDetails1"
+            android:layout_width="364dp"
+            android:layout_height="230dp"
+            android:layout_marginTop="24dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewGroupExplanationDetails"
+            app:layout_constraintVertical_bias="0.012"
+            tools:listitem="@layout/view_item" />
+
+        <ImageView
+            android:id="@+id/imageViewGroupColor"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toEndOf="@+id/textViewGroupName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/color_red" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

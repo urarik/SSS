@@ -26,6 +26,7 @@
                 android:id="@+id/MakePlanFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onCreatePlanClick()}"
                 app:fab_icon="@drawable/add_plan"
                 app:fab_size="mini"
                 app:fab_title="약속 추가"/>
@@ -33,6 +34,7 @@
                 android:id="@+id/MakePlanTypeFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onCreateTypeClick()}"
                 app:fab_icon="@drawable/tts"
                 app:fab_size="mini"
                 app:fab_title="타이핑으로 약속 추가" />
@@ -40,6 +42,7 @@
                 android:id="@+id/MakePlanOCRFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{()->planLogic.onCreateOcrClick()}"
                 app:fab_icon="@drawable/ocr"
                 app:fab_size="mini"
                 app:fab_title="사진으로 약속 추가"/>
@@ -68,7 +71,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecyclerViewPlanList1"
+            android:id="@+id/RecyclerViewPlanList"
             android:layout_width="411dp"
             android:layout_height="363dp"
             android:layout_marginTop="28dp"

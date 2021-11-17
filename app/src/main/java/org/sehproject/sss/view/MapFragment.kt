@@ -14,23 +14,10 @@ import net.daum.mf.map.api.MapView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentMapBinding
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MapFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     MapView.MapViewEventListener,
     MapView.CurrentLocationEventListener {
     // TODO: Rename and change types of parameters
-    private lateinit var mapBinding: FragmentMapBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +25,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     ): View? {
         //주의!! 지도는 가상에뮬레이터로 실행 불가능.
         //실제 폰만 가능!!
-        mapBinding = DataBindingUtil.inflate(
+        val mapBinding: FragmentMapBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_map,
             container,

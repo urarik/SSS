@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="plan"
+            type="org.sehproject.sss.datatype.Plan" />
+        <variable
+            name="planLogic"
+            type="org.sehproject.sss.logic.PlanLogic" />
+        <import type="android.view.View"/>
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/item_plan"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/purple_200">
@@ -53,3 +66,4 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
