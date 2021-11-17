@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_planDetailFragment_to_planEditFragment"
             app:destination="@id/planEditFragment" />
+        <action
+            android:id="@+id/action_planDetailFragment_to_planInviteDialogFragment"
+            app:destination="@id/planInviteDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/planListFragment"
@@ -154,7 +157,7 @@
     </fragment>
     <fragment
         android:id="@+id/friendListFragment"
-        android:name="org.sehproject.sss.view.FriendListFragment"
+        android:name="org.sehproject.sss.view.Friend.FriendListFragment"
         android:label="fragment_friend_list"
         tools:layout="@layout/fragment_friend_list" >
         <action
@@ -175,6 +178,9 @@
         <action
             android:id="@+id/action_profileFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_statisticsDialogFragment"
+            app:destination="@id/statisticsDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/invitationFragment"
@@ -229,4 +235,12 @@
         android:name="org.sehproject.sss.view.PlanCreateTypeFragment"
         android:label="fragment_plan_create_type"
         tools:layout="@layout/fragment_plan_create_type" />
+    <fragment
+        android:id="@+id/statisticsDialogFragment"
+        android:name="org.sehproject.sss.view.StatisticsDialogFragment"
+        android:label="StatisticsDialogFragment" />
+    <dialog
+        android:id="@+id/planInviteDialogFragment"
+        android:name="org.sehproject.sss.view.PlanInviteDialogFragment"
+        android:label="PlanInviteDialogFragment" />
 </navigation>
