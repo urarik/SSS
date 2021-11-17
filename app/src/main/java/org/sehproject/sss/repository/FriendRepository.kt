@@ -4,6 +4,7 @@ import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.service.FriendService
+import org.sehproject.sss.utils.CallbackWithRetry
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +21,8 @@ class FriendRepository {
 
     fun searchUser(userIdOrNickName: String, onResult: (Int, List<User>?) -> Unit) {
         friendService.requestSearchUser(userIdOrNickName)
-            .enqueue(object : Callback<UserListResponse> {
+            .enqueue(object :
+                CallbackWithRetry<UserListResponse>(friendService.requestSearchUser(userIdOrNickName)) {
                 override fun onResponse(
                     call: Call<UserListResponse>,
                     response: Response<UserListResponse>
@@ -35,14 +37,21 @@ class FriendRepository {
                 }
 
                 override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
 
     fun addFriend(friendUserId: String, onResult: (Int) -> Unit) {
         friendService.requestAddFriend(UserInfo.userId, friendUserId)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                friendService.requestAddFriend(
+                    UserInfo.userId,
+                    friendUserId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -56,14 +65,21 @@ class FriendRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun deleteFriend(friendUserId: String, onResult: (Int) -> Unit) {
         friendService.requestDeleteFriend(UserInfo.userId, friendUserId)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                friendService.requestDeleteFriend(
+                    UserInfo.userId,
+                    friendUserId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -77,14 +93,21 @@ class FriendRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun blockFriend(friendUserId: String, onResult: (Int) -> Unit) {
         friendService.requestBlockFriend(UserInfo.userId, friendUserId)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                friendService.requestBlockFriend(
+                    UserInfo.userId,
+                    friendUserId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -98,14 +121,17 @@ class FriendRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun getFriendList(onResult: (Int, List<User>?) -> Unit) {
         friendService.requestGetFriendList(UserInfo.userId)
-            .enqueue(object : Callback<UserListResponse> {
+            .enqueue(object :
+                CallbackWithRetry<UserListResponse>(friendService.requestGetFriendList(UserInfo.userId)) {
                 override fun onResponse(
                     call: Call<UserListResponse>,
                     response: Response<UserListResponse>
@@ -120,7 +146,9 @@ class FriendRepository {
                 }
 
                 override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }

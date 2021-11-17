@@ -5,6 +5,7 @@ import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.service.GroupService
 import org.sehproject.sss.service.PlanService
+import org.sehproject.sss.utils.CallbackWithRetry
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,8 +20,26 @@ class PlanRepository {
     private var planService: PlanService = retrofit.create(PlanService::class.java)
 
     fun createPlan(plan: Plan, onResult: (Int) -> Unit) {
-        planService.requestCreatePlan(plan.name, plan.name, plan.startTime, plan.endTime, plan.location, plan.category, UserInfo.userId)
-            .enqueue(object : Callback<GenericResponse> {
+        planService.requestCreatePlan(
+            plan.name,
+            plan.name,
+            plan.startTime,
+            plan.endTime,
+            plan.location,
+            plan.category,
+            UserInfo.userId
+        )
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                planService.requestCreatePlan(
+                    plan.name,
+                    plan.name,
+                    plan.startTime,
+                    plan.endTime,
+                    plan.location,
+                    plan.category,
+                    UserInfo.userId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -34,14 +53,17 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun deletePlan(pid: Int, onResult: (Int) -> Unit) {
         planService.requestDeletePlan(pid)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object :
+                CallbackWithRetry<GenericResponse>(planService.requestDeletePlan(pid)) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -55,14 +77,32 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun editPlan(plan: Plan, onResult: (Int) -> Unit) {
-        planService.requestEditPlan(plan.name, plan.name, plan.startTime, plan.endTime, plan.location, plan.category)
-            .enqueue(object : Callback<GenericResponse> {
+        planService.requestEditPlan(
+            plan.name,
+            plan.name,
+            plan.startTime,
+            plan.endTime,
+            plan.location,
+            plan.category
+        )
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                planService.requestEditPlan(
+                    plan.name,
+                    plan.name,
+                    plan.startTime,
+                    plan.endTime,
+                    plan.location,
+                    plan.category
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -76,14 +116,21 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun completePlan(pid: Int, onResult: (Int) -> Unit) {
         planService.requestCompletePlan(pid, UserInfo.userId)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                planService.requestCompletePlan(
+                    pid,
+                    UserInfo.userId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -97,14 +144,21 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun cancelPlan(pid: Int, onResult: (Int) -> Unit) {
         planService.requestCancelPlan(pid, UserInfo.userId)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                planService.requestCancelPlan(
+                    pid,
+                    UserInfo.userId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -118,14 +172,17 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
-    fun invitePlan(pid: Int, userIdList: List<String>, onResult: (Int) -> Unit)  {
+    fun invitePlan(pid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
         planService.requestInvitePlan(pid, userIdList)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object :
+                CallbackWithRetry<GenericResponse>(planService.requestInvitePlan(pid, userIdList)) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -139,14 +196,21 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
-    fun kickOutPlan(pid: Int, userIdList: List<String>, onResult: (Int) -> Unit)  {
+    fun kickOutPlan(pid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
         planService.requestKickOutPlan(pid, userIdList)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                planService.requestKickOutPlan(
+                    pid,
+                    userIdList
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -160,14 +224,22 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun createMemo(memo: Memo, onResult: (Int) -> Unit) {
         planService.requestCreateMemo(memo.pid, UserInfo.userId, memo.memo)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                planService.requestCreateMemo(
+                    memo.pid,
+                    UserInfo.userId,
+                    memo.memo
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -181,14 +253,21 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun deleteMemo(pid: Int, onResult: (Int) -> Unit) {
         planService.requestDeleteMemo(pid, UserInfo.userId)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                planService.requestDeleteMemo(
+                    pid,
+                    UserInfo.userId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -202,14 +281,21 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun makePlanPublic(pid: Int, onResult: (Int) -> Unit) {
         planService.requestMakePlanPublic(pid, UserInfo.userId)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                planService.requestMakePlanPublic(
+                    pid,
+                    UserInfo.userId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -223,14 +309,17 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun getImageOcr(image: Byte, onResult: (Int, String?) -> Unit) {
         planService.requestGetImageOcr(image)
-            .enqueue(object : Callback<OcrResponse> {
+            .enqueue(object :
+                CallbackWithRetry<OcrResponse>(planService.requestGetImageOcr(image)) {
                 override fun onResponse(
                     call: Call<OcrResponse>,
                     response: Response<OcrResponse>
@@ -245,7 +334,9 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<OcrResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
@@ -253,7 +344,12 @@ class PlanRepository {
     // isCurrent true : 현재, false : 과거
     fun getPlanList(isCurrent: Boolean, onResult: (Int, List<Plan>?) -> Unit) {
         planService.requestGetPlanList(UserInfo.userId, isCurrent)
-            .enqueue(object : Callback<PlanListResponse> {
+            .enqueue(object : CallbackWithRetry<PlanListResponse>(
+                planService.requestGetPlanList(
+                    UserInfo.userId,
+                    isCurrent
+                )
+            ) {
                 override fun onResponse(
                     call: Call<PlanListResponse>,
                     response: Response<PlanListResponse>
@@ -268,14 +364,16 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<PlanListResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
 
     fun getPlan(pid: Int, onResult: (Int, Plan?) -> Unit) {
         planService.requestGetPlan(pid)
-            .enqueue(object : Callback<PlanResponse> {
+            .enqueue(object : CallbackWithRetry<PlanResponse>(planService.requestGetPlan(pid)) {
                 override fun onResponse(
                     call: Call<PlanResponse>,
                     response: Response<PlanResponse>
@@ -290,14 +388,17 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<PlanResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
 
     fun getParticipantList(pid: Int, onResult: (Int, List<User>?) -> Unit) {
         planService.requestGetParticipantList(pid)
-            .enqueue(object : Callback<UserListResponse> {
+            .enqueue(object :
+                CallbackWithRetry<UserListResponse>(planService.requestGetParticipantList(pid)) {
                 override fun onResponse(
                     call: Call<UserListResponse>,
                     response: Response<UserListResponse>
@@ -312,14 +413,17 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
 
     fun getMemoList(pid: Int, onResult: (Int, List<Memo>?) -> Unit) {
         planService.requestGetMemoList(pid)
-            .enqueue(object : Callback<MemoListResponse> {
+            .enqueue(object :
+                CallbackWithRetry<MemoListResponse>(planService.requestGetMemoList(pid)) {
                 override fun onResponse(
                     call: Call<MemoListResponse>,
                     response: Response<MemoListResponse>
@@ -334,7 +438,9 @@ class PlanRepository {
                 }
 
                 override fun onFailure(call: Call<MemoListResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
