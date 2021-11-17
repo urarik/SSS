@@ -4,6 +4,7 @@ import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.service.GroupService
+import org.sehproject.sss.utils.CallbackWithRetry
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,7 +20,14 @@ class GroupRepository {
 
     fun createGroup(group: Group, onResult: (Int) -> Unit) {
         groupService.requestCreateGroup(group.name, group.explanation, group.color, UserInfo.userId)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                groupService.requestCreateGroup(
+                    group.name,
+                    group.explanation,
+                    group.color,
+                    UserInfo.userId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -33,14 +41,17 @@ class GroupRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun deleteGroup(gid: Int, onResult: (Int) -> Unit) {
         groupService.requestDeleteGroup(gid)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object :
+                CallbackWithRetry<GenericResponse>(groupService.requestDeleteGroup(gid)) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -54,14 +65,21 @@ class GroupRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun exitGroup(gid: Int, onResult: (Int) -> Unit) {
         groupService.requestExitGroup(gid, UserInfo.userId)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                groupService.requestExitGroup(
+                    gid,
+                    UserInfo.userId
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -75,14 +93,23 @@ class GroupRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun editGroup(group: Group, onResult: (Int) -> Unit) {
         groupService.requestEditGroup(group.gid!!, group.name, group.explanation, group.color)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                groupService.requestEditGroup(
+                    group.gid!!,
+                    group.name,
+                    group.explanation,
+                    group.color
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -96,14 +123,21 @@ class GroupRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun inviteGroup(gid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
         groupService.requestInviteGroup(gid, userIdList)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                groupService.requestInviteGroup(
+                    gid,
+                    userIdList
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -117,14 +151,21 @@ class GroupRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun kickOutGroup(gid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
         groupService.requestKickOutGroup(gid, userIdList)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                groupService.requestKickOutGroup(
+                    gid,
+                    userIdList
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -138,14 +179,17 @@ class GroupRepository {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun getGroupList(onResult: (Int, List<Group>?) -> Unit) {
         groupService.requestGetGroupList(UserInfo.userId)
-            .enqueue(object : Callback<GroupListResponse> {
+            .enqueue(object :
+                CallbackWithRetry<GroupListResponse>(groupService.requestGetGroupList(UserInfo.userId)) {
                 override fun onResponse(
                     call: Call<GroupListResponse>,
                     response: Response<GroupListResponse>
@@ -160,14 +204,16 @@ class GroupRepository {
                 }
 
                 override fun onFailure(call: Call<GroupListResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
 
     fun getGroup(gid: Int, onResult: (Int, Group?) -> Unit) {
         groupService.requestGetGroup(gid)
-            .enqueue(object : Callback<GroupResponse> {
+            .enqueue(object : CallbackWithRetry<GroupResponse>(groupService.requestGetGroup(gid)) {
                 override fun onResponse(
                     call: Call<GroupResponse>,
                     response: Response<GroupResponse>
@@ -182,14 +228,17 @@ class GroupRepository {
                 }
 
                 override fun onFailure(call: Call<GroupResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
 
     fun getParticipantList(gid: Int, onResult: (Int, List<User>?) -> Unit) {
         groupService.requestGetParticipantList(gid)
-            .enqueue(object : Callback<UserListResponse> {
+            .enqueue(object :
+                CallbackWithRetry<UserListResponse>(groupService.requestGetParticipantList(gid)) {
                 override fun onResponse(
                     call: Call<UserListResponse>,
                     response: Response<UserListResponse>
@@ -204,7 +253,9 @@ class GroupRepository {
                 }
 
                 override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }

@@ -22,7 +22,7 @@ interface FriendService {
         @Field("userid")
         userId: String,
 
-        @Field("friend_userid")
+        @Field("target_userid")
         friendUserId: String
     ): Call<GenericResponse>
 
@@ -32,7 +32,7 @@ interface FriendService {
         @Field("userid")
         userId: String,
 
-        @Field("friend_userid")
+        @Field("target_userid")
         friendUserId: String
     ): Call<GenericResponse>
 
@@ -42,7 +42,7 @@ interface FriendService {
         @Field("userid")
         userId: String,
 
-        @Field("friend_userid")
+        @Field("target_userid")
         friendUserId: String
     ): Call<GenericResponse>
 

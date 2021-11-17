@@ -88,7 +88,7 @@ interface PlanService {
         @Field("pid")
         planId: Int,
 
-        @Field("userid_list")
+        @Field("target_userid_list")
         userIdList: List<String>
     ): Call<GenericResponse>
 
@@ -98,7 +98,7 @@ interface PlanService {
         @Field("pid")
         planId: Int,
 
-        @Field("userid_list")
+        @Field("target_userid_list")
         userIdList: List<String>
     ): Call<GenericResponse>
 

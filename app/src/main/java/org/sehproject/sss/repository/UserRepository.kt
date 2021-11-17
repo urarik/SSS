@@ -8,6 +8,7 @@ import org.sehproject.sss.datatype.GenericResponse
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.datatype.UserResponse
 import org.sehproject.sss.service.UserService
+import org.sehproject.sss.utils.CallbackWithRetry
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,14 +25,15 @@ class UserRepository(private val appDatabase: AppDatabase) {
 
     fun login(userId: String, password: String, onResult: (Int, String?) -> Unit) {
         userService.requestLogin(userId, password)
-            .enqueue(object : Callback<UserResponse> {
+            .enqueue(object :
+                CallbackWithRetry<UserResponse>(userService.requestLogin(userId, password)) {
                 override fun onResponse(
                     call: Call<UserResponse>,
                     response: Response<UserResponse>
                 ) {
                     val code = response.body()?.code
                     if (code == 0) {
-                        val nickName = response.body()?.user?.nickName;
+                        val nickName = response.body()?.user?.nickName
                         onResult(0, nickName)
                     } else {
                         onResult(1, null)
@@ -39,14 +41,22 @@ class UserRepository(private val appDatabase: AppDatabase) {
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
 
     fun register(userId: String, password: String, nickName: String, onResult: (Int) -> Unit) {
         userService.requestRegister(userId, password, nickName)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : CallbackWithRetry<GenericResponse>(
+                userService.requestRegister(
+                    userId,
+                    password,
+                    nickName
+                )
+            ) {
                 override fun onResponse(
                     call: Call<GenericResponse>,
                     response: Response<GenericResponse>
@@ -60,14 +70,17 @@ class UserRepository(private val appDatabase: AppDatabase) {
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                    super.onFailure {
+                        onResult(-1)
+                    }
                 }
             })
     }
 
     fun getUser(userId: String, onResult: (Int, User?) -> Unit) {
         userService.requestGetUser(userId)
-            .enqueue(object : Callback<UserResponse> {
+            .enqueue(object :
+                CallbackWithRetry<UserResponse>(userService.requestGetUser(userId)) {
                 override fun onResponse(
                     call: Call<UserResponse>,
                     response: Response<UserResponse>
@@ -82,7 +95,9 @@ class UserRepository(private val appDatabase: AppDatabase) {
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }

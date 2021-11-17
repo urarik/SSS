@@ -6,6 +6,7 @@ import org.sehproject.sss.datatype.KeywordResponse
 import org.sehproject.sss.datatype.Popularity
 import org.sehproject.sss.datatype.PopularityListResponse
 import org.sehproject.sss.service.RecommendService
+import org.sehproject.sss.utils.CallbackWithRetry
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,7 +22,9 @@ class RecommendRepository {
 
     fun getPopularityList(userId: String, onResult: (Int, List<Popularity>?) -> Unit) {
         recommendService.requestPopularityList(userId)
-            .enqueue(object : Callback<PopularityListResponse> {
+            .enqueue(object : CallbackWithRetry<PopularityListResponse>(
+                recommendService.requestPopularityList(userId)
+            ) {
                 override fun onResponse(
                     call: Call<PopularityListResponse>,
                     listResponse: Response<PopularityListResponse>
@@ -36,14 +39,21 @@ class RecommendRepository {
                 }
 
                 override fun onFailure(call: Call<PopularityListResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }
 
     fun getKeyWord(target: Coordinate, onResult: (Int, String?) -> Unit) {
         recommendService.requestKeyword(target.latitude, target.longitude)
-            .enqueue(object : Callback<KeywordResponse> {
+            .enqueue(object : CallbackWithRetry<KeywordResponse>(
+                recommendService.requestKeyword(
+                    target.latitude,
+                    target.longitude
+                )
+            ) {
                 override fun onResponse(
                     call: Call<KeywordResponse>,
                     listResponse: Response<KeywordResponse>
@@ -58,7 +68,9 @@ class RecommendRepository {
                 }
 
                 override fun onFailure(call: Call<KeywordResponse>, t: Throwable) {
-                    onResult(-1, null)
+                    super.onFailure {
+                        onResult(-1, null)
+                    }
                 }
             })
     }

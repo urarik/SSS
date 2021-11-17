@@ -32,7 +32,7 @@ interface MapService {
 
     @POST("map/eta")
     @FormUrlEncoded
-    fun requestEta(
+    fun requestGetEta(
         @Field("start_address")
         startAddress: String,
 

@@ -21,7 +21,7 @@ interface GroupService {
         explanation: String,
 
         @Field("color")
-        color: String,
+        color: Int,
 
         @Field("creator")
         creator: String
@@ -57,7 +57,7 @@ interface GroupService {
         explanation: String,
 
         @Field("color")
-        color: String
+        color: Int
     ): Call<GenericResponse>
 
     @POST("group/invite")
@@ -66,7 +66,7 @@ interface GroupService {
         @Field("gid")
         groupId: Int,
 
-        @Field("userid_list")
+        @Field("target_userid_list")
         userIdList: List<String>
     ): Call<GenericResponse>
 
@@ -76,7 +76,7 @@ interface GroupService {
         @Field("gid")
         groupId: Int,
 
-        @Field("userid_list")
+        @Field("target_userid_list")
         userIdList: List<String>
     ): Call<GenericResponse>
 
