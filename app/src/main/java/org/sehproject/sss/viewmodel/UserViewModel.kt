@@ -22,9 +22,9 @@ import org.sehproject.sss.utils.ActivityNavigation
 import org.sehproject.sss.utils.LiveMessageEvent
 import org.sehproject.sss.utils.SingleLiveEvent
 
-class UserViewModel : ViewModel() {
+class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
     val userLogic = UserLogic(this)
-    private val userRepository = UserRepository(AppDatabase.getInstance());
+    private val userRepository = UserRepository(appDatabase);
 
     val userId = MutableLiveData("")
     val password = MutableLiveData("")
