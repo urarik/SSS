@@ -9,8 +9,10 @@ import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileEditBinding
+import org.sehproject.sss.view.GroupDetailFragmentArgs
 import org.sehproject.sss.viewmodel.PlanViewModel
 import org.sehproject.sss.viewmodel.ProfileViewModel
 
@@ -18,6 +20,7 @@ class ProfileEditFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
         ViewModelProvider(this).get(ProfileViewModel::class.java)
     }
+    private val safeArgs: ProfileEditFragmentArgs by navArgs() //profile
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

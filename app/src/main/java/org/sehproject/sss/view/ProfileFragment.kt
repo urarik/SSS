@@ -36,12 +36,14 @@ class ProfileFragment : Fragment() {
     }
 
     fun initObserver() {
+        val navController = findNavController()
         profileViewModel.editProfileEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.profileEditFragment)
+            val action = ProfileFragmentDirections.actionProfileFragmentToProfileEditFragment(it)
+            navController.navigate(action)
         })
 
         profileViewModel.selectOptionEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.settingFragment)
+            navController.navigate(R.id.settingFragment)
         })
     }
 }

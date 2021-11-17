@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentInviteFriendBinding
@@ -16,6 +17,7 @@ import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.UserViewModel
 
 class GroupInviteDialogFragment: DialogFragment() {
+    private val safeArgs: GroupInviteDialogFragmentArgs by navArgs() //groupid, is_invite
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,12 +30,11 @@ class GroupInviteDialogFragment: DialogFragment() {
         val view = inviteFriendBinding.root
 
         val recyclerView: RecyclerView = inviteFriendBinding.searchRecyclerView
-        groupViewModel?.setFriendList()
+        //groupViewModel?.setFriendList()
         groupViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
             adapter = UserAdapter(it)
             recyclerView.adapter = adapter
         })
-        groupViewModel?.setFriendList()
 
         return view
     }

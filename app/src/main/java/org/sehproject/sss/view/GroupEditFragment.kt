@@ -21,7 +21,8 @@ class GroupEditFragment : Fragment() {
     private val groupViewModel by lazy {
         ViewModelProvider(this).get(GroupViewModel::class.java)
     }
-    private val safeArgs: GroupEditFragmentArgs by navArgs()
+    private val safeArgs: GroupEditFragmentArgs by navArgs() //group
+    //group id가 null이면 create else edit
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -11,7 +11,7 @@ class ProfileViewModel: ViewModel() {
     val profileLogic = ProfileLogic(this)
 
     val viewProfileEvent = SingleLiveEvent<Int>()
-    val editProfileEvent = SingleLiveEvent<Any>()
+    val editProfileEvent = SingleLiveEvent<Profile>()
     val editProfileCompleteEvent = SingleLiveEvent<Int>()
     val uploadImageEvent = SingleLiveEvent<Any>()
     val viewStatisticsEvent = SingleLiveEvent<Int>()

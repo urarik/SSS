@@ -5,8 +5,8 @@ import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.PlanViewModel
 
 class PlanLogic(val planViewModel: PlanViewModel) {
-    fun onEditPlanClick() {
-        planViewModel.editPlanEvent.call()
+    fun onEditPlanClick(plan: Plan) {
+        planViewModel.editPlanEvent.value = plan
     }
     fun onEditPlanCompleteClick() {
         planViewModel.editCompletePlanEvent.call()

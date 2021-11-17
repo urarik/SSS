@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.nhn.android.naverlogin.OAuthLoginDefine.LOG_TAG
 import net.daum.mf.map.api.MapLayout
 import net.daum.mf.map.api.MapPoint
@@ -18,6 +19,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     MapView.MapViewEventListener,
     MapView.CurrentLocationEventListener {
     // TODO: Rename and change types of parameters
+    private val safeArgs: MapFragmentArgs by navArgs() //pid
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

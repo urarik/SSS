@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
+            name="profile"
+            type="org.sehproject.sss.datatype.Profile" />
+        <variable
             name="profileLogic"
             type="org.sehproject.sss.logic.ProfileLogic" />
     </data>
@@ -84,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="프로필 수정"
-                android:onClick="@{()->profileLogic.onEditProfileClick()}"
+                android:onClick="@{()->profileLogic.onEditProfileClick(profile)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.808"
