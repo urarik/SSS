@@ -17,7 +17,7 @@ interface UserService {
 
         @Field("password")
         password: String,
-    ): Call<GenericResponse>
+    ): Call<UserResponse>
 
     @POST("user/register")
     @FormUrlEncoded

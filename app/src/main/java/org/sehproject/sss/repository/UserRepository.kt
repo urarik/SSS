@@ -21,23 +21,24 @@ class UserRepository(private val appDatabase: AppDatabase) {
         .build()
     private var userService: UserService = retrofit.create(UserService::class.java)
 
-    fun login(userId: String, password: String, onResult: (Int) -> Unit) {
+    fun login(userId: String, password: String, onResult: (Int, String?) -> Unit) {
         userService.requestLogin(userId, password)
-            .enqueue(object : Callback<GenericResponse> {
+            .enqueue(object : Callback<UserResponse> {
                 override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
                 ) {
                     val code = response.body()?.code
                     if (code == 0) {
-                        onResult(0)
+                        val nickName = response.body()?.user?.nickName;
+                        onResult(0, nickName)
                     } else {
-                        onResult(1)
+                        onResult(1, null)
                     }
                 }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    onResult(-1)
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    onResult(-1, null)
                 }
             })
     }
