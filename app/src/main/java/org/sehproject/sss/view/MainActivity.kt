@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             PERMISSION)
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.loginFragment || destination.id == R.id.registerFragment) {
+            if(destination.id == R.id.registerFragment) {
                 bottomNav.visibility = View.GONE
             } else {
                 bottomNav.visibility = View.VISIBLE
@@ -54,5 +54,10 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onDestroy() {
+        Log.d("TAG", "onDestroyed!!")
+        super.onDestroy()
     }
 }
