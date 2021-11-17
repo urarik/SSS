@@ -5,7 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
+import org.sehproject.sss.databinding.FragmentInviteFriendBinding
+import org.sehproject.sss.viewmodel.FriendViewModel
+import org.sehproject.sss.viewmodel.GroupViewModel
+import org.sehproject.sss.viewmodel.ProfileViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +31,10 @@ class FriendProfileFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val profileViewModel: ProfileViewModel by lazy {
+        ViewModelProvider(this).get(ProfileViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +47,10 @@ class FriendProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friend_profile, container, false)
+        val friendProfileBinding: FragmentInviteFriendBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_friend_profile, container, false)
+        val view = friendProfileBinding.root
+
+        return view
     }
 
     companion object {
