@@ -36,7 +36,7 @@ interface PlanService {
     @POST("plan/delete")
     @FormUrlEncoded
     fun requestDeletePlan(
-        @Field("planid")
+        @Field("pid")
         planId: Int
     ): Call<GenericResponse>
 
@@ -65,7 +65,7 @@ interface PlanService {
     @POST("plan/complete")
     @FormUrlEncoded
     fun requestCompletePlan(
-        @Field("planid")
+        @Field("pid")
         planId: Int,
 
         @Field("userid")
@@ -75,7 +75,7 @@ interface PlanService {
     @POST("plan/cancel")
     @FormUrlEncoded
     fun requestCancelPlan(
-        @Field("planid")
+        @Field("pid")
         planId: Int,
 
         @Field("userid")
@@ -85,7 +85,7 @@ interface PlanService {
     @POST("plan/invite")
     @FormUrlEncoded
     fun requestInvitePlan(
-        @Field("planid")
+        @Field("pid")
         planId: Int,
 
         @Field("userid_list")
@@ -95,7 +95,7 @@ interface PlanService {
     @POST("plan/kickout")
     @FormUrlEncoded
     fun requestKickOutPlan(
-        @Field("planid")
+        @Field("pid")
         planId: Int,
 
         @Field("userid_list")
@@ -105,7 +105,7 @@ interface PlanService {
     @POST("plan/memo/create")
     @FormUrlEncoded
     fun requestCreateMemo(
-        @Field("planid")
+        @Field("pid")
         planId: Int,
 
         @Field("userid")
@@ -118,14 +118,17 @@ interface PlanService {
     @POST("plan/memo/delete")
     @FormUrlEncoded
     fun requestDeleteMemo(
-        @Field("memoid")
-        memoId: Int
+        @Field("pid")
+        planId: Int,
+
+        @Field("userid")
+        userId: String
     ): Call<GenericResponse>
 
     @POST("plan/public")
     @FormUrlEncoded
     fun requestMakePlanPublic(
-        @Field("planid")
+        @Field("pid")
         planId: Int,
 
         @Field("userid")
@@ -152,21 +155,21 @@ interface PlanService {
     @POST("plan/plan")
     @FormUrlEncoded
     fun requestGetPlan(
-        @Field("planid")
+        @Field("pid")
         planId: Int
     ): Call<PlanResponse>
 
     @POST("plan/participants")
     @FormUrlEncoded
     fun requestGetParticipantList(
-        @Field("planid")
+        @Field("pid")
         planId: Int
     ): Call<UserListResponse>
 
     @POST("plan/memo/list")
     @FormUrlEncoded
     fun requestGetMemoList(
-        @Field("planid")
+        @Field("pid")
         planId: Int
     ): Call<MemoListResponse>
 }
