@@ -29,8 +29,6 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     MapView.MapViewEventListener,
     MapView.CurrentLocationEventListener {
     // TODO: Rename and change types of parameters
-    private lateinit var mapBinding: FragmentMapBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +36,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     ): View? {
         //주의!! 지도는 가상에뮬레이터로 실행 불가능.
         //실제 폰만 가능!!
-        mapBinding = DataBindingUtil.inflate(
+        val mapBinding: FragmentMapBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_map,
             container,
