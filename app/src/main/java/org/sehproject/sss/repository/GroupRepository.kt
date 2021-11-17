@@ -38,8 +38,29 @@ class GroupRepository {
             })
     }
 
-    fun deleteGroup(groupid: Int, onResult: (Int) -> Unit) {
-        groupService.requestDeleteGroup(groupid)
+    fun deleteGroup(gid: Int, onResult: (Int) -> Unit) {
+        groupService.requestDeleteGroup(gid)
+            .enqueue(object : Callback<GenericResponse> {
+                override fun onResponse(
+                    call: Call<GenericResponse>,
+                    response: Response<GenericResponse>
+                ) {
+                    val code = response.body()?.code
+                    if (code == 0) {
+                        onResult(0)
+                    } else {
+                        onResult(1)
+                    }
+                }
+
+                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                    onResult(-1)
+                }
+            })
+    }
+
+    fun exitGroup(gid: Int, onResult: (Int) -> Unit) {
+        groupService.requestExitGroup(gid, UserInfo.userId)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
@@ -60,7 +81,7 @@ class GroupRepository {
     }
 
     fun editGroup(group: Group, onResult: (Int) -> Unit) {
-        groupService.requestEditGroup(group.groupId!!, group.name, group.explanation, group.color)
+        groupService.requestEditGroup(group.gid!!, group.name, group.explanation, group.color)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
@@ -80,8 +101,8 @@ class GroupRepository {
             })
     }
 
-    fun inviteGroup(groupid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
-        groupService.requestInviteGroup(groupid, userIdList)
+    fun inviteGroup(gid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
+        groupService.requestInviteGroup(gid, userIdList)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
@@ -101,8 +122,8 @@ class GroupRepository {
             })
     }
 
-    fun kickOutGroup(groupid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
-        groupService.requestKickOutGroup(groupid, userIdList)
+    fun kickOutGroup(gid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
+        groupService.requestKickOutGroup(gid, userIdList)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
@@ -144,8 +165,8 @@ class GroupRepository {
             })
     }
 
-    fun getGroup(groupid: Int, onResult: (Int, Group?) -> Unit) {
-        groupService.requestGetGroup(groupid)
+    fun getGroup(gid: Int, onResult: (Int, Group?) -> Unit) {
+        groupService.requestGetGroup(gid)
             .enqueue(object : Callback<GroupResponse> {
                 override fun onResponse(
                     call: Call<GroupResponse>,
@@ -166,8 +187,8 @@ class GroupRepository {
             })
     }
 
-    fun getParticipantList(groupid: Int, onResult: (Int, List<User>?) -> Unit) {
-        groupService.requestGetParticipantList(groupid)
+    fun getParticipantList(gid: Int, onResult: (Int, List<User>?) -> Unit) {
+        groupService.requestGetParticipantList(gid)
             .enqueue(object : Callback<UserListResponse> {
                 override fun onResponse(
                     call: Call<UserListResponse>,

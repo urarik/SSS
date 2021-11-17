@@ -30,14 +30,24 @@ interface GroupService {
     @POST("group/delete")
     @FormUrlEncoded
     fun requestDeleteGroup(
-        @Field("groupid")
+        @Field("gid")
         groupId: Int
+    ): Call<GenericResponse>
+
+    @POST("group/exit")
+    @FormUrlEncoded
+    fun requestExitGroup(
+        @Field("gid")
+        groupId: Int,
+
+        @Field("userid")
+        userId: String
     ): Call<GenericResponse>
 
     @POST("group/edit")
     @FormUrlEncoded
     fun requestEditGroup(
-        @Field("groupid")
+        @Field("gid")
         groupId: Int,
 
         @Field("name")
@@ -53,7 +63,7 @@ interface GroupService {
     @POST("group/invite")
     @FormUrlEncoded
     fun requestInviteGroup(
-        @Field("groupid")
+        @Field("gid")
         groupId: Int,
 
         @Field("userid_list")
@@ -63,7 +73,7 @@ interface GroupService {
     @POST("group/kickout")
     @FormUrlEncoded
     fun requestKickOutGroup(
-        @Field("groupid")
+        @Field("gid")
         groupId: Int,
 
         @Field("userid_list")
@@ -80,14 +90,14 @@ interface GroupService {
     @POST("group/list")
     @FormUrlEncoded
     fun requestGetGroup(
-        @Field("groupid")
+        @Field("gid")
         groupId: Int
     ): Call<GroupResponse>
 
     @POST("group/participants")
     @FormUrlEncoded
     fun requestGetParticipantList(
-        @Field("groupid")
+        @Field("gid")
         planId: Int
     ): Call<UserListResponse>
 }

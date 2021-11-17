@@ -186,8 +186,8 @@ class PlanRepository {
             })
     }
 
-    fun deleteMemo(memoId: Int, onResult: (Int) -> Unit) {
-        planService.requestDeleteMemo(memoId)
+    fun deleteMemo(pid: Int, onResult: (Int) -> Unit) {
+        planService.requestDeleteMemo(pid, UserInfo.userId)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(
                     call: Call<GenericResponse>,
