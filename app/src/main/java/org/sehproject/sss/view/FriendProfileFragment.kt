@@ -6,12 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentMapBinding
+import org.sehproject.sss.logic.FriendLogic
+import org.sehproject.sss.viewmodel.FriendViewModel
 
 
 class FriendProfileFragment : Fragment() {
+    private val friendViewModel: FriendViewModel by lazy {
+        ViewModelProvider(this).get(FriendViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,7 +29,7 @@ class FriendProfileFragment : Fragment() {
             container,
             false
         )
-
+        friendProfileBinding.friendLogic = friendViewModel.friendLogic
         return friendProfileBinding.root
     }
 
