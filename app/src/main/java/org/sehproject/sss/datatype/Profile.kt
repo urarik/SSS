@@ -4,9 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Profile(var userId: String,
-                   var nickName: String,
-                   var name: String,
-                   var age: Int,
-                   var gender: Boolean,
-                   var image: String): Parcelable
+data class Profile(var userId: String="",
+                   var nickName: String="",
+                   var name: String="",
+                   var age: Int=0,
+                   var gender: Boolean=true,
+                   var image: String=""): Parcelable

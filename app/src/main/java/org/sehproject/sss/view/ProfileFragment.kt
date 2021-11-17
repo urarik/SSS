@@ -12,6 +12,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileBinding
+import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment() {
@@ -30,7 +31,7 @@ class ProfileFragment : Fragment() {
             false
         )
         profileBinding.profileLogic = profileViewModel.profileLogic
-
+        profileBinding.profile = Profile()
         initObserver()
         return profileBinding.root
     }
@@ -44,6 +45,10 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.selectOptionEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.settingFragment)
+        })
+
+        profileViewModel.viewStatisticsEvent.observe(viewLifecycleOwner, {
+            findNavController().navigate(R.id.statisticsDialogFragment)
         })
     }
 }

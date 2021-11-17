@@ -4,10 +4,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.logic.PlanLogic
+import org.sehproject.sss.repository.FriendRepository
 import org.sehproject.sss.utils.SingleLiveEvent
 
 class PlanViewModel: ViewModel() {
     val planLogic = PlanLogic(this)
+    val friendRepository = FriendRepository()
+
+    fun setFriendList() {
+        friendRepository.getFriendList { _, list ->
+            friendListLiveData.value = list
+        }
+    }
 
     val editPlanEvent = SingleLiveEvent<Plan>()
     val editCompletePlanEvent = SingleLiveEvent<Int>()

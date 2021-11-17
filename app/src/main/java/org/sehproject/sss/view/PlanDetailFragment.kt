@@ -46,11 +46,11 @@ class PlanDetailFragment : Fragment() {
         })
 
         planViewModel.kickOutPlanEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.groupInviteFragment)
+            navController.navigate(R.id.planInviteDialogFragment)
         })
 
         planViewModel.invitePlanEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.groupInviteFragment)
+            navController.navigate(R.id.planInviteDialogFragment)
         })
 
         mapViewModel.trackEvent.observe(viewLifecycleOwner, {

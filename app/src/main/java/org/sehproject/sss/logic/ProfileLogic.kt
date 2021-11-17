@@ -11,7 +11,9 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
         profileViewModel.editProfileCompleteEvent.call()
     }
     fun onUploadImageClick() {}
-    fun onViewStatisticsClick() {}
+    fun onViewStatisticsClick() {
+        profileViewModel.viewStatisticsEvent.call()
+    }
     fun onViewStatisticsExitClick() {}
     fun onSelectOptionClick() {
         profileViewModel.selectOptionEvent.call()

@@ -1,22 +1,16 @@
-package org.sehproject.sss.view
+package org.sehproject.sss.view.Friend
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentFriendListBinding
-import org.sehproject.sss.databinding.FragmentGroupEditBinding
-import org.sehproject.sss.databinding.FragmentPlanListBinding
 import org.sehproject.sss.viewmodel.FriendViewModel
-import org.sehproject.sss.viewmodel.PlanViewModel
 
 class FriendListFragment : Fragment() {
     private val friendViewModel: FriendViewModel by lazy {
