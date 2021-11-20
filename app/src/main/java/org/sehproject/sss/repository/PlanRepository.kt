@@ -20,7 +20,7 @@ class PlanRepository {
     private var planService: PlanService = retrofit.create(PlanService::class.java)
 
     fun createPlan(plan: Plan, onResult: (Int) -> Unit) {
-        planService.requestCreatePlan(
+        val createPlanCall = planService.requestCreatePlan(
             plan.name,
             plan.name,
             plan.startTime,
@@ -29,63 +29,52 @@ class PlanRepository {
             plan.category,
             UserInfo.userId
         )
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                planService.requestCreatePlan(
-                    plan.name,
-                    plan.name,
-                    plan.startTime,
-                    plan.endTime,
-                    plan.location,
-                    plan.category,
-                    UserInfo.userId
-                )
+        createPlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(createPlanCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun deletePlan(pid: Int, onResult: (Int) -> Unit) {
-        planService.requestDeletePlan(pid)
-            .enqueue(object :
-                CallbackWithRetry<GenericResponse>(planService.requestDeletePlan(pid)) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+        val deletePlanCall = planService.requestDeletePlan(pid)
+        deletePlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(deletePlanCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun editPlan(plan: Plan, onResult: (Int) -> Unit) {
-        planService.requestEditPlan(
+        val editPlanCall = planService.requestEditPlan(
             plan.name,
             plan.name,
             plan.startTime,
@@ -93,355 +82,307 @@ class PlanRepository {
             plan.location,
             plan.category
         )
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                planService.requestEditPlan(
-                    plan.name,
-                    plan.name,
-                    plan.startTime,
-                    plan.endTime,
-                    plan.location,
-                    plan.category
-                )
+        editPlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(editPlanCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun completePlan(pid: Int, onResult: (Int) -> Unit) {
-        planService.requestCompletePlan(pid, UserInfo.userId)
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                planService.requestCompletePlan(
-                    pid,
-                    UserInfo.userId
-                )
+        val completePlanCall = planService.requestCompletePlan(pid)
+        completePlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(completePlanCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun cancelPlan(pid: Int, onResult: (Int) -> Unit) {
-        planService.requestCancelPlan(pid, UserInfo.userId)
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                planService.requestCancelPlan(
-                    pid,
-                    UserInfo.userId
-                )
+        val cancelPlanCall = planService.requestCancelPlan(pid, UserInfo.userId)
+        cancelPlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(cancelPlanCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun invitePlan(pid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
-        planService.requestInvitePlan(pid, userIdList)
-            .enqueue(object :
-                CallbackWithRetry<GenericResponse>(planService.requestInvitePlan(pid, userIdList)) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+        val invitePlanCall = planService.requestInvitePlan(pid, userIdList)
+        invitePlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(invitePlanCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun kickOutPlan(pid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
-        planService.requestKickOutPlan(pid, userIdList)
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                planService.requestKickOutPlan(
-                    pid,
-                    userIdList
-                )
+        val kickOutPlanCall = planService.requestKickOutPlan(pid, userIdList)
+        kickOutPlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(kickOutPlanCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun createMemo(memo: Memo, onResult: (Int) -> Unit) {
-        planService.requestCreateMemo(memo.pid, UserInfo.userId, memo.memo)
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                planService.requestCreateMemo(
-                    memo.pid,
-                    UserInfo.userId,
-                    memo.memo
-                )
+        val createMemoCall = planService.requestCreateMemo(memo.pid, UserInfo.userId, memo.memo)
+        createMemoCall.enqueue(object : CallbackWithRetry<GenericResponse>(createMemoCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun deleteMemo(pid: Int, onResult: (Int) -> Unit) {
-        planService.requestDeleteMemo(pid, UserInfo.userId)
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                planService.requestDeleteMemo(
-                    pid,
-                    UserInfo.userId
-                )
+        val deleteMemoCall = planService.requestDeleteMemo(pid, UserInfo.userId)
+        deleteMemoCall.enqueue(object : CallbackWithRetry<GenericResponse>(deleteMemoCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun makePlanPublic(pid: Int, onResult: (Int) -> Unit) {
-        planService.requestMakePlanPublic(pid, UserInfo.userId)
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                planService.requestMakePlanPublic(
-                    pid,
-                    UserInfo.userId
-                )
+        val makePlanPublicCall = planService.requestMakePlanPublic(pid, UserInfo.userId)
+        makePlanPublicCall.enqueue(object : CallbackWithRetry<GenericResponse>(makePlanPublicCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun getImageOcr(image: Byte, onResult: (Int, String?) -> Unit) {
-        planService.requestGetImageOcr(image)
-            .enqueue(object :
-                CallbackWithRetry<OcrResponse>(planService.requestGetImageOcr(image)) {
-                override fun onResponse(
-                    call: Call<OcrResponse>,
-                    response: Response<OcrResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        val recognizedStr = response.body()?.recognizedStr
-                        onResult(0, recognizedStr)
-                    } else {
-                        onResult(1, null)
-                    }
+        val getImageOcrCall = planService.requestGetImageOcr(image)
+        getImageOcrCall.enqueue(object : CallbackWithRetry<OcrResponse>(getImageOcrCall) {
+            override fun onResponse(
+                call: Call<OcrResponse>,
+                response: Response<OcrResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    val recognizedStr = response.body()?.recognizedStr
+                    onResult(0, recognizedStr)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<OcrResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<OcrResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 
     // isCurrent true : 현재, false : 과거
     fun getPlanList(isCurrent: Boolean, onResult: (Int, List<Plan>?) -> Unit) {
-        planService.requestGetPlanList(UserInfo.userId, isCurrent)
-            .enqueue(object : CallbackWithRetry<PlanListResponse>(
-                planService.requestGetPlanList(
-                    UserInfo.userId,
-                    isCurrent
-                )
+        val getPlanListCall = planService.requestGetPlanList(UserInfo.userId, isCurrent)
+        getPlanListCall.enqueue(object : CallbackWithRetry<PlanListResponse>(getPlanListCall) {
+            override fun onResponse(
+                call: Call<PlanListResponse>,
+                response: Response<PlanListResponse>
             ) {
-                override fun onResponse(
-                    call: Call<PlanListResponse>,
-                    response: Response<PlanListResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        val planList = response.body()?.planList
-                        onResult(0, planList)
-                    } else {
-                        onResult(1, null)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    val planList = response.body()?.planList
+                    onResult(0, planList)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<PlanListResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<PlanListResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 
     fun getPlan(pid: Int, onResult: (Int, Plan?) -> Unit) {
-        planService.requestGetPlan(pid)
-            .enqueue(object : CallbackWithRetry<PlanResponse>(planService.requestGetPlan(pid)) {
-                override fun onResponse(
-                    call: Call<PlanResponse>,
-                    response: Response<PlanResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        val plan = response.body()?.plan
-                        onResult(0, plan)
-                    } else {
-                        onResult(1, null)
-                    }
+        val getPlanCall = planService.requestGetPlan(pid)
+        getPlanCall.enqueue(object : CallbackWithRetry<PlanResponse>(getPlanCall) {
+            override fun onResponse(
+                call: Call<PlanResponse>,
+                response: Response<PlanResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    val plan = response.body()?.plan
+                    onResult(0, plan)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<PlanResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<PlanResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 
     fun getParticipantList(pid: Int, onResult: (Int, List<User>?) -> Unit) {
-        planService.requestGetParticipantList(pid)
-            .enqueue(object :
-                CallbackWithRetry<UserListResponse>(planService.requestGetParticipantList(pid)) {
-                override fun onResponse(
-                    call: Call<UserListResponse>,
-                    response: Response<UserListResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        val participantList = response.body()?.userList
-                        onResult(0, participantList)
-                    } else {
-                        onResult(1, null)
-                    }
+        val getParticipantListCall = planService.requestGetParticipantList(pid)
+        getParticipantListCall.enqueue(object :
+            CallbackWithRetry<UserListResponse>(getParticipantListCall) {
+            override fun onResponse(
+                call: Call<UserListResponse>,
+                response: Response<UserListResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    val participantList = response.body()?.userList
+                    onResult(0, participantList)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 
     fun getMemoList(pid: Int, onResult: (Int, List<Memo>?) -> Unit) {
-        planService.requestGetMemoList(pid)
-            .enqueue(object :
-                CallbackWithRetry<MemoListResponse>(planService.requestGetMemoList(pid)) {
-                override fun onResponse(
-                    call: Call<MemoListResponse>,
-                    response: Response<MemoListResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        val memoList = response.body()?.memoList
-                        onResult(0, memoList)
-                    } else {
-                        onResult(1, null)
-                    }
+        val getMemoListCall = planService.requestGetMemoList(pid)
+        getMemoListCall.enqueue(object : CallbackWithRetry<MemoListResponse>(getMemoListCall) {
+            override fun onResponse(
+                call: Call<MemoListResponse>,
+                response: Response<MemoListResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    val memoList = response.body()?.memoList
+                    onResult(0, memoList)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<MemoListResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<MemoListResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 }
