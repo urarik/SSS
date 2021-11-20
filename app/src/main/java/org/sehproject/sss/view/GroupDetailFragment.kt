@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentGroupDetailBinding
@@ -19,6 +20,8 @@ class GroupDetailFragment : Fragment() {
     private val groupViewModel: GroupViewModel by lazy {
         ViewModelProvider(this).get(GroupViewModel::class.java)
     }
+    private val safeArgs: GroupDetailFragmentArgs by navArgs() //gid
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,7 +33,7 @@ class GroupDetailFragment : Fragment() {
             false
         )
         groupDetailBinding.groupLogic = groupViewModel.groupLogic
-        groupDetailBinding.group = Group(name="GGG")
+        groupDetailBinding.group = Group(10, name="GGG")
         initObserver()
         return groupDetailBinding.root
     }
@@ -39,6 +42,14 @@ class GroupDetailFragment : Fragment() {
         val navController = findNavController()
         groupViewModel.editGroupEvent.observe(this, {
             val action = GroupDetailFragmentDirections.actionGroupDetailFragmentToGroupEditFragment(it)
+            navController.navigate(action)
+        })
+        groupViewModel.inviteGroupEvent.observe(this, {
+            val action = GroupDetailFragmentDirections.actionGroupDetailFragmentToGroupInviteFragment(it)
+            navController.navigate(action)
+        })
+        groupViewModel.kickOutGroupEvent.observe(this, {
+            val action = GroupDetailFragmentDirections.actionGroupDetailFragmentToGroupKickOutFragment(it)
             navController.navigate(action)
         })
     }

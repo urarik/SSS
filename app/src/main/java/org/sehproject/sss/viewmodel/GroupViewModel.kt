@@ -21,7 +21,7 @@ class GroupViewModel : ViewModel() {
 
     val groupLogic = GroupLogic(this)
 
-    val createGroupEvent = SingleLiveEvent<Any>()
+    val createGroupEvent = SingleLiveEvent<Int>()
     val createGroupCompleteEvent = SingleLiveEvent<Any>()
     val deleteGroupCompleteEvent = SingleLiveEvent<Any>()
     val editGroupEvent = SingleLiveEvent<Group>()
@@ -30,7 +30,7 @@ class GroupViewModel : ViewModel() {
     val inviteGroupCompleteEvent = SingleLiveEvent<Any>()
     val kickOutGroupEvent = SingleLiveEvent<Int>()
     val kickOutGroupCompleteEvent = SingleLiveEvent<Any>()
-    val viewGroupDetailsEvent = SingleLiveEvent<Any>()
+    val viewGroupDetailsEvent = SingleLiveEvent<Int>()
     val viewGroupDetailsCompleteEvent = SingleLiveEvent<Any>()
     val viewGroupEvent = SingleLiveEvent<Any>()
     val viewGroupCompleteEvent = SingleLiveEvent<Any>()

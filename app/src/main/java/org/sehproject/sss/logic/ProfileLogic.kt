@@ -1,16 +1,19 @@
 package org.sehproject.sss.logic
 
+import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.viewmodel.ProfileViewModel
 
 class ProfileLogic(val profileViewModel: ProfileViewModel) {
-    fun onEditProfileClick() {
-        profileViewModel.editProfileEvent.call()
+    fun onEditProfileClick(profile: Profile) {
+        profileViewModel.editProfileEvent.value = profile
     }
     fun onEditProfileCompleteClick() {
         profileViewModel.editProfileCompleteEvent.call()
     }
     fun onUploadImageClick() {}
-    fun onViewStatisticsClick() {}
+    fun onViewStatisticsClick() {
+        profileViewModel.viewStatisticsEvent.call()
+    }
     fun onViewStatisticsExitClick() {}
     fun onSelectOptionClick() {
         profileViewModel.selectOptionEvent.call()

@@ -102,7 +102,7 @@
                 android:id="@+id/editPlanFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->planLogic.onEditPlanClick()}"
+                android:onClick="@{()->planLogic.onEditPlanClick(plan)}"
                 app:fab_icon="@drawable/edit"
                 app:fab_size="mini"
                 app:fab_title="약속 수정" />
@@ -165,7 +165,7 @@
                 android:id="@+id/sharingFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->mapLogic.onShareMyLocationClick()}"
+                android:onClick="@{()->mapLogic.onShareMyLocationClick(plan.pid)}"
                 app:fab_icon="@drawable/map"
                 app:fab_size="mini"
                 app:fab_title="위치 공유" />
