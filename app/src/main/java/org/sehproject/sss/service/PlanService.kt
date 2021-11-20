@@ -67,9 +67,6 @@ interface PlanService {
     fun requestCompletePlan(
         @Field("pid")
         planId: Int,
-
-        @Field("userid")
-        userId: String
     ): Call<GenericResponse>
 
     @POST("plan/cancel")

@@ -16,7 +16,6 @@ import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.UserLogic
-import org.sehproject.sss.repository.LoginRepository
 import org.sehproject.sss.repository.UserRepository
 import org.sehproject.sss.utils.ActivityNavigation
 import org.sehproject.sss.utils.LiveMessageEvent

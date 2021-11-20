@@ -18,6 +18,20 @@ class GroupViewModel : ViewModel() {
             friendListLiveData.value = list
         }
     }
+    fun getGroupList()
+    {
+        val tests = mutableListOf<Group>()
+        tests.add(Group(gid=0, color=0xebe834, name="test1"))
+        tests.add(Group(gid=1, color=0xc436c7, name="test2"))
+        tests.add(Group(gid=2, color=0x3073c9, name="test3"))
+        tests.add(Group(gid=3, color=0x36d9c8, name="test4"))
+        groupListLiveData.value = tests
+/*        groupRepository.getGroupList { i, list ->
+        if(i == 0)
+            groupListLiveData.value = list
+        }*/
+    }
+
 
     val groupLogic = GroupLogic(this)
 
@@ -36,4 +50,5 @@ class GroupViewModel : ViewModel() {
     val viewGroupCompleteEvent = SingleLiveEvent<Any>()
     val inputGroupInfoProcessEvent = SingleLiveEvent<Any>()
     val friendListLiveData = MutableLiveData<List<User>>()
+    val groupListLiveData = MutableLiveData<List<Group>>()
 }
