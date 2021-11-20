@@ -24,57 +24,54 @@ class MapRepository {
     private var mapService: MapService = retrofit.create(MapService::class.java)
 
     fun setLocation(coordinate: Coordinate, onResult: (Int) -> Unit) {
-        mapService.requestSetLocation(UserInfo.userId, coordinate.latitude, coordinate.longitude)
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                mapService.requestSetLocation(
-                    UserInfo.userId,
-                    coordinate.latitude,
-                    coordinate.longitude
-                )
+        val setLocationCall = mapService.requestSetLocation(
+            UserInfo.userId,
+            coordinate.latitude,
+            coordinate.longitude
+        )
+        setLocationCall.enqueue(object : CallbackWithRetry<GenericResponse>(setLocationCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun getLocation(userId: String, onResult: (Int, Coordinate?) -> Unit) {
-        mapService.requestGetLocation(userId)
-            .enqueue(object :
-                CallbackWithRetry<CoordinateResponse>(mapService.requestGetLocation(userId)) {
-                override fun onResponse(
-                    call: Call<CoordinateResponse>,
-                    response: Response<CoordinateResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        val coordinate = response.body()?.coordinate
-                        onResult(0, coordinate)
-                    } else {
-                        onResult(1, null)
-                    }
+        val getLocationCall = mapService.requestGetLocation(userId)
+        getLocationCall.enqueue(object : CallbackWithRetry<CoordinateResponse>(getLocationCall) {
+            override fun onResponse(
+                call: Call<CoordinateResponse>,
+                response: Response<CoordinateResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    val coordinate = response.body()?.coordinate
+                    onResult(0, coordinate)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<CoordinateResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<CoordinateResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 
     fun getEta(
@@ -82,31 +79,26 @@ class MapRepository {
         destinationAddress: String,
         onResult: (Int, LocalTime?) -> Unit
     ) {
-        mapService.requestGetEta(startAddress, destinationAddress)
-            .enqueue(object : CallbackWithRetry<EtaResponse>(
-                mapService.requestGetEta(
-                    startAddress,
-                    destinationAddress
-                )
+        val getEtaCall = mapService.requestGetEta(startAddress, destinationAddress)
+        getEtaCall.enqueue(object : CallbackWithRetry<EtaResponse>(getEtaCall) {
+            override fun onResponse(
+                call: Call<EtaResponse>,
+                response: Response<EtaResponse>
             ) {
-                override fun onResponse(
-                    call: Call<EtaResponse>,
-                    response: Response<EtaResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        val eta = response.body()?.eta
-                        onResult(0, eta)
-                    } else {
-                        onResult(1, null)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    val eta = response.body()?.eta
+                    onResult(0, eta)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<EtaResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<EtaResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 }

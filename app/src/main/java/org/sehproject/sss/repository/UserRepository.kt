@@ -24,82 +24,75 @@ class UserRepository(private val appDatabase: AppDatabase) {
     private var userService: UserService = retrofit.create(UserService::class.java)
 
     fun login(userId: String, password: String, onResult: (Int, String?) -> Unit) {
-        userService.requestLogin(userId, password)
-            .enqueue(object :
-                CallbackWithRetry<UserResponse>(userService.requestLogin(userId, password)) {
-                override fun onResponse(
-                    call: Call<UserResponse>,
-                    response: Response<UserResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        val nickName = response.body()?.user?.nickName
-                        onResult(0, nickName)
-                    } else {
-                        onResult(1, null)
-                    }
+        val loginCall = userService.requestLogin(userId, password)
+        loginCall.enqueue(object : CallbackWithRetry<UserResponse>(loginCall) {
+            override fun onResponse(
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    val nickName = response.body()?.user?.nickName
+                    onResult(0, nickName)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 
     fun register(userId: String, password: String, nickName: String, onResult: (Int) -> Unit) {
-        userService.requestRegister(userId, password, nickName)
-            .enqueue(object : CallbackWithRetry<GenericResponse>(
-                userService.requestRegister(
-                    userId,
-                    password,
-                    nickName
-                )
+        val registerCall = userService.requestRegister(userId, password, nickName)
+        registerCall.enqueue(object : CallbackWithRetry<GenericResponse>(registerCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
             ) {
-                override fun onResponse(
-                    call: Call<GenericResponse>,
-                    response: Response<GenericResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        onResult(0)
-                    } else {
-                        onResult(1)
-                    }
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
                 }
+            }
 
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1)
-                    }
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
-            })
+            }
+        })
     }
 
     fun getUser(userId: String, onResult: (Int, User?) -> Unit) {
-        userService.requestGetUser(userId)
-            .enqueue(object :
-                CallbackWithRetry<UserResponse>(userService.requestGetUser(userId)) {
-                override fun onResponse(
-                    call: Call<UserResponse>,
-                    response: Response<UserResponse>
-                ) {
-                    val code = response.body()?.code
-                    if (code == 0) {
-                        val user = response.body()?.user
-                        onResult(0, user)
-                    } else {
-                        onResult(1, null)
-                    }
+        val getUserCall = userService.requestGetUser(userId)
+        getUserCall.enqueue(object :
+            CallbackWithRetry<UserResponse>(getUserCall) {
+            override fun onResponse(
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    val user = response.body()?.user
+                    onResult(0, user)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 
     fun getSavedAccount(): Account? {
