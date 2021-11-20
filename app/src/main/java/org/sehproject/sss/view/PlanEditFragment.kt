@@ -37,8 +37,9 @@ class PlanEditFragment : Fragment() {
     }
 
     fun initObserver() {
+        val navController = findNavController()
         planViewModel.editCompletePlanEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.action_planEditFragment_to_planListFragment)
+            navController.navigate(R.id.action_planEditFragment_to_planListFragment)
         })
     }
 }

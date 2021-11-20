@@ -120,7 +120,7 @@
                 android:id="@+id/completePlanFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->planLogic.onCompletePlanClick()}"
+                android:onClick="@{()->planLogic.onCompletePlanClick(plan)}"
                 app:fab_icon="@drawable/complete"
                 app:fab_size="mini"
                 app:fab_title="약속 완료" />

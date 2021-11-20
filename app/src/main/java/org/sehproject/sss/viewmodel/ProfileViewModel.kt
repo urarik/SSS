@@ -2,13 +2,17 @@ package org.sehproject.sss.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.logic.PlanLogic
 import org.sehproject.sss.logic.ProfileLogic
+import org.sehproject.sss.repository.ProfileRepository
+import org.sehproject.sss.repository.UserRepository
 import org.sehproject.sss.utils.SingleLiveEvent
 
-class ProfileViewModel: ViewModel() {
+class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     val profileLogic = ProfileLogic(this)
+    val profileRepository = ProfileRepository(appDatabase);
 
     val viewProfileEvent = SingleLiveEvent<Int>()
     val editProfileEvent = SingleLiveEvent<Profile>()
@@ -19,14 +23,20 @@ class ProfileViewModel: ViewModel() {
     val viewFriendProfileEvent = SingleLiveEvent<Int>()
     val selectOptionEvent = SingleLiveEvent<Int>()
     val logoutEvent = SingleLiveEvent<Int>()
-    val profileLiveData = MutableLiveData<Profile>()
-    val statisticsLiveData = MutableLiveData<Statistics>()
-    val planListLiveData = MutableLiveData<List<SimplePlan>>()
+    var profileLiveData = MutableLiveData<Profile>()
+    var statisticsLiveData = MutableLiveData<Statistics>()
+    var planListLiveData = MutableLiveData<List<SimplePlan>>()
 
     fun setProfile(userId: String) {
+        profileRepository.getProfile(userId) { code: Int, profile: Profile? ->
+            if(code == 0) {
+                profileLiveData.value = profile
+            }
+        }
+    }
+    fun setStatistics() {
 
     }
-    fun setStatistics() {}
 
 
 }

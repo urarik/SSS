@@ -35,6 +35,7 @@ class GroupListFragment : Fragment() {
         return groupListBinding.root
     }
 
+    // test 버튼 필요 없을 때 view 삭제
     private fun initObserver(view: View) {
         val navController = findNavController()
         groupViewModel.createGroupEvent.observe(this, {

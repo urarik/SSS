@@ -80,6 +80,11 @@
         <action
             android:id="@+id/action_planDetailFragment_to_planInviteDialogFragment"
             app:destination="@id/planInviteDialogFragment" />
+        <action
+            android:id="@+id/action_planDetailFragment_to_planListFragment"
+            app:destination="@id/planListFragment"
+            app:popUpTo="@id/planListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/planListFragment"
@@ -181,6 +186,11 @@
         <action
             android:id="@+id/action_profileFragment_to_statisticsDialogFragment"
             app:destination="@id/statisticsDialogFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/invitationFragment"
@@ -238,7 +248,13 @@
     <fragment
         android:id="@+id/statisticsDialogFragment"
         android:name="org.sehproject.sss.view.StatisticsDialogFragment"
-        android:label="StatisticsDialogFragment" />
+        android:label="StatisticsDialogFragment" >
+        <action
+            android:id="@+id/action_statisticsDialogFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <dialog
         android:id="@+id/planInviteDialogFragment"
         android:name="org.sehproject.sss.view.PlanInviteDialogFragment"

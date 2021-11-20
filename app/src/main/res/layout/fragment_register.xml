@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입"
-        android:onClick="@{()->userLogic.onRegisterCompleteClick()}"
+        android:onClick="@{()->userLogic.onRegisterCompleteClick(editRegisterUserId.getText().toString(), editRegisterPassword.getText().toString(), editRegisterConfirmPassword.getText().toString(), editRegisterNickName.getText().toString())}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

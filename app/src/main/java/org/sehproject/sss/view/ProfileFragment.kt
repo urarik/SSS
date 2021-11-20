@@ -10,14 +10,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileBinding
 import org.sehproject.sss.datatype.Profile
+import org.sehproject.sss.utils.ProfileViewModelFactory
 import org.sehproject.sss.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
-        ViewModelProvider(this).get(ProfileViewModel::class.java)
+        val appDatabase = AppDatabase.getInstance(requireContext())!!
+        ViewModelProvider(this, ProfileViewModelFactory(appDatabase)).get(ProfileViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -32,6 +35,7 @@ class ProfileFragment : Fragment() {
         )
         profileBinding.profileLogic = profileViewModel.profileLogic
         profileBinding.profile = Profile()
+        profileViewModel.setProfile(UserInfo.userId)
         initObserver()
         return profileBinding.root
     }
@@ -48,7 +52,11 @@ class ProfileFragment : Fragment() {
         })
 
         profileViewModel.viewStatisticsEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.statisticsDialogFragment)
+            navController.navigate(R.id.statisticsDialogFragment)
+        })
+
+        profileViewModel.logoutEvent.observe(viewLifecycleOwner, {
+            navController.navigate(R.id.action_profileFragment_to_loginFragment)
         })
     }
 }
