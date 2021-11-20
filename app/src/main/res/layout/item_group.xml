@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="group"
+            type="org.sehproject.sss.datatype.Group" />
+        <variable
+            name="groupLogic"
+            type="org.sehproject.sss.logic.GroupLogic" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_group"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:layout_margin="5dp"
+        android:onClick="@{_ -> groupLogic.onViewGroupDetailClick(group.gid)}"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="8dp"
+
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image_group_color"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:hint="ABD"
+                android:text="@{group.name}"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.652"
+                app:layout_constraintStart_toEndOf="@+id/image_group_color"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

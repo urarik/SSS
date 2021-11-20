@@ -69,15 +69,11 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 
     }
 
-    fun onViewGroupDetailClick()
+    fun onViewGroupDetailClick(gid: Int)
     {
-
+        groupViewModel.viewGroupDetailsEvent.value = gid
     }
 
-    fun getGroupList()
-    {
-
-    }
 
     fun getGroup(groupid: Int)
     {

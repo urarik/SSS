@@ -51,8 +51,7 @@
         app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerPlanOrder"
-        app:layout_constraintVertical_bias="0.527"
-        tools:listitem="@layout/view_group_item" />
+        app:layout_constraintVertical_bias="0.527" />
 
     <Button
         android:id="@+id/btn_map_test"
