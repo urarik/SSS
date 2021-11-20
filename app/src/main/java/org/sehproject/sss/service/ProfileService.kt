@@ -1,12 +1,13 @@
 package org.sehproject.sss.service
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import org.sehproject.sss.datatype.GenericResponse
 import org.sehproject.sss.datatype.ProfileResponse
 import org.sehproject.sss.datatype.StatisticsResponse
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ProfileService {
     @POST("profile/edit")
@@ -26,11 +27,23 @@ interface ProfileService {
 
         @Field("gender")
         gender: Boolean,
-
-        // 이미지는 나중에 Multipart를 사용하도록 변경 필요
-        @Field("image")
-        image: String
     ): Call<GenericResponse>
+
+    @POST("profile/image")
+    @Multipart
+    fun requestUploadProfileImage(
+        @Part
+        file: MultipartBody.Part,
+
+        @Part("image")
+        name: RequestBody
+    ): Call<GenericResponse>
+
+    @GET("image/{userid}")
+    fun requestDownloadProfileImage(
+        @Path("userid")
+        userId: String
+    ): Call<ResponseBody>
 
     @POST("profile")
     @FormUrlEncoded
@@ -38,15 +51,6 @@ interface ProfileService {
         @Field("userid")
         userId: String
     ): Call<ProfileResponse>
-
-    // PlanService 로 통합 생각중
-    /*
-    @POST("profile/plan_list")
-    @FormUrlEncoded
-    fun requestGetPlanList(
-        @Field("userid")
-        userId: String
-    ): Call<PlanListResponse>*/
 
     @POST("profile/statistics")
     @FormUrlEncoded
