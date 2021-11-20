@@ -23,7 +23,7 @@ import org.sehproject.sss.utils.SingleLiveEvent
 
 class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
     val userLogic = UserLogic(this)
-    private val userRepository = UserRepository(appDatabase);
+    val userRepository = UserRepository(appDatabase);
 
     val userId = MutableLiveData("")
     val password = MutableLiveData("")
@@ -44,34 +44,11 @@ class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
         googleSignInClient = _googleSignInClient
     }
 
-    fun onLogin(user: AccountXML) {
-        Log.d("tag", user.toString())
-        if (checkValidate(user.userId, user.password)) {
-            userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
-                if(code == 0) {
-                    updateUI(nickName!!)
-                }
-            }
-        }
-    }
-
-    fun updateUI(name: String) {
-        UserInfo.isLogin = true
-        UserInfo.userName = name
-        isLogin.value = true// thread 사용시 바꿔야함
-    }
-
-    fun onCheat() {
-        cheatEvent.call()
-    }
-
-    private fun checkValidate(email: String, password: String): Boolean = true
-
     fun naverLogInCallback(result: String) {
         val jsonObject = JSONObject(result)
         val responseObject = JSONObject(jsonObject.getString("response"))
         val email = responseObject.getString("email")
-        updateUI(email)
+        userLogic.updateUI(email)
     }
 
     fun onGoogleLogin() {

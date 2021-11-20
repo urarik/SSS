@@ -10,15 +10,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileEditBinding
+import org.sehproject.sss.utils.ProfileViewModelFactory
 import org.sehproject.sss.view.GroupDetailFragmentArgs
 import org.sehproject.sss.viewmodel.PlanViewModel
 import org.sehproject.sss.viewmodel.ProfileViewModel
 
 class ProfileEditFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
-        ViewModelProvider(this).get(ProfileViewModel::class.java)
+        val appDatabase = AppDatabase.getInstance(requireContext())!!
+        ViewModelProvider(this, ProfileViewModelFactory(appDatabase)).get(ProfileViewModel::class.java)
     }
     private val safeArgs: ProfileEditFragmentArgs by navArgs() //profile
 
@@ -34,13 +37,14 @@ class ProfileEditFragment : Fragment() {
         )
         profileEditBinding.profileLogic = profileViewModel.profileLogic
 
-        initObserver(profileEditBinding.root)
+        initObserver()
         return profileEditBinding.root
     }
 
-    private fun initObserver(view: View) {
+    private fun initObserver() {
+        val navController = findNavController()
         profileViewModel.editProfileCompleteEvent.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.action_profileEditFragment_to_profileFragment)
+            navController.navigate(R.id.action_profileEditFragment_to_profileFragment)
         })
     }
 

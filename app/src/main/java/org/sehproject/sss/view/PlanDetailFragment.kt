@@ -2,6 +2,7 @@ package org.sehproject.sss.view
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -58,6 +59,10 @@ class PlanDetailFragment : Fragment() {
             navController.navigate(action)
         })
 
+        planViewModel.completePlanCompleteEvent.observe(viewLifecycleOwner, {
+            navController.navigate(R.id.action_planDetailFragment_to_planListFragment)
+        })
+
         planViewModel.createMemoEvent.observe(viewLifecycleOwner, {
             val editText = EditText(context)
 
@@ -65,7 +70,10 @@ class PlanDetailFragment : Fragment() {
             builder.setTitle("메모")
             builder.setView(editText)
             builder.setPositiveButton("입력", DialogInterface.OnClickListener { dialog, which ->
-                //Toast.makeText(applicationContext, editText.text, Toast.LENGTH_SHORT).show()
+                planViewModel.planLogic.onCreateMemoDoneClick(editText.getText().toString())
+            })
+            builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
+                // planViewModel.planLogic.onCreateMemoExitClick()
             })
             builder.show()
         })

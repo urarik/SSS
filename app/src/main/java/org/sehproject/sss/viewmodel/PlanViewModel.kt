@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.logic.PlanLogic
 import org.sehproject.sss.repository.FriendRepository
+import org.sehproject.sss.repository.PlanRepository
 import org.sehproject.sss.utils.SingleLiveEvent
 
 class PlanViewModel: ViewModel() {
     val planLogic = PlanLogic(this)
+    val planRepository = PlanRepository()
     val friendRepository = FriendRepository()
 
     fun setFriendList() {

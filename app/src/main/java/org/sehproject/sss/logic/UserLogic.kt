@@ -1,26 +1,43 @@
 package org.sehproject.sss.logic
 
 import android.util.Log
-import org.sehproject.sss.datatype.Account
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.AccountXML
-import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.UserViewModel
 
 class UserLogic(val userViewModel: UserViewModel) {
+    val userRepository = userViewModel.userRepository
+
     fun onLoginClick(user: AccountXML)
     {
-        userViewModel.onLogin(user)
-        userViewModel.loginEvent.call()
+        Log.d("tag", user.toString())
+        userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
+            if (code == 0) {
+                updateUI(nickName!!)
+                userViewModel.loginEvent.call()
+            }
+        }
     }
 
     fun onRegisterClick()
     {
-        Log.d("TAG","erer")
         userViewModel.registerEvent.call()
     }
 
-    fun onRegisterCompleteClick()
+    fun onRegisterCompleteClick(userId: String, password: String, confirmPassword: String, nickName: String)
     {
-        userViewModel.registerCompleteEvent.call()
+        if (password == confirmPassword) {
+            userRepository.register(userId, password, nickName) { code: Int ->
+                if(code == 0) {
+                    userViewModel.registerCompleteEvent.call()
+                }
+            }
+        }
+    }
+
+    fun updateUI(name: String) {
+        UserInfo.isLogin = true
+        UserInfo.userName = name
+        userViewModel.isLogin.value = true// thread 사용시 바꿔야함
     }
 }

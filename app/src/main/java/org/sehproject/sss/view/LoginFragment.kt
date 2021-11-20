@@ -88,14 +88,15 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
 
     private fun initObservers() {
+        val navController = findNavController()
         userViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
-                findNavController().navigate(R.id.planListFragment, null)
+                navController.navigate(R.id.planListFragment, null)
             }
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
             Log.d("TAG", "eeeeeeee")
-            findNavController().navigate(R.id.registerFragment, null)
+            navController.navigate(R.id.registerFragment, null)
         })
     }
 
@@ -158,7 +159,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("tag", "signInWithCredential:success")
                         val user = auth.currentUser
-                        userViewModel.updateUI(user!!.email!!)
+                        userViewModel.userLogic.updateUI(user!!.email!!)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("tag", "signInWithCredential:failure", task.exception)
