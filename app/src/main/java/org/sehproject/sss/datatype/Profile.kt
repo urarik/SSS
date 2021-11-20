@@ -5,4 +5,4 @@ data class Profile(var userId: String,
                    var name: String,
                    var age: Int,
                    var gender: Boolean,
-                   var image: String)
+                   var image: ByteArray)

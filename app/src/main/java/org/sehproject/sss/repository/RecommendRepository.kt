@@ -21,57 +21,51 @@ class RecommendRepository {
     private var recommendService: RecommendService = retrofit.create(RecommendService::class.java)
 
     fun getPopularityList(userId: String, onResult: (Int, List<Popularity>?) -> Unit) {
-        recommendService.requestPopularityList(userId)
-            .enqueue(object : CallbackWithRetry<PopularityListResponse>(
-                recommendService.requestPopularityList(userId)
+        val getPopularityListCall = recommendService.requestPopularityList(userId)
+        getPopularityListCall.enqueue(object :
+            CallbackWithRetry<PopularityListResponse>(getPopularityListCall) {
+            override fun onResponse(
+                call: Call<PopularityListResponse>,
+                listResponse: Response<PopularityListResponse>
             ) {
-                override fun onResponse(
-                    call: Call<PopularityListResponse>,
-                    listResponse: Response<PopularityListResponse>
-                ) {
-                    val code = listResponse.body()?.code
-                    if (code == 0) {
-                        val popularityList = listResponse.body()?.popularityList
-                        onResult(0, popularityList)
-                    } else {
-                        onResult(1, null)
-                    }
+                val code = listResponse.body()?.code
+                if (code == 0) {
+                    val popularityList = listResponse.body()?.popularityList
+                    onResult(0, popularityList)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<PopularityListResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<PopularityListResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 
     fun getKeyWord(target: Coordinate, onResult: (Int, String?) -> Unit) {
-        recommendService.requestKeyword(target.latitude, target.longitude)
-            .enqueue(object : CallbackWithRetry<KeywordResponse>(
-                recommendService.requestKeyword(
-                    target.latitude,
-                    target.longitude
-                )
+        val getKeyWordCall = recommendService.requestKeyword(target.latitude, target.longitude)
+        getKeyWordCall.enqueue(object : CallbackWithRetry<KeywordResponse>(getKeyWordCall) {
+            override fun onResponse(
+                call: Call<KeywordResponse>,
+                listResponse: Response<KeywordResponse>
             ) {
-                override fun onResponse(
-                    call: Call<KeywordResponse>,
-                    listResponse: Response<KeywordResponse>
-                ) {
-                    val code = listResponse.body()?.code
-                    if (code == 0) {
-                        val keyword = listResponse.body()?.keyword
-                        onResult(0, keyword)
-                    } else {
-                        onResult(1, null)
-                    }
+                val code = listResponse.body()?.code
+                if (code == 0) {
+                    val keyword = listResponse.body()?.keyword
+                    onResult(0, keyword)
+                } else {
+                    onResult(1, null)
                 }
+            }
 
-                override fun onFailure(call: Call<KeywordResponse>, t: Throwable) {
-                    super.onFailure {
-                        onResult(-1, null)
-                    }
+            override fun onFailure(call: Call<KeywordResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
                 }
-            })
+            }
+        })
     }
 }
