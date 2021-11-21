@@ -21,72 +21,141 @@
         tools:context=".view.PlanDetailFragment">
 
         <TextView
-            android:id="@+id/textViewPlanDateDetails"
+            android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="40dp"
-            android:text="@{plan.date}"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:hint="Name"
+            android:text="@{plan.name}"
+            android:textColor="@color/black_87"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewPlanTime"
+            android:id="@+id/text_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="시작일"
+            android:textColor="@color/black_87"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+
+        <TextView
+            android:id="@+id/textViewPlanStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:text="@{plan.startTime}"
+            android:textColor="@color/black_60"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/text_start"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/text_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="종료일"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black_87"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_start" />
+
+        <TextView
+            android:id="@+id/textViewPlanEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:text="@{plan.endTime}"
+            android:textColor="@color/black_60"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/text_end"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanStart" />
+
+        <TextView
+            android:id="@+id/text_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
-            android:text="@{plan.startTime}"
+            android:text="장소"
             android:textSize="18sp"
+            android:textColor="@color/black_87"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPlanDateDetails" />
+            app:layout_constraintTop_toBottomOf="@+id/text_end" />
 
         <TextView
             android:id="@+id/textViewPlanPlaceDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="56dp"
             android:layout_marginTop="20dp"
             android:text="@{plan.location}"
+            android:textColor="@color/black_60"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPlanTime" />
+            app:layout_constraintStart_toEndOf="@id/text_location"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanEnd" />
 
         <TextView
-            android:id="@+id/textViewPlanReiterationDetails"
+            android:id="@+id/text_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="36dp"
-            android:text="반복 여부: 반복 없음"
+            android:layout_marginTop="8dp"
+            android:text="카테고리"
+            android:textColor="@color/black_87"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPlanPlaceDetails" />
+            app:layout_constraintTop_toBottomOf="@+id/text_location" />
 
         <TextView
             android:id="@+id/textViewPlanCategoryDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:text="@{plan.category}"
+            android:textColor="@color/black_60"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/text_category"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanPlaceDetails" />
+
+        <TextView
+            android:id="@+id/text_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black_60"
+            android:text="그룹"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPlanReiterationDetails" />
+            app:layout_constraintTop_toBottomOf="@+id/text_category" />
 
         <TextView
             android:id="@+id/textViewPlanGroupDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:text="그룹: Young University"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="8dp"
+            android:text="@{plan.group.name}"
+            android:textColor="@color/black_60"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_group"
             app:layout_constraintTop_toBottomOf="@+id/textViewPlanCategoryDetails" />
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -111,7 +180,7 @@
                 android:id="@+id/deletePlanTypeFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->planLogic.onDeletePlanClick()}"
+                android:onClick="@{()->planLogic.onDeletePlanClick(plan.pid)}"
                 app:fab_icon="@drawable/delete"
                 app:fab_size="mini"
                 app:fab_title="약속 삭제" />
@@ -172,16 +241,14 @@
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecyclerViewMemo2"
+            android:id="@+id/recyclerMemoParticipant"
             android:layout_width="383dp"
-            android:layout_height="182dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPlanGroupDetails"
-            tools:listitem="@layout/view_memo_item" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlanGroupDetails" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

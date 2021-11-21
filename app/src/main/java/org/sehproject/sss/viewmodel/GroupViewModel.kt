@@ -10,8 +10,10 @@ import org.sehproject.sss.repository.GroupRepository
 import org.sehproject.sss.utils.SingleLiveEvent
 
 class GroupViewModel : ViewModel() {
+    val groupLogic = GroupLogic(this)
     val groupRepository = GroupRepository()
     val friendRepository = FriendRepository()
+
 
     fun setFriendList() {
         friendRepository.getFriendList { _, list ->
@@ -31,9 +33,24 @@ class GroupViewModel : ViewModel() {
             groupListLiveData.value = list
         }*/
     }
+    fun setGroup(gid: Int?) {
+        groupLiveData.value = Group(0,
+        "SE Team",
+        "Software engineering team for a project.",
+        0xFFA103,
+        participants = mutableListOf(User("test1", "test1"),
+            User("test1", "test2"),
+            User("test1", "test3"),
+            User("test1", "test4"),))
 
+//        if(gid == null) groupLiveData.value = Group()
+//        else
+//            groupRepository.getGroup(gid) {code, group ->
+//                if(code == 0)
+//                    groupLiveData.value = group
+//            }
+    }
 
-    val groupLogic = GroupLogic(this)
 
     val createGroupEvent = SingleLiveEvent<Int>()
     val createGroupCompleteEvent = SingleLiveEvent<Any>()
@@ -50,5 +67,6 @@ class GroupViewModel : ViewModel() {
     val viewGroupCompleteEvent = SingleLiveEvent<Any>()
     val inputGroupInfoProcessEvent = SingleLiveEvent<Any>()
     val friendListLiveData = MutableLiveData<List<User>>()
+    val groupLiveData = MutableLiveData<Group>()
     val groupListLiveData = MutableLiveData<List<Group>>()
 }

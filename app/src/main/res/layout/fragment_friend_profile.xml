@@ -89,8 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textMyPageGender"
-        tools:listitem="@layout/view_plan_item" />
+        app:layout_constraintTop_toBottomOf="@+id/textMyPageGender" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
