@@ -73,15 +73,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewPlanList"
-            android:layout_width="411dp"
-            android:layout_height="363dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerPlanOrder"
-            tools:listitem="@layout/view_plan_item" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerPlanOrder" />
 
         <Button
             android:id="@+id/btn_detail"
@@ -90,7 +89,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Button"
-            android:onClick="@{()->planLogic.onViewPlanClick(1, false)}"
+            android:onClick='@{()->planLogic.onViewPlanClick(1, "ASD")}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

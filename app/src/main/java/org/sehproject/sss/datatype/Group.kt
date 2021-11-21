@@ -12,4 +12,8 @@ data class Group(
     var color: Int = 0,
     var creator: String = UserInfo.userId,
     var participants: List<User>? = null
-): Parcelable
+): Parcelable {
+    override fun toString(): String {
+        return name
+    }
+}

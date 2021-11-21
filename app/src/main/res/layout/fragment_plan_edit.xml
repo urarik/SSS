@@ -5,14 +5,16 @@
 
     <data>
         <variable
+            name="plan"
+            type="org.sehproject.sss.datatype.Plan" />
+        <variable
             name="planLogic"
             type="org.sehproject.sss.logic.PlanLogic" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.PlanEditFragment">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/buttonSavePlan"
@@ -20,62 +22,118 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:text="저장"
-        android:onClick="@{()->planLogic.onEditPlanCompleteClick()}"
+        android:onClick="@{()->planLogic.onEditPlanCompleteClick(plan)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonPlanDate"
+    <TextView
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="2021년 10월 31일"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        android:text="이름"
+        android:textColor="@color/black_87"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonStartTime"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_plan_name"
+        android:layout_width="338dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="16dp"
-        android:text="13 : 30"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlanDate" />
-
-    <Button
-        android:id="@+id/buttonEndTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="60dp"
-        android:text="18 : 00"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:hint="이름"
+        android:inputType="textPersonName"
+        android:text="@={plan.name}"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlanDate" />
+        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextPlanPlace"
-        android:layout_width="368dp"
+    <Button
+        android:id="@+id/button_start_date"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="시작일"
+        android:onClick="@{_ -> planLogic.onDatePickClick(plan, true)}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_plan_name" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:hint="시작일"
+        android:text="@{plan.startTime}"
+        android:textColor="@color/black_60"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/button_start_date"
+        app:layout_constraintTop_toBottomOf="@+id/edit_plan_name" />
+
+    <Button
+        android:id="@+id/button_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="종료일"
+        android:onClick="@{_ -> planLogic.onDatePickClick(plan, false)}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_start_date" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="36dp"
+        android:hint="종료일"
+        android:text="@{plan.endTime}"
+        android:textColor="@color/black_60"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/button_end_date"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:text="장소"
+        android:textColor="@color/black_87"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_end_date" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/editTextPlanPlace"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="장소"
         android:inputType="textPersonName"
+        android:text="@={plan.location}"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonStartTime" />
+        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/button_end_date" />
 
     <TextView
         android:id="@+id/textViewPlanCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="32dp"
         android:text="카테고리"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,30 +143,34 @@
         android:id="@+id/textViewPlanGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="152dp"
         android:text="그룹"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPlanPlace" />
 
-    <Spinner
-        android:id="@+id/spinnerPlanCategory"
-        android:layout_width="164dp"
-        android:layout_height="35dp"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input_category"
+        android:layout_width="118dp"
+        android:layout_height="38dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
+        android:text="@={plan.category}"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPlanCategory" />
 
-    <Spinner
+
+    <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/spinnerPlanGroup"
         android:layout_width="164dp"
         android:layout_height="35dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPlanGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPlanGroup"
+        android:onItemSelected="@{(parent, _, pos, __) -> planLogic.onGroupClick(parent, pos, plan)}"
+        />
 
     <CheckBox
         android:id="@+id/checkBoxGoogleCalendar"
@@ -117,9 +179,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:text="구글 캘린더 연동"
-        android:textSize="18sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerPlanCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/input_category" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
