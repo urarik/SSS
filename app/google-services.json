@@ -22,11 +22,27 @@
           }
         },
         {
+          "client_id": "719717179769-fblvujni4fif946dmrai5ml0cbvk6g08.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.sehproject.sss",
+            "certificate_hash": "a4ef7d94a637fbe64070c4312476fc06b6a79abb"
+          }
+        },
+        {
           "client_id": "719717179769-hioneutqehn7rhma34ekf5rmgl07v0hl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.sehproject.sss",
             "certificate_hash": "61907e077e5b7a7661e999c0974c83ba69ad3d82"
+          }
+        },
+        {
+          "client_id": "719717179769-s1n65n9gugrqv4r2cq0u852fqucil6fo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.sehproject.sss",
+            "certificate_hash": "1ec3182f343c0d56a7e1c4beedd6b0de48e4307b"
           }
         },
         {

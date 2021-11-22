@@ -2,6 +2,7 @@ package org.sehproject.sss.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.api.services.calendar.model.Event
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.logic.PlanLogic
@@ -36,7 +37,6 @@ class PlanViewModel: ViewModel() {
     fun setPlan(pid: Int) {
         planLiveData.value = Plan(10,
             "Meeting",
-            "",
             "2012-10-32 09:12:32",
             "2012-10-32 09:12:32",
         "YU",
@@ -98,5 +98,6 @@ class PlanViewModel: ViewModel() {
     val memoListLiveData = MutableLiveData<List<Memo>>()
     val userListLiveData = MutableLiveData<List<User>>()
     val concatAdapterLiveData = MutableLiveData<Int>(0)
+    val syncCalendarEvent = SingleLiveEvent<Event>()
 
 }

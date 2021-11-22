@@ -9,7 +9,6 @@ import org.sehproject.sss.UserInfo
 data class Plan(
     var pid: Int? = null,
     var name: String = "",
-    var date: String = "",
     var startTime: String = "",
     var endTime: String = "",
     var location: String = "",

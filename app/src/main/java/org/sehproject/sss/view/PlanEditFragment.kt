@@ -1,7 +1,9 @@
 package org.sehproject.sss.view
 
+import android.accounts.Account
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContextWrapper
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -14,12 +16,22 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.api.client.extensions.android.http.AndroidHttp
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
+import com.google.api.client.json.gson.GsonFactory
+import com.google.api.client.util.ExponentialBackOff
+import com.google.api.services.calendar.CalendarScopes
 import org.sehproject.sss.R
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.FragmentPlanEditBinding
 import org.sehproject.sss.datatype.Plan
+import org.sehproject.sss.utils.CreateEventTask
 import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.PlanViewModel
+import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
+import java.util.*
 
 class PlanEditFragment : Fragment() {
     val planViewModel: PlanViewModel by lazy {
@@ -70,6 +82,27 @@ class PlanEditFragment : Fragment() {
                 }
             }
         })
+
+        planViewModel.syncCalendarEvent.observe(viewLifecycleOwner, {
+            val scopes = mutableListOf(CalendarScopes.CALENDAR, CalendarScopes.CALENDAR_READONLY)
+            val transport = AndroidHttp.newCompatibleTransport()
+            val jsonFactory = GsonFactory.getDefaultInstance()
+
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
+                .build()
+
+            val credential = GoogleAccountCredential.usingOAuth2(context, scopes)
+                .setBackOff(ExponentialBackOff())
+                .setSelectedAccountName("a01076684995@gmail.com")
+
+            val mService = com.google.api.services.calendar.Calendar.Builder(
+                transport, jsonFactory, credential
+            ).setApplicationName("Test").build()
+            planViewModel.planLogic.syncCalendar(mService, it)
+        })
+
 
     }
     private fun pickDateTime(plan: Plan, isStart: Boolean, planEditBinding: FragmentPlanEditBinding) {

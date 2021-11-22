@@ -3,23 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="groupLogic"
+            type="org.sehproject.sss.logic.GroupLogic" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.GroupListFragment">
 
-    <Button
-        android:id="@+id/buttonMakeGroupList"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/floatingActionsMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:text="그룹 생성"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
+        android:elevation="2dp"
+        app:fab_labelStyle="@style/menu_labels_style"
+        app:fab_labelsPosition="left"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonMakeGroupList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:onClick="@{_ -> groupLogic.onCreateGroupClick()}"
+            app:fab_icon="@drawable/add_plan"
+            app:fab_size="mini"
+            app:fab_title="그룹 생성" />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     <TextView
         android:id="@+id/textViewPlanOrder"
@@ -46,7 +60,6 @@
         android:layout_width="380dp"
         android:layout_height="406dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/buttonMakeGroupList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,21 +70,10 @@
         android:id="@+id/btn_map_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="40dp"
         android:text="맵"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonMakeGroupList" />
-
-    <Button
-        android:id="@+id/btn_group_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="40dp"
-        android:text="상세 정보"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonMakeGroupList" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

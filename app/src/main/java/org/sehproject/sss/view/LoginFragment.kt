@@ -124,13 +124,11 @@ class LoginFragment : Fragment(), ActivityNavigation {
                 .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
                 .requestEmail()
                 .build()
-        Log.d("tag", "...${gso.toString()}")
         val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         auth = FirebaseAuth.getInstance()
         userViewModel.setGoogleClient(googleSignInClient)
         userViewModel.googleLoginEvent.setEventReceiver(this, this)
         loginBinding.buttonGoogleLogin.setOnClickListener {
-            Log.d("TAG", "!!")
             userViewModel.onGoogleLogin()
         }
         val textView = loginBinding.buttonGoogleLogin.getChildAt(0) as TextView
@@ -142,7 +140,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d("tag", "firebaseAuthWithGoogle:" + account.id)
+                Log.d("tag", "firebaseAuthWithGoogle:" + account.email)
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 Log.d("tag", "Google sign in failed", e)

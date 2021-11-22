@@ -22,6 +22,7 @@ class PlanCreateTypeFragment : Fragment() {
 
         val planCreateTypeBinding: FragmentPlanCreateTypeBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_create_type, container, false)
         planCreateTypeBinding.planLogic = planViewModel.planLogic
+        planCreateTypeBinding.planType = ""
         val view = planCreateTypeBinding.root
 
         return view
