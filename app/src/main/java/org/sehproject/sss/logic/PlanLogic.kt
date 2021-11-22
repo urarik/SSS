@@ -2,18 +2,22 @@ package org.sehproject.sss.logic
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.provider.CalendarContract
 import android.util.Log
 import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.google.api.client.util.DateTime
+import com.google.api.services.calendar.model.Event
+import com.google.api.services.calendar.model.EventDateTime
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
+import org.sehproject.sss.utils.StringParser
 import org.sehproject.sss.viewmodel.PlanViewModel
 import java.text.SimpleDateFormat
-import java.util.*
+import com.google.api.services.calendar.Calendar
 
 class PlanLogic(val planViewModel: PlanViewModel) {
-    private val planRepository = planViewModel.planRepository
 
     fun onEditPlanClick(plan: Plan) {
         planViewModel.editPlanEvent.value = plan
@@ -27,17 +31,41 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onEditPlanCompleteClick(plan: Plan) {
         if (plan.pid == null) onCreatePlanDoneClick(plan)
         else {
-            planRepository.editPlan(plan) {code ->
+            planViewModel.planRepository.editPlan(plan) {code ->
              if(code == 0)
                  planViewModel.editCompletePlanEvent.call()
             }
         }
     }
+    @SuppressLint("SimpleDateFormat")
     fun onCreatePlanDoneClick(plan: Plan) {
-        planRepository.createPlan(plan) { code ->
-            if (code == 0)
-                planViewModel.createPlanCompleteEvent.call()
-        }
+        //테스트용. 테스트 완료 시 craetePlan의 callback에 넣자
+        val event = Event()
+            .setSummary(plan.name)
+            .setLocation(plan.location)
+        val format = SimpleDateFormat("yyyy-MM-dd hh:mm")
+        val parsedStart = format.parse(plan.startTime)
+        val parsedEnd = format.parse(plan.endTime)
+        val startDate = DateTime(parsedStart)
+        val start = EventDateTime()
+            .setDateTime(startDate)
+            .setTimeZone("Asia/Seoul")
+        val endDate = DateTime(parsedEnd)
+        val end = EventDateTime()
+            .setDate(endDate)
+            .setTimeZone("Asia/Seoul")
+        event.start = start
+        event.end = end
+        planViewModel.syncCalendarEvent.value = event
+        
+//        planRepository.createPlan(plan) { code ->
+//            if (code == 0) {
+//                planViewModel.createPlanCompleteEvent.call()
+//            }
+//        }
+    }
+    fun syncCalendar(mService: Calendar, event: Event) {
+        planViewModel.planRepository.syncCalendar(mService, event)
     }
 
     fun onDeletePlanClick(pid: Int) {
@@ -54,7 +82,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     fun onDeletePlanRejectClick() {}
     fun onCompletePlanClick(plan: Plan) {
-        planRepository.completePlan(plan.pid!!) { code: Int ->
+        planViewModel.planRepository.completePlan(plan.pid!!) { code: Int ->
             if(code == 0) {
                 planViewModel.completePlanCompleteEvent.call()
             }
@@ -84,7 +112,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         memo.pid = planViewModel.planLiveData.value?.pid!!
         memo.writer = User(UserInfo.userId, UserInfo.userName, false, false)
 
-        planRepository.createMemo(memo) { code: Int ->
+        planViewModel.planRepository.createMemo(memo) { code: Int ->
             if(code == 0) {
                 planViewModel.createMemoCompleteEvent.call()
             }
@@ -102,9 +130,15 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onCreateTypeClick() {
         planViewModel.createPlanTypeEvent.call()
     }
-    fun onTypeDoneClick() {
-        planViewModel.createPlanCompleteEvent.call()
+    fun onTypeDoneClick(planStr: String) {
+        val parser = StringParser()
+        planViewModel.planRepository.createPlan(parser.parse(planStr)) { code ->
+            if(code == 0) {
+                planViewModel.createPlanCompleteEvent.call()
+            }
+        }
     }
+
     fun onPublicPlanClick(plan: Plan, isChecked: Boolean) {
         Log.d("TAG", "plan: $plan\nisChecked: $isChecked")
         planViewModel.planRepository.makePlanPublic(plan.pid!!) { code ->
@@ -129,5 +163,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onItemClick(user: User) {
         TODO("Not yet implemented")
     }
+
 
 }
