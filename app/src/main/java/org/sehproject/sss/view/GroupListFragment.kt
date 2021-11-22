@@ -38,7 +38,7 @@ class GroupListFragment : Fragment() {
             container,
             false
         )
-
+        groupListBinding.groupLogic = groupViewModel.groupLogic
         groupViewModel.getGroupList()
         initObserver(groupListBinding.RecyclerViewGroupList)
         return groupListBinding.root

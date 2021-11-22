@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -12,8 +14,6 @@
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,49 +25,31 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="그룹명"
+        android:text="@={group.name}"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewPeopleNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="40dp"
-        android:text="인원 수"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+    <ImageView
+        android:id="@+id/image_edit_group_color"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/circle"
+        app:layout_constraintStart_toEndOf="@+id/appCompatButton"
         app:layout_constraintTop_toBottomOf="@+id/editTextGroupExplanation" />
 
-    <Spinner
-        android:id="@+id/spinnerPeopleNum"
-        android:layout_width="160dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPeopleNum" />
-
-    <TextView
-        android:id="@+id/textViewGroupColor"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="156dp"
-        android:text="색상"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextGroupExplanation" />
-
-    <Spinner
-        android:id="@+id/spinnerGroupColor"
-        android:layout_width="160dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewGroupColor" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="36dp"
+        android:text="색상 선택"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextGroupExplanation"
+        android:onClick="@{_ -> groupLogic.onColorChooseClick(group)}"/>
 
     <EditText
         android:id="@+id/editTextGroupExplanation"
@@ -77,30 +59,19 @@
         android:ems="10"
         android:gravity="start|top"
         android:hint="그룹 설명"
+        android:text="@={group.explanation}"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextGroupName" />
 
-    <Button
-        android:id="@+id/buttonMakeGroupInviteFriend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="친구 초대"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerPeopleNum"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="@{()->groupLogic.onInviteGroupClick(group.gid)}"/>
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonMakeGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:text="취소"
+        android:text="저장"
+        android:onClick="@{_ -> groupLogic.onEditGroupCompleteClick(group)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

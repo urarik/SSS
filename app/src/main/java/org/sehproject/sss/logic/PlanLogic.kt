@@ -105,7 +105,13 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onTypeDoneClick() {
         planViewModel.createPlanCompleteEvent.call()
     }
-    fun onPublicPlanClick() {}
+    fun onPublicPlanClick(plan: Plan, isChecked: Boolean) {
+        Log.d("TAG", "plan: $plan\nisChecked: $isChecked")
+        planViewModel.planRepository.makePlanPublic(plan.pid!!) { code ->
+            if(code ==0)
+                planViewModel.makePlanPublicCompleteEvent.call()
+        }
+    }
     fun onCreateOcrClick() {
         planViewModel.createPlanOcrEvent.call()
     }

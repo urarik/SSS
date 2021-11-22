@@ -1,5 +1,6 @@
 package org.sehproject.sss.view
 
+import android.content.DialogInterface
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.graphics.Color
@@ -34,6 +35,7 @@ class GroupDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val groupDetailBinding: FragmentGroupDetailBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_group_detail,
@@ -72,6 +74,17 @@ class GroupDetailFragment : Fragment() {
             view.background.colorFilter = BlendModeColorFilter(
                 Color.parseColor("#"+Integer.toHexString(it.color)),
                 BlendMode.SRC_ATOP)
+
+        })
+        groupViewModel.deleteGroupEvent.observe(viewLifecycleOwner, {
+            android.app.AlertDialog
+                .Builder(context)
+                .setMessage("그룹을 삭제하시겠습니까?")
+                .setPositiveButton("네") { dialogInterface: DialogInterface, i: Int ->
+                    groupViewModel.groupLogic.onDeleteGroupConfirmClick(it)
+                }
+                .setNegativeButton("아니오", null)
+                .show()
 
         })
 

@@ -40,7 +40,9 @@
         tools:layout="@layout/fragment_group_detail" >
         <action
             android:id="@+id/action_groupDetailFragment_to_groupEditFragment"
-            app:destination="@id/groupEditFragment" />
+            app:destination="@id/groupEditFragment"
+            app:popUpTo="@id/groupEditFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_groupDetailFragment_to_groupInviteFragment"
             app:destination="@id/groupInviteFragment" />
@@ -133,6 +135,11 @@
             android:id="@+id/action_groupEditFragment_to_groupListFragment"
             app:destination="@id/groupListFragment"
             app:popUpTo="@id/groupListFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_groupEditFragment_to_groupDetailFragment"
+            app:destination="@id/groupDetailFragment"
+            app:popUpTo="@id/groupDetailFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
