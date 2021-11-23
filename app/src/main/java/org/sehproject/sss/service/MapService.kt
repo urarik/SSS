@@ -1,8 +1,7 @@
 package org.sehproject.sss.service
 
-import org.sehproject.sss.datatype.CoordinateResponse
-import org.sehproject.sss.datatype.EtaResponse
 import org.sehproject.sss.datatype.GenericResponse
+import org.sehproject.sss.datatype.LocationListResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -25,18 +24,8 @@ interface MapService {
 
     @POST("map/location")
     @FormUrlEncoded
-    fun requestGetLocation(
-        @Field("userid")
-        userId: String
-    ): Call<CoordinateResponse>
-
-    @POST("map/eta")
-    @FormUrlEncoded
-    fun requestGetEta(
-        @Field("start_address")
-        startAddress: String,
-
-        @Field("destination_address")
-        destinationAddress: String
-    ): Call<EtaResponse>
+    fun requestGetLocationList(
+        @Field("pid")
+        pid: Int
+    ): Call<LocationListResponse>
 }

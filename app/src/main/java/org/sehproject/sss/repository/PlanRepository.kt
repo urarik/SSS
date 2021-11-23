@@ -1,17 +1,24 @@
 package org.sehproject.sss.repository
 
+import android.graphics.Bitmap
+import android.util.Base64
+import com.google.android.gms.tasks.Task
 import com.google.api.services.calendar.Calendar
 import com.google.api.services.calendar.model.Event
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.gson.*
 import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.service.PlanService
 import org.sehproject.sss.utils.CallbackWithRetry
 import org.sehproject.sss.utils.CreateEventTask
+import org.sehproject.sss.utils.StringParser
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.ByteArrayOutputStream
 
 class PlanRepository {
     private var retrofit: Retrofit = Retrofit.Builder()
@@ -265,28 +272,58 @@ class PlanRepository {
         })
     }
 
-    fun getImageOcr(image: Byte, onResult: (Int, String?) -> Unit) {
-        val getImageOcrCall = planService.requestGetImageOcr(image)
-        getImageOcrCall.enqueue(object : CallbackWithRetry<OcrResponse>(getImageOcrCall) {
-            override fun onResponse(
-                call: Call<OcrResponse>,
-                response: Response<OcrResponse>
-            ) {
-                val code = response.body()?.code
-                if (code == 0) {
-                    val recognizedStr = response.body()?.recognizedStr
-                    onResult(0, recognizedStr)
-                } else {
-                    onResult(1, null)
-                }
-            }
+    fun getImageOcr(bitmap: Bitmap, onResult: (Int, String?) -> Unit) {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val imageBytes: ByteArray = byteArrayOutputStream.toByteArray()
+        val base64encoded = Base64.encodeToString(imageBytes, Base64.NO_WRAP)
 
-            override fun onFailure(call: Call<OcrResponse>, t: Throwable) {
-                super.onFailure {
-                    onResult(-1, null)
+        // Create json request to cloud vision
+        val request = JsonObject()
+        // Add image to request
+        val image = JsonObject()
+        image.add("content", JsonPrimitive(base64encoded))
+        request.add("image", image)
+        //Add features to the request
+        val feature = JsonObject()
+        feature.add("type", JsonPrimitive("TEXT_DETECTION"))
+        // Alternatively, for DOCUMENT_TEXT_DETECTION:
+        // feature.add("type", JsonPrimitive("DOCUMENT_TEXT_DETECTION"))
+        val features = JsonArray()
+        features.add(feature)
+        request.add("features", features)
+
+        val imageContext = JsonObject()
+        val languageHints = JsonArray()
+        languageHints.add("ko")
+        imageContext.add("languageHints", languageHints)
+        request.add("imageContext", imageContext)
+
+        annotateImage(request.toString())
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    onResult(1, null)
+                } else {
+                    val annotation = task.result!!.asJsonArray[0].asJsonObject["fullTextAnnotation"].asJsonObject
+                    val string = annotation["text"].asString
+                    onResult(0, string)
                 }
             }
-        })
+    }
+
+    private fun annotateImage(requestJson: String): Task<JsonElement> {
+        val functions = FirebaseFunctions.getInstance()
+
+        return functions
+            .getHttpsCallable("annotateImage")
+            .call(requestJson)
+            .continueWith { task ->
+                // This continuation runs on either success or failure, but if the task
+                // has failed then result will throw an Exception which will be
+                // propagated down.
+                val result = task.result?.data
+                JsonParser.parseString(Gson().toJson(result))
+            }
     }
 
     // isCurrent true : 현재, false : 과거

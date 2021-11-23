@@ -10,7 +10,7 @@ import org.sehproject.sss.repository.FriendRepository
 import org.sehproject.sss.repository.PlanRepository
 import org.sehproject.sss.utils.SingleLiveEvent
 
-class PlanViewModel: ViewModel() {
+class PlanViewModel : ViewModel() {
     val planLogic = PlanLogic(this)
     val planRepository = PlanRepository()
     val friendRepository = FriendRepository()
@@ -20,13 +20,49 @@ class PlanViewModel: ViewModel() {
             friendListLiveData.value = list
         }
     }
+
     fun getPlanList() {
         val temp = mutableListOf<Plan>()
-        temp.add(Plan(pid = 0, name="Meeting", startTime = "2021-10-12 12:33:50", endTime = "2022-12-01 11:20:32"))
-        temp.add(Plan(pid = 1, name="Homework", startTime = "2021-10-12 12:33:50", endTime = "2022-12-01 11:20:32"))
-        temp.add(Plan(pid = 2, name="School", startTime = "2021-10-12 12:33:50", endTime = "2022-12-01 11:20:32"))
-        temp.add(Plan(pid = 3, name="Market", startTime = "2021-10-12 12:33:50", endTime = "2022-12-01 11:20:32"))
-        temp.add(Plan(pid = 4, name="Meal", startTime = "2021-10-12 12:33:50", endTime = "2022-12-01 11:20:32"))
+        temp.add(
+            Plan(
+                pid = 0,
+                name = "Meeting",
+                startTime = "2021-10-12 12:33:50",
+                endTime = "2022-12-01 11:20:32"
+            )
+        )
+        temp.add(
+            Plan(
+                pid = 1,
+                name = "Homework",
+                startTime = "2021-10-12 12:33:50",
+                endTime = "2022-12-01 11:20:32"
+            )
+        )
+        temp.add(
+            Plan(
+                pid = 2,
+                name = "School",
+                startTime = "2021-10-12 12:33:50",
+                endTime = "2022-12-01 11:20:32"
+            )
+        )
+        temp.add(
+            Plan(
+                pid = 3,
+                name = "Market",
+                startTime = "2021-10-12 12:33:50",
+                endTime = "2022-12-01 11:20:32"
+            )
+        )
+        temp.add(
+            Plan(
+                pid = 4,
+                name = "Meal",
+                startTime = "2021-10-12 12:33:50",
+                endTime = "2022-12-01 11:20:32"
+            )
+        )
         planListLiveData.value = temp
 
 //        planRepository.getPlanList(true) {code, list ->
@@ -34,15 +70,18 @@ class PlanViewModel: ViewModel() {
 //                planListLiveData.value = list
 //        }
     }
+
     fun setPlan(pid: Int) {
-        planLiveData.value = Plan(10,
+        planLiveData.value = Plan(
+            10,
             "Meeting",
             "2012-10-32 09:12:32",
             "2012-10-32 09:12:32",
-        "YU",
-        "school",
-        UserInfo.userId,
-            group=Group(0, "test3")
+            "YU",
+            "school",
+            true,
+            UserInfo.userId,
+            group = Group(0, "test3")
         )
         val temp = mutableListOf<Memo>()
         temp.add(Memo("Hello", 10, User(nickName = "Saehoon")))

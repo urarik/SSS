@@ -36,7 +36,12 @@ class PlanCreateOCRFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val planCreateOCRBinding: FragmentPlanCreateOcrBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_create_ocr, container, false)
+        val planCreateOCRBinding: FragmentPlanCreateOcrBinding = DataBindingUtil.inflate(
+            layoutInflater,
+            R.layout.fragment_plan_create_ocr,
+            container,
+            false
+        )
         planCreateOCRBinding.planLogic = planViewModel.planLogic
         val view = planCreateOCRBinding.root
 
@@ -50,44 +55,14 @@ class PlanCreateOCRFragment : Fragment() {
                     .get("data") as Bitmap
                 planCreateOCRBinding.imageOcr.setImageBitmap(imageBitmap)
                 val bitmap = scaleBitmapDown(imageBitmap, 1024)
-
-                val byteArrayOutputStream = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-                val imageBytes: ByteArray = byteArrayOutputStream.toByteArray()
-                val base64encoded = Base64.encodeToString(imageBytes, Base64.NO_WRAP)
-
-                // Create json request to cloud vision
-                val request = JsonObject()
-                // Add image to request
-                val image = JsonObject()
-                image.add("content", JsonPrimitive(base64encoded))
-                request.add("image", image)
-                //Add features to the request
-                val feature = JsonObject()
-                feature.add("type", JsonPrimitive("TEXT_DETECTION"))
-                // Alternatively, for DOCUMENT_TEXT_DETECTION:
-                // feature.add("type", JsonPrimitive("DOCUMENT_TEXT_DETECTION"))
-                val features = JsonArray()
-                features.add(feature)
-                request.add("features", features)
-
-                val imageContext = JsonObject()
-                val languageHints = JsonArray()
-                languageHints.add("ko")
-                imageContext.add("languageHints", languageHints)
-                request.add("imageContext", imageContext)
-
-                annotateImage(request.toString())
-                    .addOnCompleteListener { task ->
-                        if (!task.isSuccessful) {
-                        } else {
-                            val annotation = task.result!!.asJsonArray[0].asJsonObject["fullTextAnnotation"].asJsonObject
-                            val string = annotation["text"].asString
-                            val parser = StringParser()
-                            val plan = parser.parse(string)
-                            planViewModel.createPlanOcrDoneEvent.value = plan
-                        }
+                planViewModel.planRepository.getImageOcr(bitmap) {
+                    code, string ->
+                    if(code == 0) {
+                        val parser = StringParser()
+                        val plan = parser.parse(string!!)
+                        planViewModel.createPlanOcrDoneEvent.value = plan
                     }
+                }
             }
         }
 
@@ -128,19 +103,5 @@ class PlanCreateOCRFragment : Fragment() {
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false)
     }
 
-    private fun annotateImage(requestJson: String): Task<JsonElement> {
-        val functions = FirebaseFunctions.getInstance()
-
-        return functions
-            .getHttpsCallable("annotateImage")
-            .call(requestJson)
-            .continueWith { task ->
-                // This continuation runs on either success or failure, but if the task
-                // has failed then result will throw an Exception which will be
-                // propagated down.
-                val result = task.result?.data
-                JsonParser.parseString(Gson().toJson(result))
-            }
-    }
 
 }
