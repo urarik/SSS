@@ -147,7 +147,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     private fun initGoogleLogin() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
+                .requestIdToken("temp1")
                 .requestEmail()
                 .build()
         val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
