@@ -47,12 +47,15 @@ dependencies{
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
+    implementation 'com.google.firebase:firebase-functions:20.0.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     compile files('libs/naveridlogin_android_sdk_4.2.5.aar')
     compile files('libs/libDaumMapAndroid.jar')
-    implementation platform('com.google.firebase:firebase-bom:28.4.1')
+    implementation platform('com.google.firebase:firebase-bom:29.0.0')
 
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-bom'
