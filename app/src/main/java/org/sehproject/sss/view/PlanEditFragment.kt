@@ -95,7 +95,7 @@ class PlanEditFragment : Fragment() {
 
             val credential = GoogleAccountCredential.usingOAuth2(context, scopes)
                 .setBackOff(ExponentialBackOff())
-                .setSelectedAccountName("a01076684995@gmail.com")
+                .setSelectedAccountName("psh6464@gmail.com")
 
             val mService = com.google.api.services.calendar.Calendar.Builder(
                 transport, jsonFactory, credential

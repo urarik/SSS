@@ -2,10 +2,7 @@ package org.sehproject.sss.repository
 
 import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.datatype.Coordinate
-import org.sehproject.sss.datatype.CoordinateResponse
-import org.sehproject.sss.datatype.EtaResponse
-import org.sehproject.sss.datatype.GenericResponse
+import org.sehproject.sss.datatype.*
 import org.sehproject.sss.service.MapService
 import org.sehproject.sss.service.PlanService
 import org.sehproject.sss.utils.CallbackWithRetry
@@ -50,51 +47,23 @@ class MapRepository {
         })
     }
 
-    fun getLocation(userId: String, onResult: (Int, Coordinate?) -> Unit) {
-        val getLocationCall = mapService.requestGetLocation(userId)
-        getLocationCall.enqueue(object : CallbackWithRetry<CoordinateResponse>(getLocationCall) {
+    fun getLocationList(pid: Int, onResult: (Int, List<Location>?) -> Unit) {
+        val getLocationListCall = mapService.requestGetLocationList(pid)
+        getLocationListCall.enqueue(object : CallbackWithRetry<LocationListResponse>(getLocationListCall) {
             override fun onResponse(
-                call: Call<CoordinateResponse>,
-                response: Response<CoordinateResponse>
+                call: Call<LocationListResponse>,
+                response: Response<LocationListResponse>
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    val coordinate = response.body()?.coordinate
-                    onResult(0, coordinate)
+                    val locationList = response.body()?.locationList
+                    onResult(0, locationList)
                 } else {
                     onResult(1, null)
                 }
             }
 
-            override fun onFailure(call: Call<CoordinateResponse>, t: Throwable) {
-                super.onFailure {
-                    onResult(-1, null)
-                }
-            }
-        })
-    }
-
-    fun getEta(
-        startAddress: String,
-        destinationAddress: String,
-        onResult: (Int, LocalTime?) -> Unit
-    ) {
-        val getEtaCall = mapService.requestGetEta(startAddress, destinationAddress)
-        getEtaCall.enqueue(object : CallbackWithRetry<EtaResponse>(getEtaCall) {
-            override fun onResponse(
-                call: Call<EtaResponse>,
-                response: Response<EtaResponse>
-            ) {
-                val code = response.body()?.code
-                if (code == 0) {
-                    val eta = response.body()?.eta
-                    onResult(0, eta)
-                } else {
-                    onResult(1, null)
-                }
-            }
-
-            override fun onFailure(call: Call<EtaResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LocationListResponse>, t: Throwable) {
                 super.onFailure {
                     onResult(-1, null)
                 }
