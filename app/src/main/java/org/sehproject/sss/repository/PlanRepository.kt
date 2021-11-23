@@ -5,12 +5,10 @@ import com.google.api.services.calendar.model.Event
 import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
-import org.sehproject.sss.service.GroupService
 import org.sehproject.sss.service.PlanService
 import org.sehproject.sss.utils.CallbackWithRetry
 import org.sehproject.sss.utils.CreateEventTask
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -244,8 +242,8 @@ class PlanRepository {
         })
     }
 
-    fun makePlanPublic(pid: Int, onResult: (Int) -> Unit) {
-        val makePlanPublicCall = planService.requestMakePlanPublic(pid, UserInfo.userId)
+    fun setPlanVisibility(pid: Int, visibility: Boolean, onResult: (Int) -> Unit) {
+        val makePlanPublicCall = planService.requestSetPlanVisibility(pid, visibility)
         makePlanPublicCall.enqueue(object : CallbackWithRetry<GenericResponse>(makePlanPublicCall) {
             override fun onResponse(
                 call: Call<GenericResponse>,
