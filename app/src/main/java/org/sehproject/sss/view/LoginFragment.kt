@@ -66,6 +66,32 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
         return loginBinding.root
     }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("TAG", "1")
+        //구글 로그인 확인
+        val auth = FirebaseAuth.getInstance()
+        //있다면 non-null
+        auth.currentUser?.run {
+
+        } ?: run {
+            auth.signInAnonymously()
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("TAG", "signInAnonymously:success")
+                        val user = auth.currentUser
+                        //updateUI(user)
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.d("TAG", "signInAnonymously:failure", task.exception)
+                        //updateUI(null)
+                    }
+                }
+        }
+    }
+
     private fun getHashKey() {
         var packageInfo: PackageInfo? = null
         try {

@@ -9,7 +9,6 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_detail.xml" value="0.13385416666666666" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_list.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_invitation.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_login.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_create_ocr.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_create_type.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_detail.xml" value="0.25364583333333335" />
@@ -35,8 +34,11 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/drawable/circle.xml" value="0.2361111111111111" />
         <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/layout/fragment_group_list.xml" value="0.12335359675785208" />
+        <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/layout/fragment_plan_create_ocr.xml" value="0.176" />
         <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/layout/item_group.xml" value="0.264" />
+        <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/layout/item_user.xml" value="0.12335359675785208" />
         <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/layout/view_group_item.xml" value="0.4" />
+        <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_friend_list.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_friend_profile.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />

@@ -40,15 +40,14 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
     fun onSelectInvitePlanOptionClick(option: Boolean) {
         Log.d("TAG", "option: $option")
     }
-
-    fun onLogoutClick() {
-        profileViewModel.logoutEvent.call()
-
-/*        profileRepository.logout() { code: Int ->
-            if(code == 0) {
-                profileRepository.deleteAccount()
-                profileViewModel.logoutEvent.call()
-            }
-        }*/
+    
+     fun onLogoutClick() {
+         profileViewModel.logoutEvent.call()
+//        profileRepository.logout() { code: Int ->
+//            if(code == 0) {
+//                profileRepository.deleteAccount()
+//                profileViewModel.logoutEvent.call()
+//            }
+//        }
     }
 }

@@ -2,6 +2,7 @@ package org.sehproject.sss.logic
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.graphics.Bitmap
 import android.provider.CalendarContract
 import android.util.Log
 import android.widget.Adapter
@@ -141,7 +142,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
 
     fun onPublicPlanClick(plan: Plan, isChecked: Boolean) {
         Log.d("TAG", "plan: $plan\nisChecked: $isChecked")
-        planViewModel.planRepository.makePlanPublic(plan.pid!!) { code ->
+        planViewModel.planRepository.setPlanVisibility(plan.pid!!, true) { code ->
             if(code ==0)
                 planViewModel.makePlanPublicCompleteEvent.call()
         }
@@ -149,7 +150,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onCreateOcrClick() {
         planViewModel.createPlanOcrEvent.call()
     }
-    fun onOcrImgClick() {}
+    fun onOcrImgClick() {
+        planViewModel.uploadImgEvent.call()
+    }
     fun onOcrDoneClick() {
         planViewModel.createPlanCompleteEvent.call()
     }
@@ -163,6 +166,4 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onItemClick(user: User) {
         TODO("Not yet implemented")
     }
-
-
 }
