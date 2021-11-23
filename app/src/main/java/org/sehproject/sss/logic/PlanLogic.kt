@@ -111,7 +111,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         var memo = Memo()
         memo.memo = memoString
         memo.pid = planViewModel.planLiveData.value?.pid!!
-        memo.writer = User(UserInfo.userId, UserInfo.userName, false, false)
 
         planViewModel.planRepository.createMemo(memo) { code: Int ->
             if(code == 0) {

@@ -7,6 +7,9 @@
         <variable
             name="userLogic"
             type="org.sehproject.sss.logic.UserLogic" />
+        <variable
+            name="apiId"
+            type="String" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,7 +111,7 @@
                 android:id="@+id/buttonRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->userLogic.onRegisterCompleteClick(editRegisterUserId.getText().toString(), editRegisterPassword.getText().toString(), editRegisterConfirmPassword.getText().toString(), editRegisterNickName.getText().toString())}"
+                android:onClick="@{()->userLogic.onRegisterCompleteClick(editRegisterUserId.getText().toString(), editRegisterPassword.getText().toString(), editRegisterConfirmPassword.getText().toString(), editRegisterNickName.getText().toString(), apiId)}"
                 android:text="회원가입"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
