@@ -9,24 +9,60 @@ import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentFriendListBinding
 import org.sehproject.sss.databinding.FragmentUserSearchBinding
+import org.sehproject.sss.databinding.ItemPlanBinding
+import org.sehproject.sss.databinding.UserSerachItemBinding
+import org.sehproject.sss.datatype.Plan
+import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.FriendViewModel
 
 class UserSearchFragment : Fragment() {
+    val friendViewModel: FriendViewModel by lazy {
+        ViewModelProvider(this).get(FriendViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val friendViewModel: FriendViewModel by lazy {
-            ViewModelProvider(this).get(FriendViewModel::class.java)
-        }
-
         val userSearchBinding: FragmentUserSearchBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_user_search, container, false)
         userSearchBinding.friendLogic = friendViewModel.friendLogic
-        val view = userSearchBinding.root
 
-        return view
+        initObserver(userSearchBinding.searchRecyclerView)
+
+        return userSearchBinding.root
+    }
+
+    fun initObserver(recyclerView: RecyclerView) {
+        friendViewModel.userList.observe(viewLifecycleOwner, {
+            val adapter = UserAdapter(it)
+            recyclerView.adapter = adapter
+        })
+    }
+
+    private inner class UserHolder(val userSearchItemBinding: UserSerachItemBinding) : RecyclerView.ViewHolder(userSearchItemBinding.root) {
+        fun bind(user: User) {
+            userSearchItemBinding.user = user
+            userSearchItemBinding.friendLogic = friendViewModel.friendLogic
+        }
+    }
+
+    private inner class UserAdapter(val users: List<User>) :
+        RecyclerView.Adapter<UserHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
+            val userSearchItemBinding = UserSerachItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return UserHolder(userSearchItemBinding)
+        }
+
+        override fun getItemCount(): Int = users.size
+
+        override fun onBindViewHolder(holder: UserHolder, position: Int) {
+            val user = users[position]
+            holder.bind(user)
+        }
     }
 }
