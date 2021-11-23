@@ -7,19 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.google.firebase.messaging.FirebaseMessaging
 import com.nhn.android.naverlogin.OAuthLoginDefine.LOG_TAG
+import kotlinx.coroutines.*
+import kotlinx.coroutines.NonCancellable.isActive
 import net.daum.mf.map.api.MapLayout
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentMapBinding
+import org.sehproject.sss.datatype.Coordinate
+import org.sehproject.sss.viewmodel.GroupViewModel
+import org.sehproject.sss.viewmodel.MapViewModel
 
 class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     MapView.MapViewEventListener,
     MapView.CurrentLocationEventListener {
-    // TODO: Rename and change types of parameters
-    private val safeArgs: MapFragmentArgs by navArgs() //pid
+    //private val safeArgs: MapFragmentArgs by navArgs() //pid
+    //private val pid = safeArgs.pid
+    private lateinit var job: Job
+    private val mapViewModel: MapViewModel by lazy {
+        ViewModelProvider(this).get(MapViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +59,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
          }
         }
         mapBinding.mapView.addView(mapView)
-
+        job = repeatRequest()
 
         return mapBinding.root
     }
@@ -64,11 +75,27 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         )
     }
 
-    override fun onCurrentLocationUpdate(p0: MapView?, p1: MapPoint?, p2: Float) {
-        Log.d("TAG", "!@#!")
-        Log.d("TAG", p0.toString())
-        Log.d("TAG", p1.toString())
-        Log.d("TAG", p2.toString())
+    override fun onCurrentLocationUpdate(p0: MapView?, currentLocation: MapPoint?, accuracy: Float) {
+        mapViewModel.mapLogic.onCurrentLocationUpdate(Coordinate(
+            currentLocation!!.mapPointGeoCoord.latitude,
+            currentLocation.mapPointGeoCoord.longitude
+        ))
+    }
+
+    private fun repeatRequest(): Job {
+        return CoroutineScope(Dispatchers.Main).launch {
+            while(isActive) {
+                //do your request
+                Log.d("TAG", "repeat!")
+                delay(5000)
+            }
+        }
+
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
     }
 
     override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {
