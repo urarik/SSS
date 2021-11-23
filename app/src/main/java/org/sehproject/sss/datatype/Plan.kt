@@ -13,6 +13,7 @@ data class Plan(
     var endTime: String = "",
     var location: String = "",
     var category: String = "",
+    var isPublic: Boolean = true,
     var creator: String? = UserInfo.userId,
     var participants: List<User>? = null,
     var group: Group = Group(),

@@ -15,14 +15,13 @@ import org.sehproject.sss.viewmodel.FriendViewModel
 
 
 class FriendProfileFragment : Fragment() {
-    private val friendViewModel: FriendViewModel by lazy {
-        ViewModelProvider(this).get(FriendViewModel::class.java)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val friendViewModel: FriendViewModel by lazy {
+            ViewModelProvider(this).get(FriendViewModel::class.java)
+        }
         val friendProfileBinding: FragmentFriendProfileBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_friend_profile,
@@ -30,6 +29,7 @@ class FriendProfileFragment : Fragment() {
             false
         )
         friendProfileBinding.friendLogic = friendViewModel.friendLogic
+
         return friendProfileBinding.root
     }
 

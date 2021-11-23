@@ -10,13 +10,15 @@ class UserLogic(val userViewModel: UserViewModel) {
 
     fun onLoginClick(user: AccountXML)
     {
-        Log.d("tag", user.toString())
-        userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
-            if (code == 0) {
-                updateUI(nickName!!)
-                userViewModel.loginEvent.call()
-            }
-        }
+        Log.d("TAG", user.userId)
+        userViewModel.loginEvent.call()
+
+//        userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
+//            if (code == 0) {
+//                updateUI(nickName!!)
+//                userViewModel.loginEvent.call()
+//            }
+//        }
     }
 
     fun onRegisterClick()
@@ -38,6 +40,6 @@ class UserLogic(val userViewModel: UserViewModel) {
     fun updateUI(name: String) {
         UserInfo.isLogin = true
         UserInfo.userName = name
-        userViewModel.isLogin.value = true// thread 사용시 바꿔야함
+        // userViewModel.isLogin.value = true// thread 사용시 바꿔야함
     }
 }

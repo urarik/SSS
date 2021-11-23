@@ -1,5 +1,7 @@
 package org.sehproject.sss.logic
 
+import android.util.Log
+import android.widget.CompoundButton
 import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.viewmodel.ProfileViewModel
 
@@ -29,10 +31,16 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
         profileViewModel.selectOptionEvent.call()
     }
 
-    fun onSelectNoticeOptionClick(option: Boolean) {}
-    fun onSelectInviteFriendOptionClick(option: Boolean) {}
-    fun onSelectInvitePlanOptionClick(option: Boolean) {}
-
+    fun onSelectNoticeOptionClick(option: Boolean) {
+        Log.d("TAG", "option: $option")
+    }
+    fun onSelectInviteFriendOptionClick(option: Boolean) {
+        Log.d("TAG", "option: $option")
+    }
+    fun onSelectInvitePlanOptionClick(option: Boolean) {
+        Log.d("TAG", "option: $option")
+    }
+    
      fun onLogoutClick() {
          profileViewModel.logoutEvent.call()
 //        profileRepository.logout() { code: Int ->

@@ -6,11 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import org.sehproject.sss.R
+import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentSettingBinding
+import org.sehproject.sss.utils.ProfileViewModelFactory
+import org.sehproject.sss.viewmodel.PlanViewModel
+import org.sehproject.sss.viewmodel.ProfileViewModel
 
 class SettingFragment : Fragment() {
+    private val profileViewModel: ProfileViewModel by lazy {
+        val appDatabase = AppDatabase.getInstance(requireContext())!!
+        ViewModelProvider(this, ProfileViewModelFactory(appDatabase)).get(ProfileViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +31,7 @@ class SettingFragment : Fragment() {
             container,
             false
         )
+        settingBinding.profileLogic = profileViewModel.profileLogic
 
         return settingBinding.root
     }

@@ -115,10 +115,9 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     private fun initObservers() {
         val navController = findNavController()
-        userViewModel.isLogin.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                navController.navigate(R.id.planListFragment, null)
-            }
+        userViewModel.loginEvent.observe(viewLifecycleOwner, Observer {
+            Log.d("TAG", "login")
+            navController.navigate(R.id.action_loginFragment_to_planListFragment)
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
             Log.d("TAG", "eeeeeeee")

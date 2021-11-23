@@ -122,14 +122,14 @@ interface PlanService {
         userId: String
     ): Call<GenericResponse>
 
-    @POST("plan/public")
+    @POST("plan/visibility")
     @FormUrlEncoded
-    fun requestMakePlanPublic(
+    fun requestSetPlanVisibility(
         @Field("pid")
         planId: Int,
 
-        @Field("userid")
-        userId: String
+        @Field("visibility")
+        visibility: Boolean
     ): Call<GenericResponse>
 
     @POST("plan/ocr")
