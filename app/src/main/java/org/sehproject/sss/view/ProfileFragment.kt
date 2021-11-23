@@ -1,12 +1,14 @@
 package org.sehproject.sss
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileBinding
 import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.utils.ProfileViewModelFactory
+import org.sehproject.sss.view.MainActivity
 import org.sehproject.sss.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment() {

@@ -17,31 +17,56 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_user"
         android:layout_width="match_parent"
-        android:layout_height="52dp">
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="55dp"
+            android:layout_height="51dp"
+            android:visibility="@{user.isAttend? View.VISIBLE: View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.176"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.555"
+            app:srcCompat="@drawable/plan" />
 
         <TextView
+            android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:hint="이름"
             android:text="@{user.nickName}"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.366"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/imageView6"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/color_blue"
-            android:visibility="@{user.isAttend? View.VISIBLE: View.GONE}"
+            android:visibility="@{user.isOnline? View.VISIBLE: View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.036"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/imageView7"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/color_red"
-            android:visibility="@{!user.isAttend? View.VISIBLE: View.GONE}"
+            android:visibility="@{!user.isOnline? View.VISIBLE: View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.036"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

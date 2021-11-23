@@ -25,7 +25,7 @@
         <action
             android:id="@+id/action_loginFragment_to_planListFragment"
             app:destination="@id/planListFragment"
-            app:popUpTo="@id/planListFragment"
+            app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -199,7 +199,7 @@
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
+            app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

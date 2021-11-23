@@ -23,7 +23,7 @@ import org.sehproject.sss.utils.SingleLiveEvent
 
 class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
     val userLogic = UserLogic(this)
-    val userRepository = UserRepository(appDatabase);
+    val userRepository = UserRepository(appDatabase)
 
     val userId = MutableLiveData("")
     val password = MutableLiveData("")

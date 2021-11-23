@@ -23,8 +23,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="0.5">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="4">
+            android:layout_weight="2">
 
             <TextView
                 android:id="@+id/textMyPageNickName"
@@ -68,14 +75,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="4">
+            android:layout_weight="2">
 
             <Button
                 android:id="@+id/buttonMyPageStatistics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="통계 보기"
                 android:onClick="@{()->profileLogic.onViewStatisticsClick()}"
+                android:text="통계 보기"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.817"
@@ -87,8 +94,8 @@
                 android:id="@+id/buttonMyPageEditProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="프로필 수정"
                 android:onClick="@{()->profileLogic.onEditProfileClick(profile)}"
+                android:text="프로필 수정"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.808"
@@ -139,14 +146,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2">
+            android:layout_weight="1">
 
             <Button
                 android:id="@+id/buttonSetting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="설정"
                 android:onClick="@{()->profileLogic.onSelectOptionClick()}"
+                android:text="설정"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.22"
@@ -157,13 +164,20 @@
                 android:id="@+id/buttonLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="로그아웃"
                 android:onClick="@{()->profileLogic.onLogoutClick()}"
+                android:text="로그아웃"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.772"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
