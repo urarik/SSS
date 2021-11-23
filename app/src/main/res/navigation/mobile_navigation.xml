@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/loginFragment"
+    android:id="@+id/main_nav">
     <fragment
         android:id="@+id/registerFragment"
         android:name="org.sehproject.sss.RegisterFragment"
@@ -199,7 +200,7 @@
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
+            app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

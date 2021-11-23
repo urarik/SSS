@@ -149,7 +149,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onCreateOcrClick() {
         planViewModel.createPlanOcrEvent.call()
     }
-    fun onOcrImgClick() {}
+    fun onOcrImgClick() {
+        planViewModel.uploadImgEvent.call()
+    }
     fun onOcrDoneClick() {
         planViewModel.createPlanCompleteEvent.call()
     }
