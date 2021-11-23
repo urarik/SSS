@@ -8,18 +8,30 @@ import org.sehproject.sss.viewmodel.GroupViewModel
 class GroupLogic(private val groupViewModel: GroupViewModel) {
     fun onCreateGroupClick()
     {
+        Log.d("TAG", "!@#")
         groupViewModel.createGroupEvent.call()
     }
 
-    fun onCreateGroupCompleteClick()
+    fun onCreateGroupCompleteClick(group: Group)
     {
-
+        groupViewModel.groupRepository.createGroup(group) {code ->
+            if(code == 0) {
+                groupViewModel.createGroupCompleteEvent.value = group
+            }
+        }
+    }
+    fun onColorChooseClick(group: Group) {
+        groupViewModel.setColorEvent.value = group
     }
 
-    fun onDeleteGroupClick(groupId: Int)
+    fun onDeleteGroupClick(gid: Int)
     {
-        groupViewModel.groupRepository.deleteGroup(groupId) {
-
+        groupViewModel.deleteGroupEvent.value = gid
+    }
+    fun onDeleteGroupConfirmClick(gid: Int) {
+        groupViewModel.groupRepository.deleteGroup(gid) { code ->
+            if (code == 0)
+                groupViewModel.deleteGroupCompleteEvent.call()
         }
     }
 
@@ -34,9 +46,16 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
         groupViewModel.editGroupEvent.value = group
     }
 
-    fun onEditGroupCompleteClick(gid: Int)
+    fun onEditGroupCompleteClick(group: Group)
     {
-
+        groupViewModel.editGroupCompleteEvent.value = group
+//        if(group.gid == null) onCreateGroupCompleteClick(group)
+//        else {
+//            groupViewModel.groupRepository.editGroup(group) { code ->
+//                if(code == 0)
+//                    groupViewModel.editGroupCompleteEvent.call()
+//            }
+//        }
     }
 
     fun onAcceptGroupClick(groupid: Int)

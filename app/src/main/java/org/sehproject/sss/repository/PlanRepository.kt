@@ -1,11 +1,14 @@
 package org.sehproject.sss.repository
 
+import com.google.api.services.calendar.Calendar
+import com.google.api.services.calendar.model.Event
 import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.service.GroupService
 import org.sehproject.sss.service.PlanService
 import org.sehproject.sss.utils.CallbackWithRetry
+import org.sehproject.sss.utils.CreateEventTask
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -384,5 +387,9 @@ class PlanRepository {
                 }
             }
         })
+    }
+
+    fun syncCalendar(mService: Calendar, event: Event) {
+        CreateEventTask(mService, event).execute()
     }
 }

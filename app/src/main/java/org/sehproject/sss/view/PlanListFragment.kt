@@ -1,5 +1,7 @@
 package org.sehproject.sss.view
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentPlanListBinding
+import org.sehproject.sss.databinding.ItemPlanBinding
 import org.sehproject.sss.databinding.ItemUserBinding
 import org.sehproject.sss.databinding.ViewPlanItemBinding
 import org.sehproject.sss.datatype.Plan
@@ -23,8 +26,6 @@ import org.sehproject.sss.viewmodel.PlanViewModel
 import org.sehproject.sss.viewmodel.UserViewModel
 
 class PlanListFragment : Fragment() {
-    private lateinit var adapter: PlanAdapter
-    private lateinit var planListBinding: FragmentPlanListBinding
     private val planViewModel: PlanViewModel by lazy {
         ViewModelProvider(this).get(PlanViewModel::class.java)
     }
@@ -32,18 +33,21 @@ class PlanListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
-        planListBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_list, container, false)
+        val planListBinding: FragmentPlanListBinding = DataBindingUtil.inflate(
+            layoutInflater, R.layout.fragment_plan_list, container, false)
         planListBinding.planLogic = planViewModel.planLogic
-        initObserver()
+        initObserver(planListBinding.RecyclerViewPlanList)
+        planViewModel.getPlanList()
 
         return planListBinding.root
     }
 
-    private fun initObserver() {
+    private fun initObserver(recyclerView: RecyclerView) {
         val navController = findNavController()
 
         planViewModel.viewPlanDetailsEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.planDetailFragment)
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanDetailFragment(it)
+            navController.navigate(action)
         })
 
         planViewModel.createPlanEvent.observe(viewLifecycleOwner, {
@@ -58,19 +62,16 @@ class PlanListFragment : Fragment() {
         planViewModel.createPlanTypeEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.planCreateTypeFragment)
         })
+        planViewModel.planListLiveData.observe(viewLifecycleOwner, {
+            val adapter = PlanAdapter(it)
+            recyclerView.adapter = adapter
+        })
     }
 
-    private inner class PlanHolder(val itemPlanBinding: ViewPlanItemBinding) : RecyclerView.ViewHolder(itemPlanBinding.root) {
-
+    private inner class PlanHolder(val itemPlanBinding: ItemPlanBinding) : RecyclerView.ViewHolder(itemPlanBinding.root) {
         fun bind(plan: Plan) {
             itemPlanBinding.plan = plan
-            /*
-            itemPlanBinding.itemPlan.setOnClickListener {
-                planViewModel?.let {
-                    planViewModel!!.planLogic.onItemClick(itemPlanBinding.plan as Plan)
-                }
-            }
-             */
+            itemPlanBinding.planLogic = planViewModel.planLogic
         }
     }
 
@@ -78,8 +79,8 @@ class PlanListFragment : Fragment() {
         RecyclerView.Adapter<PlanHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanHolder {
-            val itemCuisinesBinding = ViewPlanItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return PlanHolder(itemCuisinesBinding)
+            val itemPlanBinding = ItemPlanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return PlanHolder(itemPlanBinding)
         }
 
         override fun getItemCount(): Int = plans.size
@@ -88,6 +89,5 @@ class PlanListFragment : Fragment() {
             val plan = plans[position]
             holder.bind(plan)
         }
-
     }
 }

@@ -88,14 +88,15 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
 
     private fun initObservers() {
+        val navController = findNavController()
         userViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
-                findNavController().navigate(R.id.planListFragment, null)
+                navController.navigate(R.id.planListFragment, null)
             }
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
             Log.d("TAG", "eeeeeeee")
-            findNavController().navigate(R.id.registerFragment, null)
+            navController.navigate(R.id.registerFragment, null)
         })
     }
 
@@ -123,13 +124,11 @@ class LoginFragment : Fragment(), ActivityNavigation {
                 .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
                 .requestEmail()
                 .build()
-        Log.d("tag", "...${gso.toString()}")
         val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         auth = FirebaseAuth.getInstance()
         userViewModel.setGoogleClient(googleSignInClient)
         userViewModel.googleLoginEvent.setEventReceiver(this, this)
         loginBinding.buttonGoogleLogin.setOnClickListener {
-            Log.d("TAG", "!!")
             userViewModel.onGoogleLogin()
         }
         val textView = loginBinding.buttonGoogleLogin.getChildAt(0) as TextView
@@ -141,7 +140,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d("tag", "firebaseAuthWithGoogle:" + account.id)
+                Log.d("tag", "firebaseAuthWithGoogle:" + account.email)
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 Log.d("tag", "Google sign in failed", e)
@@ -158,7 +157,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("tag", "signInWithCredential:success")
                         val user = auth.currentUser
-                        userViewModel.updateUI(user!!.email!!)
+                        userViewModel.userLogic.updateUI(user!!.email!!)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("tag", "signInWithCredential:failure", task.exception)

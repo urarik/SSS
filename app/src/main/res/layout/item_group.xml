@@ -12,7 +12,7 @@
             type="org.sehproject.sss.logic.GroupLogic" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/item_group"
         android:layout_width="match_parent"
         android:layout_height="79dp"
@@ -35,8 +35,8 @@
 
             <ImageView
                 android:id="@+id/image_group_color"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/circle"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -49,8 +49,8 @@
                 android:layout_marginStart="24dp"
                 android:hint="ABD"
                 android:text="@{group.name}"
-                android:textColor="@color/black"
-                android:textSize="30dp"
+                android:textColor="@color/black_87"
+                android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.652"
@@ -60,5 +60,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

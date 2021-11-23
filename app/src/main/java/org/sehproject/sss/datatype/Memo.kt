@@ -1,3 +1,3 @@
 package org.sehproject.sss.datatype
 
-data class Memo(var memo: String, var pid: Int, var writer: User?)
+data class Memo(var memo: String = "", var pid: Int = 0, var writer: User? = null)

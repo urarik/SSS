@@ -23,21 +23,33 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="40dp"
-            android:text="Young University"
-            android:textSize="18sp"
+            android:hint="그룹 이름"
+            android:textColor="@color/black_87"
+            android:text="@{group.name}"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewMemberNumDetails"
+            android:id="@+id/text_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="인원 수: 2 / 5 명"
+            android:text="인원 수"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewGroupName" />
+
+        <TextView
+            android:id="@+id/textViewMemberNumDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/text_group_name"
             app:layout_constraintTop_toBottomOf="@+id/textViewGroupName" />
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -111,28 +123,26 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewMemberNumDetails" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewGroupDetails1"
-            android:layout_width="364dp"
-            android:layout_height="230dp"
-            android:layout_marginTop="24dp"
+            android:id="@+id/recyclerGroupParticipants"
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewGroupExplanationDetails"
-            app:layout_constraintVertical_bias="0.012"
-            tools:listitem="@layout/view_item" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewGroupExplanationDetails" />
+
 
         <ImageView
             android:id="@+id/imageViewGroupColor"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="48dp"
             app:layout_constraintStart_toEndOf="@+id/textViewGroupName"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/color_red" />
+            android:background="@drawable/circle"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,6 +3,7 @@ package org.sehproject.sss.view
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import androidx.core.view.marginBottom
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -36,9 +38,7 @@ class GroupListFragment : Fragment() {
             container,
             false
         )
-        //리사이클러뷰 추가할 때 각 아이템에 대해 click listener 달아줘야함.
-        //xml 파일에서 가능할거임. 모르면 말하고
-
+        groupListBinding.groupLogic = groupViewModel.groupLogic
         groupViewModel.getGroupList()
         initObserver(groupListBinding.RecyclerViewGroupList)
         return groupListBinding.root
@@ -62,9 +62,6 @@ class GroupListFragment : Fragment() {
         //buttonMap?.setOnClickListener {
         //    findNavController().navigate(R.id.mapFragment, null)
         // }
-        groupViewModel.viewGroupDetailsEvent.observe(viewLifecycleOwner, {
-            Log.d("TAG", it.toString())
-        })
         groupViewModel.viewGroupDetailsEvent.observe(this, {
             Log.d("TAG", "gid: $it")
             val action = GroupListFragmentDirections.actionGroupListFragmentToGroupDetailFragment(it)
@@ -74,6 +71,7 @@ class GroupListFragment : Fragment() {
 
     protected inner class GroupHolder(private val itemGroupBinding: ItemGroupBinding) : RecyclerView.ViewHolder(itemGroupBinding.root) {
 
+        @RequiresApi(Build.VERSION_CODES.Q)
         fun bind(group: Group) {
             itemGroupBinding.group = group
             itemGroupBinding.groupLogic = groupViewModel.groupLogic
