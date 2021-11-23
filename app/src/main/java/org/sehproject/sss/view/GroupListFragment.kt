@@ -40,11 +40,11 @@ class GroupListFragment : Fragment() {
         )
         groupListBinding.groupLogic = groupViewModel.groupLogic
         groupViewModel.getGroupList()
-        initObserver(groupListBinding.RecyclerViewGroupList)
+        initObserver(groupListBinding)
         return groupListBinding.root
     }
 
-    private fun initObserver(recyclerView: RecyclerView) {
+    private fun initObserver(groupListBinding: FragmentGroupListBinding) {
         val navController = findNavController()
         groupViewModel.createGroupEvent.observe(viewLifecycleOwner, {
             val action = GroupListFragmentDirections.actionGroupListFragmentToGroupEditFragment(
@@ -54,14 +54,14 @@ class GroupListFragment : Fragment() {
         })
         groupViewModel.groupListLiveData.observe(viewLifecycleOwner, {
             val adapter = GroupAdapter(it)
-            recyclerView.adapter = adapter
+                groupListBinding.RecyclerViewGroupList.adapter = adapter
 
         })
 
-        //val buttonMap = view.findViewById<Button>(R.id.btn_map_test)
-        //buttonMap?.setOnClickListener {
-        //    findNavController().navigate(R.id.mapFragment, null)
-        // }
+        val buttonMap = groupListBinding.btnMapTest
+        buttonMap?.setOnClickListener {
+            findNavController().navigate(R.id.mapFragment, null)
+         }
         groupViewModel.viewGroupDetailsEvent.observe(this, {
             Log.d("TAG", "gid: $it")
             val action = GroupListFragmentDirections.actionGroupListFragmentToGroupDetailFragment(it)

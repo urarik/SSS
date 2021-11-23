@@ -1,5 +1,7 @@
 package org.sehproject.sss.logic
 
+import org.sehproject.sss.datatype.Coordinate
+import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.viewmodel.MapViewModel
 
 class MapLogic(val mapViewModel: MapViewModel) {
@@ -18,9 +20,13 @@ class MapLogic(val mapViewModel: MapViewModel) {
 
     }
 
-    fun onCurrentLocationUpdate()
+    fun onCurrentLocationUpdate(coordinate: Coordinate)
     {
+        mapViewModel.mapRepository.setLocation(coordinate) {code ->
+            if(code == 0) {
 
+            }
+        }
     }
 
     fun onCurrentLocationUpdateCancelled()

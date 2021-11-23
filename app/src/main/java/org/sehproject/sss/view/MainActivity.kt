@@ -20,6 +20,7 @@ import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import org.sehproject.sss.R
 import org.sehproject.sss.UserInfo
 // import org.sehproject.sss.databinding.ActivityMainBinding
@@ -51,6 +52,22 @@ class MainActivity : AppCompatActivity() {
                 bottomNav.visibility = View.VISIBLE
             }
         }
+        sendToken()
+    }
+
+    private fun sendToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if(!task.isSuccessful) {
+                Log.d("TAG", "Fetching FCM registration token failed ${task.exception}")
+            }
+
+            val token = task.result
+            val msg = token.toString()
+            Log.d("TAG", msg)
+            //TODO("토큰을 서버에 보내야 한다.")
+            //로그인할 때 토큰을 보낸다.
+        }
+    }
 
 /*        bottomNav.setOnItemSelectedListener { item ->
             Log.d("TAG", sfm.backStackEntryCount.toString())
