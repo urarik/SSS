@@ -1,14 +1,20 @@
 package org.sehproject.sss.view
 
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nhn.android.naverlogin.OAuthLoginDefine.LOG_TAG
 import kotlinx.coroutines.*
@@ -18,7 +24,11 @@ import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentMapBinding
+import org.sehproject.sss.databinding.ItemEtaBinding
+import org.sehproject.sss.databinding.ItemGroupBinding
 import org.sehproject.sss.datatype.Coordinate
+import org.sehproject.sss.datatype.Eta
+import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.MapViewModel
 
@@ -59,10 +69,20 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
          }
         }
         mapBinding.mapView.addView(mapView)
+
+        initObserver(mapBinding)
+
         job = repeatRequest()
 
         return mapBinding.root
     }
+
+    private fun initObserver(mapBinding: FragmentMapBinding) {
+        mapViewModel.etaListLiveData.observe(viewLifecycleOwner, {
+            mapBinding.recyclerMapEta.adapter = EtaAdapter(it)
+        })
+    }
+
 
     override fun onDaumMapOpenAPIKeyAuthenticationResult(p0: MapView?, p1: Int, p2: String?) {
         Log.d(
@@ -144,6 +164,33 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
 
     override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {
         TODO("Not yet implemented")
+    }
+
+    protected inner class EtaHolder(private val itemEtaBinding: ItemEtaBinding):
+        RecyclerView.ViewHolder(itemEtaBinding.root) {
+
+        @RequiresApi(Build.VERSION_CODES.Q)
+        fun bind(eta: Eta) {
+            itemEtaBinding.eta = eta
+        }
+    }
+
+    protected inner class EtaAdapter(val etas: List<Eta>) :
+        RecyclerView.Adapter<EtaHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EtaHolder {
+            val itemEtaBinding = ItemEtaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return EtaHolder(itemEtaBinding)
+        }
+
+        override fun getItemCount(): Int = etas.size
+
+        @RequiresApi(Build.VERSION_CODES.Q)
+        override fun onBindViewHolder(holder: EtaHolder, position: Int) {
+            val eta = etas[position]
+            holder.bind(eta)
+        }
+
     }
 
 }

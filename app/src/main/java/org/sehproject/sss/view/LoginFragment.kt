@@ -1,6 +1,5 @@
 package org.sehproject.sss.view
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -10,18 +9,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import org.sehproject.sss.R
-import org.sehproject.sss.UserInfo
 // import org.sehproject.sss.databinding.ActivityLoginBinding
-import org.sehproject.sss.datatype.User
 import org.sehproject.sss.utils.ActivityNavigation
 import org.sehproject.sss.viewmodel.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -69,7 +64,6 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     override fun onStart() {
         super.onStart()
-        Log.d("TAG", "1")
         //구글 로그인 확인
         val auth = FirebaseAuth.getInstance()
         //있다면 non-null
@@ -79,12 +73,12 @@ class LoginFragment : Fragment(), ActivityNavigation {
             auth.signInAnonymously()
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
+                        //Sign in success, update UI with the signed-in user's information
                         Log.d("TAG", "signInAnonymously:success")
                         val user = auth.currentUser
                         //updateUI(user)
                     } else {
-                        // If sign in fails, display a message to the user.
+                        //If sign in fails, display a message to the user.
                         Log.d("TAG", "signInAnonymously:failure", task.exception)
                         //updateUI(null)
                     }
@@ -116,12 +110,10 @@ class LoginFragment : Fragment(), ActivityNavigation {
     private fun initObservers() {
         val navController = findNavController()
         userViewModel.loginEvent.observe(viewLifecycleOwner, Observer {
-            Log.d("TAG", "login")
             navController.navigate(R.id.action_loginFragment_to_planListFragment)
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
-            Log.d("TAG", "eeeeeeee")
-            navController.navigate(R.id.registerFragment, null)
+            navController.navigate(R.id.registerDialogFragment, null)
         })
     }
 
@@ -138,7 +130,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
             UserViewModel.NaverLoginHandler(
                 requireContext(),
                 mOAuthLoginModule,
-                userViewModel::naverLogInCallback
+                userViewModel.userLogic::naverLogInCallback
             )
         loginBinding.buttonNaverLogin.setOAuthLoginHandler(mOAuthLoginHandler)
         loginBinding.buttonNaverLogin.setBgResourceId(R.drawable.btn_ag)
@@ -146,22 +138,23 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     private fun initGoogleLogin() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("temp1")
+                .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
                 .requestEmail()
                 .build()
         val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         auth = FirebaseAuth.getInstance()
         userViewModel.setGoogleClient(googleSignInClient)
-        userViewModel.googleLoginEvent.setEventReceiver(this, this)
+
         loginBinding.buttonGoogleLogin.setOnClickListener {
-            userViewModel.onGoogleLogin()
+            userViewModel.userLogic.onGoogleLoginClick()
         }
+        userViewModel.googleLoginEvent.setEventReceiver(this, this)
         val textView = loginBinding.buttonGoogleLogin.getChildAt(0) as TextView
         textView.text = getString(R.string.google_login)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == userViewModel.RC_SIGN_IN) {
+        if(requestCode == userViewModel.userLogic.RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
@@ -181,8 +174,9 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("tag", "signInWithCredential:success")
-                        val user = auth.currentUser
-                        userViewModel.userLogic.updateUI(user!!.email!!)
+                        val uid = auth.currentUser!!.uid
+                        userViewModel.userLogic.updateUserInfo(uid)
+                        userViewModel.loginEvent.call()
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("tag", "signInWithCredential:failure", task.exception)

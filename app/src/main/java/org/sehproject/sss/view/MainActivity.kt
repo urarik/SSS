@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigation_activity)
-        Log.d("tag", "...${UserInfo.userName}")
 
         val navHostFragment =
             sfm.findFragmentById(R.id.loginFragment) as NavHostFragment
@@ -74,8 +73,8 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(item.itemId)
             sfm.popBackStackImmediate("약속 목록", 0)
             true
-        }*/
-    }
+        }
+    }*/
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

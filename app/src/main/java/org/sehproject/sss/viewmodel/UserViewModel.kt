@@ -31,30 +31,22 @@ class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
     val nickName = MutableLiveData("")
     val loginEvent = SingleLiveEvent<Any>()
     val registerEvent = SingleLiveEvent<Any>()
+    val registerManualEvent = SingleLiveEvent<Any>()
+    val registerApiEvent = SingleLiveEvent<String>()
     val registerCompleteEvent = SingleLiveEvent<Any>()
 
     val btnSelected = MutableLiveData(true)
     val isLogin = MutableLiveData(false)
     val googleLoginEvent = LiveMessageEvent<ActivityNavigation>()
+    val googleRegisterEvent = LiveMessageEvent<ActivityNavigation>()
     val cheatEvent = SingleLiveEvent<Any>()
-    private lateinit var googleSignInClient: GoogleSignInClient
-    val RC_SIGN_IN = 9001
+    lateinit var googleSignInClient: GoogleSignInClient
 
     fun setGoogleClient(_googleSignInClient: GoogleSignInClient) {
         googleSignInClient = _googleSignInClient
     }
 
-    fun naverLogInCallback(result: String) {
-        val jsonObject = JSONObject(result)
-        val responseObject = JSONObject(jsonObject.getString("response"))
-        val email = responseObject.getString("email")
-        userLogic.updateUI(email)
-    }
 
-    fun onGoogleLogin() {
-        val signInIntent = googleSignInClient.signInIntent
-        googleLoginEvent.sendEvent { startActivityForResult(signInIntent, RC_SIGN_IN) }
-    }
 
     //nested class: outer class의 member를 사용할 수 없다.
     public class NaverLoginHandler(

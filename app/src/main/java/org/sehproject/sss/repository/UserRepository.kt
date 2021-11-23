@@ -47,7 +47,7 @@ class UserRepository(private val appDatabase: AppDatabase) {
         })
     }
 
-    fun register(userId: String, password: String, nickName: String, onResult: (Int) -> Unit) {
+    fun register(userId: String, apiId: String, password: String, nickName: String, onResult: (Int) -> Unit) {
         val registerCall = userService.requestRegister(userId, password, nickName)
         registerCall.enqueue(object : CallbackWithRetry<GenericResponse>(registerCall) {
             override fun onResponse(

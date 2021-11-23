@@ -17,28 +17,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
-        android:text="도착 예상 시간: 3분"
+        android:layout_marginTop="16dp"
+        android:text="도착 예상 시간"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/map_view" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewGroupDetails"
+        android:id="@+id/recyclerMapEta"
         android:layout_width="386dp"
         android:layout_height="112dp"
-        android:layout_marginTop="452dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        tools:listitem="@layout/view_item"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
