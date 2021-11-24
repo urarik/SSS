@@ -4,6 +4,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import org.sehproject.sss.datatype.GenericResponse
+import org.sehproject.sss.datatype.OptionResponse
 import org.sehproject.sss.datatype.ProfileResponse
 import org.sehproject.sss.datatype.StatisticsResponse
 import retrofit2.Call
@@ -59,9 +60,9 @@ interface ProfileService {
         userId: String
     ): Call<StatisticsResponse>
 
-    @POST("profile/option")
+    @POST("profile/option/update")
     @FormUrlEncoded
-    fun requestUpdateNoticeOption(
+    fun requestUpdateOption(
         @Field("userid")
         userId: String,
 
@@ -74,6 +75,13 @@ interface ProfileService {
         @Field("plan_invite_option")
         planInviteOption: Boolean
     ): Call<GenericResponse>
+
+    @POST("profile/option")
+    @FormUrlEncoded
+    fun requestGetOption(
+        @Field("userid")
+        userId: String
+    ): Call<OptionResponse>
 
     @POST("logout")
     @FormUrlEncoded

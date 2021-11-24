@@ -1,5 +1,4 @@
 package org.sehproject.sss.datatype
 
-data class Statistics(var notification: Boolean,
-                      var friendInvitation: Boolean,
-                      var planInvitation: Boolean)
+data class Statistics(var totalPlanCount: Int,
+                      var attendPlanCount: Int)

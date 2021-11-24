@@ -161,13 +161,37 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
         })
     }
 
+    fun getOption(onResult: (Int, Option?) -> Unit) {
+        val getOptionCall = profileService.requestGetOption(UserInfo.userId)
+        getOptionCall.enqueue(object : CallbackWithRetry<OptionResponse>(getOptionCall) {
+            override fun onResponse(
+                call: Call<OptionResponse>,
+                response: Response<OptionResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    var option = response.body()?.option
+                    onResult(0, option)
+                } else {
+                    onResult(1, null)
+                }
+            }
+
+            override fun onFailure(call: Call<OptionResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1, null)
+                }
+            }
+        })
+    }
+
     fun updateOption(
         noticeOption: Boolean,
         friendInviteOption: Boolean,
         planInviteOption: Boolean,
         onResult: (Int) -> Unit
     ) {
-        val updateOptionCall = profileService.requestUpdateNoticeOption(
+        val updateOptionCall = profileService.requestUpdateOption(
             UserInfo.userId,
             noticeOption,
             friendInviteOption,
