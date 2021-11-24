@@ -52,5 +52,10 @@ class FriendProfileFragment : Fragment() {
         profileViewModel.profileLiveData.observe(viewLifecycleOwner, {
             friendProfileBinding.profile = it
         })
+
+        profileViewModel.imageBitmapLiveData.observe(viewLifecycleOwner, {
+            var imageView = friendProfileBinding.imageView
+            imageView.setImageBitmap(profileViewModel.imageBitmapLiveData.value)
+        })
     }
 }

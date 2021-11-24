@@ -24,8 +24,7 @@ class RecommendFragment : Fragment() {
 
         val recommendBinding: FragmentRecommendBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_recommend, container, false)
         recommendBinding.recommendLogic = recommendViewModel.recommendLogic
-        val view = recommendBinding.root
 
-        return view
+        return recommendBinding.root
     }
 }

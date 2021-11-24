@@ -38,12 +38,14 @@ class ProfileFragment : Fragment() {
         )
         profileBinding.profileLogic = profileViewModel.profileLogic
         profileBinding.profile = Profile()
+
+        Log.d("TAG", UserInfo.userId)
         profileViewModel.setProfile(UserInfo.userId)
-        initObserver()
+        initObserver(profileBinding)
         return profileBinding.root
     }
 
-    fun initObserver() {
+    fun initObserver(profileBinding: FragmentProfileBinding) {
         val navController = findNavController()
         profileViewModel.editProfileEvent.observe(viewLifecycleOwner, {
             val action = ProfileFragmentDirections.actionProfileFragmentToProfileEditFragment(it)
@@ -60,6 +62,15 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.logoutEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.action_profileFragment_to_loginFragment)
+        })
+
+        profileViewModel.profileLiveData.observe(viewLifecycleOwner, {
+            profileBinding.profile = it
+        })
+
+        profileViewModel.imageBitmapLiveData.observe(viewLifecycleOwner, {
+            var imageView = profileBinding.imageView
+            imageView.setImageBitmap(profileViewModel.imageBitmapLiveData.value)
         })
     }
 }

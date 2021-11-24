@@ -34,7 +34,15 @@ class SettingFragment : Fragment() {
         )
         settingBinding.profileLogic = profileViewModel.profileLogic
 
+        profileViewModel.setOption()
+        initObserver(settingBinding)
+
         return settingBinding.root
     }
 
+    fun initObserver(settingBinding: FragmentSettingBinding) {
+        profileViewModel.optionLiveData.observe(viewLifecycleOwner, {
+            settingBinding.option = it
+        })
+    }
 }

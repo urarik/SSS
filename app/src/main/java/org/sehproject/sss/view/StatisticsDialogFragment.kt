@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +21,7 @@ import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.ProfileViewModel
 import org.sehproject.sss.viewmodel.UserViewModel
 
-class StatisticsDialogFragment: Fragment() {
+class StatisticsDialogFragment: DialogFragment() {
     private val profileViewModel: ProfileViewModel by lazy {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
         ViewModelProvider(this, ProfileViewModelFactory(appDatabase)).get(ProfileViewModel::class.java)
@@ -35,17 +36,8 @@ class StatisticsDialogFragment: Fragment() {
         statisticsBinding.profileLogic = profileViewModel.profileLogic
         val view = statisticsBinding.root
 
+        profileViewModel.setStatistics()
         initObserver()
-
-        /*
-        val recyclerView: RecyclerView = statisticsBinding.
-        groupViewModel?.setFriendList()
-        groupViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
-            adapter = UserAdapter(it)
-            recyclerView.adapter = adapter
-        })
-        profileViewModel?.setFriendList()
-         */
 
         return view
     }

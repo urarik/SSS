@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="option"
+            type="org.sehproject.sss.datatype.Option"/>
+        <variable
             name="profileLogic"
             type="org.sehproject.sss.logic.ProfileLogic" />
     </data>
@@ -37,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="푸시 알림 허용\t"
                 android:textSize="20sp"
+                android:checked="@{option.noticeOption}"
                 android:onCheckedChanged="@{(view, is_checked) -> profileLogic.onSelectNoticeOptionClick(is_checked)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="친구 추가 거부\t"
+                android:checked="@{option.friendInviteOption}"
                 android:onCheckedChanged="@{(view, is_checked) -> profileLogic.onSelectInviteFriendOptionClick(is_checked)}"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -73,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="약속 초대 거부\t"
+                android:checked="@{option.planInviteOption}"
                 android:onCheckedChanged="@{(view, is_checked) -> profileLogic.onSelectInvitePlanOptionClick(is_checked)}"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"

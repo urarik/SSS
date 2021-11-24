@@ -1,27 +1,56 @@
 package org.sehproject.sss.logic
 
+import android.content.ContentResolver
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import android.os.Environment
+import android.provider.DocumentsContract
+import android.provider.DocumentsProvider
 import android.util.Log
 import android.widget.CompoundButton
+import android.widget.ImageView
+import androidx.lifecycle.MutableLiveData
 import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.viewmodel.ProfileViewModel
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.net.URI
+import javax.xml.parsers.DocumentBuilder
 
 class ProfileLogic(val profileViewModel: ProfileViewModel) {
     val profileRepository = profileViewModel.profileRepository
 
-    fun onEditProfileClick(profile: Profile) {
-        profileViewModel.editProfileEvent.value = profile
-        profileViewModel.editProfileEvent.call()
+    fun onEditProfileClick(userId: String) {
+        profileViewModel.editProfileEvent.value = userId
     }
 
     fun onEditProfileCompleteClick(profile: Profile) {
-        profileRepository.editProfile(profile) { code: Int ->
-            if (code == 0) {
-                profileViewModel.editProfileCompleteEvent.call()
-            }
+        val file = File(profileViewModel.imageUri?.path)
+        profileViewModel.imageFile = file
+        if (profileViewModel.imageFile != null) {
+            Log.d("TAG", "success")
         }
+        profileViewModel.editProfileCompleteEvent.call()
+
+//            profileRepository.editProfile(profile) { code: Int ->
+//            if (code == 0) {
+//                profileRepository.editProfileImage(file) { code: Int ->
+//                    if (code == 0) {
+//                        val file = File(profileViewModel.imageUri?.path)
+//                        profileViewModel.imageFile = file
+//                        profileViewModel.editProfileCompleteEvent.call()
+//                    }
+//                }
+//            }
+//        }
     }
 
-    fun onUploadImageClick() {}
+    fun onUploadImageClick() {
+        profileViewModel.uploadImageEvent.call()
+    }
 
     fun onViewStatisticsClick() {
         profileViewModel.viewStatisticsEvent.call()
@@ -69,7 +98,7 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
         profileRepository.logout { code: Int ->
             if (code == 0) {
                 val account = profileRepository.getSavedAccount()
-                when(account!!.flag) {
+                when (account!!.flag) {
                     // 1 ->
                     // 2 ->
                 }
