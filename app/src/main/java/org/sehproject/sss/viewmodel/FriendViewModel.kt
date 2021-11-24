@@ -18,9 +18,9 @@ class FriendViewModel : ViewModel() {
     val friendList = MutableLiveData<List<User>>()
     val searchUserEvent = SingleLiveEvent<Any>()
     val addFriendEvent = SingleLiveEvent<Any>()
-    val listFriendEvent = SingleLiveEvent<Any>()
     val deleteFriendEvent = SingleLiveEvent<Any>()
     val blockFriendEvent = SingleLiveEvent<Any>()
+    val listFriendEvent = SingleLiveEvent<Any>()
 
     // Logic에서 ViewModel로 변경, ArrayList -> List로 변경, Return 삭제
     fun getFriendList() {

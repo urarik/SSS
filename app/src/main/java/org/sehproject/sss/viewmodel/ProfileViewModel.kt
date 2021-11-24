@@ -15,24 +15,30 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     val profileRepository = ProfileRepository(appDatabase);
 
     val viewProfileEvent = SingleLiveEvent<Int>()
+    val viewFriendProfileEvent = SingleLiveEvent<Int>()
     val editProfileEvent = SingleLiveEvent<Profile>()
     val editProfileCompleteEvent = SingleLiveEvent<Int>()
     val uploadImageEvent = SingleLiveEvent<Any>()
     val viewStatisticsEvent = SingleLiveEvent<Int>()
     val viewStatisticsExitEvent = SingleLiveEvent<Any>()
-    val viewFriendProfileEvent = SingleLiveEvent<Int>()
     val selectOptionEvent = SingleLiveEvent<Int>()
     val logoutEvent = SingleLiveEvent<Int>()
     var profileLiveData = MutableLiveData<Profile>()
     var statisticsLiveData = MutableLiveData<Statistics>()
     var planListLiveData = MutableLiveData<List<SimplePlan>>()
+    // option Live Data 추가
+    var noticeOptionLiveData = MutableLiveData(false)
+    var inviteFriendOptionLiveData = MutableLiveData(false)
+    var invitePlanOptionLiveData = MutableLiveData(false)
 
     fun setProfile(userId: String) {
-        profileRepository.getProfile(userId) { code: Int, profile: Profile? ->
-            if(code == 0) {
-                profileLiveData.value = profile
-            }
-        }
+        profileLiveData.value = Profile("764545", "아무개", "정수용", 24, true)
+
+//        profileRepository.getProfile(userId) { code: Int, profile: Profile? ->
+//            if(code == 0) {
+//                profileLiveData.value = profile
+//            }
+//        }
     }
     fun setStatistics() {
 
