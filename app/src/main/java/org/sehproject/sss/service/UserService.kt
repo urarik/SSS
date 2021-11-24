@@ -19,6 +19,26 @@ interface UserService {
         password: String,
     ): Call<UserResponse>
 
+    @POST("user/login/api")
+    @FormUrlEncoded
+    fun requestApiLogin(
+        @Field("api_id")
+        apiId: String
+    ) : Call<UserResponse>
+
+    @POST("user/register/api")
+    @FormUrlEncoded
+    fun requestApiRegister(
+        @Field("userid")
+        userId: String,
+
+        @Field("nickname")
+        nickName: String,
+
+        @Field("api_id")
+        apiId: String
+    ) : Call<GenericResponse>
+
     @POST("user/register")
     @FormUrlEncoded
     fun requestRegister(

@@ -12,21 +12,25 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
         profileViewModel.editProfileEvent.value = profile
         profileViewModel.editProfileEvent.call()
     }
+
     fun onEditProfileCompleteClick(profile: Profile) {
         profileRepository.editProfile(profile) { code: Int ->
-            if(code == 0) {
+            if (code == 0) {
                 profileViewModel.editProfileCompleteEvent.call()
             }
         }
     }
+
     fun onUploadImageClick() {}
 
     fun onViewStatisticsClick() {
         profileViewModel.viewStatisticsEvent.call()
     }
+
     fun onViewStatisticsExitClick() {
         profileViewModel.viewStatisticsExitEvent.call()
     }
+
     fun onSelectOptionClick() {
         profileViewModel.selectOptionEvent.call()
     }
@@ -40,6 +44,7 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
 //            }
 //        }
     }
+
     fun onSelectInviteFriendOptionClick(option: Boolean) {
         profileViewModel.inviteFriendOptionLiveData.value = option
 
@@ -49,6 +54,7 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
 //            }
 //        }
     }
+
     fun onSelectInvitePlanOptionClick(option: Boolean) {
         profileViewModel.invitePlanOptionLiveData.value = option
 
@@ -58,13 +64,20 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
 //            }
 //        }
     }
-     fun onLogoutClick() {
-         profileViewModel.logoutEvent.call()
-//        profileRepository.logout() { code: Int ->
-//            if(code == 0) {
-//                profileRepository.deleteAccount()
-//                profileViewModel.logoutEvent.call()
-//            }
-//        }
+
+    fun onLogoutClick() {
+        profileRepository.logout { code: Int ->
+            if (code == 0) {
+                val account = profileRepository.getSavedAccount()
+                when(account!!.flag) {
+                    // 0 ->
+                    // 1 ->
+                    // 2 ->
+                }
+                profileRepository.deleteAccount()
+                profileViewModel.logoutEvent.call()
+            }
+        }
+        profileViewModel.logoutEvent.call()
     }
 }
