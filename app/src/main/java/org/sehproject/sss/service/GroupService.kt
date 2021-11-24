@@ -70,6 +70,20 @@ interface GroupService {
         userIdList: List<String>
     ): Call<GenericResponse>
 
+    @POST("group/accept")
+    @FormUrlEncoded
+    fun requestAcceptGroup(
+        @Field("gid")
+        groupId: Int,
+
+        @Field("userid")
+        userId: String,
+
+        @Field("accept")
+        isAccept: Boolean
+
+    ): Call<GenericResponse>
+
     @POST("group/kickout")
     @FormUrlEncoded
     fun requestKickOutGroup(
