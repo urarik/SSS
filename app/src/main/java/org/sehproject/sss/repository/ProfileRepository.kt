@@ -217,6 +217,10 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
         })
     }
 
+    fun getSavedAccount(): Account? {
+        return appDatabase.userDao().select()
+    }
+
     fun deleteAccount() {
         appDatabase.userDao().delete()
     }

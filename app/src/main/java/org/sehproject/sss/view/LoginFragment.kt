@@ -28,6 +28,7 @@ import com.nhn.android.idp.common.util.DeviceAppInfo.getPackageName
 import com.nhn.android.naverlogin.OAuthLogin
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentLoginBinding
+import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.utils.UserViewModelFactory
 import java.security.MessageDigest
@@ -38,10 +39,10 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     lateinit var loginBinding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
-    private val user = AccountXML("", "")
+    private val user = AccountXML("", "", "", 0)
     private val userViewModel: UserViewModel by lazy {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
-            ViewModelProvider(this, UserViewModelFactory(appDatabase)).get(UserViewModel::class.java)
+        ViewModelProvider(this, UserViewModelFactory(appDatabase)).get(UserViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -64,6 +65,41 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     override fun onStart() {
         super.onStart()
+
+        val account = userViewModel.userRepository.getSavedAccount()
+        if (account != null) {
+            when (account.flag) {
+                0 -> userViewModel.userRepository.login(
+                    account.userId,
+                    account.password
+                ) { code, nickName ->
+                    if (code == 0) {
+                        userViewModel.loginEvent.call()
+                    } else {
+                        // 로컬 로그인 실패
+                    }
+                }
+                1 ->
+                    // api 관련 로직
+                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
+                        if (code == 0) {
+                            userViewModel.loginEvent.call()
+                        } else {
+                            // api 로그인 실패
+                        }
+                    }
+                2 ->
+                    // api 관련 로직
+                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
+                        if (code == 0) {
+                            userViewModel.loginEvent.call()
+                        } else {
+                            // api 로그인 실패
+                        }
+                    }
+            }
+        }
+
         //구글 로그인 확인
         val auth = FirebaseAuth.getInstance()
         //있다면 non-null
@@ -83,6 +119,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                         //updateUI(null)
                     }
                 }
+
         }
     }
 
@@ -90,7 +127,10 @@ class LoginFragment : Fragment(), ActivityNavigation {
         var packageInfo: PackageInfo? = null
         try {
             packageInfo =
-                requireContext().packageManager.getPackageInfo(getPackageName(context), PackageManager.GET_SIGNATURES)
+                requireContext().packageManager.getPackageInfo(
+                    getPackageName(context),
+                    PackageManager.GET_SIGNATURES
+                )
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
@@ -138,9 +178,9 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     private fun initGoogleLogin() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
-                .requestEmail()
-                .build()
+            .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
         val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         auth = FirebaseAuth.getInstance()
         userViewModel.setGoogleClient(googleSignInClient)
@@ -154,7 +194,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == userViewModel.userLogic.RC_SIGN_IN) {
+        if (requestCode == userViewModel.userLogic.RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
@@ -167,21 +207,22 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
         super.onActivityResult(requestCode, resultCode, data)
     }
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("tag", "signInWithCredential:success")
-                        val uid = auth.currentUser!!.uid
-                        userViewModel.userLogic.updateUserInfo(uid)
-                        userViewModel.loginEvent.call()
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w("tag", "signInWithCredential:failure", task.exception)
-                    }
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("tag", "signInWithCredential:success")
+                    val uid = auth.currentUser!!.uid
+                    userViewModel.userLogic.updateUserInfo(uid)
+                    userViewModel.loginEvent.call()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("tag", "signInWithCredential:failure", task.exception)
                 }
+            }
     }
 
 }

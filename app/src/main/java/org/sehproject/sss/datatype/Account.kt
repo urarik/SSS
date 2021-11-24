@@ -11,5 +11,11 @@ data class Account(
     val userId: String,
 
     @ColumnInfo
-    val password: String
+    val password: String,
+
+    @ColumnInfo
+    val apiId: String,
+
+    @ColumnInfo
+    val flag: Int
 )

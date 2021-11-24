@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import org.sehproject.sss.datatype.Account
 
-@Database(entities = arrayOf(Account::class), version = 1)
+@Database(entities = arrayOf(Account::class), version = 2)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
 
