@@ -220,7 +220,11 @@
         android:id="@+id/friendProfileFragment"
         android:name="org.sehproject.sss.view.FriendProfileFragment"
         android:label="fragment_friend_profile"
-        tools:layout="@layout/fragment_friend_profile" />
+        tools:layout="@layout/fragment_friend_profile" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/profileEditFragment"
         android:name="org.sehproject.sss.ProfileEditFragment"

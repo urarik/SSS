@@ -4,10 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import org.sehproject.sss.viewmodel.RecommendViewModel
 
 class RecommendLogic(val recommendViewModel:RecommendViewModel) {
-    fun onRecommendClick()
-    {
-
-    }
+    fun onRecommendClick() {}
 
     private fun convertList(listToLd:List<String>): MutableLiveData<List<String>>
     {
