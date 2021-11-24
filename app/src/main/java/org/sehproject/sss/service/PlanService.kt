@@ -89,6 +89,20 @@ interface PlanService {
         userIdList: List<String>
     ): Call<GenericResponse>
 
+    @POST("plan/accept")
+    @FormUrlEncoded
+    fun requestAcceptPlan(
+        @Field("pid")
+        planId: Int,
+
+        @Field("userid")
+        userId: String,
+
+        @Field("accept")
+        isAccept: Boolean
+
+    ): Call<GenericResponse>
+
     @POST("plan/kickout")
     @FormUrlEncoded
     fun requestKickOutPlan(

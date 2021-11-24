@@ -8,22 +8,20 @@ import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.viewmodel.UserViewModel
 
 class UserLogic(val userViewModel: UserViewModel) {
-    val userRepository = userViewModel.userRepository
     val RC_SIGN_IN = 9001
 
     // local
     fun onLoginClick(user: AccountXML) {
         Log.d("TAG", user.userId)
-        userViewModel.loginEvent.call()
 
-//        userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
-//            if (code == 0) {
-//                if(userRepository.getSavedAccount() == null)
-//                    userRepository.saveAccount(Account(user.userId, user.password, "", 0))
-//                //updateUI(nickName!!)
-//                userViewModel.loginEvent.call()
-//            }
-//        }
+        userViewModel.userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
+            if (code == 0) {
+                if(userViewModel.userRepository.getSavedAccount() == null)
+                    userViewModel.userRepository.saveAccount(Account(user.userId, user.password, "", 0))
+                //updateUI(nickName!!)
+                userViewModel.loginEvent.call()
+            }
+        }
     }
 
     fun onGoogleLoginClick() {
@@ -50,16 +48,13 @@ class UserLogic(val userViewModel: UserViewModel) {
         val jsonObject = JSONObject(result)
         val responseObject = JSONObject(jsonObject.getString("response"))
         val id = responseObject.getString("id")
-        updateUserInfo(id)
-
-        userViewModel.loginEvent.call()
+        updateUserInfo(id, 2)
     }
 
     fun naverRegisterCallback(result: String) {
         val jsonObject = JSONObject(result)
         val responseObject = JSONObject(jsonObject.getString("response"))
         val id = responseObject.getString("id")
-        updateUserInfo(id)
 
         userViewModel.registerApiEvent.value = id
     }
@@ -79,7 +74,7 @@ class UserLogic(val userViewModel: UserViewModel) {
     ) {
         Log.d("TAG", "userId: $userId\npassword: $password\nnickName: $nickName\napiId: $apiId")
         if (password == confirmPassword) {
-            userRepository.register(userId, password, nickName) { code: Int ->
+            userViewModel.userRepository.register(userId, password, nickName) { code: Int ->
                 if (code == 0) {
                     userViewModel.registerCompleteEvent.call()
                 }
@@ -87,9 +82,14 @@ class UserLogic(val userViewModel: UserViewModel) {
         }
     }
 
-    fun updateUserInfo(id: String) {
+    fun updateUserInfo(id: String, flag: Int) {
         UserInfo.isLogin = true
         UserInfo.userId = id
-        // userViewModel.isLogin.value = true// thread 사용시 바꿔야함
+        when(flag) {
+            0 -> userViewModel.userRepository.saveAccount(Account(id,"", "", flag))
+            1, 2 -> userViewModel.userRepository.saveAccount(Account("","", id, flag))
+        }
+
+        userViewModel.loginEvent.call()
     }
 }

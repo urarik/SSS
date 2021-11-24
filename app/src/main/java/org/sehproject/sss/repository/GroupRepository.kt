@@ -139,6 +139,29 @@ class GroupRepository {
         })
     }
 
+    fun acceptGroup(gid: Int, isAccept: Boolean, onResult: (Int) -> Unit) {
+        val acceptPlanCall = groupService.requestAcceptGroup(gid, UserInfo.userId, isAccept)
+        acceptPlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(acceptPlanCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
+                }
+            }
+
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
+                }
+            }
+        })
+    }
+
     fun kickOutGroup(gid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
         val kickOutGroupCall = groupService.requestKickOutGroup(gid, userIdList)
         kickOutGroupCall.enqueue(object : CallbackWithRetry<GenericResponse>(kickOutGroupCall) {

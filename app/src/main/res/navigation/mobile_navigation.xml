@@ -4,6 +4,19 @@
             xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/loginFragment"
     android:id="@+id/main_nav">
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="org.sehproject.sss.view.MainActivity">
+
+    </activity>
+        <dialog
+            android:id="@+id/invitationDialogFragment"
+            android:name="org.sehproject.sss.InvitationDialogFragment">
+
+            <argument
+                android:name="invitation"
+                app:argType="org.sehproject.sss.datatype.Invitation" />
+        </dialog>
     <fragment
         android:id="@+id/registerFragment"
         android:name="org.sehproject.sss.RegisterFragment"
@@ -30,7 +43,7 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_loginFragment_to_registerDialogFragment"
-            app:destination="@id/registerDialogFragment" />
+            app:destination="@id/registerChooserFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
@@ -206,11 +219,7 @@
             app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
     </fragment>
-    <fragment
-        android:id="@+id/invitationFragment"
-        android:name="org.sehproject.sss.InvitationFragment"
-        android:label="fragment_invitation"
-        tools:layout="@layout/fragment_invitation" />
+
     <fragment
         android:id="@+id/userSearchFragment"
         android:name="org.sehproject.sss.view.UserSearchFragment"
@@ -277,12 +286,12 @@
         android:id="@+id/planInviteDialogFragment"
         android:name="org.sehproject.sss.view.PlanInviteDialogFragment"
         android:label="PlanInviteDialogFragment" />
-    <dialog
-        android:id="@+id/registerDialogFragment"
-        android:name="org.sehproject.sss.view.RegisterDialogFragment"
-        android:label="RegisterDialogFragment" >
+    <fragment
+        android:id="@+id/registerChooserFragment"
+        android:name="org.sehproject.sss.view.RegisterChooserFragment"
+        android:label="RegisterChooserFragment" >
         <action
-            android:id="@+id/action_registerDialogFragment_to_registerFragment"
+            android:id="@+id/action_registerChooserFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
-    </dialog>
+    </fragment>
 </navigation>

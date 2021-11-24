@@ -28,7 +28,7 @@ import org.sehproject.sss.viewmodel.UserViewModel
 
 
 
-class RegisterDialogFragment: DialogFragment(), ActivityNavigation {
+class RegisterChooserFragment: Fragment(), ActivityNavigation {
     private val userViewModel: UserViewModel by lazy {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
         ViewModelProvider(this, UserViewModelFactory(appDatabase)).get(UserViewModel::class.java)
@@ -50,23 +50,14 @@ class RegisterDialogFragment: DialogFragment(), ActivityNavigation {
         initObserver()
         return registerDialogBinding.root
         }
-
-    override fun onResume() {
-        super.onResume()
-
-        val width = resources.getDimensionPixelSize(R.dimen.popup_width_register)
-        val height = resources.getDimensionPixelSize(R.dimen.popup_height_register)
-        dialog!!.window!!.setLayout(width, height)
-    }
-
     private fun initObserver() {
         val navController = findNavController()
         userViewModel.registerApiEvent.observe(viewLifecycleOwner, {
-            val action = RegisterDialogFragmentDirections.actionRegisterDialogFragmentToRegisterFragment(it)
+            val action = RegisterChooserFragmentDirections.actionRegisterChooserFragmentToRegisterFragment(it)
             navController.navigate(action)
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, {
-            val action = RegisterDialogFragmentDirections.actionRegisterDialogFragmentToRegisterFragment("")
+            val action = RegisterChooserFragmentDirections.actionRegisterChooserFragmentToRegisterFragment("")
             navController.navigate(action)
         })
 
@@ -132,7 +123,6 @@ class RegisterDialogFragment: DialogFragment(), ActivityNavigation {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("tag", "signInWithCredential:success")
                     val uid = auth.currentUser!!.uid
-                    userViewModel.userLogic.updateUserInfo(uid)
                     userViewModel.registerApiEvent.value = uid
                 } else {
                     // If sign in fails, display a message to the user.
