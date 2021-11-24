@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.nhn.android.idp.common.util.DeviceAppInfo.getPackageName
 import com.nhn.android.naverlogin.OAuthLogin
+import com.nhn.android.naverlogin.data.OAuthLoginState
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentLoginBinding
 import org.sehproject.sss.datatype.Account
@@ -39,6 +41,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     lateinit var loginBinding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var mOAuthLoginModule: OAuthLogin
     private val user = AccountXML("", "", "", 0)
     private val userViewModel: UserViewModel by lazy {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
@@ -65,8 +68,9 @@ class LoginFragment : Fragment(), ActivityNavigation {
 
     override fun onStart() {
         super.onStart()
-
+        val auth = FirebaseAuth.getInstance()
         val account = userViewModel.userRepository.getSavedAccount()
+
         if (account != null) {
             when (account.flag) {
                 0 -> userViewModel.userRepository.login(
@@ -79,29 +83,51 @@ class LoginFragment : Fragment(), ActivityNavigation {
                         // 로컬 로그인 실패
                     }
                 }
-                1 ->
+                1 -> //Google
                     // api 관련 로직
+                {
+                    //userViewModel.loginEvent.call()
                     userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
                         if (code == 0) {
-                            userViewModel.loginEvent.call()
+                            if (auth.currentUser != null) {
+                                userViewModel.userLogic.updateUserInfo(account.apiId, 1)
+                                userViewModel.loginEvent.call()
+                            }
                         } else {
                             // api 로그인 실패
                         }
                     }
-                2 ->
+                }
+                2 -> {//Naver
                     // api 관련 로직
+                    if (!(OAuthLoginState.NEED_LOGIN.equals(mOAuthLoginModule.getState(context)) ||
+                                OAuthLoginState.NEED_INIT.equals(mOAuthLoginModule.getState(context))))
+                        userViewModel.userLogic.updateUserInfo(account.apiId, 2)
                     userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
                         if (code == 0) {
-                            userViewModel.loginEvent.call()
+                            if (!(OAuthLoginState.NEED_LOGIN.equals(
+                                    mOAuthLoginModule.getState(
+                                        context
+                                    )
+                                ) ||
+                                        OAuthLoginState.NEED_INIT.equals(
+                                            mOAuthLoginModule.getState(
+                                                context
+                                            )
+                                        ))
+                            ) {
+                                userViewModel.userLogic.updateUserInfo(account.apiId, 2)
+                            }
+
                         } else {
                             // api 로그인 실패
                         }
                     }
+                }
             }
         }
 
         //구글 로그인 확인
-        val auth = FirebaseAuth.getInstance()
         //있다면 non-null
         auth.currentUser?.run {
 
@@ -153,18 +179,19 @@ class LoginFragment : Fragment(), ActivityNavigation {
             navController.navigate(R.id.action_loginFragment_to_planListFragment)
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
-            navController.navigate(R.id.registerDialogFragment, null)
+            navController.navigate(R.id.registerChooserFragment, null)
         })
     }
 
     private fun initNaverLogin() {
-        val mOAuthLoginModule = OAuthLogin.getInstance()
-        mOAuthLoginModule.init(
-            context,
-            "a7XW5Z1zpCBPzzIUT1FS",
-            "HtKAgnWhV6",
-            "SSS"
-        )
+        mOAuthLoginModule = OAuthLogin.getInstance().also {
+            it.init(
+                context,
+                "a7XW5Z1zpCBPzzIUT1FS",
+                "HtKAgnWhV6",
+                "SSS"
+            )
+        }
 
         val mOAuthLoginHandler =
             UserViewModel.NaverLoginHandler(
@@ -216,8 +243,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("tag", "signInWithCredential:success")
                     val uid = auth.currentUser!!.uid
-                    userViewModel.userLogic.updateUserInfo(uid)
-                    userViewModel.loginEvent.call()
+                    userViewModel.userLogic.updateUserInfo(uid, 1)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("tag", "signInWithCredential:failure", task.exception)

@@ -13,7 +13,6 @@ class UserLogic(val userViewModel: UserViewModel) {
     // local
     fun onLoginClick(user: AccountXML) {
         Log.d("TAG", user.userId)
-        userViewModel.loginEvent.call()
 
         userViewModel.userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
             if (code == 0) {
@@ -49,16 +48,13 @@ class UserLogic(val userViewModel: UserViewModel) {
         val jsonObject = JSONObject(result)
         val responseObject = JSONObject(jsonObject.getString("response"))
         val id = responseObject.getString("id")
-        updateUserInfo(id)
-
-        userViewModel.loginEvent.call()
+        updateUserInfo(id, 2)
     }
 
     fun naverRegisterCallback(result: String) {
         val jsonObject = JSONObject(result)
         val responseObject = JSONObject(jsonObject.getString("response"))
         val id = responseObject.getString("id")
-        updateUserInfo(id)
 
         userViewModel.registerApiEvent.value = id
     }
@@ -86,9 +82,14 @@ class UserLogic(val userViewModel: UserViewModel) {
         }
     }
 
-    fun updateUserInfo(id: String) {
+    fun updateUserInfo(id: String, flag: Int) {
         UserInfo.isLogin = true
         UserInfo.userId = id
-        // userViewModel.isLogin.value = true// thread 사용시 바꿔야함
+        when(flag) {
+            0 -> userViewModel.userRepository.saveAccount(Account(id,"", "", flag))
+            1, 2 -> userViewModel.userRepository.saveAccount(Account("","", id, flag))
+        }
+
+        userViewModel.loginEvent.call()
     }
 }

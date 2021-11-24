@@ -36,15 +36,33 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
     }
 
     fun onSelectNoticeOptionClick(option: Boolean) {
-        Log.d("TAG", "option: $option")
+        profileViewModel.noticeOptionLiveData.value = option
+
+//        profileRepository.updateOption(option, profileViewModel.inviteFriendOptionLiveData.value!!, profileViewModel.invitePlanOptionLiveData.value!!) { code: Int ->
+//            if(code == 0) {
+//                TODO("옵션 설정 후")
+//            }
+//        }
     }
 
     fun onSelectInviteFriendOptionClick(option: Boolean) {
-        Log.d("TAG", "option: $option")
+        profileViewModel.inviteFriendOptionLiveData.value = option
+
+//        profileRepository.updateOption(profileViewModel.noticeOptionLiveData.value!!, option, profileViewModel.invitePlanOptionLiveData.value!!) { code: Int ->
+//            if(code == 0) {
+//                TODO("옵션 설정 후")
+//            }
+//        }
     }
 
     fun onSelectInvitePlanOptionClick(option: Boolean) {
-        Log.d("TAG", "option: $option")
+        profileViewModel.invitePlanOptionLiveData.value = option
+
+//        profileRepository.updateOption(profileViewModel.noticeOptionLiveData.value!!, profileViewModel.inviteFriendOptionLiveData.value!!, option) { code: Int ->
+//            if(code == 0) {
+//                TODO("옵션 설정 후")
+//            }
+//        }
     }
 
     fun onLogoutClick() {

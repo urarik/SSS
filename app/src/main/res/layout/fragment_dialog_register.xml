@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.LoginFragment">
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="userLogic"
@@ -12,28 +11,44 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="231dp"
+        android:layout_height="460dp"
+        android:gravity="start"
         android:orientation="vertical"
         android:paddingVertical="30dp">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appCompatButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="88dp"
+            android:onClick="@{()->userLogic.onRegisterClick()}"
             android:text="일반 회원가입"
-            android:onClick="@{()->userLogic.onRegisterClick()}"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
             android:id="@+id/button_naver_register"
             android:layout_width="140dp"
             android:layout_height="60dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_google_register" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/button_google_register"
             android:layout_width="140dp"
             android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:paddingTop="16dp" />
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:paddingTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatButton3" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
