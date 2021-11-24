@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentRegisterBinding
 import org.sehproject.sss.utils.UserViewModelFactory
+import org.sehproject.sss.view.GroupDetailFragmentArgs
 import org.sehproject.sss.viewmodel.UserViewModel
 
 class RegisterFragment : Fragment() {
@@ -27,7 +29,8 @@ class RegisterFragment : Fragment() {
         val registerBinding: FragmentRegisterBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_register, container, false)
         registerBinding.userLogic = userViewModel.userLogic
         val view = registerBinding.root
-
+        val safeArgs: RegisterFragmentArgs by navArgs()
+        registerBinding.apiId = safeArgs.id
         initObserver()
 
         return view

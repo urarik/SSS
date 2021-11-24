@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.LoginFragment">
+    <data>
+        <variable
+            name="userLogic"
+            type="org.sehproject.sss.logic.UserLogic" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="30dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일반 회원가입"
+            android:onClick="@{()->userLogic.onRegisterClick()}"/>
+
+        <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
+            android:id="@+id/button_naver_register"
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/button_google_register"
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:paddingTop="16dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/loginFragment"
+    android:id="@+id/main_nav">
     <fragment
         android:id="@+id/registerFragment"
         android:name="org.sehproject.sss.RegisterFragment"
@@ -13,6 +14,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -20,13 +24,13 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_planListFragment"
             app:destination="@id/planListFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerDialogFragment"
+            app:destination="@id/registerDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
@@ -199,7 +203,7 @@
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/profileFragment"
+            app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -269,8 +273,16 @@
             app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/planInviteDialogFragment"
         android:name="org.sehproject.sss.view.PlanInviteDialogFragment"
         android:label="PlanInviteDialogFragment" />
+    <dialog
+        android:id="@+id/registerDialogFragment"
+        android:name="org.sehproject.sss.view.RegisterDialogFragment"
+        android:label="RegisterDialogFragment" >
+        <action
+            android:id="@+id/action_registerDialogFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </dialog>
 </navigation>

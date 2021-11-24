@@ -90,12 +90,12 @@ class PlanEditFragment : Fragment() {
 
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
-                .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
+                .requestIdToken("test1")
                 .build()
 
             val credential = GoogleAccountCredential.usingOAuth2(context, scopes)
                 .setBackOff(ExponentialBackOff())
-                .setSelectedAccountName("a01076684995@gmail.com")
+                .setSelectedAccountName("psh6464@gmail.com")
 
             val mService = com.google.api.services.calendar.Calendar.Builder(
                 transport, jsonFactory, credential

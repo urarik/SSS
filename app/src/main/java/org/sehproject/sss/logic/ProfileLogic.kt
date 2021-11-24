@@ -58,10 +58,8 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
 //            }
 //        }
     }
-
-    fun onLogoutClick() {
-        profileViewModel.logoutEvent.call()
-
+     fun onLogoutClick() {
+         profileViewModel.logoutEvent.call()
 //        profileRepository.logout() { code: Int ->
 //            if(code == 0) {
 //                profileRepository.deleteAccount()

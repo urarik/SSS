@@ -1,25 +1,46 @@
 package org.sehproject.sss.view
 
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.messaging.FirebaseMessaging
 import com.nhn.android.naverlogin.OAuthLoginDefine.LOG_TAG
+import kotlinx.coroutines.*
+import kotlinx.coroutines.NonCancellable.isActive
 import net.daum.mf.map.api.MapLayout
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentMapBinding
+import org.sehproject.sss.databinding.ItemEtaBinding
+import org.sehproject.sss.databinding.ItemGroupBinding
+import org.sehproject.sss.datatype.Coordinate
+import org.sehproject.sss.datatype.Eta
+import org.sehproject.sss.datatype.Group
+import org.sehproject.sss.viewmodel.GroupViewModel
+import org.sehproject.sss.viewmodel.MapViewModel
 
 class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     MapView.MapViewEventListener,
     MapView.CurrentLocationEventListener {
-    // TODO: Rename and change types of parameters
-    private val safeArgs: MapFragmentArgs by navArgs() //pid
+    //private val safeArgs: MapFragmentArgs by navArgs() //pid
+    //private val pid = safeArgs.pid
+    private lateinit var job: Job
+    private val mapViewModel: MapViewModel by lazy {
+        ViewModelProvider(this).get(MapViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +57,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         val mapLayout = MapLayout(requireActivity())
         val mapView = mapLayout.mapView
 
-        mapView.setDaumMapApiKey("3549708e5615a6373ce58622aae7434d")
+        mapView.setDaumMapApiKey("test2")
         mapView.setOpenAPIKeyAuthenticationResultListener(this)
         mapView.mapType = MapView.MapType.Standard
         mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading;
@@ -49,9 +70,19 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         }
         mapBinding.mapView.addView(mapView)
 
+        initObserver(mapBinding)
+
+        job = repeatRequest()
 
         return mapBinding.root
     }
+
+    private fun initObserver(mapBinding: FragmentMapBinding) {
+        mapViewModel.etaListLiveData.observe(viewLifecycleOwner, {
+            mapBinding.recyclerMapEta.adapter = EtaAdapter(it)
+        })
+    }
+
 
     override fun onDaumMapOpenAPIKeyAuthenticationResult(p0: MapView?, p1: Int, p2: String?) {
         Log.d(
@@ -64,11 +95,27 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         )
     }
 
-    override fun onCurrentLocationUpdate(p0: MapView?, p1: MapPoint?, p2: Float) {
-        Log.d("TAG", "!@#!")
-        Log.d("TAG", p0.toString())
-        Log.d("TAG", p1.toString())
-        Log.d("TAG", p2.toString())
+    override fun onCurrentLocationUpdate(p0: MapView?, currentLocation: MapPoint?, accuracy: Float) {
+        mapViewModel.mapLogic.onCurrentLocationUpdate(Coordinate(
+            currentLocation!!.mapPointGeoCoord.latitude,
+            currentLocation.mapPointGeoCoord.longitude
+        ))
+    }
+
+    private fun repeatRequest(): Job {
+        return CoroutineScope(Dispatchers.Main).launch {
+            while(isActive) {
+                //do your request
+                Log.d("TAG", "repeat!")
+                delay(5000)
+            }
+        }
+
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
     }
 
     override fun onCurrentLocationDeviceHeadingUpdate(p0: MapView?, p1: Float) {
@@ -117,6 +164,33 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
 
     override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {
         TODO("Not yet implemented")
+    }
+
+    protected inner class EtaHolder(private val itemEtaBinding: ItemEtaBinding):
+        RecyclerView.ViewHolder(itemEtaBinding.root) {
+
+        @RequiresApi(Build.VERSION_CODES.Q)
+        fun bind(eta: Eta) {
+            itemEtaBinding.eta = eta
+        }
+    }
+
+    protected inner class EtaAdapter(val etas: List<Eta>) :
+        RecyclerView.Adapter<EtaHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EtaHolder {
+            val itemEtaBinding = ItemEtaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return EtaHolder(itemEtaBinding)
+        }
+
+        override fun getItemCount(): Int = etas.size
+
+        @RequiresApi(Build.VERSION_CODES.Q)
+        override fun onBindViewHolder(holder: EtaHolder, position: Int) {
+            val eta = etas[position]
+            holder.bind(eta)
+        }
+
     }
 
 }
