@@ -9,7 +9,7 @@
     tools:context="org.sehproject.sss.view.MainActivity">
 
     <fragment
-        android:id="@id/loginFragment"
+        android:id="@+id/nav_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
