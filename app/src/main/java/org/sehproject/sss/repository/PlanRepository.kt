@@ -180,6 +180,29 @@ class PlanRepository {
         })
     }
 
+    fun acceptPlan(pid: Int, isAccept: Boolean, onResult: (Int) -> Unit) {
+        val acceptPlanCall = planService.requestAcceptPlan(pid, UserInfo.userId, isAccept)
+        acceptPlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(acceptPlanCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
+                }
+            }
+
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
+                }
+            }
+        })
+    }
+
     fun kickOutPlan(pid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
         val kickOutPlanCall = planService.requestKickOutPlan(pid, userIdList)
         kickOutPlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(kickOutPlanCall) {
