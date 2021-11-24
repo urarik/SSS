@@ -50,6 +50,6 @@ class FriendLogic(val friendViewModel: FriendViewModel) {
     }
 
     fun onViewFriendPageClick(friendId: String) {
-
+        friendViewModel.listFriendEvent.value = friendId
     }
 }
