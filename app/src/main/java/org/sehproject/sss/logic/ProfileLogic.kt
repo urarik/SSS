@@ -52,7 +52,6 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
             if (code == 0) {
                 val account = profileRepository.getSavedAccount()
                 when(account!!.flag) {
-                    // 0 ->
                     // 1 ->
                     // 2 ->
                 }
