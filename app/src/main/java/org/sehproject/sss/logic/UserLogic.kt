@@ -16,14 +16,14 @@ class UserLogic(val userViewModel: UserViewModel) {
         Log.d("TAG", user.userId)
         userViewModel.loginEvent.call()
 
-        userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
-            if (code == 0) {
-                if(userRepository.getSavedAccount() == null)
-                    userRepository.saveAccount(Account(user.userId, user.password, "", 0))
-                //updateUI(nickName!!)
-                userViewModel.loginEvent.call()
-            }
-        }
+//        userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
+//            if (code == 0) {
+//                if(userRepository.getSavedAccount() == null)
+//                    userRepository.saveAccount(Account(user.userId, user.password, "", 0))
+//                //updateUI(nickName!!)
+//                userViewModel.loginEvent.call()
+//            }
+//        }
     }
 
     fun onGoogleLoginClick() {

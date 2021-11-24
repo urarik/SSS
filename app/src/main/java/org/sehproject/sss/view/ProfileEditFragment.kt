@@ -1,11 +1,27 @@
 package org.sehproject.sss
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -13,7 +29,9 @@ import androidx.navigation.fragment.navArgs
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileEditBinding
+import org.sehproject.sss.logic.ProfileLogic
 import org.sehproject.sss.utils.ProfileViewModelFactory
+import org.sehproject.sss.view.FriendProfileFragmentArgs
 import org.sehproject.sss.view.GroupDetailFragmentArgs
 import org.sehproject.sss.viewmodel.PlanViewModel
 import org.sehproject.sss.viewmodel.ProfileViewModel
@@ -23,7 +41,12 @@ class ProfileEditFragment : Fragment() {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
         ViewModelProvider(this, ProfileViewModelFactory(appDatabase)).get(ProfileViewModel::class.java)
     }
-    private val safeArgs: ProfileEditFragmentArgs by navArgs() //profile
+    private lateinit var imageView: ImageView
+    private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) { results: Uri? ->
+        imageView.setImageURI(results)
+        profileViewModel.imageUri = results
+            Log.d("TAG", "TEST")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,15 +60,33 @@ class ProfileEditFragment : Fragment() {
         )
         profileEditBinding.profileLogic = profileViewModel.profileLogic
 
-        initObserver()
+        val safeArgs: ProfileEditFragmentArgs by navArgs()
+        profileViewModel.setProfile(safeArgs.userId)
+        Log.d("TAG", safeArgs.userId)
+
+        imageView = profileEditBinding.imageEditProfile
+
+        initObserver(profileEditBinding)
         return profileEditBinding.root
     }
 
-    private fun initObserver() {
+    private fun initObserver(profileEditBinding: FragmentProfileEditBinding) {
         val navController = findNavController()
         profileViewModel.editProfileCompleteEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.action_profileEditFragment_to_profileFragment)
         })
-    }
 
+        profileViewModel.profileLiveData.observe(viewLifecycleOwner, {
+            profileEditBinding.profile = it
+        })
+
+        profileViewModel.uploadImageEvent.observe(viewLifecycleOwner, {
+            launcher.launch("image/*")
+        })
+
+        profileViewModel.imageBitmapLiveData.observe(viewLifecycleOwner, {
+            var imageView = profileEditBinding.imageEditProfile
+            imageView.setImageBitmap(profileViewModel.imageBitmapLiveData.value)
+        })
+    }
 }

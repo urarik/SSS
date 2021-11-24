@@ -9,4 +9,5 @@ data class Profile(var userId: String="",
                    var name: String="",
                    var age: Int=0,
                    var gender: Boolean=true,
-                   var image: ByteArray = ByteArray(1)): Parcelable
+                   // var image: ByteArray = ByteArray(1)
+        ): Parcelable

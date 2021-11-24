@@ -9,6 +9,9 @@
         <variable
             name="profileLogic"
             type="org.sehproject.sss.logic.ProfileLogic" />
+        <variable
+            name="profileViewModel"
+            type="org.sehproject.sss.viewmodel.ProfileViewModel"/>
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
