@@ -359,7 +359,7 @@ class PlanRepository {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    val planList = response.body()?.planList
+                    val planList = response.body()?.plan
                     onResult(0, planList)
                 } else {
                     onResult(1, null)
@@ -408,7 +408,7 @@ class PlanRepository {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    val participantList = response.body()?.userList
+                    val participantList = response.body()?.user
                     onResult(0, participantList)
                 } else {
                     onResult(1, null)

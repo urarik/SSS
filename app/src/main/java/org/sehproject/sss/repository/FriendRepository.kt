@@ -29,7 +29,7 @@ class FriendRepository {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    val userList = response.body()?.userList
+                    val userList = response.body()?.user
                     onResult(0, userList)
                 } else {
                     onResult(1, null)
@@ -122,7 +122,7 @@ class FriendRepository {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    val userList = response.body()?.userList
+                    val userList = response.body()?.user
                     onResult(0, userList)
                 } else {
                     onResult(1, null)

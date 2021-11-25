@@ -22,90 +22,28 @@ class PlanViewModel : ViewModel() {
     }
 
     fun getPlanList() {
-        val temp = mutableListOf<Plan>()
-        temp.add(
-            Plan(
-                pid = 0,
-                name = "Meeting",
-                startTime = "2021-10-12 12:33:50",
-                endTime = "2022-12-01 11:20:32"
-            )
-        )
-        temp.add(
-            Plan(
-                pid = 1,
-                name = "Homework",
-                startTime = "2021-10-12 12:33:50",
-                endTime = "2022-12-01 11:20:32"
-            )
-        )
-        temp.add(
-            Plan(
-                pid = 2,
-                name = "School",
-                startTime = "2021-10-12 12:33:50",
-                endTime = "2022-12-01 11:20:32"
-            )
-        )
-        temp.add(
-            Plan(
-                pid = 3,
-                name = "Market",
-                startTime = "2021-10-12 12:33:50",
-                endTime = "2022-12-01 11:20:32"
-            )
-        )
-        temp.add(
-            Plan(
-                pid = 4,
-                name = "Meal",
-                startTime = "2021-10-12 12:33:50",
-                endTime = "2022-12-01 11:20:32"
-            )
-        )
-        planListLiveData.value = temp
-
-//        planRepository.getPlanList(true) {code, list ->
-//            if(code == 0)
-//                planListLiveData.value = list
-//        }
+        planRepository.getPlanList(true) {code, list ->
+            if(code == 0)
+                planListLiveData.value = list
+            else if(code == 1)
+                planListLiveData.value = listOf()
+        }
     }
 
     fun setPlan(pid: Int) {
-        planLiveData.value = Plan(
-            10,
-            "Meeting",
-            "2012-10-32 09:12:32",
-            "2012-10-32 09:12:32",
-            "YU",
-            "school",
-            true,
-            UserInfo.userId,
-            group = Group(0, "test3")
-        )
-        val temp = mutableListOf<Memo>()
-        temp.add(Memo("Hello", 10, User(nickName = "Saehoon")))
-        temp.add(Memo("Hi", 10, User(nickName = "Water")))
-        memoListLiveData.value = temp
-        val temp2 = mutableListOf<User>()
-        temp2.add(User(nickName = "ABC", isOnline = false))
-        temp2.add(User(nickName = "DEF", isOnline = true))
-        temp2.add(User(nickName = "GHI", isOnline = false))
-        temp2.add(User(nickName = "JKL", isOnline = true))
-        userListLiveData.value = temp2
 
-//        planRepository.getPlan(pid) {code, plan ->
-//            if(code == 0)
-//                planLiveData.value = plan
-//        }
-//        planRepository.getMemoList(pid) {code, memos ->
-//            if(code ==0)
-//                memoListLiveData.value = memos
-//        }
-//        planRepository.getParticipantList(pid) {code, participants ->
-//            if(code == 0)
-//                userListLiveData.value = participants
-//        }
+        planRepository.getPlan(pid) {code, plan ->
+            if(code == 0)
+                planLiveData.value = plan
+       }
+        planRepository.getMemoList(pid) {code, memos ->
+            if(code ==0)
+                memoListLiveData.value = memos
+        }
+        planRepository.getParticipantList(pid) {code, participants ->
+            if(code == 0)
+                userListLiveData.value = participants
+        }
     }
 
     val editPlanEvent = SingleLiveEvent<Plan>()

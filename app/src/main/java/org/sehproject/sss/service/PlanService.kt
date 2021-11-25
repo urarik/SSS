@@ -103,7 +103,7 @@ interface PlanService {
 
     ): Call<GenericResponse>
 
-    @POST("plan/kickout")
+    @POST("plan/kick")
     @FormUrlEncoded
     fun requestKickOutPlan(
         @Field("pid")
@@ -136,7 +136,7 @@ interface PlanService {
         userId: String
     ): Call<GenericResponse>
 
-    @POST("plan/visibility")
+    @POST("plan/public")
     @FormUrlEncoded
     fun requestSetPlanVisibility(
         @Field("pid")
@@ -145,13 +145,6 @@ interface PlanService {
         @Field("visibility")
         visibility: Boolean
     ): Call<GenericResponse>
-
-    @POST("plan/ocr")
-    @FormUrlEncoded
-    fun requestGetImageOcr(
-        @Field("image")
-        binaryImage: Byte
-    ): Call<OcrResponse>
 
     @POST("plan/list")
     @FormUrlEncoded
@@ -163,14 +156,14 @@ interface PlanService {
         isCurrent: Boolean
     ): Call<PlanListResponse>
 
-    @POST("plan/plan")
+    @POST("plan/details")
     @FormUrlEncoded
     fun requestGetPlan(
         @Field("pid")
         planId: Int
     ): Call<PlanResponse>
 
-    @POST("plan/participants")
+    @POST("plan/partlist")
     @FormUrlEncoded
     fun requestGetParticipantList(
         @Field("pid")

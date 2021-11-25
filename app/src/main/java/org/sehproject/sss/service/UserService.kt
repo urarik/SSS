@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface UserService {
 
-    @POST("user/login")
+    @POST("auth/login")
     @FormUrlEncoded
     fun requestLogin(
         @Field("userid")
@@ -17,16 +17,19 @@ interface UserService {
 
         @Field("password")
         password: String,
+        
+        @Field("token")
+        token: String
     ): Call<UserResponse>
 
-    @POST("user/login/api")
+    @POST("auth/login/api")
     @FormUrlEncoded
     fun requestApiLogin(
         @Field("api_id")
         apiId: String
     ) : Call<UserResponse>
 
-    @POST("user/register/api")
+    @POST("auth/register/api")
     @FormUrlEncoded
     fun requestApiRegister(
         @Field("userid")
@@ -39,7 +42,7 @@ interface UserService {
         apiId: String
     ) : Call<GenericResponse>
 
-    @POST("user/register")
+    @POST("auth/register")
     @FormUrlEncoded
     fun requestRegister(
         @Field("userid")
@@ -52,7 +55,7 @@ interface UserService {
         nickName: String
     ): Call<GenericResponse>
 
-    @POST("user/user")
+    @POST("auth/user")
     @FormUrlEncoded
     fun requestGetUser(
         @Field("userid")
