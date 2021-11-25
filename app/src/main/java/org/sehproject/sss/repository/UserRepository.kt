@@ -21,8 +21,8 @@ class UserRepository(private val appDatabase: AppDatabase) {
         .build()
     private var userService: UserService = retrofit.create(UserService::class.java)
 
-    fun login(userId: String, password: String, onResult: (Int, String?) -> Unit) {
-        val loginCall = userService.requestLogin(userId, password)
+    fun login(userId: String, password: String, token: String, onResult: (Int, String?) -> Unit) {
+        val loginCall = userService.requestLogin(userId, password, token)
         loginCall.enqueue(object : CallbackWithRetry<UserResponse>(loginCall) {
             override fun onResponse(
                 call: Call<UserResponse>,

@@ -75,7 +75,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
             when (account.flag) {
                 0 -> userViewModel.userRepository.login(
                     account.userId,
-                    account.password
+                    account.password, "token"
                 ) { code, nickName ->
                     if (code == 0) {
                         userViewModel.loginEvent.call()

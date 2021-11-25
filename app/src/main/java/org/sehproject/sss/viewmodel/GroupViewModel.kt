@@ -22,33 +22,27 @@ class GroupViewModel : ViewModel() {
     }
     fun getGroupList()
     {
-        val tests = mutableListOf<Group>()
-        tests.add(Group(gid=0, color=0xebe834, name="test1"))
-        tests.add(Group(gid=1, color=0xc436c7, name="test2"))
-        tests.add(Group(gid=2, color=0x3073c9, name="test3"))
-        tests.add(Group(gid=3, color=0x36d9c8, name="test4"))
-        groupListLiveData.value = tests
-/*        groupRepository.getGroupList { i, list ->
+       groupRepository.getGroupList { i, list ->
         if(i == 0)
             groupListLiveData.value = list
-        }*/
+        }
     }
     fun setGroup(gid: Int?) {
-        groupLiveData.value = Group(0,
-        "SE Team",
-        "Software engineering team for a project.",
-        0xFFA103,
-        participants = mutableListOf(User("test1", "test1"),
-            User("test1", "test2"),
-            User("test1", "test3"),
-            User("test1", "test4"),))
+//        groupLiveData.value = Group(0,
+//        "SE Team",
+//        "Software engineering team for a project.",
+//        0xFFA103,
+//        participants = mutableListOf(User("test1", "test1"),
+//            User("test1", "test2"),
+//            User("test1", "test3"),
+//            User("test1", "test4"),))
 
-//        if(gid == null) groupLiveData.value = Group()
-//        else
-//            groupRepository.getGroup(gid) {code, group ->
-//                if(code == 0)
-//                    groupLiveData.value = group
-//            }
+        if(gid == null) groupLiveData.value = Group()
+        else
+            groupRepository.getGroup(gid) {code, group ->
+                if(code == 0)
+                    groupLiveData.value = group
+            }
     }
 
 

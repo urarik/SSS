@@ -244,7 +244,7 @@ class GroupRepository {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    val participantList = response.body()?.userList
+                    val participantList = response.body()?.user
                     onResult(0, participantList)
                 } else {
                     onResult(1, null)

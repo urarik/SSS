@@ -14,12 +14,11 @@ class UserLogic(val userViewModel: UserViewModel) {
     fun onLoginClick(user: AccountXML) {
         Log.d("TAG", user.userId)
 
-        userViewModel.userRepository.login(user.userId, user.password) { code: Int, nickName: String? ->
+        userViewModel.userRepository.login(user.userId, user.password, "token") { code: Int, nickName: String? ->
             if (code == 0) {
                 if(userViewModel.userRepository.getSavedAccount() == null)
                     userViewModel.userRepository.saveAccount(Account(user.userId, user.password, "", 0))
-                //updateUI(nickName!!)
-                userViewModel.loginEvent.call()
+                updateUserInfo(user.userId, 0)
             }
         }
     }
