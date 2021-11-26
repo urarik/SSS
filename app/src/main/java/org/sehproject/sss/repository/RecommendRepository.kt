@@ -1,10 +1,8 @@
 package org.sehproject.sss.repository
 
 import org.sehproject.sss.ServerApi
-import org.sehproject.sss.datatype.Coordinate
-import org.sehproject.sss.datatype.KeywordResponse
-import org.sehproject.sss.datatype.Popularity
-import org.sehproject.sss.datatype.PopularityListResponse
+import org.sehproject.sss.UserInfo
+import org.sehproject.sss.datatype.*
 import org.sehproject.sss.service.RecommendService
 import org.sehproject.sss.utils.CallbackWithRetry
 import retrofit2.Call
@@ -20,8 +18,9 @@ class RecommendRepository {
         .build()
     private var recommendService: RecommendService = retrofit.create(RecommendService::class.java)
 
-    fun getPopularityList(userId: String, onResult: (Int, List<Popularity>?) -> Unit) {
-        val getPopularityListCall = recommendService.requestPopularityList(userId)
+    //TODO("Popularity를 Place로 교체")
+    fun getPopularityList(onResult: (Int, List<Place>?) -> Unit) {
+        val getPopularityListCall = recommendService.requestPopularityList(UserInfo.userId)
         getPopularityListCall.enqueue(object :
             CallbackWithRetry<PopularityListResponse>(getPopularityListCall) {
             override fun onResponse(
@@ -31,7 +30,7 @@ class RecommendRepository {
                 val code = listResponse.body()?.code
                 if (code == 0) {
                     val popularityList = listResponse.body()?.popularityList
-                    onResult(0, popularityList)
+                    //onResult(0, popularityList)
                 } else {
                     onResult(1, null)
                 }

@@ -24,7 +24,6 @@ import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentPlanListBinding
 import org.sehproject.sss.databinding.ItemPlanBinding
 import org.sehproject.sss.databinding.ItemUserBinding
-import org.sehproject.sss.databinding.ViewPlanItemBinding
 import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.PlanViewModel
@@ -41,11 +40,13 @@ class PlanListFragment : Fragment() {
         val planListBinding: FragmentPlanListBinding = DataBindingUtil.inflate(
             layoutInflater, R.layout.fragment_plan_list, container, false)
         planListBinding.planLogic = planViewModel.planLogic
+        planListBinding.spinnerPlanOrder
+
         initObserver(planListBinding.RecyclerViewPlanList)
         planViewModel.getPlanList()
 
-        var data = resources.getStringArray(R.array.planOrder)
-        var spinnerAdapter = ArrayAdapter(activity as MainActivity, android.R.layout.simple_list_item_1, data)
+        val data = resources.getStringArray(R.array.planOrder)
+        val spinnerAdapter = ArrayAdapter(activity as MainActivity, android.R.layout.simple_list_item_1, data)
         planListBinding.spinnerPlanOrder.adapter = spinnerAdapter
 
         planListBinding.spinnerPlanOrder.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

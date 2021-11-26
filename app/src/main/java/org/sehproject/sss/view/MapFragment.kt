@@ -1,8 +1,5 @@
 package org.sehproject.sss.view
 
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,28 +12,23 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.messaging.FirebaseMessaging
-import com.nhn.android.naverlogin.OAuthLoginDefine.LOG_TAG
 import kotlinx.coroutines.*
-import kotlinx.coroutines.NonCancellable.isActive
 import net.daum.mf.map.api.MapLayout
+import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentMapBinding
 import org.sehproject.sss.databinding.ItemEtaBinding
-import org.sehproject.sss.databinding.ItemGroupBinding
 import org.sehproject.sss.datatype.Coordinate
 import org.sehproject.sss.datatype.Eta
-import org.sehproject.sss.datatype.Group
-import org.sehproject.sss.viewmodel.GroupViewModel
+import org.sehproject.sss.datatype.Location
 import org.sehproject.sss.viewmodel.MapViewModel
 
 class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     MapView.MapViewEventListener,
     MapView.CurrentLocationEventListener {
-    //private val safeArgs: MapFragmentArgs by navArgs() //pid
-    //private val pid = safeArgs.pid
+    private var pid: Int = -1
     private lateinit var job: Job
     private val mapViewModel: MapViewModel by lazy {
         ViewModelProvider(this).get(MapViewModel::class.java)
@@ -57,6 +49,9 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         val mapLayout = MapLayout(requireActivity())
         val mapView = mapLayout.mapView
 
+        val safeArgs: MapFragmentArgs by navArgs()
+        pid = safeArgs.pid
+
         mapView.setDaumMapApiKey("test2")
         mapView.setOpenAPIKeyAuthenticationResultListener(this)
         mapView.mapType = MapView.MapType.Standard
@@ -70,16 +65,25 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         }
         mapBinding.mapView.addView(mapView)
 
-        initObserver(mapBinding)
+        initObserver(mapBinding, mapView)
 
         job = repeatRequest()
 
         return mapBinding.root
     }
 
-    private fun initObserver(mapBinding: FragmentMapBinding) {
-        mapViewModel.etaListLiveData.observe(viewLifecycleOwner, {
+    private fun initObserver(mapBinding: FragmentMapBinding, mapView: MapView) {
+        mapViewModel.locationListLiveData.observe(viewLifecycleOwner, {
             mapBinding.recyclerMapEta.adapter = EtaAdapter(it)
+            mapView.removeAllPOIItems()
+            for(location in it) {
+                val marker = MapPOIItem()
+                marker.itemName = location.nickName
+                marker.mapPoint = MapPoint.mapPointWithGeoCoord(location.coordinate.latitude, location.coordinate.longitude)
+                marker.markerType = MapPOIItem.MarkerType.BluePin
+
+                mapView.addPOIItem(marker)
+            }
         })
     }
 
@@ -105,8 +109,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     private fun repeatRequest(): Job {
         return CoroutineScope(Dispatchers.Main).launch {
             while(isActive) {
-                //do your request
-                Log.d("TAG", "repeat!")
+                mapViewModel.mapLogic.getLocationList(pid)
                 delay(5000)
             }
         }
@@ -166,28 +169,29 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         TODO("Not yet implemented")
     }
 
-    protected inner class EtaHolder(private val itemEtaBinding: ItemEtaBinding):
-        RecyclerView.ViewHolder(itemEtaBinding.root) {
+    protected inner class EtaHolder(private val itemLocationBinding: ItemEtaBinding):
+        RecyclerView.ViewHolder(itemLocationBinding.root) {
 
         @RequiresApi(Build.VERSION_CODES.Q)
         fun bind(eta: Eta) {
-            itemEtaBinding.eta = eta
+            itemLocationBinding.eta = eta
         }
     }
 
-    protected inner class EtaAdapter(val etas: List<Eta>) :
+    protected inner class EtaAdapter(private val locations: List<Location>) :
         RecyclerView.Adapter<EtaHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EtaHolder {
-            val itemEtaBinding = ItemEtaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return EtaHolder(itemEtaBinding)
+            val itemLocationBinding = ItemEtaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return EtaHolder(itemLocationBinding)
         }
 
-        override fun getItemCount(): Int = etas.size
+        override fun getItemCount(): Int = locations.size
 
         @RequiresApi(Build.VERSION_CODES.Q)
         override fun onBindViewHolder(holder: EtaHolder, position: Int) {
-            val eta = etas[position]
+            val location = locations[position]
+            val eta = Eta(location.nickName, location.eta)
             holder.bind(eta)
         }
 

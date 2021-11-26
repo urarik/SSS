@@ -70,6 +70,8 @@ class PlanViewModel : ViewModel() {
     val makePlanPublicCompleteEvent = SingleLiveEvent<Int>()
     val invitePlanEvent = SingleLiveEvent<Any>()
     val invitePlanCompleteEvent = SingleLiveEvent<Int>()
+    val acceptPlanInviteEvent = SingleLiveEvent<Any>()
+    val refusePlanInviteEvent = SingleLiveEvent<Any>()
     val planListLiveData = MutableLiveData<List<Plan>>()
     val friendListLiveData = MutableLiveData<List<User>>()
     val planLiveData = MutableLiveData<Plan>()

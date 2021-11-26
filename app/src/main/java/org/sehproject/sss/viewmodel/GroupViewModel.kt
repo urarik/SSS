@@ -62,6 +62,8 @@ class GroupViewModel : ViewModel() {
     val viewGroupEvent = SingleLiveEvent<Any>()
     val viewGroupCompleteEvent = SingleLiveEvent<Any>()
     val inputGroupInfoProcessEvent = SingleLiveEvent<Any>()
+    val acceptGroupInviteEvent = SingleLiveEvent<Any>()
+    val refuseGroupInviteEvent = SingleLiveEvent<Any>()
     val friendListLiveData = MutableLiveData<List<User>>()
     val groupLiveData = MutableLiveData<Group>()
     val groupListLiveData = MutableLiveData<List<Group>>()

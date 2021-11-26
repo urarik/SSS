@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/plan_navigation"
+    app:startDestination="@id/planListFragment">
+
+    <fragment
+        android:id="@+id/planListFragment"
+        android:name="org.sehproject.sss.view.PlanListFragment"
+        android:label="fragment_plan_list"
+        tools:layout="@layout/fragment_plan_list">
+        <action
+            android:id="@+id/action_planListFragment_to_planDetailFragment"
+            app:destination="@id/planDetailFragment" />
+        <action
+            android:id="@+id/action_planListFragment_to_planEditFragment"
+            app:destination="@id/planEditFragment" />
+        <action
+            android:id="@+id/action_planListFragment_to_planCreateTypeFragment"
+            app:destination="@id/planCreateTypeFragment" />
+        <action
+            android:id="@+id/action_planListFragment_to_planCreateOCRFragment"
+            app:destination="@id/planCreateOCRFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/planDetailFragment"
+        android:name="org.sehproject.sss.view.PlanDetailFragment"
+        android:label="fragment_plan_detail"
+        tools:layout="@layout/fragment_plan_detail">
+        <action
+            android:id="@+id/action_planDetailFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_planDetailFragment_to_planEditFragment"
+            app:destination="@id/planEditFragment" />
+        <action
+            android:id="@+id/action_planDetailFragment_to_planInviteDialogFragment"
+            app:destination="@id/planInviteDialogFragment" />
+        <action
+            android:id="@+id/action_planDetailFragment_to_planListFragment"
+            app:destination="@id/planListFragment"
+            app:popUpTo="@id/planListFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="pid"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/planCreateOCRFragment"
+        android:name="org.sehproject.sss.view.PlanCreateOCRFragment"
+        android:label="fragment_plan_create_ocr"
+        tools:layout="@layout/fragment_plan_create_ocr" />
+    <fragment
+        android:id="@+id/planEditFragment"
+        android:name="org.sehproject.sss.view.PlanEditFragment"
+        android:label="fragment_plan_edit"
+        tools:layout="@layout/fragment_plan_edit">
+        <action
+            android:id="@+id/action_planEditFragment_to_planListFragment"
+            app:destination="@id/planListFragment"
+            app:popUpTo="@id/planListFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="plan"
+            app:argType="org.sehproject.sss.datatype.Plan" />
+    </fragment>
+    <fragment
+        android:id="@+id/planCreateTypeFragment"
+        android:name="org.sehproject.sss.view.PlanCreateTypeFragment"
+        android:label="fragment_plan_create_type"
+        tools:layout="@layout/fragment_plan_create_type" />
+    <fragment
+        android:id="@+id/planInviteDialogFragment"
+        android:name="org.sehproject.sss.view.PlanInviteDialogFragment"
+        android:label="PlanInviteDialogFragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="org.sehproject.sss.view.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map">
+        <argument
+            android:name="pid"
+            app:argType="integer" />
+    </fragment>
+</navigation>

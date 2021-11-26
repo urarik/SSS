@@ -8,7 +8,6 @@ import org.sehproject.sss.viewmodel.GroupViewModel
 class GroupLogic(private val groupViewModel: GroupViewModel) {
     fun onCreateGroupClick()
     {
-        Log.d("TAG", "!@#")
         groupViewModel.createGroupEvent.call()
     }
 
@@ -58,14 +57,16 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 //        }
     }
 
-    fun onAcceptGroupClick(groupid: Int)
+    fun onAcceptGroupClick()
     {
-
+        //groupViewModel.groupRepository.acceptGroup()
+        groupViewModel.acceptGroupInviteEvent.call()
     }
 
-    fun onRefuseGroupClick(groupId: Int)
+    fun onRefuseGroupClick()
     {
-
+        //groupViewModel.groupRepository.acceptGroup()
+        groupViewModel.refuseGroupInviteEvent.call()
     }
 
     fun onKickOutGroupClick(gid: Int) {

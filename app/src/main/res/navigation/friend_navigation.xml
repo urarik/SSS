@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/friend_navigation"
+    app:startDestination="@id/friendListFragment">
+
+    <fragment
+        android:id="@+id/userSearchFragment"
+        android:name="org.sehproject.sss.view.UserSearchFragment"
+        tools:layout="@layout/fragment_user_search"
+        android:label="fragment_user_search" />
+    <fragment
+        android:id="@+id/friendListFragment"
+        android:name="org.sehproject.sss.view.Friend.FriendListFragment"
+        tools:layout="@layout/fragment_friend_list"
+        android:label="fragment_friend_list">
+        <action
+            android:id="@+id/action_friendListFragment_to_userSearchFragment"
+            app:destination="@id/userSearchFragment" />
+        <action
+            android:id="@+id/action_friendListFragment_to_friendProfileFragment"
+            app:destination="@id/friendProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendProfileFragment"
+        android:name="org.sehproject.sss.view.FriendProfileFragment"
+        tools:layout="@layout/fragment_friend_profile"
+        android:label="fragment_friend_profile">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+</navigation>

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -28,7 +29,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -38,10 +42,14 @@ import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.Invitation
 // import org.sehproject.sss.databinding.ActivityMainBinding
 import org.sehproject.sss.datatype.User
+import org.sehproject.sss.utils.NavigationListener
+import org.sehproject.sss.utils.ViewPagerAdapter
+import org.sehproject.sss.utils.ViewPagerPageChangeCallback
 
 class MainActivity : AppCompatActivity() {
     private val PERMISSION = 3333
     private val sfm = supportFragmentManager
+    private lateinit var mOnItemSelectedListener: NavigationBarView.OnItemSelectedListener
     private val mMessageReceiver = object: BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val bundle = intent!!.extras
@@ -58,24 +66,31 @@ class MainActivity : AppCompatActivity() {
         if(bundle != null) {
             processNotification(bundle)
         }
-
-        val navHostFragment =
-            sfm.findFragmentById(R.id.nav_container) as NavHostFragment
-        val navController = navHostFragment.navController
+        val viewPager2 = findViewById<ViewPager2>(R.id.view_pager)
+        mOnItemSelectedListener = NavigationListener(viewPager2)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
-        bottomNav.setupWithNavController(navController)
+        bottomNav.setOnItemSelectedListener(mOnItemSelectedListener)
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == -1) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-            PERMISSION)
-        }
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.loginFragment || destination.id == R.id.registerFragment) {
-                bottomNav.visibility = View.GONE
-            } else {
-                bottomNav.visibility = View.VISIBLE
-            }
-        }
+        val viewPagerAdapter = ViewPagerAdapter(this, 5)
+        viewPager2.adapter = viewPagerAdapter
+        viewPager2.registerOnPageChangeCallback(ViewPagerPageChangeCallback(bottomNav))
+
+//        val navHostFragment =
+//            sfm.findFragmentById(R.id.nav_container) as NavHostFragment
+//        val navController = navHostFragment.navController
+//        bottomNav.setupWithNavController(navController)
+//
+//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == -1) {
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+//            PERMISSION)
+//        }
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            if(destination.id == R.id.loginFragment || destination.id == R.id.registerFragment) {
+//                bottomNav.visibility = View.GONE
+//            } else {
+//                bottomNav.visibility = View.VISIBLE
+//            }
+//        }
         sendToken()
     }
 
@@ -120,7 +135,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        Log.d("TAG", "onDestroyed!!")
         super<AppCompatActivity>.onDestroy()
     }
 
@@ -129,12 +143,12 @@ class MainActivity : AppCompatActivity() {
         bundleSent.putString("invite_type", bundle.get("invite_type").toString())
         bundleSent.putString("target_name", bundle.get("target_name").toString())
         bundleSent.putString("inviter", bundle.get("inviter").toString())
-        Log.d("TAG", "start ${bundle}")
 
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add<InvitationDialogFragment>(R.id.nav_container, args = bundle)
+            add<InvitationDialogFragment>(R.id.view_pager, args = bundle)
         }
     }
+
 
 }
