@@ -14,12 +14,13 @@ import org.sehproject.sss.repository.UserRepository
 import org.sehproject.sss.utils.SingleLiveEvent
 import java.io.File
 
-class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
+class ProfileViewModel(appDatabase: AppDatabase) : ViewModel() {
     val profileLogic = ProfileLogic(this)
     val profileRepository = ProfileRepository(appDatabase);
 
     val viewProfileEvent = SingleLiveEvent<Int>()
     val viewFriendProfileEvent = SingleLiveEvent<Int>()
+
     // profile -> userId
     val editProfileEvent = SingleLiveEvent<String>()
     val editProfileCompleteEvent = SingleLiveEvent<Int>()
@@ -31,6 +32,7 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     var profileLiveData = MutableLiveData<Profile>()
     var statisticsLiveData = MutableLiveData<Statistics>()
     var planListLiveData = MutableLiveData<List<SimplePlan>>()
+
     // option Live Data 추가
     var optionLiveData = MutableLiveData<Option>()
     var noticeOptionLiveData = MutableLiveData(false)
@@ -41,20 +43,21 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     var imageUri: Uri? = null
 
     fun setProfile(userId: String) {
-        profileLiveData.value = Profile("764545", "아무개", "정", 24, false)
-        imageBitmapLiveData.value = BitmapFactory.decodeFile(imageFile.absolutePath)
+//        profileLiveData.value = Profile("764545", "아무개", "정", 24, false)
+//        imageBitmapLiveData.value = BitmapFactory.decodeFile(imageFile.absolutePath)
 
-//        profileRepository.getProfile(userId) { code: Int, profile: Profile? ->
-//            if(code == 0) {
-//                profileRepository.getProfileImage(userId) { code: Int, file: File ->
-//                    if(code == 0) {
-//                        profileLiveData.value = profile
-//                        imageBitmapLiveData.value = BitmapFactory.decodeFile(imageFile.absolutePath)
-//                    }
-//                }
-//            }
-//        }
+        profileRepository.getProfile(userId) { code: Int, profile: Profile? ->
+            if (code == 0) {
+                profileRepository.getProfileImage(userId) { code: Int, bitmap: Bitmap? ->
+                    if (code == 0) {
+                        profileLiveData.value = profile
+                        imageBitmapLiveData.value = bitmap
+                    }
+                }
+            }
+        }
     }
+
     fun setStatistics() {
         //statisticsLiveData.value = Statistics()
 
@@ -64,6 +67,7 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
 //            }
 //        }
     }
+
     fun setOption() {
         optionLiveData.value = Option(true, true, false)
 

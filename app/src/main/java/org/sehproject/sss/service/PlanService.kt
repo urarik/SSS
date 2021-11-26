@@ -113,7 +113,7 @@ interface PlanService {
         userIdList: List<String>
     ): Call<GenericResponse>
 
-    @POST("plan/memo/create")
+    @POST("memo/create")
     @FormUrlEncoded
     fun requestCreateMemo(
         @Field("pid")
@@ -126,7 +126,7 @@ interface PlanService {
         memo: String
     ): Call<GenericResponse>
 
-    @POST("plan/memo/delete")
+    @POST("memo/delete")
     @FormUrlEncoded
     fun requestDeleteMemo(
         @Field("pid")
@@ -170,7 +170,7 @@ interface PlanService {
         planId: Int
     ): Call<UserListResponse>
 
-    @POST("plan/memo/list")
+    @POST("memo/list")
     @FormUrlEncoded
     fun requestGetMemoList(
         @Field("pid")
