@@ -78,9 +78,9 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     account.password, "token"
                 ) { code, nickName ->
                     if (code == 0) {
-                        userViewModel.loginEvent.call()
-                    } else {
-                        // 로컬 로그인 실패
+                        userViewModel.userLogic.updateUserInfo(user.userId, user.password, 0)
+                    } else if(code == 1) {
+                        userViewModel.userRepository.deleteAccount()
                     }
                 }
                 1 -> //Google
@@ -90,7 +90,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
                         if (code == 0) {
                             if (auth.currentUser != null) {
-                                userViewModel.userLogic.updateUserInfo(account.apiId, 1)
+                                userViewModel.userLogic.updateUserInfo(account.apiId, null, 1)
                                 userViewModel.loginEvent.call()
                             }
                         } else {
@@ -102,7 +102,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     // api 관련 로직
                     if (!(OAuthLoginState.NEED_LOGIN.equals(mOAuthLoginModule.getState(context)) ||
                                 OAuthLoginState.NEED_INIT.equals(mOAuthLoginModule.getState(context))))
-                        userViewModel.userLogic.updateUserInfo(account.apiId, 2)
+                        userViewModel.userLogic.updateUserInfo(account.apiId, null, 2)
                     userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
                         if (code == 0) {
                             if (!(OAuthLoginState.NEED_LOGIN.equals(
@@ -116,7 +116,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                                             )
                                         ))
                             ) {
-                                userViewModel.userLogic.updateUserInfo(account.apiId, 2)
+                                userViewModel.userLogic.updateUserInfo(account.apiId, null, 2)
                             }
 
                         } else {
@@ -243,7 +243,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("tag", "signInWithCredential:success")
                     val uid = auth.currentUser!!.uid
-                    userViewModel.userLogic.updateUserInfo(uid, 1)
+                    userViewModel.userLogic.updateUserInfo(uid, null,1)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("tag", "signInWithCredential:failure", task.exception)
