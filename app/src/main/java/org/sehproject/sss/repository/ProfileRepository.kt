@@ -14,10 +14,10 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.BufferedInputStream
-import java.io.DataInputStream
-import java.io.File
-import java.io.FileInputStream
+import java.io.*
+import android.graphics.BitmapFactory
+
+import android.graphics.Bitmap
 
 class ProfileRepository(private val appDatabase: AppDatabase) {
     private var retrofit: Retrofit = Retrofit.Builder()
@@ -112,7 +112,7 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
         })
     }
 
-    fun getProfileImage(userId: String, onResult: (Int, ByteArray?) -> Unit) {
+    fun getProfileImage(userId: String, onResult: (Int, Bitmap?) -> Unit) {
         val getProfileImageCall = profileService.requestDownloadProfileImage(userId)
         getProfileImageCall.enqueue(object : CallbackWithRetry<ResponseBody>(getProfileImageCall) {
             override fun onResponse(
@@ -121,8 +121,9 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
             ) {
                 if (response.body() != null) {
                     val bs = response.body()!!.byteStream()
-                    val byteArray = bs.readBytes();
-                    onResult(0, byteArray)
+                    val bitmap = BitmapFactory.decodeStream(bs)
+                    //val byteArray = bs.readBytes();
+                    onResult(0, bitmap)
                 } else {
                     onResult(1, null)
                 }

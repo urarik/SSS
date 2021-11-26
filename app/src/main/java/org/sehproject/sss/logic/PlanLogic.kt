@@ -41,29 +41,29 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     @SuppressLint("SimpleDateFormat")
     fun onCreatePlanDoneClick(plan: Plan) {
         //테스트용. 테스트 완료 시 craetePlan의 callback에 넣자
-        val event = Event()
-            .setSummary(plan.name)
-            .setLocation(plan.location)
-        val format = SimpleDateFormat("yyyy-MM-dd hh:mm")
-        val parsedStart = format.parse(plan.startTime)
-        val parsedEnd = format.parse(plan.endTime)
-        val startDate = DateTime(parsedStart)
-        val start = EventDateTime()
-            .setDateTime(startDate)
-            .setTimeZone("Asia/Seoul")
-        val endDate = DateTime(parsedEnd)
-        val end = EventDateTime()
-            .setDate(endDate)
-            .setTimeZone("Asia/Seoul")
-        event.start = start
-        event.end = end
-        planViewModel.syncCalendarEvent.value = event
+//        val event = Event()
+//            .setSummary(plan.name)
+//            .setLocation(plan.location)
+//        val format = SimpleDateFormat("yyyy-MM-dd hh:mm")
+//        val parsedStart = format.parse(plan.startTime)
+//        val parsedEnd = format.parse(plan.endTime)
+//        val startDate = DateTime(parsedStart)
+//        val start = EventDateTime()
+//            .setDateTime(startDate)
+//            .setTimeZone("Asia/Seoul")
+//        val endDate = DateTime(parsedEnd)
+//        val end = EventDateTime()
+//            .setDate(endDate)
+//            .setTimeZone("Asia/Seoul")
+//        event.start = start
+//        event.end = end
+//        planViewModel.syncCalendarEvent.value = event
         
-//        planRepository.createPlan(plan) { code ->
-//            if (code == 0) {
-//                planViewModel.createPlanCompleteEvent.call()
-//            }
-//        }
+        planViewModel.planRepository.createPlan(plan) { code ->
+            if (code == 0) {
+                planViewModel.createPlanCompleteEvent.call()
+            }
+        }
     }
     fun syncCalendar(mService: Calendar, event: Event) {
         planViewModel.planRepository.syncCalendar(mService, event)
