@@ -9,12 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.mortbay.jetty.Main
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentPlanListBinding
 import org.sehproject.sss.databinding.ItemPlanBinding
@@ -38,6 +43,19 @@ class PlanListFragment : Fragment() {
         planListBinding.planLogic = planViewModel.planLogic
         initObserver(planListBinding.RecyclerViewPlanList)
         planViewModel.getPlanList()
+
+        var data = resources.getStringArray(R.array.planOrder)
+        var spinnerAdapter = ArrayAdapter(activity as MainActivity, android.R.layout.simple_list_item_1, data)
+        planListBinding.spinnerPlanOrder.adapter = spinnerAdapter
+
+        planListBinding.spinnerPlanOrder.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                // p2 = 0이면 시간순, 1이면 카테고리순  -  p2 값에 따라 liveEvent call 하는 식으로 구현
+                Log.d("TAG", p2.toString())
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
 
         return planListBinding.root
     }
