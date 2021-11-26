@@ -12,16 +12,17 @@ class UserLogic(val userViewModel: UserViewModel) {
 
     // local
     fun onLoginClick(user: AccountXML) {
-        Log.d("TAG", user.userId)
-        userViewModel.loginEvent.call()
-
-//        userViewModel.userRepository.login(user.userId, user.password, "token") { code: Int, nickName: String? ->
-//            if (code == 0) {
-//                if(userViewModel.userRepository.getSavedAccount() == null)
-//                    userViewModel.userRepository.saveAccount(Account(user.userId, user.password, "", 0))
-//                updateUserInfo(user.userId, 0)
-//            }
-//        }
+        userViewModel.userRepository.login(
+            user.userId,
+            user.password,
+            "token"
+        ) { code: Int, nickName: String? ->
+            if (code == 0) {
+                updateUserInfo(user.userId, user.password, 0)
+            } else if (code == 1) {
+                // 로그인 실패 메시지
+            }
+        }
     }
 
     fun onGoogleLoginClick() {
@@ -48,7 +49,7 @@ class UserLogic(val userViewModel: UserViewModel) {
         val jsonObject = JSONObject(result)
         val responseObject = JSONObject(jsonObject.getString("response"))
         val id = responseObject.getString("id")
-        updateUserInfo(id, 2)
+        updateUserInfo(id, null, 2)
     }
 
     fun naverRegisterCallback(result: String) {
@@ -82,12 +83,12 @@ class UserLogic(val userViewModel: UserViewModel) {
         }
     }
 
-    fun updateUserInfo(id: String, flag: Int) {
+    fun updateUserInfo(id: String, password: String?, flag: Int) {
         UserInfo.isLogin = true
         UserInfo.userId = id
-        when(flag) {
-            0 -> userViewModel.userRepository.saveAccount(Account(id,"", "", flag))
-            1, 2 -> userViewModel.userRepository.saveAccount(Account("","", id, flag))
+        when (flag) {
+            0 -> userViewModel.userRepository.saveAccount(Account(id, password!!, "", flag))
+            1, 2 -> userViewModel.userRepository.saveAccount(Account("", "", id, flag))
         }
 
         userViewModel.loginEvent.call()

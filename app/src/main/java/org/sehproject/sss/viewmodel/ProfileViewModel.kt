@@ -43,38 +43,31 @@ class ProfileViewModel(appDatabase: AppDatabase) : ViewModel() {
     var imageUri: Uri? = null
 
     fun setProfile(userId: String) {
-//        profileLiveData.value = Profile("764545", "아무개", "정", 24, false)
-//        imageBitmapLiveData.value = BitmapFactory.decodeFile(imageFile.absolutePath)
-
         profileRepository.getProfile(userId) { code: Int, profile: Profile? ->
             if (code == 0) {
-                profileRepository.getProfileImage(userId) { code: Int, bitmap: Bitmap? ->
-                    if (code == 0) {
-                        profileLiveData.value = profile
-                        imageBitmapLiveData.value = bitmap
-                    }
-                }
+                profileLiveData.value = profile
+            }
+        }
+        profileRepository.getProfileImage(userId) { code: Int, bitmap: Bitmap? ->
+            if (code == 0) {
+                imageBitmapLiveData.value = bitmap
             }
         }
     }
 
     fun setStatistics() {
-        //statisticsLiveData.value = Statistics()
-
-//        profileRepository.getStatistics() { code: Int, statistics: Statistics? ->
-//            if(code == 0) {
-//                statisticsLiveData.value = statistics
-//            }
-//        }
+        profileRepository.getStatistics { code: Int, statistics: Statistics? ->
+            if(code == 0) {
+                statisticsLiveData.value = statistics
+            }
+        }
     }
 
     fun setOption() {
-        optionLiveData.value = Option(true, true, false)
-
-//        profileRepository.getOption() { code: Int, option: Option? ->
-//            if(code == 0) {
-//                optionLiveData.value = option
-//            }
-//        }
+        profileRepository.getOption() { code: Int, option: Option? ->
+            if(code == 0) {
+                optionLiveData.value = option
+            }
+        }
     }
 }
