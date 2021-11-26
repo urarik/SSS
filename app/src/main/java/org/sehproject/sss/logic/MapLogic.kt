@@ -4,7 +4,7 @@ import org.sehproject.sss.datatype.Coordinate
 import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.viewmodel.MapViewModel
 
-class MapLogic(val mapViewModel: MapViewModel) {
+class MapLogic(private val mapViewModel: MapViewModel) {
     fun onShareMyLocationClick(pid: Int)
     {
         mapViewModel.trackEvent.value = pid
@@ -26,6 +26,13 @@ class MapLogic(val mapViewModel: MapViewModel) {
             if(code == 0) {
 
             }
+        }
+    }
+
+    fun getLocationList(pid: Int) {
+        mapViewModel.mapRepository.getLocationList(pid) {code, list ->
+            if(code == 0)
+                mapViewModel.locationListLiveData.value = list
         }
     }
 

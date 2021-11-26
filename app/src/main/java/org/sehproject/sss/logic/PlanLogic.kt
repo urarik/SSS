@@ -138,6 +138,18 @@ class PlanLogic(val planViewModel: PlanViewModel) {
             }
         }
     }
+    fun onAcceptPlanClick()
+    {
+        //planViewModel.planRepository.acceptPlan()
+        planViewModel.acceptPlanInviteEvent.call()
+    }
+
+    fun onRefusePlanClick()
+    {
+        //planViewModel.planRepository.acceptPlan()
+        planViewModel.refusePlanInviteEvent.call()
+    }
+
 
     fun onPublicPlanClick(plan: Plan, isChecked: Boolean) {
         Log.d("TAG", "plan: $plan\nisChecked: $isChecked")
@@ -155,7 +167,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onOcrDoneClick() {
         planViewModel.createPlanCompleteEvent.call()
     }
-    fun onPreviousPlanListToggle() {}
+    fun onPreviousPlanListToggle(parent: AdapterView<out Adapter>, pos: Int) {
+
+    }
     @SuppressLint("SimpleDateFormat")
     fun onViewPlanClick(pid: Int, endTime: String) {
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")

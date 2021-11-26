@@ -15,13 +15,12 @@
     tools:context=".view.RecommendFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerViewPlaceList1"
+        android:id="@+id/recycler_recommend"
         android:layout_width="415dp"
         android:layout_height="719dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/view_place_item" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

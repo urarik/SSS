@@ -20,7 +20,6 @@
         android:onClick="@{_ -> groupLogic.onViewGroupDetailClick(group.gid)}"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="8dp"
-
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 

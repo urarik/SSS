@@ -71,67 +71,9 @@ class LoginFragment : Fragment(), ActivityNavigation {
         val auth = FirebaseAuth.getInstance()
         val account = userViewModel.userRepository.getSavedAccount()
 
-        if (account != null) {
-            when (account.flag) {
-                0 -> userViewModel.userRepository.login(
-                    account.userId,
-                    account.password, "token"
-                ) { code, nickName ->
-                    if (code == 0) {
-                        userViewModel.userLogic.updateUserInfo(account.userId, account.password, 0)
-                    } else if(code == 1) {
-                        userViewModel.userRepository.deleteAccount()
-                    }
-                }
-                1 -> //Google
-                    // api 관련 로직
-                {
-                    //userViewModel.loginEvent.call()
-                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
-                        if (code == 0) {
-                            if (auth.currentUser != null) {
-                                userViewModel.userLogic.updateUserInfo(account.apiId, null, 1)
-                                userViewModel.loginEvent.call()
-                            }
-                        } else {
-                            // api 로그인 실패
-                        }
-                    }
-                }
-                2 -> {//Naver
-                    // api 관련 로직
-                    if (!(OAuthLoginState.NEED_LOGIN.equals(mOAuthLoginModule.getState(context)) ||
-                                OAuthLoginState.NEED_INIT.equals(mOAuthLoginModule.getState(context))))
-                        userViewModel.userLogic.updateUserInfo(account.apiId, null, 2)
-                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
-                        if (code == 0) {
-                            if (!(OAuthLoginState.NEED_LOGIN.equals(
-                                    mOAuthLoginModule.getState(
-                                        context
-                                    )
-                                ) ||
-                                        OAuthLoginState.NEED_INIT.equals(
-                                            mOAuthLoginModule.getState(
-                                                context
-                                            )
-                                        ))
-                            ) {
-                                userViewModel.userLogic.updateUserInfo(account.apiId, null, 2)
-                            }
+        userViewModel.userLogic.checkLogin(user, mOAuthLoginModule.getState(context))
 
-                        } else {
-                            // api 로그인 실패
-                        }
-                    }
-                }
-            }
-        }
-
-        //구글 로그인 확인
-        //있다면 non-null
-        auth.currentUser?.run {
-
-        } ?: run {
+        auth.currentUser?: run {
             auth.signInAnonymously()
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
@@ -145,7 +87,6 @@ class LoginFragment : Fragment(), ActivityNavigation {
                         //updateUI(null)
                     }
                 }
-
         }
     }
 
@@ -176,7 +117,10 @@ class LoginFragment : Fragment(), ActivityNavigation {
     private fun initObservers() {
         val navController = findNavController()
         userViewModel.loginEvent.observe(viewLifecycleOwner, Observer {
-            navController.navigate(R.id.action_loginFragment_to_planListFragment)
+            val mainIntent = Intent(context, MainActivity::class.java)
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(mainIntent)
+            requireActivity().finish()
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
             navController.navigate(R.id.registerChooserFragment, null)

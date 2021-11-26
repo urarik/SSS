@@ -1,30 +1,76 @@
 package org.sehproject.sss.view
 
+import android.graphics.Bitmap
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentRecommendBinding
 import org.sehproject.sss.databinding.FragmentUserSearchBinding
+import org.sehproject.sss.databinding.ItemPlaceBinding
+import org.sehproject.sss.datatype.Place
 import org.sehproject.sss.viewmodel.FriendViewModel
+import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.RecommendViewModel
 
 class RecommendFragment : Fragment() {
+    private val recommendViewModel: RecommendViewModel by lazy {
+        ViewModelProvider(this).get(RecommendViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val recommendViewModel: RecommendViewModel by lazy {
-            ViewModelProvider(this).get(RecommendViewModel::class.java)
-        }
-
         val recommendBinding: FragmentRecommendBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_recommend, container, false)
+
         recommendBinding.recommendLogic = recommendViewModel.recommendLogic
+        initObserver(recommendBinding)
+        recommendViewModel.getPlaces()
 
         return recommendBinding.root
+    }
+
+    private fun initObserver(recommendBinding: FragmentRecommendBinding) {
+        recommendViewModel.popularPlaceLiveData.observe(viewLifecycleOwner, {
+            recommendBinding.recyclerRecommend.adapter = PlaceAdapter(it)
+        })
+    }
+
+
+
+    protected inner class PlaceHolder(private val itemPlaceBinding: ItemPlaceBinding) : RecyclerView.ViewHolder(itemPlaceBinding.root) {
+
+        @RequiresApi(Build.VERSION_CODES.Q)
+        fun bind(place: Place) {
+            //itemPlaceBinding.imageRecommendPlace.setImageBitmap(place.image)
+            itemPlaceBinding.textLocationName.text = place.name
+        }
+    }
+    protected inner class PlaceAdapter(val places: List<Place>) :
+        RecyclerView.Adapter<PlaceHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceHolder {
+            val itemPlaceBinding = ItemPlaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return PlaceHolder(itemPlaceBinding)
+        }
+
+        override fun getItemCount(): Int = places.size
+
+        override fun onBindViewHolder(holder: PlaceHolder, position: Int) {
+            val place = places[position]
+            holder.bind(place)
+        }
+
     }
 }

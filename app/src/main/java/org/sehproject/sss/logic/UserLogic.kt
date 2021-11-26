@@ -1,6 +1,8 @@
 package org.sehproject.sss.logic
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.nhn.android.naverlogin.data.OAuthLoginState
 import org.json.JSONObject
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.Account
@@ -10,6 +12,54 @@ import org.sehproject.sss.viewmodel.UserViewModel
 class UserLogic(val userViewModel: UserViewModel) {
     val RC_SIGN_IN = 9001
 
+
+    fun checkLogin(user: AccountXML, naverLoginState: OAuthLoginState) {
+        val auth = FirebaseAuth.getInstance()
+        val account = userViewModel.userRepository.getSavedAccount()
+
+        if (account != null) {
+            when (account.flag) {
+                0 -> userViewModel.userRepository.login(
+                    account.userId,
+                    account.password, "token"
+                ) { code, nickName ->
+                    if (code == 0) {
+                        userViewModel.userLogic.updateUserInfo(user.userId, user.password, 0)
+                    } else if(code == 1) {
+                        userViewModel.userRepository.deleteAccount()
+                    }
+                }
+                1 -> //Google
+                {
+                    //userViewModel.loginEvent.call()
+                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
+                        if (code == 0) {
+                            if (auth.currentUser != null) {
+                                userViewModel.userLogic.updateUserInfo(account.apiId, null, 1)
+                                userViewModel.loginEvent.call()
+                            }
+                        } else {
+                            // api 로그인 실패
+                        }
+                    }
+                }
+                2 -> {//Naver
+                    // api 관련 로직
+                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
+                        if (code == 0) {
+                            if (!(OAuthLoginState.NEED_LOGIN == naverLoginState ||
+                                        OAuthLoginState.NEED_INIT == naverLoginState)) {
+                                userViewModel.userLogic.updateUserInfo(account.apiId, null, 2)
+                            }
+
+                        } else {
+                            // api 로그인 실패
+                        }
+                    }
+                }
+            }
+        }
+    }
     // local
     fun onLoginClick(user: AccountXML) {
         userViewModel.userRepository.login(
