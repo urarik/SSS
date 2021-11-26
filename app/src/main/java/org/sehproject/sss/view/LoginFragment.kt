@@ -88,6 +88,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                         //updateUI(null)
                     }
                 }
+
         }
     }
 
