@@ -21,7 +21,6 @@ import java.net.URI
 import javax.xml.parsers.DocumentBuilder
 
 class ProfileLogic(val profileViewModel: ProfileViewModel) {
-    val profileRepository = profileViewModel.profileRepository
 
     fun onEditProfileClick(userId: String) {
         profileViewModel.editProfileEvent.value = userId
@@ -95,17 +94,16 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
     }
 
     fun onLogoutClick() {
-        profileRepository.logout { code: Int ->
+        profileViewModel.profileRepository.logout { code: Int ->
             if (code == 0) {
-                val account = profileRepository.getSavedAccount()
+                val account = profileViewModel.profileRepository.getSavedAccount()
                 when (account!!.flag) {
                     // 1 ->
                     // 2 ->
                 }
-                profileRepository.deleteAccount()
+                profileViewModel.profileRepository.deleteAccount()
                 profileViewModel.logoutEvent.call()
             }
         }
-        profileViewModel.logoutEvent.call()
     }
 }

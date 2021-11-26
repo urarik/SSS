@@ -72,8 +72,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
         val account = userViewModel.userRepository.getSavedAccount()
 
         userViewModel.userLogic.checkLogin(user, mOAuthLoginModule.getState(context))
-        //구글 로그인 확인
-        //있다면 non-null
+
         auth.currentUser?: run {
             auth.signInAnonymously()
                 .addOnCompleteListener(requireActivity()) { task ->

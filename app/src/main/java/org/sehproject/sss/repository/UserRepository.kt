@@ -145,9 +145,7 @@ class UserRepository(private val appDatabase: AppDatabase) {
     }
 
     fun saveAccount(account: Account) {
-        appDatabase
-            .userDao()
-            .insert(account)
+        appDatabase.userDao().insert(account)
     }
 
     fun deleteAccount() {
