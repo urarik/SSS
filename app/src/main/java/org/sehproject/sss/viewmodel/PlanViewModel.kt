@@ -22,12 +22,21 @@ class PlanViewModel : ViewModel() {
     }
 
     fun getPlanList() {
-        planRepository.getPlanList(true) {code, list ->
-            if(code == 0)
-                planListLiveData.value = list
-            else if(code == 1)
-                planListLiveData.value = listOf()
-        }
+        val temp = mutableListOf<Plan>()
+        temp.add(Plan(pid = 0, name = "test", startTime = "2021-11-29 18:30", endTime = "2021-11-29 22:00",
+            location = "영남대학교", isPublic = false, category = "MySchool"))
+        temp.add(Plan(pid = 0, name = "test", startTime = "2021-11-29 13:30", endTime = "2021-11-29 14:00",
+            location = "영남대학교", isPublic = false, category = "Hello world"))
+        temp.add(Plan(pid = 0, name = "test", startTime = "2021-11-27 13:30", endTime = "2021-11-27 18:00",
+            location = "영남대학교", isPublic = true, category = "MySchool"))
+        planListLiveData.value = temp
+
+//        planRepository.getPlanList(true) {code, list ->
+//            if(code == 0)
+//                planListLiveData.value = list
+//            else if(code == 1)
+//                planListLiveData.value = listOf()
+//        }
     }
 
     fun setPlan(pid: Int) {
