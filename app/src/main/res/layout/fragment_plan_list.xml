@@ -11,18 +11,108 @@
             name="planLogic"
             type="org.sehproject.sss.logic.PlanLogic" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <Spinner
+                    android:id="@+id/spinnerPlanOrder"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textViewPlanOrder"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewPlanOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="정렬 기준"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.496" />
+
+                <ToggleButton
+                    android:id="@+id/toggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:text="ToggleButton"
+                    android:textOff="현재 약속"
+                    android:textOn="지난 약속"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.496" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RecyclerViewPlanList"
+                    android:layout_width="389dp"
+                    android:layout_height="330dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5">
+
+                <Button
+                    android:id="@+id/btn_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:onClick='@{()->planLogic.onViewPlanClick(1, "ASD")}'
+                    android:text="Button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
             android:elevation="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:fab_labelStyle="@style/menu_labels_style"
             app:fab_labelsPosition="left"
-            app:fab_labelStyle="@style/menu_labels_style">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/MakePlanFloatingActionButton"
                 android:layout_width="wrap_content"
@@ -30,7 +120,8 @@
                 android:onClick="@{()->planLogic.onCreatePlanClick()}"
                 app:fab_icon="@drawable/add_plan"
                 app:fab_size="mini"
-                app:fab_title="약속 추가"/>
+                app:fab_title="약속 추가" />
+
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/MakePlanTypeFloatingActionButton"
                 android:layout_width="wrap_content"
@@ -39,6 +130,7 @@
                 app:fab_icon="@drawable/tts"
                 app:fab_size="mini"
                 app:fab_title="타이핑으로 약속 추가" />
+
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/MakePlanOCRFloatingActionButton"
                 android:layout_width="wrap_content"
@@ -46,52 +138,10 @@
                 android:onClick="@{()->planLogic.onCreateOcrClick()}"
                 app:fab_icon="@drawable/ocr"
                 app:fab_size="mini"
-                app:fab_title="사진으로 약속 추가"/>
+                app:fab_title="사진으로 약속 추가" />
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
-
-        <TextView
-            android:id="@+id/textViewPlanOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="52dp"
-            android:text="정렬 기준"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/spinnerPlanOrder"
-            android:layout_width="140dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="44dp"
-            app:layout_constraintStart_toEndOf="@+id/textViewPlanOrder"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecyclerViewPlanList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerPlanOrder" />
-
-        <Button
-            android:id="@+id/btn_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Button"
-            android:onClick='@{()->planLogic.onViewPlanClick(1, "ASD")}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
