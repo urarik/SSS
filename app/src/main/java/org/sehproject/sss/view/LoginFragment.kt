@@ -78,7 +78,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     account.password, "token"
                 ) { code, nickName ->
                     if (code == 0) {
-                        userViewModel.userLogic.updateUserInfo(user.userId, user.password, 0)
+                        userViewModel.userLogic.updateUserInfo(account.userId, account.password, 0)
                     } else if(code == 1) {
                         userViewModel.userRepository.deleteAccount()
                     }

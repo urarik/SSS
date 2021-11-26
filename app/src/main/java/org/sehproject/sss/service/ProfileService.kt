@@ -53,7 +53,7 @@ interface ProfileService {
         userId: String
     ): Call<ProfileResponse>
 
-    @POST("profile/statistics")
+    @POST("profile/stats")
     @FormUrlEncoded
     fun requestGetStatistics(
         @Field("userid")
@@ -83,7 +83,7 @@ interface ProfileService {
         userId: String
     ): Call<OptionResponse>
 
-    @POST("logout")
+    @POST("profile/logout")
     @FormUrlEncoded
     fun requestLogout(
         @Field("userid")
