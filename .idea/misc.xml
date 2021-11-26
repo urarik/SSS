@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_friend_list.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_friend_profile.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_detail.xml" value="0.13385416666666666" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_list.xml" value="0.25364583333333335" />
@@ -11,7 +12,7 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_create_type.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_detail.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_edit.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_list.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_list.xml" value="0.264" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_profile.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_profile_edit.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_recommend.xml" value="0.25364583333333335" />
@@ -27,6 +28,8 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/view_memo_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/view_place_item.xml" value="0.20364583333333333" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/view_plan_item.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_list_item_1.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/drawable/circle.xml" value="0.2361111111111111" />
         <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/layout/fragment_dialog_register.xml" value="0.4" />
         <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/layout/fragment_group_list.xml" value="0.12335359675785208" />
