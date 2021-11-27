@@ -124,13 +124,18 @@ class UserLogic(val userViewModel: UserViewModel) {
         nickName: String,
         apiId: String
     ) {
-        Log.d("TAG", "userId: $userId\npassword: $password\nnickName: $nickName\napiId: $apiId")
         if (password == confirmPassword) {
-            userViewModel.userRepository.register(userId, password, nickName) { code: Int ->
-                if (code == 0) {
-                    userViewModel.registerCompleteEvent.call()
+            if(apiId == "") {
+                userViewModel.userRepository.register(userId, password, nickName) { code: Int ->
+                    if (code == 0)
+                        userViewModel.registerCompleteEvent.call()
                 }
             }
+            else
+                userViewModel.userRepository.apiRegister(userId, nickName, apiId) { code: Int ->
+                    if(code == 0)
+                        userViewModel.registerCompleteEvent.call()
+                }
         }
     }
 
