@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.logic.PlanLogic
@@ -48,6 +49,7 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     var isAttendPlanCount: Boolean = false
     var isAbscentPlanCount: Boolean = false
     var isAttendPercent: Boolean = false
+    lateinit var googleSignInClient: GoogleSignInClient
 
 
     fun setProfile(userId: String) {
