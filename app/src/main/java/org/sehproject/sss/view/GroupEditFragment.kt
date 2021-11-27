@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentGroupEditBinding
-import org.sehproject.sss.databinding.FragmentInviteFriendBinding
 import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.viewmodel.GroupViewModel
 import top.defaults.colorpicker.ColorPickerPopup

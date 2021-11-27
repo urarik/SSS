@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentBanBinding
 import org.sehproject.sss.databinding.FragmentInviteFriendBinding
+import org.sehproject.sss.databinding.FragmentGroupInviteBinding
 import org.sehproject.sss.view.dialog.DialogFragment
 import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.UserViewModel
@@ -27,6 +28,14 @@ class GroupInviteDialogFragment: DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         groupViewModel = ViewModelProvider(this).get(GroupViewModel::class.java)
+
+//        val inviteFriendBinding: FragmentGroupInviteBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_group_invite, container, false)
+//        val recyclerView = inviteFriendBinding.searchRecyclerView
+//        if(!safeArgs.isInvite)
+//            inviteFriendBinding.buttonGroupInviteDone.text = "퇴장"
+//        inviteFriendBinding.isInvite = safeArgs.isInvite
+//        inviteFriendBinding.groupLogic = groupViewModel!!.groupLogic
+
         var inviteFriendBinding: FragmentInviteFriendBinding? = null
         var kickOutFriendBinding: FragmentBanBinding? = null
         var view: View
@@ -44,24 +53,30 @@ class GroupInviteDialogFragment: DialogFragment() {
             recyclerView = kickOutFriendBinding.searchRecyclerView
         }
 
+        // planViewModel?.setFriendList()
         groupViewModel?.setFriendList()
         groupViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
             adapter = UserAdapter(it)
             recyclerView.adapter = adapter
         })
 
-        initObserver()
+        initObserver(recyclerView)
 
+        // return inviteFriendBinding.root
         return view
     }
 
-    fun initObserver() {
+    fun initObserver(recyclerView: RecyclerView) {
         val navController = findNavController()
         groupViewModel!!.inviteGroupCompleteEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.groupDetailFragment)
         })
         groupViewModel!!.kickOutGroupCompleteEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.groupDetailFragment)
+        })
+        groupViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
+            adapter = UserAdapter(it)
+            recyclerView.adapter = adapter
         })
     }
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentBanBinding
 import org.sehproject.sss.databinding.FragmentInviteFriendBinding
+import org.sehproject.sss.databinding.FragmentPlanInviteBinding
 import org.sehproject.sss.view.dialog.DialogFragment
 import org.sehproject.sss.viewmodel.PlanViewModel
 
@@ -26,6 +27,14 @@ class PlanInviteDialogFragment: DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         planViewModel = ViewModelProvider(this).get(PlanViewModel::class.java)
+
+//        val inviteFriendBinding: FragmentPlanInviteBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_invite, container, false)
+//        val recyclerView = inviteFriendBinding.searchRecyclerView
+//        if(!safeArgs.isInvite)
+//            inviteFriendBinding.buttonPlanInviteDone.text = "퇴장"
+//        inviteFriendBinding.isInvite = safeArgs.isInvite
+//        inviteFriendBinding.planLogic = planViewModel!!.planLogic
+
         var inviteFriendBinding: FragmentInviteFriendBinding? = null
         var kickOutFriendBinding: FragmentBanBinding? = null
         var view: View
@@ -46,10 +55,9 @@ class PlanInviteDialogFragment: DialogFragment() {
         }
 
         planViewModel?.setFriendList()
-        planViewModel?.setFriendList()
-
         initObserver(recyclerView)
 
+        // return inviteFriendBinding.root
         return view
     }
 
