@@ -184,7 +184,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         return list.sortedWith(compareBy({ it.category }, { it.startTime }))
     }
 
-    fun onLastPlanToggleClick(isLastPlan: Boolean) {
-        planViewModel.isLastPlan.value = isLastPlan
+    fun onLastPlanToggleClick(isCurrentPlan: Boolean) {
+        planViewModel.isLastPlan.value = !isCurrentPlan
     }
 }
