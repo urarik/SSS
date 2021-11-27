@@ -24,7 +24,7 @@ class UserLogic(val userViewModel: UserViewModel) {
                     account.password, userViewModel.token
                 ) { code, nickName ->
                     if (code == 0) {
-                        userViewModel.userLogic.updateUserInfo(account.userId, account.password, 0)
+                        userViewModel.userLogic.updateUserInfo(account.userId, account.password, nickName, 0)
                     } else if(code == 1) {
                         userViewModel.userRepository.deleteAccount()
                     }
@@ -35,7 +35,7 @@ class UserLogic(val userViewModel: UserViewModel) {
                     userViewModel.userRepository.apiLogin(account.apiId, userViewModel.token) { code, nickName, id ->
                         if (code == 0) {
                             if (auth.currentUser != null) {
-                                userViewModel.userLogic.updateUserInfo(id!!, null, 1, account.apiId)
+                                userViewModel.userLogic.updateUserInfo(id!!, null, nickName, 1, account.apiId)
                                 userViewModel.loginEvent.call()
                             }
                         } else {
@@ -49,7 +49,7 @@ class UserLogic(val userViewModel: UserViewModel) {
                         if (code == 0) {
                             if (!(OAuthLoginState.NEED_LOGIN == naverLoginState ||
                                         OAuthLoginState.NEED_INIT == naverLoginState)) {
-                                userViewModel.userLogic.updateUserInfo(id!!, null, 2, account.apiId)
+                                userViewModel.userLogic.updateUserInfo(id!!, null, nickName, 2, account.apiId)
                             }
 
                         } else {
@@ -68,7 +68,7 @@ class UserLogic(val userViewModel: UserViewModel) {
             userViewModel.token
         ) { code: Int, nickName: String? ->
             if (code == 0) {
-                updateUserInfo(user.userId, user.password, 0)
+                updateUserInfo(user.userId, user.password, nickName, 0)
             } else if (code == 1) {
                 userViewModel.loginFailEvent.call()
             }
@@ -78,7 +78,7 @@ class UserLogic(val userViewModel: UserViewModel) {
     fun apiLogin(apiId: String, flag: Int) {
         userViewModel.userRepository.apiLogin(apiId, userViewModel.token) {code, nickName, id ->
             if(code == 0)
-                updateUserInfo(id!!, "", flag, apiId)
+                updateUserInfo(id!!, "", nickName, flag, apiId)
             else Log.d("TAG", "api Login error. code $code")
         }
     }
@@ -150,9 +150,10 @@ class UserLogic(val userViewModel: UserViewModel) {
             }
         }
 
-    fun updateUserInfo(id: String, password: String?, flag: Int, apiId: String = "") {
+    fun updateUserInfo(id: String, password: String?, nickName: String?, flag: Int, apiId: String = "") {
         UserInfo.isLogin = true
         UserInfo.userId = id
+        UserInfo.nickname = nickName
         when (flag) {
             0 -> userViewModel.userRepository.saveAccount(Account(id, password!!, "", flag))
             1, 2 -> userViewModel.userRepository.saveAccount(Account(id, "", apiId, flag))

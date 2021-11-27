@@ -42,6 +42,7 @@
         <entry key="..\:/school/drive/SSS/app/src/main/res/drawable/horizontal_divider.xml" value="0.24166666666666667" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_ban.xml" value="0.36231884057971014" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_dialog_register.xml" value="0.2" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_friend_container.xml" value="0.33001422475106684" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_group_container.xml" value="0.36614583333333334" />
@@ -49,6 +50,7 @@
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_group_edit.xml" value="0.4" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_group_list.xml" value="0.17806484295845998" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_invitation.xml" value="0.25" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_invite_friend.xml" value="0.16847826086956522" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_login.xml" value="0.36614583333333334" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_map.xml" value="0.18" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_plan.xml" value="0.22" />

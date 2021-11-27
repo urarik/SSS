@@ -46,24 +46,24 @@ class PlanInviteDialogFragment: DialogFragment() {
         }
 
         planViewModel?.setFriendList()
-        planViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
-            adapter = UserAdapter(it)
-            recyclerView.adapter = adapter
-        })
         planViewModel?.setFriendList()
 
-        initObserver()
+        initObserver(recyclerView)
 
         return view
     }
 
-    fun initObserver() {
+    fun initObserver(recyclerView: RecyclerView) {
         val navController = findNavController()
         planViewModel!!.invitePlanCompleteEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.planDetailFragment)
         })
         planViewModel!!.kickOutPlanCompleteEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.planDetailFragment)
+        })
+        planViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
+            adapter = UserAdapter(it)
+            recyclerView.adapter = adapter
         })
     }
 }
