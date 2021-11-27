@@ -71,6 +71,7 @@ class PlanViewModel : ViewModel() {
     val createMemoCompleteEvent = SingleLiveEvent<Int>()
     val deleteMemoCompleteEvent = SingleLiveEvent<Any>()
     val createPlanEvent = SingleLiveEvent<Any>()
+    val createPlanFailEvent = SingleLiveEvent<Int>()
     val createPlanOcrEvent = SingleLiveEvent<Any>()
     val createPlanOcrDoneEvent = SingleLiveEvent<Plan>()
     val uploadImgEvent = SingleLiveEvent<Any>()
