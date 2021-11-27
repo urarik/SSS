@@ -76,24 +76,6 @@ class MainActivity : AppCompatActivity() {
         val viewPagerAdapter = ViewPagerAdapter(this, 5)
         viewPager2.adapter = viewPagerAdapter
         viewPager2.registerOnPageChangeCallback(ViewPagerPageChangeCallback(bottomNav))
-
-//        val navHostFragment =
-//            sfm.findFragmentById(R.id.nav_container) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        bottomNav.setupWithNavController(navController)
-//
-//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == -1) {
-//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-//            PERMISSION)
-//        }
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            if(destination.id == R.id.loginFragment || destination.id == R.id.registerFragment) {
-//                bottomNav.visibility = View.GONE
-//            } else {
-//                bottomNav.visibility = View.VISIBLE
-//            }
-//        }
-        sendToken()
     }
 
     override fun onStart() {
@@ -104,20 +86,6 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver)
-    }
-
-    private fun sendToken() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if(!task.isSuccessful) {
-                Log.d("TAG", "Fetching FCM registration token failed ${task.exception}")
-            }
-
-            val token = task.result
-            val msg = token.toString()
-            Log.d("TAG", "token: $msg")
-            //TODO("토큰을 서버에 보내야 한다.")
-            //로그인할 때 토큰을 보낸다.
-        }
     }
 
 /*        bottomNav.setOnItemSelectedListener { item ->

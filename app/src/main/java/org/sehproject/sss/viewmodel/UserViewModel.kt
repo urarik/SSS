@@ -43,6 +43,8 @@ class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
     val registerFailEvent = SingleLiveEvent<Any>()
     lateinit var googleSignInClient: GoogleSignInClient
 
+    var token = ""
+
     fun setGoogleClient(_googleSignInClient: GoogleSignInClient) {
         googleSignInClient = _googleSignInClient
     }

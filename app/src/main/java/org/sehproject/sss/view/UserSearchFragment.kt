@@ -1,5 +1,6 @@
 package org.sehproject.sss.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.FriendViewModel
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.opengl.Visibility
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 
@@ -48,6 +50,16 @@ class UserSearchFragment : Fragment() {
         friendViewModel.userList.observe(viewLifecycleOwner, {
             val adapter = UserAdapter(it)
             recyclerView.adapter = adapter
+
+            //dismiss keyboard
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if (null != requireActivity().currentFocus) imm.hideSoftInputFromWindow(
+                requireActivity().currentFocus!!.applicationWindowToken, 0
+            )
+        })
+
+        friendViewModel.addFriendEvent.observe(viewLifecycleOwner, {
+            it.visibility = ViewGroup.GONE
         })
     }
 

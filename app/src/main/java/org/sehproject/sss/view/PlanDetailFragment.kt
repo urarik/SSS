@@ -40,12 +40,12 @@ class PlanDetailFragment : Fragment() {
         val view = planDetailBinding.root
         val safeArgs: PlanDetailFragmentArgs by navArgs()
         planViewModel.setPlan(safeArgs.pid)
-        initObserver(planDetailBinding)
+        initObserver(planDetailBinding, safeArgs.pid)
 
         return view
     }
 
-    fun initObserver(planDetailBinding: FragmentPlanDetailBinding) {
+    fun initObserver(planDetailBinding: FragmentPlanDetailBinding, pid: Int) {
         planViewModel.concatAdapterLiveData.value = 0
         val navController = findNavController()
         planViewModel.planLiveData.observe(viewLifecycleOwner, {
@@ -66,6 +66,10 @@ class PlanDetailFragment : Fragment() {
                     ParticipantAdapter(planViewModel.userListLiveData.value!!)
                 )
             }
+        })
+        planViewModel.createMemoCompleteEvent.observe(viewLifecycleOwner, {
+            planViewModel.concatAdapterLiveData.value?.minus(1)
+            planViewModel.setMemoList(pid)
         })
 
         planViewModel.deletePlanEvent.observe(viewLifecycleOwner, {

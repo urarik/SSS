@@ -1,5 +1,6 @@
 package org.sehproject.sss.viewmodel
 
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sehproject.sss.datatype.Plan
@@ -18,10 +19,10 @@ class FriendViewModel : ViewModel() {
     val userList = MutableLiveData<List<User>>()
     val friendList = MutableLiveData<List<User>>()
     val searchUserEvent = SingleLiveEvent<Any>()
-    val addFriendEvent = SingleLiveEvent<Any>()
+    val addFriendEvent = SingleLiveEvent<AppCompatButton>()
     val deleteFriendEvent = SingleLiveEvent<Any>()
     val blockFriendEvent = SingleLiveEvent<Any>()
-    val listFriendEvent = SingleLiveEvent<Any>()
+    val listFriendEvent = SingleLiveEvent<String>()
 
     // Logic에서 ViewModel로 변경, ArrayList -> List로 변경, Return 삭제
     fun getFriendList() {
