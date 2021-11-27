@@ -26,7 +26,10 @@ interface UserService {
     @FormUrlEncoded
     fun requestApiLogin(
         @Field("api_id")
-        apiId: String
+        apiId: String,
+
+        @Field("token")
+        token: String
     ) : Call<UserResponse>
 
     @POST("auth/register/api")

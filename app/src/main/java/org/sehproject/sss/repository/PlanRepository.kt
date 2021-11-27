@@ -432,7 +432,7 @@ class PlanRepository {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    val memoList = response.body()?.memoList
+                    val memoList = response.body()?.memo
                     onResult(0, memoList)
                 } else {
                     onResult(1, null)

@@ -1,3 +1,3 @@
 package org.sehproject.sss.datatype
 
-data class GroupListResponse(var code: Int, var groupList: List<Group>)
+data class GroupListResponse(var code: Int, var group: List<Group>)
