@@ -73,7 +73,7 @@
     <dialog
         android:id="@+id/planInviteDialogFragment"
         android:name="org.sehproject.sss.view.PlanInviteDialogFragment"
-        android:label="PlanInviteDialogFragment" >
+        android:label="PlanInviteDialogFragment">
         <argument
             android:name="is_invite"
             app:argType="boolean" />

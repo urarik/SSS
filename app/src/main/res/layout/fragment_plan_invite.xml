@@ -8,6 +8,9 @@
             name="plan"
             type="org.sehproject.sss.datatype.Plan" />
         <variable
+            name="isInvite"
+            type="Boolean" />
+        <variable
             name="planLogic"
             type="org.sehproject.sss.logic.PlanLogic" />
     </data>
@@ -90,11 +93,10 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/searchRecyclerView"
-                    android:layout_width="398dp"
-                    android:layout_height="276dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -106,11 +108,11 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/button_plan_invite_done"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{()->planLogic.onKickOutPlanDoneClick(plan.pid)}"
-                    android:text="강제 퇴장"
+                    android:onClick="@{()->isInvite == true? planLogic.onInvitePlanDoneClick(plan.pid): planLogic.onKickOutPlanDoneClick(plan.pid)}"
+                    android:text="초대"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
