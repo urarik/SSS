@@ -94,14 +94,14 @@ interface GroupService {
         userIdList: List<String>
     ): Call<GenericResponse>
 
-    @POST("group/group")
+    @POST("group/list")
     @FormUrlEncoded
     fun requestGetGroupList(
         @Field("userid")
         userId: String
     ): Call<GroupListResponse>
 
-    @POST("group/list")
+    @POST("group/details")
     @FormUrlEncoded
     fun requestGetGroup(
         @Field("gid")
