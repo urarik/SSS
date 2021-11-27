@@ -40,7 +40,7 @@ class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
     val isLogin = MutableLiveData(false)
     val googleLoginEvent = LiveMessageEvent<ActivityNavigation>()
     val googleRegisterEvent = LiveMessageEvent<ActivityNavigation>()
-    val cheatEvent = SingleLiveEvent<Any>()
+    val registerFailEvent = SingleLiveEvent<Any>()
     lateinit var googleSignInClient: GoogleSignInClient
 
     fun setGoogleClient(_googleSignInClient: GoogleSignInClient) {

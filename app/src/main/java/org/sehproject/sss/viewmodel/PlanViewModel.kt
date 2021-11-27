@@ -33,16 +33,7 @@ class PlanViewModel : ViewModel() {
 
         planRepository.getPlanList(userId, isCurrent) {code, list ->
             if(code == 0) {
-                if (isLastPlan.value == true) {
-                    planListLiveData.value = list?.filter {
-                        it.endTime < formatted
-                    }
-                } else {
-                    planListLiveData.value = list?.filter {
-                        it.endTime >= formatted
-                    }
-                }
-
+                planListLiveData.value = list
             }
             else if(code == 1) {
                 planListLiveData.value = listOf()
@@ -84,6 +75,7 @@ class PlanViewModel : ViewModel() {
     val createMemoCompleteEvent = SingleLiveEvent<Int>()
     val deleteMemoCompleteEvent = SingleLiveEvent<Any>()
     val createPlanEvent = SingleLiveEvent<Any>()
+    val createPlanFailEvent = SingleLiveEvent<Int>()
     val createPlanOcrEvent = SingleLiveEvent<Any>()
     val createPlanOcrDoneEvent = SingleLiveEvent<Plan>()
     val uploadImgEvent = SingleLiveEvent<Any>()

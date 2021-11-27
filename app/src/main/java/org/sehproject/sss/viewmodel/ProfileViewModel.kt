@@ -46,6 +46,8 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     var imageFile: File? = null
     var imageUri: Uri? = null
     var imageStream: FileInputStream? = null
+    var imageLength: Int = 0
+    var imageExtension = ""
 
     // 통계용 변수 추가
     val getStatisticsCompleteEvent = SingleLiveEvent<Any>()

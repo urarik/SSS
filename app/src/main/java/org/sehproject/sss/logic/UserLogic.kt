@@ -32,10 +32,10 @@ class UserLogic(val userViewModel: UserViewModel) {
                 1 -> //Google
                 {
                     //userViewModel.loginEvent.call()
-                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
+                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName, id->
                         if (code == 0) {
                             if (auth.currentUser != null) {
-                                userViewModel.userLogic.updateUserInfo(account.apiId, null, 1)
+                                userViewModel.userLogic.updateUserInfo(id!!, null, 1, account.apiId)
                                 userViewModel.loginEvent.call()
                             }
                         } else {
@@ -45,11 +45,11 @@ class UserLogic(val userViewModel: UserViewModel) {
                 }
                 2 -> {//Naver
                     // api 관련 로직
-                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName ->
+                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName, id ->
                         if (code == 0) {
                             if (!(OAuthLoginState.NEED_LOGIN == naverLoginState ||
                                         OAuthLoginState.NEED_INIT == naverLoginState)) {
-                                userViewModel.userLogic.updateUserInfo(account.apiId, null, 2)
+                                userViewModel.userLogic.updateUserInfo(id!!, null, 2, account.apiId)
                             }
 
                         } else {
@@ -76,6 +76,13 @@ class UserLogic(val userViewModel: UserViewModel) {
         }
         // userViewModel.loginEvent.call()
     }
+    fun apiLogic(apiId: String, flag: Int) {
+        userViewModel.userRepository.apiLogin(apiId) {code, nickName, id ->
+            if(code == 0)
+                updateUserInfo(id!!, "", flag, apiId)
+            else Log.d("TAG", "api Login error. code $code")
+        }
+    }
 
     fun onGoogleLoginClick() {
         val signInIntent = userViewModel.googleSignInClient.signInIntent
@@ -101,7 +108,7 @@ class UserLogic(val userViewModel: UserViewModel) {
         val jsonObject = JSONObject(result)
         val responseObject = JSONObject(jsonObject.getString("response"))
         val id = responseObject.getString("id")
-        updateUserInfo(id, null, 2)
+        apiLogic(id, 2)
     }
 
     fun naverRegisterCallback(result: String) {
@@ -125,22 +132,31 @@ class UserLogic(val userViewModel: UserViewModel) {
         nickName: String,
         apiId: String
     ) {
-        Log.d("TAG", "userId: $userId\npassword: $password\nnickName: $nickName\napiId: $apiId")
         if (password == confirmPassword) {
-            userViewModel.userRepository.register(userId, password, nickName) { code: Int ->
-                if (code == 0) {
-                    userViewModel.registerCompleteEvent.call()
+            if(apiId == "") {
+                userViewModel.userRepository.register(userId, password, nickName) { code: Int ->
+                    if (code == 0)
+                        userViewModel.registerCompleteEvent.call()
+                    else
+                        userViewModel.registerFailEvent.call()
                 }
             }
+            else
+                userViewModel.userRepository.apiRegister(userId, nickName, apiId) { code: Int ->
+                    if(code == 0)
+                        userViewModel.registerCompleteEvent.call()
+                    else
+                        userViewModel.registerCompleteEvent.call()
+                }
         }
     }
 
-    fun updateUserInfo(id: String, password: String?, flag: Int) {
+    fun updateUserInfo(id: String, password: String?, flag: Int, apiId: String = "") {
         UserInfo.isLogin = true
         UserInfo.userId = id
         when (flag) {
             0 -> userViewModel.userRepository.saveAccount(Account(id, password!!, "", flag))
-            1, 2 -> userViewModel.userRepository.saveAccount(Account("", "", id, flag))
+            1, 2 -> userViewModel.userRepository.saveAccount(Account(id, "", apiId, flag))
         }
 
         userViewModel.loginEvent.call()

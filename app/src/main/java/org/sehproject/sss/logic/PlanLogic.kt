@@ -55,12 +55,17 @@ class PlanLogic(val planViewModel: PlanViewModel) {
 //        event.start = start
 //        event.end = end
 //        planViewModel.syncCalendarEvent.value = event
-        
-        planViewModel.planRepository.createPlan(plan) { code ->
-            if (code == 0) {
-                planViewModel.createPlanCompleteEvent.call()
+        val format = SimpleDateFormat("yyyy-MM-dd hh:mm")
+
+        val start = format.parse(plan.startTime)
+        val end = format.parse(plan.endTime)
+        if(start <= end) {
+            planViewModel.planRepository.createPlan(plan) { code ->
+                if (code == 0) {
+                    planViewModel.createPlanCompleteEvent.call()
+                }
             }
-        }
+        } else planViewModel.createPlanFailEvent.value = 1
     }
     fun syncCalendar(mService: Calendar, event: Event) {
         planViewModel.planRepository.syncCalendar(mService, event)
@@ -123,7 +128,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         planViewModel.createMemoEvent.call()
     }
     fun onCreateMemoDoneClick(memoString: String) {
-        var memo = Memo()
+        val memo = Memo()
         memo.memo = memoString
         memo.pid = planViewModel.planLiveData.value?.pid!!
 
