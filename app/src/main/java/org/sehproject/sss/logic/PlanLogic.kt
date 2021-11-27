@@ -88,7 +88,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onInvitePlanClick() {
         planViewModel.invitePlanEvent.call()
     }
-    fun onInvitePlanDoneClick() {}
+    fun onInvitePlanDoneClick() {
+
+    }
     fun onInvitePlanExitClick() {}
     fun onKickOutPlanClick() {
         planViewModel.kickOutPlanEvent.call()
@@ -182,5 +184,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
 
     fun sortPlanByCategory(list: List<Plan>): List<Plan> {
         return list.sortedWith(compareBy({ it.category }, { it.startTime }))
+    }
+
+    fun onLastPlanToggleClick(isLastPlan: Boolean) {
+        planViewModel.isLastPlan.value = isLastPlan
     }
 }

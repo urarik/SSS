@@ -94,6 +94,11 @@ class PlanListFragment : Fragment() {
             val adapter = PlanAdapter(it)
             recyclerView.adapter = adapter
         })
+        planViewModel.isLastPlan.observe(viewLifecycleOwner, {
+            planViewModel.getPlanList()
+            val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
+            recyclerView.adapter = adapter
+        })
     }
 
     private inner class PlanHolder(val itemPlanBinding: ItemPlanBinding) : RecyclerView.ViewHolder(itemPlanBinding.root) {
