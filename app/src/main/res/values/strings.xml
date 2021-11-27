@@ -9,6 +9,6 @@
     <string name="register">회원가입</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="ocr_plan_dsc">타이핑으로 약속 추가\n이름, 장소, 날짜, 카테구리, 구글 캘린더 연동\n예시) 회의, 영남대, 2021–11-15 13:00 2021-11-16 14:00 소공 O</string>
+    <string name="ocr_plan_dsc">타이핑으로 약속 추가\n이름, 장소, 날짜, 카테고리(없으면 X)\n예시) 회의, 영남대, 2021–11-15 13:00 2021-11-16 14:00 소공</string>
     <string formatted="false" name="profile_age">%s</string>
 </resources>

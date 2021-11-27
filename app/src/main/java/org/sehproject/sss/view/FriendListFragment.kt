@@ -1,7 +1,6 @@
-package org.sehproject.sss.view.Friend
+package org.sehproject.sss.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentFriendListBinding
 import org.sehproject.sss.databinding.FriendListItemBinding
-import org.sehproject.sss.databinding.UserSerachItemBinding
 import org.sehproject.sss.datatype.User
-import org.sehproject.sss.view.GroupListFragmentDirections
+import org.sehproject.sss.view.FriendListFragmentDirections
 import org.sehproject.sss.viewmodel.FriendViewModel
 
 class FriendListFragment : Fragment() {
@@ -47,11 +45,16 @@ class FriendListFragment : Fragment() {
             recyclerView.adapter = adapter
         })
 
-        friendViewModel.listFriendEvent.observe(this, {
-            val action = FriendListFragmentDirections.actionFriendListFragmentToFriendProfileFragment(
-                it as String
-            )
+        friendViewModel.listFriendEvent.observe(viewLifecycleOwner, {
+            val action = FriendListFragmentDirections.actionFriendListFragmentToFriendProfileFragment(it)
             navController.navigate(action)
+        })
+
+        friendViewModel.deleteFriendEvent.observe(viewLifecycleOwner, {
+            friendViewModel.getFriendList()
+        })
+        friendViewModel.blockFriendEvent.observe(viewLifecycleOwner, {
+            friendViewModel.getFriendList()
         })
     }
 

@@ -25,13 +25,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.messaging.FirebaseMessaging
 import com.nhn.android.idp.common.util.DeviceAppInfo.getPackageName
 import com.nhn.android.naverlogin.OAuthLogin
-import com.nhn.android.naverlogin.data.OAuthLoginState
-import org.sehproject.sss.UserInfo
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentLoginBinding
-import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.utils.UserViewModelFactory
 import java.security.MessageDigest
@@ -58,12 +56,23 @@ class LoginFragment : Fragment(), ActivityNavigation {
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
         loginBinding.userLogic = userViewModel.userLogic
         loginBinding.user = user
+
+        getToken()
         initObservers()
         initNaverLogin()
         initGoogleLogin()
         getHashKey()
 
         return loginBinding.root
+    }
+    private fun getToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if(!task.isSuccessful) {
+                Log.d("TAG", "Fetching FCM registration token failed ${task.exception}")
+            }
+            val mtoken = task.result
+            userViewModel.token = mtoken.toString()
+        }
     }
 
     override fun onStart() {
@@ -190,7 +199,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("tag", "signInWithCredential:success")
                     val uid = auth.currentUser!!.uid
-                    userViewModel.userLogic.apiLogic(uid, 1)
+                    userViewModel.userLogic.apiLogin(uid, 1)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("tag", "signInWithCredential:failure", task.exception)

@@ -12,7 +12,7 @@
         android:label="fragment_user_search" />
     <fragment
         android:id="@+id/friendListFragment"
-        android:name="org.sehproject.sss.view.Friend.FriendListFragment"
+        android:name="org.sehproject.sss.view.FriendListFragment"
         tools:layout="@layout/fragment_friend_list"
         android:label="fragment_friend_list">
         <action
