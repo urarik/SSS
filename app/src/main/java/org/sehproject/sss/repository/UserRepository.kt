@@ -45,7 +45,7 @@ class UserRepository(private val appDatabase: AppDatabase) {
         })
     }
 
-    fun apiLogin(apiId: String, onResult: (Int, String?, String?) -> Unit) {
+    fun apiLogin(apiId: String, token: String, onResult: (Int, String?, String?) -> Unit) {
         val apiLoginCall = userService.requestApiLogin(apiId)
         apiLoginCall.enqueue(object : CallbackWithRetry<UserResponse>(apiLoginCall) {
             override fun onResponse(

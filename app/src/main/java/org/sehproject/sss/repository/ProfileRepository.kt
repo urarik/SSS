@@ -63,7 +63,7 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
         dis.readFully(fileContent)
 
         val reqFile = RequestBody.create(MediaType.parse("image/*"), fileContent)
-        val body = MultipartBody.Part.createFormData("upload", extension, reqFile)
+        val body = MultipartBody.Part.createFormData("upload", UserInfo.userId + extension, reqFile)
         Log.d("TAG", "extension: $extension")
         val name = RequestBody.create(MediaType.parse("text/plain"), UserInfo.userId)
 
@@ -173,7 +173,7 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    var option = response.body()?.option
+                    var option = response.body()?.options
                     onResult(0, option)
                 } else {
                     onResult(1, null)

@@ -75,7 +75,7 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
     fun onSelectNoticeOptionClick(option: Boolean) {
         profileViewModel.profileRepository.updateOption(option, profileViewModel.inviteFriendOptionLiveData.value!!, profileViewModel.invitePlanOptionLiveData.value!!) { code: Int ->
             if(code == 0) {
-
+                profileViewModel.noticeOptionLiveData.value = option
             }
         }
     }
@@ -83,7 +83,7 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
     fun onSelectInviteFriendOptionClick(option: Boolean) {
         profileViewModel.profileRepository.updateOption(profileViewModel.noticeOptionLiveData.value!!, option, profileViewModel.invitePlanOptionLiveData.value!!) { code: Int ->
             if(code == 0) {
-
+                profileViewModel.inviteFriendOptionLiveData.value = option
             }
         }
     }
@@ -91,7 +91,7 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
     fun onSelectInvitePlanOptionClick(option: Boolean) {
         profileViewModel.profileRepository.updateOption(profileViewModel.noticeOptionLiveData.value!!, profileViewModel.inviteFriendOptionLiveData.value!!, option) { code: Int ->
             if(code == 0) {
-
+                profileViewModel.invitePlanOptionLiveData.value = option
             }
         }
     }

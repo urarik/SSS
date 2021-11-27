@@ -32,7 +32,7 @@ class UserLogic(val userViewModel: UserViewModel) {
                 1 -> //Google
                 {
                     //userViewModel.loginEvent.call()
-                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName, id->
+                    userViewModel.userRepository.apiLogin(account.apiId, "token") { code, nickName ->
                         if (code == 0) {
                             if (auth.currentUser != null) {
                                 userViewModel.userLogic.updateUserInfo(id!!, null, 1, account.apiId)
@@ -45,7 +45,7 @@ class UserLogic(val userViewModel: UserViewModel) {
                 }
                 2 -> {//Naver
                     // api 관련 로직
-                    userViewModel.userRepository.apiLogin(account.apiId) { code, nickName, id ->
+                    userViewModel.userRepository.apiLogin(account.apiId, "token") { code, nickName ->
                         if (code == 0) {
                             if (!(OAuthLoginState.NEED_LOGIN == naverLoginState ||
                                         OAuthLoginState.NEED_INIT == naverLoginState)) {

@@ -36,7 +36,7 @@ interface ProfileService {
         @Part
         file: MultipartBody.Part,
 
-        @Part("image")
+        @Part("userid")
         name: RequestBody
     ): Call<GenericResponse>
 

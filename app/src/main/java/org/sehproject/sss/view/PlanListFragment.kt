@@ -131,4 +131,9 @@ class PlanListFragment : Fragment() {
             holder.bind(plan)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("TestTest", "Yeah~")
+    }
 }

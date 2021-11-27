@@ -1,3 +1,3 @@
 package org.sehproject.sss.datatype
 
-data class OptionResponse(var code: Int, var option: Option)
+data class OptionResponse(var code: Int, var options: Option)

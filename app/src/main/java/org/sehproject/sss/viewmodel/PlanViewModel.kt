@@ -47,7 +47,7 @@ class PlanViewModel : ViewModel() {
                 planLiveData.value = plan
        }
         planRepository.getMemoList(pid) {code, memos ->
-            if(code ==0)
+            if(code == 0)
                 memoListLiveData.value = memos
             else if(code == 1)
                 memoListLiveData.value = listOf()
