@@ -19,13 +19,19 @@ import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileBinding
 import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.utils.ProfileViewModelFactory
+import org.sehproject.sss.utils.UserViewModelFactory
 import org.sehproject.sss.view.MainActivity
 import org.sehproject.sss.viewmodel.ProfileViewModel
+import org.sehproject.sss.viewmodel.UserViewModel
 
 class ProfileFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
         ViewModelProvider(this, ProfileViewModelFactory(appDatabase)).get(ProfileViewModel::class.java)
+    }
+    private val userViewModel: UserViewModel by lazy {
+        val appDatabase = AppDatabase.getInstance(requireContext())!!
+        ViewModelProvider(this, UserViewModelFactory(appDatabase)).get(UserViewModel::class.java)
     }
 
     override fun onCreateView(
