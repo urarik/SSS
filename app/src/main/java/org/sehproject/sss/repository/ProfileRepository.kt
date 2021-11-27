@@ -55,8 +55,8 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
         })
     }
 
-    fun editProfileImage(file: File, stream: FileInputStream, onResult: (Int) -> Unit) {
-        val fileContent = ByteArray(file.length().toInt())
+    fun editProfileImage(file: File, stream: FileInputStream, length: Int, onResult: (Int) -> Unit) {
+        val fileContent = ByteArray(length)
         val bis = BufferedInputStream(stream)
         val dis = DataInputStream(bis)
         dis.readFully(fileContent)

@@ -52,7 +52,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         val safeArgs: MapFragmentArgs by navArgs()
         pid = safeArgs.pid
 
-        mapView.setDaumMapApiKey("test2")
+        mapView.setDaumMapApiKey("3549708e5615a6373ce58622aae7434d")
         mapView.setOpenAPIKeyAuthenticationResultListener(this)
         mapView.mapType = MapView.MapType.Standard
         mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading;

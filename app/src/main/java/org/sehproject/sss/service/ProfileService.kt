@@ -30,7 +30,7 @@ interface ProfileService {
         gender: Boolean,
     ): Call<GenericResponse>
 
-    @POST("profile/image")
+    @POST("profile/image/upload")
     @Multipart
     fun requestUploadProfileImage(
         @Part
@@ -40,7 +40,7 @@ interface ProfileService {
         name: RequestBody
     ): Call<GenericResponse>
 
-    @GET("image/{userid}")
+    @GET("profile/image/{userid}")
     fun requestDownloadProfileImage(
         @Path("userid")
         userId: String

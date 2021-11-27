@@ -54,30 +54,17 @@ class ProfileEditFragment : Fragment() {
         imageView.setImageURI(results)
         val uri = results!!
         val stream = FileInputStream(context!!.contentResolver.openFileDescriptor(uri, "r")!!.fileDescriptor)
+        Log.d("TAG", "length: ${getFileLength(uri).toString()}")
         profileViewModel.imageUri = uri
+        profileViewModel.imageLength = getFileLength(uri)
         profileViewModel.imageStream = stream
-
     }
-    fun getFileName(uri: Uri): String? {
-        var result: String? = null
-        if (uri.scheme == "content") {
-            val cursor: Cursor? = context!!.getContentResolver().query(uri, null, null, null, null)
-            try {
-                if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                }
-            } finally {
-                cursor!!.close()
-            }
-        }
-        if (result == null) {
-            result = uri.path
-            val cut = result!!.lastIndexOf('/')
-            if (cut != -1) {
-                result = result.substring(cut + 1)
-            }
-        }
-        return result
+    fun getFileLength(uri: Uri): Int {
+        val returnCursor: Cursor? = context!!.getContentResolver().query(uri, null, null, null, null)
+        val sizeIndex = returnCursor!!.getColumnIndex(OpenableColumns.SIZE)
+        returnCursor.moveToFirst()
+        val size = returnCursor.getLong(sizeIndex).toInt()
+        return size
     }
 
     override fun onCreateView(

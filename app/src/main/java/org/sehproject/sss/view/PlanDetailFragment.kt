@@ -46,6 +46,7 @@ class PlanDetailFragment : Fragment() {
     }
 
     fun initObserver(planDetailBinding: FragmentPlanDetailBinding) {
+        planViewModel.concatAdapterLiveData.value = 0
         val navController = findNavController()
         planViewModel.planLiveData.observe(viewLifecycleOwner, {
             planDetailBinding.plan = it
