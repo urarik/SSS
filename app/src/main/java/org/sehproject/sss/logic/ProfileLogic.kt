@@ -40,7 +40,7 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
 
             profileViewModel.profileRepository.editProfile(profile) { code: Int ->
             if (code == 0) {
-                profileViewModel.profileRepository.editProfileImage(file) { code1: Int ->
+                profileViewModel.profileRepository.editProfileImage(file, profileViewModel.imageStream!!) { code1: Int ->
                     if (code1 == 0) {
                         profileViewModel.imageFile = file
                         profileViewModel.editProfileCompleteEvent.call()
