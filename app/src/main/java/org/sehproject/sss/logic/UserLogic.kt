@@ -67,13 +67,12 @@ class UserLogic(val userViewModel: UserViewModel) {
             user.password,
             "token"
         ) { code: Int, nickName: String? ->
-//            if (code == 0) {
-//                updateUserInfo(user.userId, user.password, 0)
-//            } else if (code == 1) {
-//                // 로그인 실패 메시지
-//            }
+            if (code == 0) {
+                updateUserInfo(user.userId, user.password, 0)
+            } else if (code == 1) {
+                // 로그인 실패 메시지
+            }
         }
-        userViewModel.loginEvent.call()
     }
 
     fun onGoogleLoginClick() {

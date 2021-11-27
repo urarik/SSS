@@ -34,11 +34,6 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
         }
     }
 
-    fun onDeleteGroupCompleteClick()
-    {
-
-    }
-
     fun onEditGroupClick(group: Group)
     {
         Log.d("TAG", "edit")
@@ -47,14 +42,13 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 
     fun onEditGroupCompleteClick(group: Group)
     {
-        groupViewModel.editGroupCompleteEvent.value = group
-//        if(group.gid == null) onCreateGroupCompleteClick(group)
-//        else {
-//            groupViewModel.groupRepository.editGroup(group) { code ->
-//                if(code == 0)
-//                    groupViewModel.editGroupCompleteEvent.call()
-//            }
-//        }
+        if(group.gid == null) onCreateGroupCompleteClick(group)
+        else {
+            groupViewModel.groupRepository.editGroup(group) { code ->
+                if(code == 0)
+                    groupViewModel.editGroupCompleteEvent.call()
+            }
+        }
     }
 
     fun onAcceptGroupClick()

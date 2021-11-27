@@ -170,8 +170,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     @SuppressLint("SimpleDateFormat")
     fun onViewPlanClick(pid: Int, endTime: String) {
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val date = dateFormatter.parse(endTime)
         planViewModel.viewPlanDetailsEvent.value = pid
     }
     fun onItemClick(user: User) {

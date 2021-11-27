@@ -49,7 +49,7 @@ class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
 
 
     //nested class: outer class의 member를 사용할 수 없다.
-    public class NaverLoginHandler(
+    class NaverLoginHandler(
         private val context: Context,
         private val mOAuthLoginModule: OAuthLogin,
         private val callback: (String) -> Unit
