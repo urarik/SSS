@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -122,6 +123,10 @@ class LoginFragment : Fragment(), ActivityNavigation {
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
             navController.navigate(R.id.registerChooserFragment, null)
+        })
+
+        userViewModel.loginFailEvent.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(context, "ID나 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
         })
     }
 

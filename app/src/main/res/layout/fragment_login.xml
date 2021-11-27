@@ -67,7 +67,7 @@
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="55dp"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:text="@={user.userId}"
@@ -98,7 +98,7 @@
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="55dp"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:paddingStart="5dp"

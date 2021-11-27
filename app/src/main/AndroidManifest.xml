@@ -35,7 +35,8 @@
         </activity>
 
         <activity android:name=".view.MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name=".view.MainActivity" />
                 <category android:name="android.intent.category.DEFAULT" />

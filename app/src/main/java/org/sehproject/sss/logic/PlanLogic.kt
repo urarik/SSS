@@ -80,7 +80,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     fun onDeletePlanConfirmClick(pid: Int) {
         planViewModel.planRepository.deletePlan(pid) { code ->
-            //TODO()
+            if (code == 0) {
+                planViewModel.deletePlanCompleteEvent.call()
+            }
         }
     }
     fun onDeletePlanRejectClick() {}

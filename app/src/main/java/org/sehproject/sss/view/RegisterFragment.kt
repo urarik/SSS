@@ -32,6 +32,12 @@ class RegisterFragment : Fragment() {
         val view = registerBinding.root
         val safeArgs: RegisterFragmentArgs by navArgs()
         registerBinding.apiId = safeArgs.id
+
+        if (registerBinding.apiId != "") {
+            registerBinding.editRegisterPassword.visibility = View.GONE
+            registerBinding.editRegisterConfirmPassword.visibility = View.GONE
+        }
+
         initObserver()
 
         return view

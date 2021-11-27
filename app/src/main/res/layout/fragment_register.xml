@@ -10,6 +10,7 @@
         <variable
             name="apiId"
             type="String" />
+        <import type="android.view.View"/>
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

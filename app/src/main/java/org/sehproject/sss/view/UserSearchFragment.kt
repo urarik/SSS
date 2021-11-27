@@ -18,6 +18,14 @@ import org.sehproject.sss.databinding.UserSerachItemBinding
 import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.FriendViewModel
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
+
+import androidx.core.content.ContextCompat.getSystemService
+
+
+
 
 class UserSearchFragment : Fragment() {
     val friendViewModel: FriendViewModel by lazy {

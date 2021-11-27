@@ -34,6 +34,7 @@ class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
     val registerManualEvent = SingleLiveEvent<Any>()
     val registerApiEvent = SingleLiveEvent<String>()
     val registerCompleteEvent = SingleLiveEvent<Any>()
+    val loginFailEvent = SingleLiveEvent<Any>()
 
     val btnSelected = MutableLiveData(true)
     val isLogin = MutableLiveData(false)

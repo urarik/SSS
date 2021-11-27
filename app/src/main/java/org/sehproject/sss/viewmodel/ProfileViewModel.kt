@@ -35,6 +35,7 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     val logoutEvent = SingleLiveEvent<Int>()
     var profileLiveData = MutableLiveData<Profile>()
     var statisticsLiveData = MutableLiveData<Statistics>()
+    val naverLogoutEvent = SingleLiveEvent<Any>()
 
     // option Live Data 추가
     var optionLiveData = MutableLiveData<Option>()

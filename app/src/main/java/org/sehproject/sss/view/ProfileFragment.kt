@@ -17,12 +17,14 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.nhn.android.naverlogin.OAuthLogin
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileBinding
 import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.utils.ProfileViewModelFactory
 import org.sehproject.sss.utils.UserViewModelFactory
+import org.sehproject.sss.view.LoginActivity
 import org.sehproject.sss.view.MainActivity
 import org.sehproject.sss.viewmodel.ProfileViewModel
 import org.sehproject.sss.viewmodel.UserViewModel
@@ -77,7 +79,11 @@ class ProfileFragment : Fragment() {
         })
 
         profileViewModel.logoutEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.action_profileFragment_to_loginFragment)
+            Log.d("TAG", "logout")
+            val loginIntent = Intent(context, LoginActivity::class.java)
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(loginIntent)
+            requireActivity().finish()
         })
 
         profileViewModel.profileLiveData.observe(viewLifecycleOwner, {
@@ -87,6 +93,11 @@ class ProfileFragment : Fragment() {
         profileViewModel.imageBitmapLiveData.observe(viewLifecycleOwner, {
             var imageView = profileBinding.imageView
             imageView.setImageBitmap(profileViewModel.imageBitmapLiveData.value)
+        })
+
+        profileViewModel.naverLogoutEvent.observe(viewLifecycleOwner, {
+            val mOAuthLoginModule = OAuthLogin.getInstance()
+            mOAuthLoginModule.logout(context)
         })
     }
 }
