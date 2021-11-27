@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.core.view.marginBottom
@@ -39,8 +41,33 @@ class GroupListFragment : Fragment() {
             false
         )
         groupListBinding.groupLogic = groupViewModel.groupLogic
+        groupListBinding.spinnerGroupOrder
+
         groupViewModel.getGroupList()
         initObserver(groupListBinding)
+
+        val data = resources.getStringArray(R.array.groupOrder)
+        val spinnerAdapter = ArrayAdapter(activity as MainActivity, android.R.layout.simple_list_item_1, data)
+        groupListBinding.spinnerGroupOrder.adapter = spinnerAdapter
+
+        groupListBinding.spinnerGroupOrder.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if (p2 == 0 && groupViewModel.groupListLiveData.value != null) {
+                    groupViewModel.groupListLiveData.value =
+                        groupViewModel.groupLogic.sortGroupByName(groupViewModel.groupListLiveData.value!!)
+                    val adapter = GroupAdapter(groupViewModel.groupListLiveData.value!!)
+                    groupListBinding.RecyclerViewGroupList.adapter = adapter
+                } else if (p2 == 1&& groupViewModel.groupListLiveData.value != null) {
+                    groupViewModel.groupListLiveData.value =
+                        groupViewModel.groupLogic.sortGroupByMembers(groupViewModel.groupListLiveData.value!!)
+                    val adapter = GroupAdapter(groupViewModel.groupListLiveData.value!!)
+                    groupListBinding.RecyclerViewGroupList.adapter = adapter
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
+
         return groupListBinding.root
     }
 
@@ -54,8 +81,7 @@ class GroupListFragment : Fragment() {
         })
         groupViewModel.groupListLiveData.observe(viewLifecycleOwner, {
             val adapter = GroupAdapter(it)
-                groupListBinding.RecyclerViewGroupList.adapter = adapter
-
+            groupListBinding.RecyclerViewGroupList.adapter = adapter
         })
 
         val buttonMap = groupListBinding.btnMapTest
@@ -92,6 +118,7 @@ class GroupListFragment : Fragment() {
 
         override fun getItemCount(): Int = Groups.size
 
+        @RequiresApi(Build.VERSION_CODES.Q)
         override fun onBindViewHolder(holder: GroupHolder, position: Int) {
             val group = Groups[position]
             holder.bind(group)

@@ -44,7 +44,7 @@ class GroupInviteDialogFragment: DialogFragment() {
             recyclerView = kickOutFriendBinding.searchRecyclerView
         }
 
-        //groupViewModel?.setFriendList()
+        groupViewModel?.setFriendList()
         groupViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
             adapter = UserAdapter(it)
             recyclerView.adapter = adapter

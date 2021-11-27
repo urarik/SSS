@@ -36,11 +36,13 @@ class PlanInviteDialogFragment: DialogFragment() {
                 DataBindingUtil.inflate(layoutInflater, R.layout.fragment_invite_friend, container, false)
             view = inviteFriendBinding.root
             recyclerView = inviteFriendBinding.searchRecyclerView
+            inviteFriendBinding.planLogic = planViewModel!!.planLogic
         } else {
             kickOutFriendBinding =
                 DataBindingUtil.inflate(layoutInflater, R.layout.fragment_ban, container, false)
             view = kickOutFriendBinding.root
             recyclerView = kickOutFriendBinding.searchRecyclerView
+            kickOutFriendBinding.planLogic = planViewModel!!.planLogic
         }
 
         planViewModel?.setFriendList()

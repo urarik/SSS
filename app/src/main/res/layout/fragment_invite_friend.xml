@@ -109,7 +109,7 @@
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->planLogic.onInvitePlanDoneClick(plan.pid)}"
+                android:onClick="@{_->planLogic.onInvitePlanDoneClick(plan.pid)}"
                 android:text="초대"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
