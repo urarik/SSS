@@ -3,6 +3,7 @@ package org.sehproject.sss.viewmodel
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.FriendLogic
@@ -27,8 +28,9 @@ class FriendViewModel : ViewModel() {
     // Logic에서 ViewModel로 변경, ArrayList -> List로 변경, Return 삭제
     fun getFriendList() {
         friendRepository.getFriendList() {code, list ->
-            if(code == 0)
+            if(code == 0) {
                 friendList.value = list
+            }
         }
     }
 }

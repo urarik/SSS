@@ -35,7 +35,6 @@ class GroupInviteDialogFragment: DialogFragment() {
         if (safeArgs.isInvite) {
             inviteFriendBinding =
                 DataBindingUtil.inflate(layoutInflater, R.layout.fragment_invite_friend, container, false)
-            inviteFriendBinding.
             view = inviteFriendBinding.root
             recyclerView = inviteFriendBinding.searchRecyclerView
         } else {

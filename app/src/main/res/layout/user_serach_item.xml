@@ -5,11 +5,15 @@
 
     <data>
         <variable
+            name="userInfo"
+            type="org.sehproject.sss.UserInfo" />
+        <variable
             name="user"
             type="org.sehproject.sss.datatype.User" />
         <variable
             name="friendLogic"
             type="org.sehproject.sss.logic.FriendLogic" />
+        <import type="android.view.View"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -71,6 +75,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="12dp"
+                android:visibility="@{user.userId == userInfo.userId? View.GONE: View.VISIBLE}"
                 android:onClick="@{()->friendLogic.onAddFriendClick(user.userId, button3)}"
                 android:text="추가"
                 app:layout_constraintBottom_toBottomOf="parent"
