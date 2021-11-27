@@ -54,11 +54,11 @@ class PlanViewModel : ViewModel() {
         planRepository.getPlanList(true) {code, list ->
             if(code == 0) {
                 if (isLastPlan.value!!) {
-                    planListLiveData.value = temp.filter {
+                    planListLiveData.value = list?.filter {
                         it.endTime < formatted
                     }
                 } else {
-                    planListLiveData.value = temp.filter {
+                    planListLiveData.value = list?.filter {
                         it.endTime >= formatted
                     }
                 }
