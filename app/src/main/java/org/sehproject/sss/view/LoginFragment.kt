@@ -199,7 +199,8 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("tag", "signInWithCredential:success")
                     val uid = auth.currentUser!!.uid
-                    userViewModel.userLogic.apiLogin(uid, 1)
+                    userViewModel.loginEvent.call()
+                    //userViewModel.userLogic.apiLogin(uid, 1)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("tag", "signInWithCredential:failure", task.exception)

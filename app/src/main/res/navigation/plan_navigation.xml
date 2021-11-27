@@ -22,9 +22,6 @@
         <action
             android:id="@+id/action_planListFragment_to_planCreateOCRFragment"
             app:destination="@id/planCreateOCRFragment" />
-        <action
-            android:id="@+id/action_planListFragment_to_planInviteDialogFragment"
-            app:destination="@id/planInviteDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/planDetailFragment"
@@ -73,7 +70,7 @@
         android:name="org.sehproject.sss.view.PlanCreateTypeFragment"
         android:label="fragment_plan_create_type"
         tools:layout="@layout/fragment_plan_create_type" />
-    <fragment
+    <dialog
         android:id="@+id/planInviteDialogFragment"
         android:name="org.sehproject.sss.view.PlanInviteDialogFragment"
         android:label="PlanInviteDialogFragment" >
@@ -83,7 +80,7 @@
         <argument
             android:name="pid"
             app:argType="integer" />
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/mapFragment"
         android:name="org.sehproject.sss.view.MapFragment"

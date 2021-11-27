@@ -26,6 +26,7 @@ import com.google.api.services.calendar.CalendarScopes
 import org.sehproject.sss.R
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.FragmentPlanEditBinding
+import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.utils.CreateEventTask
 import org.sehproject.sss.viewmodel.GroupViewModel
@@ -76,8 +77,10 @@ class PlanEditFragment : Fragment() {
             pickDateTime(it, false, planEditBinding)
         })
         groupViewModel.groupListLiveData.observe(viewLifecycleOwner, {
+            val listWithEmpty = it.toMutableList()
+            listWithEmpty.add(0, Group(name = "그룹 없음"))
             planEditBinding.spinnerPlanGroup.adapter =
-                ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, it)
+                ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, listWithEmpty)
             if(plan.group.gid != null) {
                 for (i in 0 until it.count()) {
                     if (plan.group.name == it[i].name) {
