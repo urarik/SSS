@@ -38,7 +38,6 @@ import java.security.NoSuchAlgorithmException
 
 
 class LoginFragment : Fragment(), ActivityNavigation {
-
     lateinit var loginBinding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var mOAuthLoginModule: OAuthLogin

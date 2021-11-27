@@ -10,13 +10,19 @@ import android.provider.DocumentsProvider
 import android.util.Log
 import android.widget.CompoundButton
 import android.widget.ImageView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.nhn.android.naverlogin.OAuthLogin
+import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.datatype.Profile
+import org.sehproject.sss.utils.UserViewModelFactory
 import org.sehproject.sss.viewmodel.ProfileViewModel
+import org.sehproject.sss.viewmodel.UserViewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -25,30 +31,23 @@ import java.net.URI
 import javax.xml.parsers.DocumentBuilder
 
 class ProfileLogic(val profileViewModel: ProfileViewModel) {
-
     fun onEditProfileClick(userId: String) {
         profileViewModel.editProfileEvent.value = userId
     }
 
     fun onEditProfileCompleteClick(profile: Profile) {
         val file = File(profileViewModel.imageUri?.path)
-        profileViewModel.imageFile = file
-        if (profileViewModel.imageFile != null) {
-            Log.d("TAG", "success")
-        }
-        profileViewModel.editProfileCompleteEvent.call()
 
-//            profileRepository.editProfile(profile) { code: Int ->
-//            if (code == 0) {
-//                profileRepository.editProfileImage(file) { code: Int ->
-//                    if (code == 0) {
-//                        val file = File(profileViewModel.imageUri?.path)
-//                        profileViewModel.imageFile = file
-//                        profileViewModel.editProfileCompleteEvent.call()
-//                    }
-//                }
-//            }
-//        }
+            profileViewModel.profileRepository.editProfile(profile) { code: Int ->
+            if (code == 0) {
+                profileViewModel.profileRepository.editProfileImage(file) { code: Int ->
+                    if (code == 0) {
+                        profileViewModel.imageFile = file
+                        profileViewModel.editProfileCompleteEvent.call()
+                    }
+                }
+            }
+        }
     }
 
     fun onUploadImageClick() {
@@ -68,41 +67,40 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
     }
 
     fun onSelectNoticeOptionClick(option: Boolean) {
-        profileViewModel.noticeOptionLiveData.value = option
+        profileViewModel.profileRepository.updateOption(option, profileViewModel.inviteFriendOptionLiveData.value!!, profileViewModel.invitePlanOptionLiveData.value!!) { code: Int ->
+            if(code == 0) {
 
-//        profileRepository.updateOption(option, profileViewModel.inviteFriendOptionLiveData.value!!, profileViewModel.invitePlanOptionLiveData.value!!) { code: Int ->
-//            if(code == 0) {
-//                TODO("옵션 설정 후")
-//            }
-//        }
+            }
+        }
     }
 
     fun onSelectInviteFriendOptionClick(option: Boolean) {
-        profileViewModel.inviteFriendOptionLiveData.value = option
+        profileViewModel.profileRepository.updateOption(profileViewModel.noticeOptionLiveData.value!!, option, profileViewModel.invitePlanOptionLiveData.value!!) { code: Int ->
+            if(code == 0) {
 
-//        profileRepository.updateOption(profileViewModel.noticeOptionLiveData.value!!, option, profileViewModel.invitePlanOptionLiveData.value!!) { code: Int ->
-//            if(code == 0) {
-//                TODO("옵션 설정 후")
-//            }
-//        }
+            }
+        }
     }
 
     fun onSelectInvitePlanOptionClick(option: Boolean) {
-        profileViewModel.invitePlanOptionLiveData.value = option
+        profileViewModel.profileRepository.updateOption(profileViewModel.noticeOptionLiveData.value!!, profileViewModel.inviteFriendOptionLiveData.value!!, option) { code: Int ->
+            if(code == 0) {
 
-//        profileRepository.updateOption(profileViewModel.noticeOptionLiveData.value!!, profileViewModel.inviteFriendOptionLiveData.value!!, option) { code: Int ->
-//            if(code == 0) {
-//                TODO("옵션 설정 후")
-//            }
-//        }
+            }
+        }
     }
 
     fun onLogoutClick() {
         profileViewModel.profileRepository.logout { code: Int ->
             if (code == 0) {
                 val account = profileViewModel.profileRepository.getSavedAccount()
+                val auth = FirebaseAuth.getInstance()
                 when (account!!.flag) {
-                    // 1 ->
+                    1 -> { auth.signOut()
+                        profileViewModel.googleSignInClient.signOut()
+                            .addOnCompleteListener(OnCompleteListener {
+                        })
+                    }
                     // 2 ->
                 }
                 profileViewModel.profileRepository.deleteAccount()
@@ -110,4 +108,6 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
             }
         }
     }
+
+
 }
