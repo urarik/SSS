@@ -40,7 +40,7 @@
             android:layout_marginTop="4dp"
             android:hint="이름"
             android:outlineAmbientShadowColor="@color/black_60"
-            android:text="@{memo.writer.nickName}"
+            android:text="@{memo.writer}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
