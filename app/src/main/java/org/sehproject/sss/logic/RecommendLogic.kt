@@ -7,9 +7,4 @@ class RecommendLogic(val recommendViewModel:RecommendViewModel) {
     val recommendRepository = recommendViewModel.recommendRepository
     fun onRecommendClick() {}
 
-    private fun convertList(listToLd:List<String>): MutableLiveData<List<String>>
-    {
-        var liveData = MutableLiveData<List<String>>()
-        return liveData
-    }
 }

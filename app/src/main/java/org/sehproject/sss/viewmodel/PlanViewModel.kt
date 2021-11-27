@@ -24,14 +24,16 @@ class PlanViewModel : ViewModel() {
         }
     }
 
-    fun getPlanList() {
+    fun getPlanList(isCurrent: Boolean, userId: String = UserInfo.userId) {
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm")
         val formatted = current.format(formatter)
 
-        planRepository.getPlanList(true) {code, list ->
+        Log.d("TAG", formatted)
+
+        planRepository.getPlanList(userId, isCurrent) {code, list ->
             if(code == 0) {
-                if (isLastPlan.value!!) {
+                if (isLastPlan.value == true) {
                     planListLiveData.value = list?.filter {
                         it.endTime < formatted
                     }
@@ -49,7 +51,6 @@ class PlanViewModel : ViewModel() {
     }
 
     fun setPlan(pid: Int) {
-
         planRepository.getPlan(pid) {code, plan ->
             if(code == 0)
                 planLiveData.value = plan
@@ -97,7 +98,7 @@ class PlanViewModel : ViewModel() {
     val userListLiveData = MutableLiveData<List<User>>()
     val concatAdapterLiveData = MutableLiveData<Int>(0)
     val syncCalendarEvent = SingleLiveEvent<Event>()
-    val isLastPlan = SingleLiveEvent<Boolean>(false)
+    val isLastPlan = SingleLiveEvent<Boolean>()
     val selectedPlanUserList = mutableListOf<String>()
     var is_invite: Boolean = true
 }

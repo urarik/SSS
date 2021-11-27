@@ -28,21 +28,18 @@ class GroupViewModel : ViewModel() {
         }
     }
     fun setGroup(gid: Int?) {
-//        groupLiveData.value = Group(0,
-//        "SE Team",
-//        "Software engineering team for a project.",
-//        0xFFA103,
-//        participants = mutableListOf(User("test1", "test1"),
-//            User("test1", "test2"),
-//            User("test1", "test3"),
-//            User("test1", "test4"),))
-
         if(gid == null) groupLiveData.value = Group()
-        else
-            groupRepository.getGroup(gid) {code, group ->
-                if(code == 0)
+        else {
+            groupRepository.getGroup(gid) { code, group ->
+                if (code == 0)
                     groupLiveData.value = group
             }
+            groupRepository.getParticipantList(gid) { code, participants ->
+                if(code ==0)
+                    friendListLiveData.value = participants
+            }
+        }
+
     }
 
 

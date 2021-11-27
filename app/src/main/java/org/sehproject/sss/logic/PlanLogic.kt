@@ -185,8 +185,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     @SuppressLint("SimpleDateFormat")
     fun onViewPlanClick(pid: Int, endTime: String) {
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val date = dateFormatter.parse(endTime)
         planViewModel.viewPlanDetailsEvent.value = pid
     }
     fun onItemClick(user: User) {
@@ -201,7 +199,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         return list.sortedWith(compareBy({ it.category }, { it.startTime }))
     }
 
-    fun onLastPlanToggleClick(isLastPlan: Boolean) {
-        planViewModel.isLastPlan.value = isLastPlan
+    fun onLastPlanToggleClick(isCurrentPlan: Boolean) {
+        planViewModel.isLastPlan.value = !isCurrentPlan
     }
 }

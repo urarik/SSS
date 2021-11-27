@@ -58,6 +58,7 @@ class PlanCreateOCRFragment : Fragment() {
                 planViewModel.planRepository.getImageOcr(bitmap) {
                     code, string ->
                     if(code == 0) {
+                        Log.d("TAG", string.toString())
                         val parser = StringParser()
                         val plan = parser.parse(string!!)
                         planViewModel.createPlanOcrDoneEvent.value = plan

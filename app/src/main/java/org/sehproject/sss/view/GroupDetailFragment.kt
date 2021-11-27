@@ -66,15 +66,14 @@ class GroupDetailFragment : Fragment() {
         })
         groupViewModel.groupLiveData.observe(viewLifecycleOwner, {
             groupDetailBinding.group = it
-            groupDetailBinding.textViewMemberNumDetails.text = it.participants?.size.toString()
-            groupDetailBinding.recyclerGroupParticipants.adapter = it.participants?.let { it2 ->
-                ParticipantAdapter(it2)
-            }
             val view = groupDetailBinding.imageViewGroupColor
             view.background.colorFilter = BlendModeColorFilter(
                 Color.parseColor("#"+Integer.toHexString(it.color)),
                 BlendMode.SRC_ATOP)
-
+        })
+        groupViewModel.friendListLiveData.observe(viewLifecycleOwner, {
+            groupDetailBinding.textViewMemberNumDetails.text = it.size.toString()
+            groupDetailBinding.recyclerGroupParticipants.adapter = ParticipantAdapter(it)
         })
         groupViewModel.deleteGroupEvent.observe(viewLifecycleOwner, {
             android.app.AlertDialog

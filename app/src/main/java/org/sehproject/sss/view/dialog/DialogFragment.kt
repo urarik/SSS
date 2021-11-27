@@ -20,7 +20,6 @@ open class DialogFragment(protected var groupViewModel: GroupViewModel? = null, 
         fun bind(user: User) {
             itemUserBinding.user = user
             itemUserBinding.itemUser.setOnClickListener {
-                Log.d("TAG", "123")
                 groupViewModel?.let {
                     groupViewModel!!.groupLogic.onItemClick(itemUserBinding.user as User)
                 }?: let {
