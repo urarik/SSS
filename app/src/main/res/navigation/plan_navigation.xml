@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_planListFragment_to_planCreateOCRFragment"
             app:destination="@id/planCreateOCRFragment" />
+        <action
+            android:id="@+id/action_planListFragment_to_planInviteDialogFragment"
+            app:destination="@id/planInviteDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/planDetailFragment"

@@ -25,6 +25,7 @@ class PlanInviteDialogFragment: DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         planViewModel = ViewModelProvider(this).get(PlanViewModel::class.java)
+
         val inviteFriendBinding: FragmentPlanInviteBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_invite, container, false)
         val recyclerView = inviteFriendBinding.searchRecyclerView
         if(!safeArgs.isInvite)
@@ -32,8 +33,26 @@ class PlanInviteDialogFragment: DialogFragment() {
         inviteFriendBinding.isInvite = safeArgs.isInvite
         inviteFriendBinding.planLogic = planViewModel!!.planLogic
 
-        planViewModel?.setFriendList()
+//        var inviteFriendBinding: FragmentInviteFriendBinding? = null
+//        var kickOutFriendBinding: FragmentBanBinding? = null
+//        var view: View
+//        var recyclerView: RecyclerView
+//
+//        if (safeArgs.isInvite) {
+//            inviteFriendBinding =
+//                DataBindingUtil.inflate(layoutInflater, R.layout.fragment_invite_friend, container, false)
+//            view = inviteFriendBinding.root
+//            recyclerView = inviteFriendBinding.searchRecyclerView
+//            inviteFriendBinding.planLogic = planViewModel!!.planLogic
+//        } else {
+//            kickOutFriendBinding =
+//                DataBindingUtil.inflate(layoutInflater, R.layout.fragment_ban, container, false)
+//            view = kickOutFriendBinding.root
+//            recyclerView = kickOutFriendBinding.searchRecyclerView
+//            kickOutFriendBinding.planLogic = planViewModel!!.planLogic
+//        }
 
+        planViewModel?.setFriendList()
         initObserver(recyclerView)
 
         return inviteFriendBinding.root

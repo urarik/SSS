@@ -64,6 +64,7 @@ class PlanEditFragment : Fragment() {
     fun initObserver(planEditBinding: FragmentPlanEditBinding, plan: Plan) {
         val navController = findNavController()
         planViewModel.editCompletePlanEvent.observe(viewLifecycleOwner, {
+            Log.d("TAG", "hi")
             navController.popBackStack()
         })
         planViewModel.createPlanCompleteEvent.observe(viewLifecycleOwner, {

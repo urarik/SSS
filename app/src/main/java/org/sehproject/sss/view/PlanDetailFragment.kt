@@ -95,12 +95,12 @@ class PlanDetailFragment : Fragment() {
         })
 
         planViewModel.kickOutPlanEvent.observe(viewLifecycleOwner, {
-            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
             navController.navigate(action)
         })
 
         planViewModel.invitePlanEvent.observe(viewLifecycleOwner, {
-            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
             navController.navigate(action)
         })
 

@@ -2,6 +2,7 @@ package org.sehproject.sss.logic
 
 import android.util.Log
 import org.sehproject.sss.datatype.Group
+import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.GroupViewModel
 
@@ -108,5 +109,13 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 
     fun onItemClick(user: User) {
         groupViewModel.selectedGroupUserList.add(user.userId)
+    }
+
+    fun sortGroupByName(list: List<Group>): List<Group> {
+        return list.sortedBy { it.name }
+    }
+
+    fun sortGroupByMembers(list: List<Group>): List<Group> {
+        return list.sortedWith(compareBy({ it.participants?.size }, { it.name }))
     }
 }

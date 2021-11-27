@@ -27,9 +27,11 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
 
     fun onEditPlanCompleteClick(plan: Plan) {
+        Log.d("TAG", plan.pid.toString())
         if (plan.pid == null) onCreatePlanDoneClick(plan)
         else {
             planViewModel.planRepository.editPlan(plan) {code ->
+                Log.d("TAG", code.toString())
              if(code == 0)
                  planViewModel.editCompletePlanEvent.call()
             }
@@ -82,6 +84,8 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         planViewModel.invitePlanEvent.value = pid
     }
     fun onInvitePlanDoneClick(pid: Int) {
+        Log.d("TAG", pid.toString())
+        Log.d("TAG", planViewModel.selectedPlanUserList.toString())
         planViewModel.planRepository.invitePlan(pid, planViewModel.selectedPlanUserList) { code: Int ->
             if(code == 0) {
                 planViewModel.invitePlanCompleteEvent.call()
@@ -180,6 +184,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     fun onItemClick(user: User) {
         planViewModel.selectedPlanUserList.add(user.userId)
+        Log.d("TAG", planViewModel.selectedPlanUserList.toString())
     }
 
     fun sortPlanByTime(list: List<Plan>): List<Plan> {
