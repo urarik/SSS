@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -31,6 +32,12 @@ class RegisterFragment : Fragment() {
         val view = registerBinding.root
         val safeArgs: RegisterFragmentArgs by navArgs()
         registerBinding.apiId = safeArgs.id
+
+        if (registerBinding.apiId != "") {
+            registerBinding.editRegisterPassword.visibility = View.GONE
+            registerBinding.editRegisterConfirmPassword.visibility = View.GONE
+        }
+
         initObserver()
 
         return view
@@ -40,6 +47,9 @@ class RegisterFragment : Fragment() {
         val navController = findNavController()
         userViewModel.registerCompleteEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.action_registerFragment_to_loginFragment)
+        })
+        userViewModel.registerFailEvent.observe(viewLifecycleOwner, {
+            Toast.makeText(context, "아이디가 중복됩니다.", Toast.LENGTH_SHORT).show()
         })
     }
 }

@@ -142,7 +142,7 @@
             android:layout_weight="1">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RecyclerViewPlanList1"
+                android:id="@+id/RecyclerViewPlanList"
                 android:layout_width="396dp"
                 android:layout_height="143dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

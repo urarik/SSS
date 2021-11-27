@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{_->profileLogic.onEditProfileClick(profile.userId)}"
-                app:fab_icon="@drawable/temp"
+                app:fab_icon="@drawable/edit_profile"
                 app:fab_size="mini"
                 app:fab_title="프로필 수정" />
 
@@ -166,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{()->profileLogic.onViewStatisticsClick()}"
-                app:fab_icon="@drawable/temp"
+                app:fab_icon="@drawable/point"
                 app:fab_size="mini"
                 app:fab_title="통계 보기" />
 
@@ -175,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{()->profileLogic.onSelectOptionClick()}"
-                app:fab_icon="@drawable/temp"
+                app:fab_icon="@drawable/setting"
                 app:fab_size="mini"
                 app:fab_title="설정" />
 
@@ -184,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{()->profileLogic.onLogoutClick()}"
-                app:fab_icon="@drawable/temp"
+                app:fab_icon="@drawable/logout"
                 app:fab_size="mini"
                 app:fab_title="로그아웃" />
         </com.getbase.floatingactionbutton.FloatingActionsMenu>

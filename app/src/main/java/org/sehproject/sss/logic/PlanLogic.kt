@@ -1,13 +1,9 @@
 package org.sehproject.sss.logic
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.graphics.Bitmap
-import android.provider.CalendarContract
 import android.util.Log
 import android.widget.Adapter
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.model.Event
 import com.google.api.services.calendar.model.EventDateTime
@@ -17,6 +13,7 @@ import org.sehproject.sss.utils.StringParser
 import org.sehproject.sss.viewmodel.PlanViewModel
 import java.text.SimpleDateFormat
 import com.google.api.services.calendar.Calendar
+import java.util.Collections.list
 
 class PlanLogic(val planViewModel: PlanViewModel) {
 
@@ -58,12 +55,17 @@ class PlanLogic(val planViewModel: PlanViewModel) {
 //        event.start = start
 //        event.end = end
 //        planViewModel.syncCalendarEvent.value = event
-        
-        planViewModel.planRepository.createPlan(plan) { code ->
-            if (code == 0) {
-                planViewModel.createPlanCompleteEvent.call()
+        val format = SimpleDateFormat("yyyy-MM-dd hh:mm")
+
+        val start = format.parse(plan.startTime)
+        val end = format.parse(plan.endTime)
+        if(start <= end) {
+            planViewModel.planRepository.createPlan(plan) { code ->
+                if (code == 0) {
+                    planViewModel.createPlanCompleteEvent.call()
+                }
             }
-        }
+        } else planViewModel.createPlanFailEvent.value = 1
     }
     fun syncCalendar(mService: Calendar, event: Event) {
         planViewModel.planRepository.syncCalendar(mService, event)
@@ -78,7 +80,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     fun onDeletePlanConfirmClick(pid: Int) {
         planViewModel.planRepository.deletePlan(pid) { code ->
-            //TODO()
+            if (code == 0) {
+                planViewModel.deletePlanCompleteEvent.call()
+            }
         }
     }
     fun onDeletePlanRejectClick() {}
@@ -89,15 +93,31 @@ class PlanLogic(val planViewModel: PlanViewModel) {
             }
         }
     }
-    fun onInvitePlanClick() {
-        planViewModel.invitePlanEvent.call()
+    fun onInvitePlanClick(pid: Int) {
+        planViewModel.is_invite = true
+        planViewModel.invitePlanEvent.value = pid
     }
-    fun onInvitePlanDoneClick() {}
-    fun onInvitePlanExitClick() {}
-    fun onKickOutPlanClick() {
-        planViewModel.kickOutPlanEvent.call()
+    fun onInvitePlanDoneClick(pid: Int) {
+        planViewModel.planRepository.invitePlan(pid, planViewModel.selectedPlanUserList) { code: Int ->
+            if(code == 0) {
+                planViewModel.invitePlanCompleteEvent.call()
+            }
+        }
     }
-    fun onKickOutPlanDoneClick() {}
+    fun onInvitePlanExitClick() {
+        planViewModel.invitePlanCompleteEvent.call()
+    }
+    fun onKickOutPlanClick(pid: Int) {
+        planViewModel.is_invite = false
+        planViewModel.kickOutPlanEvent.value = pid
+    }
+    fun onKickOutPlanDoneClick(pid: Int) {
+        planViewModel.planRepository.kickOutPlan(pid, planViewModel.selectedPlanUserList) { code: Int ->
+            if(code == 0) {
+                planViewModel.kickOutPlanCompleteEvent.call()
+            }
+        }
+    }
     fun onKickOutPlanExitClick() {}
     fun onCancelPlanClick() {
         planViewModel.cancelPlanEvent.call()
@@ -108,7 +128,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         planViewModel.createMemoEvent.call()
     }
     fun onCreateMemoDoneClick(memoString: String) {
-        var memo = Memo()
+        val memo = Memo()
         memo.memo = memoString
         memo.pid = planViewModel.planLiveData.value?.pid!!
 
@@ -172,11 +192,21 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     @SuppressLint("SimpleDateFormat")
     fun onViewPlanClick(pid: Int, endTime: String) {
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val date = dateFormatter.parse(endTime)
         planViewModel.viewPlanDetailsEvent.value = pid
     }
     fun onItemClick(user: User) {
-        TODO("Not yet implemented")
+        planViewModel.selectedPlanUserList.add(user.userId)
+    }
+
+    fun sortPlanByTime(list: List<Plan>): List<Plan> {
+        return list.sortedBy { it.startTime }
+    }
+
+    fun sortPlanByCategory(list: List<Plan>): List<Plan> {
+        return list.sortedWith(compareBy({ it.category }, { it.startTime }))
+    }
+
+    fun onLastPlanToggleClick(isCurrentPlan: Boolean) {
+        planViewModel.isLastPlan.value = !isCurrentPlan
     }
 }

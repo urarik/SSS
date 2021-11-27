@@ -46,6 +46,7 @@ class PlanDetailFragment : Fragment() {
     }
 
     fun initObserver(planDetailBinding: FragmentPlanDetailBinding) {
+        planViewModel.concatAdapterLiveData.value = 0
         val navController = findNavController()
         planViewModel.planLiveData.observe(viewLifecycleOwner, {
             planDetailBinding.plan = it
@@ -78,17 +79,23 @@ class PlanDetailFragment : Fragment() {
                 .show()
 
         })
+        planViewModel.deletePlanCompleteEvent.observe(viewLifecycleOwner, {
+            navController.navigate(R.id.action_planDetailFragment_to_planListFragment)
+        })
+
         planViewModel.editPlanEvent.observe(viewLifecycleOwner, {
             val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanEditFragment(it)
             navController.navigate(action)
         })
 
         planViewModel.kickOutPlanEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.planInviteDialogFragment)
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
+            navController.navigate(action)
         })
 
         planViewModel.invitePlanEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.planInviteDialogFragment)
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
+            navController.navigate(action)
         })
 
         mapViewModel.trackEvent.observe(viewLifecycleOwner, {

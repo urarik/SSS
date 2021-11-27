@@ -1,6 +1,7 @@
 package org.sehproject.sss.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,15 +38,20 @@ class StatisticsDialogFragment: DialogFragment() {
         val view = statisticsBinding.root
 
         profileViewModel.setStatistics()
-        initObserver()
+        initObserver(statisticsBinding)
 
         return view
     }
 
-    fun initObserver() {
+    fun initObserver(statisticsBinding: FragmentStatisticsPointBinding) {
         val navController = findNavController()
         profileViewModel.viewStatisticsExitEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.action_statisticsDialogFragment_to_profileFragment)
+        })
+
+        profileViewModel.getStatisticsCompleteEvent.observe(viewLifecycleOwner, {
+            statisticsBinding.statistics = profileViewModel.statisticsLiveData.value
+            statisticsBinding.profileViewModel = profileViewModel
         })
     }
 }

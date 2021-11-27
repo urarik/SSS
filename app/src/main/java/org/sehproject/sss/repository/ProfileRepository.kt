@@ -18,6 +18,7 @@ import java.io.*
 import android.graphics.BitmapFactory
 
 import android.graphics.Bitmap
+import android.util.Log
 
 class ProfileRepository(private val appDatabase: AppDatabase) {
     private var retrofit: Retrofit = Retrofit.Builder()
@@ -55,14 +56,15 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
         })
     }
 
-    fun editProfileImage(file: File, onResult: (Int) -> Unit) {
-        val fileContent = ByteArray(file.length().toInt())
-        val bis = BufferedInputStream(FileInputStream(file))
+    fun editProfileImage(file: File, stream: FileInputStream, length: Int, extension: String, onResult: (Int) -> Unit) {
+        val fileContent = ByteArray(length)
+        val bis = BufferedInputStream(stream)
         val dis = DataInputStream(bis)
         dis.readFully(fileContent)
 
         val reqFile = RequestBody.create(MediaType.parse("image/*"), fileContent)
-        val body = MultipartBody.Part.createFormData("upload", file.name, reqFile)
+        val body = MultipartBody.Part.createFormData("upload", UserInfo.userId + extension, reqFile)
+        Log.d("TAG", "extension: $extension")
         val name = RequestBody.create(MediaType.parse("text/plain"), UserInfo.userId)
 
         val uploadProfileImageCall = profileService.requestUploadProfileImage(body, name);
@@ -171,7 +173,7 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    var option = response.body()?.option
+                    var option = response.body()?.options
                     onResult(0, option)
                 } else {
                     onResult(1, null)

@@ -45,7 +45,7 @@ class UserRepository(private val appDatabase: AppDatabase) {
         })
     }
 
-    fun apiLogin(apiId: String, onResult: (Int, String?) -> Unit) {
+    fun apiLogin(apiId: String, token: String, onResult: (Int, String?, String?) -> Unit) {
         val apiLoginCall = userService.requestApiLogin(apiId)
         apiLoginCall.enqueue(object : CallbackWithRetry<UserResponse>(apiLoginCall) {
             override fun onResponse(
@@ -54,16 +54,17 @@ class UserRepository(private val appDatabase: AppDatabase) {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
+                    val userId = response.body()?.user?.userId
                     val nickName = response.body()?.user?.nickName
-                    onResult(0, nickName)
+                    onResult(0, nickName, userId)
                 } else {
-                    onResult(1, null)
+                    onResult(1, null, null)
                 }
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 super.onFailure {
-                    onResult(-1, null)
+                    onResult(-1, null, null)
                 }
             }
         })

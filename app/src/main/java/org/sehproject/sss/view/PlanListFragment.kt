@@ -43,7 +43,7 @@ class PlanListFragment : Fragment() {
         planListBinding.spinnerPlanOrder
 
         initObserver(planListBinding.RecyclerViewPlanList)
-        planViewModel.getPlanList()
+        planViewModel.getPlanList(true)
 
         val data = resources.getStringArray(R.array.planOrder)
         val spinnerAdapter = ArrayAdapter(activity as MainActivity, android.R.layout.simple_list_item_1, data)
@@ -51,8 +51,17 @@ class PlanListFragment : Fragment() {
 
         planListBinding.spinnerPlanOrder.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                // p2 = 0이면 시간순, 1이면 카테고리순  -  p2 값에 따라 liveEvent call 하는 식으로 구현
-                Log.d("TAG", p2.toString())
+                if (p2 == 0 && planViewModel.planListLiveData.value != null) {
+                    planViewModel.planListLiveData.value =
+                        planViewModel.planLogic.sortPlanByTime(planViewModel.planListLiveData.value!!)
+                    val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
+                    planListBinding.RecyclerViewPlanList.adapter = adapter
+                } else if (p2 == 1&& planViewModel.planListLiveData.value != null) {
+                    planViewModel.planListLiveData.value =
+                        planViewModel.planLogic.sortPlanByCategory(planViewModel.planListLiveData.value!!)
+                    val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
+                    planListBinding.RecyclerViewPlanList.adapter = adapter
+                }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -85,6 +94,19 @@ class PlanListFragment : Fragment() {
             val adapter = PlanAdapter(it)
             recyclerView.adapter = adapter
         })
+        planViewModel.isLastPlan.observe(viewLifecycleOwner, {
+            planViewModel.getPlanList(it)
+        })
+
+        // 테스트용. 삭제할 것.
+        planViewModel.invitePlanEvent.observe(viewLifecycleOwner, {
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, 0)
+            navController.navigate(action)
+        })
+        planViewModel.kickOutPlanEvent.observe(viewLifecycleOwner, {
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, 0)
+            navController.navigate(action)
+        })
     }
 
     private inner class PlanHolder(val itemPlanBinding: ItemPlanBinding) : RecyclerView.ViewHolder(itemPlanBinding.root) {
@@ -108,5 +130,10 @@ class PlanListFragment : Fragment() {
             val plan = plans[position]
             holder.bind(plan)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("TestTest", "Yeah~")
     }
 }

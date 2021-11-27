@@ -34,12 +34,13 @@ class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
     val registerManualEvent = SingleLiveEvent<Any>()
     val registerApiEvent = SingleLiveEvent<String>()
     val registerCompleteEvent = SingleLiveEvent<Any>()
+    val loginFailEvent = SingleLiveEvent<Any>()
 
     val btnSelected = MutableLiveData(true)
     val isLogin = MutableLiveData(false)
     val googleLoginEvent = LiveMessageEvent<ActivityNavigation>()
     val googleRegisterEvent = LiveMessageEvent<ActivityNavigation>()
-    val cheatEvent = SingleLiveEvent<Any>()
+    val registerFailEvent = SingleLiveEvent<Any>()
     lateinit var googleSignInClient: GoogleSignInClient
 
     fun setGoogleClient(_googleSignInClient: GoogleSignInClient) {
@@ -49,7 +50,7 @@ class UserViewModel(appDatabase: AppDatabase) : ViewModel() {
 
 
     //nested class: outer class의 member를 사용할 수 없다.
-    public class NaverLoginHandler(
+    class NaverLoginHandler(
         private val context: Context,
         private val mOAuthLoginModule: OAuthLogin,
         private val callback: (String) -> Unit

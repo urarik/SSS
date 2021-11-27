@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -62,6 +63,12 @@ class PlanEditFragment : Fragment() {
     fun initObserver(planEditBinding: FragmentPlanEditBinding, plan: Plan) {
         val navController = findNavController()
         planViewModel.editCompletePlanEvent.observe(viewLifecycleOwner, {
+            navController.popBackStack()
+        })
+        planViewModel.createPlanCompleteEvent.observe(viewLifecycleOwner, {
+            navController.popBackStack()
+        })
+        planViewModel.createPlanCompleteEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.action_planEditFragment_to_planListFragment)
         })
         planViewModel.startDatePickEvent.observe(viewLifecycleOwner, {
@@ -102,8 +109,12 @@ class PlanEditFragment : Fragment() {
             ).setApplicationName("Test").build()
             planViewModel.planLogic.syncCalendar(mService, it)
         })
-
-
+        planViewModel.createPlanFailEvent.observe(viewLifecycleOwner, {
+            Toast.makeText(context, when(it) {
+                1 -> "시작 시간이 종료 시간보다 미래입니다."
+                else -> "알 수 없는 오류 code : $it"
+            }, Toast.LENGTH_SHORT).show()
+        })
     }
     private fun pickDateTime(plan: Plan, isStart: Boolean, planEditBinding: FragmentPlanEditBinding) {
         val currentDateTime = Calendar.getInstance()

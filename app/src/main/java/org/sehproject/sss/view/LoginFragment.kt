@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -38,7 +39,6 @@ import java.security.NoSuchAlgorithmException
 
 
 class LoginFragment : Fragment(), ActivityNavigation {
-
     lateinit var loginBinding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var mOAuthLoginModule: OAuthLogin
@@ -69,7 +69,6 @@ class LoginFragment : Fragment(), ActivityNavigation {
     override fun onStart() {
         super.onStart()
         val auth = FirebaseAuth.getInstance()
-        val account = userViewModel.userRepository.getSavedAccount()
 
         userViewModel.userLogic.checkLogin(user, mOAuthLoginModule.getState(context))
 
@@ -124,6 +123,10 @@ class LoginFragment : Fragment(), ActivityNavigation {
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
             navController.navigate(R.id.registerChooserFragment, null)
+        })
+
+        userViewModel.loginFailEvent.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(context, "ID나 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -187,7 +190,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("tag", "signInWithCredential:success")
                     val uid = auth.currentUser!!.uid
-                    userViewModel.userLogic.updateUserInfo(uid, null,1)
+                    userViewModel.userLogic.apiLogic(uid, 1)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("tag", "signInWithCredential:failure", task.exception)

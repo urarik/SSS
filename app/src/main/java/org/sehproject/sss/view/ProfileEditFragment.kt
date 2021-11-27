@@ -4,11 +4,13 @@ import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.DialogInterface
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -35,6 +37,12 @@ import org.sehproject.sss.view.FriendProfileFragmentArgs
 import org.sehproject.sss.view.GroupDetailFragmentArgs
 import org.sehproject.sss.viewmodel.PlanViewModel
 import org.sehproject.sss.viewmodel.ProfileViewModel
+import java.io.File
+import java.io.FileInputStream
+import android.provider.OpenableColumns
+
+
+
 
 class ProfileEditFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
@@ -44,8 +52,43 @@ class ProfileEditFragment : Fragment() {
     private lateinit var imageView: ImageView
     private val launcher = registerForActivityResult(ActivityResultContracts.GetContent()) { results: Uri? ->
         imageView.setImageURI(results)
-        profileViewModel.imageUri = results
-            Log.d("TAG", "TEST")
+        val uri = results!!
+        val stream = FileInputStream(context!!.contentResolver.openFileDescriptor(uri, "r")!!.fileDescriptor)
+        val name = getFileName(results)!!
+
+        profileViewModel.imageUri = uri
+        profileViewModel.imageLength = getFileLength(uri)
+        profileViewModel.imageStream = stream
+        profileViewModel.imageExtension = name.substring(name.lastIndexOf("."))
+
+    }
+    private fun getFileLength(uri: Uri): Int {
+        val returnCursor: Cursor? = context!!.getContentResolver().query(uri, null, null, null, null)
+        val sizeIndex = returnCursor!!.getColumnIndex(OpenableColumns.SIZE)
+        returnCursor.moveToFirst()
+        val size = returnCursor.getLong(sizeIndex).toInt()
+        return size
+    }
+    fun getFileName(uri: Uri): String? {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            val cursor: Cursor? = context!!.getContentResolver().query(uri, null, null, null, null)
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                }
+            } finally {
+                cursor!!.close()
+            }
+        }
+        if (result == null) {
+            result = uri.path
+            val cut = result!!.lastIndexOf('/')
+            if (cut != -1) {
+                result = result.substring(cut + 1)
+            }
+        }
+        return result
     }
 
     override fun onCreateView(
