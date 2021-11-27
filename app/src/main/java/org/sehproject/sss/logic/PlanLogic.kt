@@ -1,13 +1,9 @@
 package org.sehproject.sss.logic
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.graphics.Bitmap
-import android.provider.CalendarContract
 import android.util.Log
 import android.widget.Adapter
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.model.Event
 import com.google.api.services.calendar.model.EventDateTime
@@ -92,7 +88,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onInvitePlanClick() {
         planViewModel.invitePlanEvent.call()
     }
-    fun onInvitePlanDoneClick() {}
+    fun onInvitePlanDoneClick() {
+
+    }
     fun onInvitePlanExitClick() {}
     fun onKickOutPlanClick() {
         planViewModel.kickOutPlanEvent.call()
@@ -178,5 +176,17 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     fun onItemClick(user: User) {
         TODO("Not yet implemented")
+    }
+
+    fun sortPlanByTime(list: List<Plan>): List<Plan> {
+        return list.sortedBy { it.startTime }
+    }
+
+    fun sortPlanByCategory(list: List<Plan>): List<Plan> {
+        return list.sortedWith(compareBy({ it.category }, { it.startTime }))
+    }
+
+    fun onLastPlanToggleClick(isLastPlan: Boolean) {
+        planViewModel.isLastPlan.value = isLastPlan
     }
 }

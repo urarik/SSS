@@ -62,6 +62,7 @@
                     android:text="ToggleButton"
                     android:textOff="현재 약속"
                     android:textOn="지난 약속"
+                    android:onCheckedChanged="@{(view, is_checked) -> planLogic.onLastPlanToggleClick(is_checked)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

@@ -1,5 +1,6 @@
 package org.sehproject.sss.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.api.services.calendar.model.Event
@@ -9,6 +10,8 @@ import org.sehproject.sss.logic.PlanLogic
 import org.sehproject.sss.repository.FriendRepository
 import org.sehproject.sss.repository.PlanRepository
 import org.sehproject.sss.utils.SingleLiveEvent
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PlanViewModel : ViewModel() {
     val planLogic = PlanLogic(this)
@@ -22,12 +25,47 @@ class PlanViewModel : ViewModel() {
     }
 
     fun getPlanList() {
-        planRepository.getPlanList(true) {code, list ->
-            if(code == 0)
-                planListLiveData.value = list
-            else if(code == 1)
-                planListLiveData.value = listOf()
+        val temp = mutableListOf<Plan>()
+        temp.add(Plan(pid = 0, name = "test", startTime = "2021-11-29 18:30", endTime = "2021-11-29 22:00",
+            location = "영남대학교", isPublic = false, category = "MySchool"))
+        temp.add(Plan(pid = 0, name = "test", startTime = "2020-11-25 13:30", endTime = "2020-11-25 18:00",
+            location = "영남대학교", isPublic = true, category = "Wow"))
+        temp.add(Plan(pid = 0, name = "test", startTime = "2021-11-29 13:30", endTime = "2021-11-29 14:00",
+            location = "영남대학교", isPublic = false, category = "Hello world"))
+        temp.add(Plan(pid = 0, name = "test", startTime = "2021-11-27 13:30", endTime = "2021-11-27 18:00",
+            location = "영남대학교", isPublic = true, category = "MySchool"))
+
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm")
+        val formatted = current.format(formatter)
+
+        Log.d("TAG", formatted)
+
+        if (isLastPlan.value!!) {
+            planListLiveData.value = temp.filter {
+                it.endTime < formatted
+            }
+        } else {
+            planListLiveData.value = temp.filter {
+                it.endTime >= formatted
+            }
         }
+
+//        planRepository.getPlanList(true) {code, list ->
+//            if(code == 0) {
+//                planListLiveData.value = temp.filter {
+//                    it.endTime >= "2021-11-26 13:30"
+//                }
+//                lastPlanListLiveData.value = temp.filter {
+//                    it.endTime < "2021-11-26 13:30"
+//                }
+//
+//            }
+//            else if(code == 1) {
+//                planListLiveData.value = listOf()
+//                lastPlanListLiveData.value = listOf()
+//            }
+//        }
     }
 
     fun setPlan(pid: Int) {
@@ -79,5 +117,6 @@ class PlanViewModel : ViewModel() {
     val userListLiveData = MutableLiveData<List<User>>()
     val concatAdapterLiveData = MutableLiveData<Int>(0)
     val syncCalendarEvent = SingleLiveEvent<Event>()
+    val isLastPlan = SingleLiveEvent<Boolean>(false)
 
 }

@@ -51,8 +51,17 @@ class PlanListFragment : Fragment() {
 
         planListBinding.spinnerPlanOrder.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                // p2 = 0이면 시간순, 1이면 카테고리순  -  p2 값에 따라 liveEvent call 하는 식으로 구현
-                Log.d("TAG", p2.toString())
+                if (p2 == 0) {
+                    planViewModel.planListLiveData.value =
+                        planViewModel.planLogic.sortPlanByTime(planViewModel.planListLiveData.value!!)
+                    val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
+                    planListBinding.RecyclerViewPlanList.adapter = adapter
+                } else if (p2 == 1) {
+                    planViewModel.planListLiveData.value =
+                        planViewModel.planLogic.sortPlanByCategory(planViewModel.planListLiveData.value!!)
+                    val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
+                    planListBinding.RecyclerViewPlanList.adapter = adapter
+                }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -83,6 +92,11 @@ class PlanListFragment : Fragment() {
         })
         planViewModel.planListLiveData.observe(viewLifecycleOwner, {
             val adapter = PlanAdapter(it)
+            recyclerView.adapter = adapter
+        })
+        planViewModel.isLastPlan.observe(viewLifecycleOwner, {
+            planViewModel.getPlanList()
+            val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
             recyclerView.adapter = adapter
         })
     }
