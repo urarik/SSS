@@ -63,7 +63,7 @@ class PlanViewModel : ViewModel() {
     val deletePlanEvent = SingleLiveEvent<Int>()
     val deletePlanCompleteEvent = SingleLiveEvent<Int>()
     val completePlanCompleteEvent = SingleLiveEvent<Int>()
-    val kickOutPlanEvent = SingleLiveEvent<Any>()
+    val kickOutPlanEvent = SingleLiveEvent<Int>()
     val kickOutPlanCompleteEvent = SingleLiveEvent<Int>()
     val cancelPlanEvent = SingleLiveEvent<Any>()
     val cancelPlanCompleteEvent = SingleLiveEvent<Int>()
@@ -78,7 +78,7 @@ class PlanViewModel : ViewModel() {
     val createPlanCompleteEvent = SingleLiveEvent<Int>()
     val viewPlanDetailsEvent = SingleLiveEvent<Int>()
     val makePlanPublicCompleteEvent = SingleLiveEvent<Int>()
-    val invitePlanEvent = SingleLiveEvent<Any>()
+    val invitePlanEvent = SingleLiveEvent<Int>()
     val invitePlanCompleteEvent = SingleLiveEvent<Int>()
     val acceptPlanInviteEvent = SingleLiveEvent<Any>()
     val refusePlanInviteEvent = SingleLiveEvent<Any>()
@@ -90,5 +90,6 @@ class PlanViewModel : ViewModel() {
     val concatAdapterLiveData = MutableLiveData<Int>(0)
     val syncCalendarEvent = SingleLiveEvent<Event>()
     val isLastPlan = SingleLiveEvent<Boolean>()
-
+    val selectedPlanUserList = mutableListOf<String>()
+    var is_invite: Boolean = true
 }

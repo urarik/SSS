@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_planListFragment_to_planCreateOCRFragment"
             app:destination="@id/planCreateOCRFragment" />
+        <action
+            android:id="@+id/action_planListFragment_to_planInviteDialogFragment"
+            app:destination="@id/planInviteDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/planDetailFragment"
@@ -73,7 +76,14 @@
     <fragment
         android:id="@+id/planInviteDialogFragment"
         android:name="org.sehproject.sss.view.PlanInviteDialogFragment"
-        android:label="PlanInviteDialogFragment" />
+        android:label="PlanInviteDialogFragment" >
+        <argument
+            android:name="is_invite"
+            app:argType="boolean" />
+        <argument
+            android:name="pid"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="org.sehproject.sss.view.MapFragment"

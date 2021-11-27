@@ -10,6 +10,9 @@
         <variable
             name="planLogic"
             type="org.sehproject.sss.logic.PlanLogic" />
+        <variable
+            name="planViewModel"
+            type="org.sehproject.sss.viewmodel.PlanViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,6 +92,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5">
+
+                <Button
+                    android:id="@+id/btn_detail2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="128dp"
+                    android:onClick='@{_->planLogic.onKickOutPlanClick(1)}'
+                    android:text="초대 테스트"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.538" />
 
                 <Button
                     android:id="@+id/btn_detail"

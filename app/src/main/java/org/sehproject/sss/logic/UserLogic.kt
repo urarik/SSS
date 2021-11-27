@@ -73,6 +73,7 @@ class UserLogic(val userViewModel: UserViewModel) {
                 // 로그인 실패 메시지
             }
         }
+        // userViewModel.loginEvent.call()
     }
 
     fun onGoogleLoginClick() {

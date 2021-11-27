@@ -198,7 +198,7 @@
                 android:id="@+id/invitePlanTypeFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->planLogic.onInvitePlanClick()}"
+                android:onClick="@{()->planLogic.onInvitePlanClick(plan.pid)}"
                 app:fab_icon="@drawable/invite"
                 app:fab_size="mini"
                 app:fab_title="친구 초대" />
@@ -207,7 +207,7 @@
                 android:id="@+id/kickOutPlanFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->planLogic.onKickOutPlanClick()}"
+                android:onClick="@{()->planLogic.onKickOutPlanClick(plan.pid)}"
                 app:fab_icon="@drawable/kick_out"
                 app:fab_size="mini"
                 app:fab_title="강제퇴장" />
