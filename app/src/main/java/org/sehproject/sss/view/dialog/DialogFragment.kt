@@ -1,9 +1,13 @@
 package org.sehproject.sss.view.dialog
 
+import android.graphics.Point
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.ItemUserBinding
@@ -15,8 +19,16 @@ open class DialogFragment(protected var groupViewModel: GroupViewModel? = null, 
     :DialogFragment(){
     protected lateinit var adapter: UserAdapter
 
-    protected inner class UserHolder(val itemUserBinding: ItemUserBinding) : RecyclerView.ViewHolder(itemUserBinding.root) {
+    override fun onStart() {
+        super.onStart()
+        val window = dialog?.window!!
+        val point = Point()
+        window.windowManager.defaultDisplay.getSize(point)
 
+        dialog?.window?.setLayout((point.x * 0.85).toInt(), (point.y * 0.75).toInt())
+    }
+
+    protected inner class UserHolder(val itemUserBinding: ItemUserBinding) : RecyclerView.ViewHolder(itemUserBinding.root) {
         fun bind(user: User) {
             itemUserBinding.user = user
             itemUserBinding.itemUser.setOnClickListener {
