@@ -49,24 +49,25 @@ class PlanListFragment : Fragment() {
         val spinnerAdapter = ArrayAdapter(activity as MainActivity, android.R.layout.simple_list_item_1, data)
         planListBinding.spinnerPlanOrder.adapter = spinnerAdapter
 
-        planListBinding.spinnerPlanOrder.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if (p2 == 0) {
-                    planViewModel.planListLiveData.value =
-                        planViewModel.planLogic.sortPlanByTime(planViewModel.planListLiveData.value!!)
-                    val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
-                    planListBinding.RecyclerViewPlanList.adapter = adapter
-                } else if (p2 == 1) {
-                    planViewModel.planListLiveData.value =
-                        planViewModel.planLogic.sortPlanByCategory(planViewModel.planListLiveData.value!!)
-                    val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
-                    planListBinding.RecyclerViewPlanList.adapter = adapter
-                }
-            }
+//        planListBinding.spinnerPlanOrder.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                if (p2 == 0) {
+//                    planViewModel.planListLiveData.value =
+//                        planViewModel.planLogic.sortPlanByTime(planViewModel.planListLiveData.value!!)
+//                    val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
+//                    planListBinding.RecyclerViewPlanList.adapter = adapter
+//                } else if (p2 == 1) {
+//                    planViewModel.planListLiveData.value =
+//                        planViewModel.planLogic.sortPlanByCategory(planViewModel.planListLiveData.value!!)
+//                    val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
+//                    planListBinding.RecyclerViewPlanList.adapter = adapter
+//                }
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {}
+//        }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
-
+        planViewModel.getPlanList()
         return planListBinding.root
     }
 
@@ -96,8 +97,18 @@ class PlanListFragment : Fragment() {
         })
         planViewModel.isLastPlan.observe(viewLifecycleOwner, {
             planViewModel.getPlanList()
-            val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
-            recyclerView.adapter = adapter
+//            val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
+//            recyclerView.adapter = adapter
+        })
+
+        // 테스트용. 삭제할 것.
+        planViewModel.invitePlanEvent.observe(viewLifecycleOwner, {
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, 0)
+            navController.navigate(action)
+        })
+        planViewModel.kickOutPlanEvent.observe(viewLifecycleOwner, {
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, 0)
+            navController.navigate(action)
         })
     }
 

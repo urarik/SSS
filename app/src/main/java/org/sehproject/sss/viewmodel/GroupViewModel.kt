@@ -67,4 +67,5 @@ class GroupViewModel : ViewModel() {
     val friendListLiveData = MutableLiveData<List<User>>()
     val groupLiveData = MutableLiveData<Group>()
     val groupListLiveData = MutableLiveData<List<Group>>()
+    val selectedGroupUserList = mutableListOf<String>()
 }

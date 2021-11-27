@@ -47,14 +47,15 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 
     fun onEditGroupCompleteClick(group: Group)
     {
-        groupViewModel.editGroupCompleteEvent.value = group
-//        if(group.gid == null) onCreateGroupCompleteClick(group)
-//        else {
-//            groupViewModel.groupRepository.editGroup(group) { code ->
-//                if(code == 0)
-//                    groupViewModel.editGroupCompleteEvent.call()
-//            }
-//        }
+        // groupViewModel.editGroupCompleteEvent.value = group
+
+        if(group.gid == null) onCreateGroupCompleteClick(group)
+        else {
+            groupViewModel.groupRepository.editGroup(group) { code ->
+                if(code == 0)
+                    groupViewModel.editGroupCompleteEvent.value = group
+            }
+        }
     }
 
     fun onAcceptGroupClick()
@@ -73,10 +74,18 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
         groupViewModel.kickOutGroupEvent.value = gid
     }
 
+    fun onKickOutGroupCompleteClick(gid: Int) {
+        groupViewModel.groupRepository.kickOutGroup(gid, groupViewModel.selectedGroupUserList) { code: Int ->
+            if(code == 0) {
+                groupViewModel.kickOutGroupCompleteEvent.call()
+            }
+        }
+    }
+
     fun onExitGroupClick(gid: Int) {
-    //    groupViewModel.groupRepository.exitGroup(gid) { code ->
-    //
-    //    }
+        groupViewModel.groupRepository.exitGroup(gid) { code ->
+
+        }
     }
 
     fun onInviteGroupClick(gid: Int)
@@ -84,9 +93,13 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
         groupViewModel.inviteGroupEvent.value = gid
     }
 
-    fun onInviteGroupDoneClick()
+    fun onInviteGroupDoneClick(gid: Int)
     {
-
+        groupViewModel.groupRepository.inviteGroup(gid, groupViewModel.selectedGroupUserList) { code: Int ->
+            if(code == 0) {
+                groupViewModel.inviteGroupCompleteEvent.call()
+            }
+        }
     }
 
     fun onViewGroupDetailClick(gid: Int)
@@ -101,6 +114,6 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     }
 
     fun onItemClick(user: User) {
-
+        groupViewModel.selectedGroupUserList.add(user.userId)
     }
 }
