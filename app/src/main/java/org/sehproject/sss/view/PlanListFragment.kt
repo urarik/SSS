@@ -97,6 +97,16 @@ class PlanListFragment : Fragment() {
         planViewModel.isLastPlan.observe(viewLifecycleOwner, {
             planViewModel.getPlanList(it)
         })
+
+        // 테스트용. 삭제할 것.
+        planViewModel.invitePlanEvent.observe(viewLifecycleOwner, {
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, 0)
+            navController.navigate(action)
+        })
+        planViewModel.kickOutPlanEvent.observe(viewLifecycleOwner, {
+            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, 0)
+            navController.navigate(action)
+        })
     }
 
     private inner class PlanHolder(val itemPlanBinding: ItemPlanBinding) : RecyclerView.ViewHolder(itemPlanBinding.root) {

@@ -13,6 +13,7 @@ import org.sehproject.sss.utils.StringParser
 import org.sehproject.sss.viewmodel.PlanViewModel
 import java.text.SimpleDateFormat
 import com.google.api.services.calendar.Calendar
+import java.util.Collections.list
 
 class PlanLogic(val planViewModel: PlanViewModel) {
 
@@ -85,17 +86,31 @@ class PlanLogic(val planViewModel: PlanViewModel) {
             }
         }
     }
-    fun onInvitePlanClick() {
-        planViewModel.invitePlanEvent.call()
+    fun onInvitePlanClick(pid: Int) {
+        planViewModel.is_invite = true
+        planViewModel.invitePlanEvent.value = pid
     }
-    fun onInvitePlanDoneClick() {
-
+    fun onInvitePlanDoneClick(pid: Int) {
+        planViewModel.planRepository.invitePlan(pid, planViewModel.selectedPlanUserList) { code: Int ->
+            if(code == 0) {
+                planViewModel.invitePlanCompleteEvent.call()
+            }
+        }
     }
-    fun onInvitePlanExitClick() {}
-    fun onKickOutPlanClick() {
-        planViewModel.kickOutPlanEvent.call()
+    fun onInvitePlanExitClick() {
+        planViewModel.invitePlanCompleteEvent.call()
     }
-    fun onKickOutPlanDoneClick() {}
+    fun onKickOutPlanClick(pid: Int) {
+        planViewModel.is_invite = false
+        planViewModel.kickOutPlanEvent.value = pid
+    }
+    fun onKickOutPlanDoneClick(pid: Int) {
+        planViewModel.planRepository.kickOutPlan(pid, planViewModel.selectedPlanUserList) { code: Int ->
+            if(code == 0) {
+                planViewModel.kickOutPlanCompleteEvent.call()
+            }
+        }
+    }
     fun onKickOutPlanExitClick() {}
     fun onCancelPlanClick() {
         planViewModel.cancelPlanEvent.call()
@@ -173,7 +188,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         planViewModel.viewPlanDetailsEvent.value = pid
     }
     fun onItemClick(user: User) {
-        TODO("Not yet implemented")
+        planViewModel.selectedPlanUserList.add(user.userId)
     }
 
     fun sortPlanByTime(list: List<Plan>): List<Plan> {

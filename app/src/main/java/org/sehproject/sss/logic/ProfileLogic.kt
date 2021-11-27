@@ -10,27 +10,29 @@ import android.provider.DocumentsProvider
 import android.util.Log
 import android.widget.CompoundButton
 import android.widget.ImageView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.nhn.android.naverlogin.OAuthLogin
-import org.sehproject.sss.dao.AppDatabase
+import kotlinx.coroutines.currentCoroutineContext
+import org.sehproject.sss.UserInfo
+import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.Profile
-import org.sehproject.sss.utils.UserViewModelFactory
 import org.sehproject.sss.viewmodel.ProfileViewModel
-import org.sehproject.sss.viewmodel.UserViewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.net.URI
 import javax.xml.parsers.DocumentBuilder
+import android.content.Intent
+import android.os.Bundle
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
+
 
 class ProfileLogic(val profileViewModel: ProfileViewModel) {
+
     fun onEditProfileClick(userId: String) {
         profileViewModel.editProfileEvent.value = userId
     }
@@ -96,18 +98,26 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
                 val account = profileViewModel.profileRepository.getSavedAccount()
                 val auth = FirebaseAuth.getInstance()
                 when (account!!.flag) {
-                    1 -> { auth.signOut()
+                    1 -> {
+                        auth.signOut()
                         profileViewModel.googleSignInClient.signOut()
                             .addOnCompleteListener(OnCompleteListener {
+
                         })
                     }
-                    // 2 ->
+                    2 -> {
+
+                    }
                 }
+                deleteUserInfo()
                 profileViewModel.profileRepository.deleteAccount()
                 profileViewModel.logoutEvent.call()
             }
         }
     }
 
-
+    private fun deleteUserInfo() {
+        UserInfo.isLogin = false
+        UserInfo.userId = ""
+    }
 }
