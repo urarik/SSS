@@ -16,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.*
 import org.sehproject.sss.datatype.Memo
 import org.sehproject.sss.datatype.Plan
@@ -68,7 +69,8 @@ class PlanDetailFragment : Fragment() {
             }
         })
         planViewModel.createMemoCompleteEvent.observe(viewLifecycleOwner, {
-            planViewModel.concatAdapterLiveData.value?.minus(1)
+            planViewModel.concatAdapterLiveData.value =
+                planViewModel.concatAdapterLiveData.value?.minus(1)
             planViewModel.setMemoList(pid)
         })
 
@@ -93,12 +95,12 @@ class PlanDetailFragment : Fragment() {
         })
 
         planViewModel.kickOutPlanEvent.observe(viewLifecycleOwner, {
-            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
+            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
             navController.navigate(action)
         })
 
         planViewModel.invitePlanEvent.observe(viewLifecycleOwner, {
-            val action = PlanListFragmentDirections.actionPlanListFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
+            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
             navController.navigate(action)
         })
 
@@ -130,6 +132,9 @@ class PlanDetailFragment : Fragment() {
     private inner class MemoHolder(val itemMemoBinding: ItemMemoBinding) : RecyclerView.ViewHolder(itemMemoBinding.root) {
         fun bind(memo: Memo) {
             itemMemoBinding.memo = memo
+            itemMemoBinding.planLogic = planViewModel.planLogic
+            if(memo.writer == UserInfo.nickname)
+                itemMemoBinding.buttonDeleteMemo.visibility = ViewGroup.VISIBLE
         }
     }
 

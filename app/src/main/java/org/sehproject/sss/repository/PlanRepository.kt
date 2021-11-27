@@ -83,7 +83,7 @@ class PlanRepository {
 
     fun editPlan(plan: Plan, onResult: (Int) -> Unit) {
         val editPlanCall = planService.requestEditPlan(
-            plan.name,
+            plan.pid!!,
             plan.name,
             plan.startTime,
             plan.endTime,

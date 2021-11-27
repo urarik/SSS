@@ -7,6 +7,9 @@
         <variable
             name="memo"
             type="org.sehproject.sss.datatype.Memo" />
+        <variable
+            name="planLogic"
+            type="org.sehproject.sss.logic.PlanLogic" />
     </data>
 
 <LinearLayout
@@ -42,6 +45,19 @@
             android:outlineAmbientShadowColor="@color/black_60"
             android:text="@{memo.writer}"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_delete_memo"
+            android:layout_width="72dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:text="삭제"
+            android:visibility="gone"
+            android:textSize="13sp"
+            android:onClick="@{()->planLogic.onDeleteMemoClick()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
