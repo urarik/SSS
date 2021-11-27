@@ -58,12 +58,12 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     fun setProfile(userId: String) {
         profileRepository.getProfile(userId) { code: Int, profile: Profile? ->
             if(code == 0) {
-                profileRepository.getProfileImage(userId) { code: Int, bitmap: Bitmap? ->
-                    if(code == 0) {
-                        profileLiveData.value = profile
-                        imageBitmapLiveData.value = bitmap
-                    }
-                }
+                profileLiveData.value = profile
+            }
+        }
+        profileRepository.getProfileImage(userId) { code: Int, bitmap: Bitmap? ->
+            if(code == 0) {
+                imageBitmapLiveData.value = bitmap
             }
         }
     }

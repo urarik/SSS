@@ -51,7 +51,7 @@ class FriendProfileFragment : Fragment() {
         profileViewModel.setProfile(safeArgs.userId)
         Log.d("TAG", safeArgs.userId)
 
-        planViewModel.getPlanList()
+        planViewModel.getPlanList(true, safeArgs.userId)
 
         initObserver(friendProfileBinding)
 
