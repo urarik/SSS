@@ -11,6 +11,10 @@ import android.util.Log
 import android.widget.CompoundButton
 import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
 import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.viewmodel.ProfileViewModel
 import java.io.ByteArrayOutputStream

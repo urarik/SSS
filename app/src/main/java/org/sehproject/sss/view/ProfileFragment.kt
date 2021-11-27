@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileBinding
@@ -38,6 +40,11 @@ class ProfileFragment : Fragment() {
         )
         profileBinding.profileLogic = profileViewModel.profileLogic
         profileBinding.profile = Profile()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+        profileViewModel.googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         Log.d("TAG", UserInfo.userId)
         profileViewModel.setProfile(UserInfo.userId)

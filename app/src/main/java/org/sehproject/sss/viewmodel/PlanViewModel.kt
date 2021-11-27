@@ -41,31 +41,33 @@ class PlanViewModel : ViewModel() {
 
         Log.d("TAG", formatted)
 
-        if (isLastPlan.value!!) {
-            planListLiveData.value = temp.filter {
-                it.endTime < formatted
-            }
-        } else {
-            planListLiveData.value = temp.filter {
-                it.endTime >= formatted
-            }
-        }
-
-//        planRepository.getPlanList(true) {code, list ->
-//            if(code == 0) {
-//                planListLiveData.value = temp.filter {
-//                    it.endTime >= "2021-11-26 13:30"
-//                }
-//                lastPlanListLiveData.value = temp.filter {
-//                    it.endTime < "2021-11-26 13:30"
-//                }
-//
+//        if (isLastPlan.value!!) {
+//            planListLiveData.value = temp.filter {
+//                it.endTime < formatted
 //            }
-//            else if(code == 1) {
-//                planListLiveData.value = listOf()
-//                lastPlanListLiveData.value = listOf()
+//        } else {
+//            planListLiveData.value = temp.filter {
+//                it.endTime >= formatted
 //            }
 //        }
+
+        planRepository.getPlanList(true) {code, list ->
+            if(code == 0) {
+                if (isLastPlan.value!!) {
+                    planListLiveData.value = list?.filter {
+                        it.endTime < formatted
+                    }
+                } else {
+                    planListLiveData.value = list?.filter {
+                        it.endTime >= formatted
+                    }
+                }
+
+            }
+            else if(code == 1) {
+                planListLiveData.value = listOf()
+            }
+        }
     }
 
     fun setPlan(pid: Int) {
