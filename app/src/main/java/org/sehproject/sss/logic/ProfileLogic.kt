@@ -29,6 +29,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
+import org.sehproject.sss.view.MainActivity
 
 
 class ProfileLogic(val profileViewModel: ProfileViewModel) {
@@ -102,11 +103,11 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
                         auth.signOut()
                         profileViewModel.googleSignInClient.signOut()
                             .addOnCompleteListener(OnCompleteListener {
-
+                            Log.d("TAG", "TEST")
                         })
                     }
                     2 -> {
-
+                        profileViewModel.naverLogoutEvent.call()
                     }
                 }
                 deleteUserInfo()

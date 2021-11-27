@@ -64,6 +64,9 @@ class PlanEditFragment : Fragment() {
         planViewModel.editCompletePlanEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.action_planEditFragment_to_planListFragment)
         })
+        planViewModel.createPlanCompleteEvent.observe(viewLifecycleOwner, {
+            navController.navigate(R.id.action_planEditFragment_to_planListFragment)
+        })
         planViewModel.startDatePickEvent.observe(viewLifecycleOwner, {
             pickDateTime(it, true, planEditBinding)
         })

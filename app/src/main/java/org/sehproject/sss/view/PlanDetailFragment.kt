@@ -78,6 +78,10 @@ class PlanDetailFragment : Fragment() {
                 .show()
 
         })
+        planViewModel.deletePlanCompleteEvent.observe(viewLifecycleOwner, {
+            navController.navigate(R.id.action_planDetailFragment_to_planListFragment)
+        })
+
         planViewModel.editPlanEvent.observe(viewLifecycleOwner, {
             val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanEditFragment(it)
             navController.navigate(action)
