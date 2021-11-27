@@ -15,6 +15,7 @@ import org.sehproject.sss.repository.ProfileRepository
 import org.sehproject.sss.repository.UserRepository
 import org.sehproject.sss.utils.SingleLiveEvent
 import java.io.File
+import java.io.FileInputStream
 
 class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     val profileLogic = ProfileLogic(this)
@@ -43,6 +44,7 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     var imageBitmapLiveData = MutableLiveData<Bitmap>()
     var imageFile: File? = null
     var imageUri: Uri? = null
+    var imageStream: FileInputStream? = null
 
     // 통계용 변수 추가
     val getStatisticsCompleteEvent = SingleLiveEvent<Any>()
