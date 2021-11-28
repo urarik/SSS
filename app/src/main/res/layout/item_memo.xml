@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="pid"
-            type="Integer" />
+            name="plan"
+            type="org.sehproject.sss.datatype.Plan" />
         <variable
             name="memo"
             type="org.sehproject.sss.datatype.Memo" />
@@ -55,7 +55,7 @@
             android:layout_width="72dp"
             android:layout_height="34dp"
             android:layout_marginEnd="16dp"
-            android:onClick="@{()->planLogic.onDeleteMemoClick(pid)}"
+            android:onClick="@{()->planLogic.onDeleteMemoClick(plan.pid)}"
             android:text="삭제"
             android:textSize="13sp"
             android:visibility="gone"

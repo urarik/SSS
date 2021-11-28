@@ -140,6 +140,7 @@ class PlanDetailFragment : Fragment() {
         })
 
         planViewModel.completePlanCompleteEvent.observe(viewLifecycleOwner, {
+            Log.d("TAG", "event call")
             navController.navigate(R.id.action_planDetailFragment_to_planListFragment)
         })
 
@@ -163,6 +164,7 @@ class PlanDetailFragment : Fragment() {
     private inner class MemoHolder(val itemMemoBinding: ItemMemoBinding) : RecyclerView.ViewHolder(itemMemoBinding.root) {
         fun bind(memo: Memo) {
             itemMemoBinding.memo = memo
+            itemMemoBinding.plan = planViewModel.planLiveData.value
             itemMemoBinding.planLogic = planViewModel.planLogic
             if(memo.writer == UserInfo.nickname)
                 itemMemoBinding.buttonDeleteMemo.visibility = ViewGroup.VISIBLE

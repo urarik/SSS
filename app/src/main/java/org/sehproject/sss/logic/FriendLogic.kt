@@ -17,8 +17,12 @@ class FriendLogic(val friendViewModel: FriendViewModel) {
     fun onSearchUserCompleteClick(name: String) {
         friendViewModel.friendRepository.searchUser(name) {code, list ->
             var cnt = 0
-            val mlist: MutableList<User>? = list as MutableList<User>
-            if(code == 0)
+            var mlist: MutableList<User>? = null
+            if (list != null)
+                mlist = list as MutableList<User>
+            else
+                mlist = mutableListOf()
+            if(code == 0) {
                 if (mlist != null)
                     for (i in mlist) {
                         if (i.userId == UserInfo.userId) {
@@ -27,7 +31,7 @@ class FriendLogic(val friendViewModel: FriendViewModel) {
                         }
                         cnt++
                     }
-            Log.d("TAG", cnt.toString() + mlist.toString())
+            }
             friendViewModel.userList.value = mlist
         }
     }
