@@ -36,7 +36,10 @@ class PlanViewModel : ViewModel() {
         planRepository.getPlanList(userId, isCurrent) {code, list ->
             if(code == 0) {
                 mlist = list as MutableList<Plan>
-                planListLiveData.value = planLogic.sortPlanByTime(mlist!!)
+                if (is_sorted)
+                    planListLiveData.value = planLogic.sortPlanByCategory(mlist!!)
+                else
+                    planListLiveData.value = planLogic.sortPlanByTime(mlist!!)
             }
             else if(code == 1) {
                 planListLiveData.value = listOf()
@@ -106,5 +109,6 @@ class PlanViewModel : ViewModel() {
     val isLastPlan = SingleLiveEvent<Boolean>()
     val selectedPlanUserList = mutableListOf<String>()
     var is_invite: Boolean = true
+    var is_sorted: Boolean = false
     lateinit var ocrBitmap: Bitmap
 }

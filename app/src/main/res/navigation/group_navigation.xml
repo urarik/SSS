@@ -21,6 +21,11 @@
         <argument
             android:name="gid"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_groupDetailFragment_to_groupListFragment"
+            app:destination="@id/groupListFragment"
+            app:popUpTo="@id/groupListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/groupEditFragment"

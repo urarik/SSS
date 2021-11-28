@@ -45,11 +45,6 @@ class PlanDetailFragment : Fragment() {
         Log.d("TAG", planDetailBinding.plan.toString())
         initObserver(planDetailBinding, safeArgs.pid)
 
-        if(planViewModel.planLiveData.value?.creator == UserInfo.userId) {
-            Log.d("TAG", planViewModel.planLiveData.value.toString())
-            planDetailBinding.editPlanFloatingActionButton.visibility = ViewGroup.VISIBLE
-        }
-
         return view
     }
 
@@ -58,6 +53,13 @@ class PlanDetailFragment : Fragment() {
         val navController = findNavController()
         planViewModel.planLiveData.observe(viewLifecycleOwner, {
             planDetailBinding.plan = it
+
+            if(planViewModel.planLiveData.value?.creator == UserInfo.userId) {
+                planDetailBinding.editPlanFloatingActionButton.visibility = ViewGroup.VISIBLE
+                planDetailBinding.deletePlanTypeFloatingActionButton.visibility = ViewGroup.VISIBLE
+                planDetailBinding.completePlanFloatingActionButton.visibility = ViewGroup.VISIBLE
+                planDetailBinding.kickOutPlanFloatingActionButton.visibility = ViewGroup.VISIBLE
+            }
         })
         planViewModel.userListLiveData.observe(viewLifecycleOwner, {
             planViewModel.concatAdapterLiveData.value =
