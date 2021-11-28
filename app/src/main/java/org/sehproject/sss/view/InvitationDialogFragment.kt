@@ -1,6 +1,7 @@
 package org.sehproject.sss
 
 import android.content.Intent
+import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -35,7 +36,6 @@ class InvitationDialogFragment : DialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         val invitationBinding: FragmentInvitationBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_invitation, container, false)
-
         val invitation = Invitation(
             requireArguments().getInt("id"),
             requireArguments().getString("invite_type")!!,
@@ -47,22 +47,31 @@ class InvitationDialogFragment : DialogFragment() {
         invitationBinding.invitation = invitation
 
         initObserver()
-        return inflater.inflate(R.layout.fragment_invitation, container, false)
+        return invitationBinding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val window = dialog?.window!!
+        val point = Point()
+        window.windowManager.defaultDisplay.getSize(point)
+
+        dialog?.window?.setLayout((point.x * 0.85).toInt(), (point.y * 0.75).toInt())
     }
 
     private fun initObserver() {
-        val navController = findNavController()
+        //val navController = findNavController()
         planViewModel.acceptPlanInviteEvent.observe(viewLifecycleOwner, {
-            navController.popBackStack()
+            parentFragmentManager.popBackStack()
         })
         planViewModel.refusePlanInviteEvent.observe(viewLifecycleOwner, {
-            navController.popBackStack()
+            parentFragmentManager.popBackStack()
         })
         groupViewModel.acceptGroupInviteEvent.observe(viewLifecycleOwner, {
-            navController.popBackStack()
+            parentFragmentManager.popBackStack()
         })
         groupViewModel.refuseGroupInviteEvent.observe(viewLifecycleOwner, {
-            navController.popBackStack()
+            parentFragmentManager.popBackStack()
         })
     }
 

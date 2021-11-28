@@ -99,15 +99,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun processNotification(bundle: Bundle) {
-        val bundleSent = bundleOf()
-        bundleSent.putString("invite_type", bundle.get("invite_type").toString())
-        bundleSent.putString("target_name", bundle.get("target_name").toString())
-        bundleSent.putString("inviter", bundle.get("inviter").toString())
-        bundleSent.putInt("inviter", bundle.get("id") as Int)
+        val invitationDialogFragment = InvitationDialogFragment()
 
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            add<InvitationDialogFragment>(R.id.view_pager, args = bundle)
-        }
+        invitationDialogFragment.arguments = bundle
+        invitationDialogFragment.show(supportFragmentManager, "msg")
+//        supportFragmentManager.commit {
+//            setReorderingAllowed(true)
+//            add<InvitationDialogFragment>(R.id.view_pager, args = bundle)
+//        }
     }
 }

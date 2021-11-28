@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.mortbay.jetty.Main
 import org.sehproject.sss.R
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.FragmentPlanListBinding
 import org.sehproject.sss.databinding.ItemPlanBinding
 import org.sehproject.sss.databinding.ItemUserBinding
@@ -56,11 +57,13 @@ class PlanListFragment : Fragment() {
                         planViewModel.planLogic.sortPlanByTime(planViewModel.planListLiveData.value!!)
                     val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
                     planListBinding.RecyclerViewPlanList.adapter = adapter
+                    planViewModel.is_sorted = false
                 } else if (p2 == 1&& planViewModel.planListLiveData.value != null) {
                     planViewModel.planListLiveData.value =
                         planViewModel.planLogic.sortPlanByCategory(planViewModel.planListLiveData.value!!)
                     val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
                     planListBinding.RecyclerViewPlanList.adapter = adapter
+                    planViewModel.is_sorted = true
                 }
             }
 
@@ -104,6 +107,8 @@ class PlanListFragment : Fragment() {
         fun bind(plan: Plan) {
             itemPlanBinding.plan = plan
             itemPlanBinding.planLogic = planViewModel.planLogic
+            if(plan.creator == UserInfo.userId)
+                itemPlanBinding.switchPublicPlan.visibility = ViewGroup.VISIBLE
         }
     }
 

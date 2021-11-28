@@ -55,14 +55,16 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     fun onAcceptGroupClick(gid: Int)
     {
         groupViewModel.groupRepository.acceptGroup(gid, true) {code ->
-            groupViewModel.acceptGroupInviteEvent.call()
+            if(code == 0)
+                groupViewModel.acceptGroupInviteEvent.call()
         }
     }
 
     fun onRefuseGroupClick(gid: Int)
     {
         groupViewModel.groupRepository.acceptGroup(gid, false) {code ->
-            groupViewModel.refuseGroupInviteEvent.call()
+            if(code == 0)
+                groupViewModel.refuseGroupInviteEvent.call()
         }
     }
 
@@ -80,8 +82,12 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     }
 
     fun onExitGroupClick(gid: Int) {
+        Log.d("TAG", "hi")
         groupViewModel.groupRepository.exitGroup(gid) { code ->
-
+            if (code == 0) {
+                Log.d("TAG", code.toString())
+                groupViewModel.exitGroupCompleteEvent.call()
+            }
         }
     }
 
@@ -93,7 +99,7 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     fun onInviteGroupDoneClick(gid: Int)
     {
         groupViewModel.groupRepository.inviteGroup(gid, groupViewModel.selectedGroupUserList) { code: Int ->
-            Log.d("TAG", code.toString())
+            Log.d("TAG", code.toString() + " " + groupViewModel.selectedGroupUserList.toString())
             if(code == 0) {
                 groupViewModel.inviteGroupCompleteEvent.call()
             }

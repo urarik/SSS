@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentGroupDetailBinding
 import org.sehproject.sss.databinding.ItemParticipantsBinding
@@ -50,6 +51,8 @@ class GroupDetailFragment : Fragment() {
         initObserver(groupDetailBinding)
 
         groupViewModel.setGroup(safeArgs.gid)
+        groupDetailBinding.textViewMemberNumDetails.setText(groupViewModel.groupLiveData.value?.participants?.size.toString() + "명")
+
         return groupDetailBinding.root
     }
 
@@ -68,12 +71,25 @@ class GroupDetailFragment : Fragment() {
             val action = GroupDetailFragmentDirections.actionGroupDetailFragmentToGroupInviteFragment(it, false)
             navController.navigate(action)
         })
+        groupViewModel.exitGroupCompleteEvent.observe(viewLifecycleOwner, {
+            navController.navigate(R.id.action_groupDetailFragment_to_groupListFragment)
+        })
+        groupViewModel.deleteGroupCompleteEvent.observe(viewLifecycleOwner, {
+            navController.navigate(R.id.action_groupDetailFragment_to_groupListFragment)
+        })
+
         groupViewModel.groupLiveData.observe(viewLifecycleOwner, {
             groupDetailBinding.group = it
             val view = groupDetailBinding.imageViewGroupColor
             view.background.colorFilter = BlendModeColorFilter(
                 Color.parseColor("#"+Integer.toHexString(it.color)),
                 BlendMode.SRC_ATOP)
+
+            if(groupViewModel.groupLiveData.value?.creator == UserInfo.userId) {
+                groupDetailBinding.editGroupFloatingActionButton.visibility = ViewGroup.VISIBLE
+                groupDetailBinding.deleteGroupFloatingActionButton.visibility = ViewGroup.VISIBLE
+                groupDetailBinding.kickOutGroupFloatingActionButton.visibility = ViewGroup.VISIBLE
+            }
         })
         groupViewModel.friendListLiveData.observe(viewLifecycleOwner, {
             groupDetailBinding.textViewMemberNumDetails.text = it.size.toString()

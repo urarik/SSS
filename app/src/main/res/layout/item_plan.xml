@@ -70,6 +70,7 @@
                     android:text="공개"
                     android:textColor="@color/black_60"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     android:checked="@{plan.public}"
                     android:onCheckedChanged="@{(button_view, is_checked) -> planLogic.onPublicPlanClick(plan, is_checked)}"
                     app:layout_constraintBottom_toBottomOf="parent"

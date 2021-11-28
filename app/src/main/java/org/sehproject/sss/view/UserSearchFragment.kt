@@ -22,6 +22,7 @@ import org.sehproject.sss.viewmodel.FriendViewModel
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.opengl.Visibility
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 
 import androidx.core.content.ContextCompat.getSystemService
@@ -60,6 +61,9 @@ class UserSearchFragment : Fragment() {
 
         friendViewModel.addFriendEvent.observe(viewLifecycleOwner, {
             it.visibility = ViewGroup.GONE
+        })
+        friendViewModel.addFriendFailEvent.observe(viewLifecycleOwner, {
+            Toast.makeText(context, "이미 친구인 사용자입니다.", Toast.LENGTH_SHORT).show()
         })
     }
 

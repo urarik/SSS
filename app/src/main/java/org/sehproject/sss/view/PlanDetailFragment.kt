@@ -41,6 +41,8 @@ class PlanDetailFragment : Fragment() {
         val view = planDetailBinding.root
         val safeArgs: PlanDetailFragmentArgs by navArgs()
         planViewModel.setPlan(safeArgs.pid)
+        planDetailBinding.plan = planViewModel.planLiveData.value
+        Log.d("TAG", planDetailBinding.plan.toString())
         initObserver(planDetailBinding, safeArgs.pid)
 
         return view
@@ -51,6 +53,13 @@ class PlanDetailFragment : Fragment() {
         val navController = findNavController()
         planViewModel.planLiveData.observe(viewLifecycleOwner, {
             planDetailBinding.plan = it
+
+            if(planViewModel.planLiveData.value?.creator == UserInfo.userId) {
+                planDetailBinding.editPlanFloatingActionButton.visibility = ViewGroup.VISIBLE
+                planDetailBinding.deletePlanTypeFloatingActionButton.visibility = ViewGroup.VISIBLE
+                planDetailBinding.completePlanFloatingActionButton.visibility = ViewGroup.VISIBLE
+                planDetailBinding.kickOutPlanFloatingActionButton.visibility = ViewGroup.VISIBLE
+            }
         })
         planViewModel.userListLiveData.observe(viewLifecycleOwner, {
             planViewModel.concatAdapterLiveData.value =
@@ -74,6 +83,12 @@ class PlanDetailFragment : Fragment() {
             planViewModel.setMemoList(pid)
         })
 
+        planViewModel.deleteMemoCompleteEvent.observe(viewLifecycleOwner, {
+            planViewModel.concatAdapterLiveData.value =
+                planViewModel.concatAdapterLiveData.value?.minus(1)
+            planViewModel.setMemoList(pid)
+        })
+
         planViewModel.deletePlanEvent.observe(viewLifecycleOwner, {
             android.app.AlertDialog
                 .Builder(context)
@@ -92,7 +107,7 @@ class PlanDetailFragment : Fragment() {
         planViewModel.cancelPlanEvent.observe(viewLifecycleOwner, {
             android.app.AlertDialog
                 .Builder(context)
-                .setMessage("약속을 삭제하시겠습니까?")
+                .setMessage("약속에 참석 취소하시겠습니까?")
                 .setPositiveButton("네") { dialogInterface: DialogInterface, i: Int ->
                     planViewModel.planLogic.onCancelPlanConfirmClick(it)
                 }
@@ -136,6 +151,7 @@ class PlanDetailFragment : Fragment() {
             builder.setView(editText)
             builder.setPositiveButton("입력", DialogInterface.OnClickListener { dialog, which ->
                 planViewModel.planLogic.onCreateMemoDoneClick(editText.getText().toString())
+                Log.d("TAG", "으ㅏㅇ아ㅏㅏ")
             })
             builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
                 // planViewModel.planLogic.onCreateMemoExitClick()

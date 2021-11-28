@@ -41,9 +41,6 @@ import java.io.File
 import java.io.FileInputStream
 import android.provider.OpenableColumns
 
-
-
-
 class ProfileEditFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
@@ -105,7 +102,7 @@ class ProfileEditFragment : Fragment() {
 
         val safeArgs: ProfileEditFragmentArgs by navArgs()
         profileViewModel.setProfile(safeArgs.userId)
-        Log.d("TAG", safeArgs.userId)
+        Log.d("TAG", profileViewModel.profileLiveData.value.toString())
 
         imageView = profileEditBinding.imageEditProfile
 

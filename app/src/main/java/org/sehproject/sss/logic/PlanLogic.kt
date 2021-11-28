@@ -47,6 +47,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         val end = format.parse(plan.endTime)
         if(start <= end) {
             planViewModel.planRepository.createPlan(plan) { code ->
+                Log.d("TAG", code.toString())
                 if (code == 0) {
                     planViewModel.createPlanCompleteEvent.call()
                 }
@@ -75,7 +76,11 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onCompletePlanClick(plan: Plan) {
         planViewModel.planRepository.completePlan(plan.pid!!) { code: Int ->
             if(code == 0) {
-                planViewModel.completePlanCompleteEvent.call()
+                planViewModel.planRepository.addPoint(100) { code: Int ->
+                    if(code == 0) {
+                        planViewModel.completePlanCompleteEvent.call()
+                    }
+                }
             }
         }
     }
@@ -127,16 +132,20 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         memo.pid = planViewModel.planLiveData.value?.pid!!
 
         planViewModel.planRepository.createMemo(memo) { code: Int ->
+            Log.d("TAG", code.toString())
             if(code == 0) {
                 planViewModel.createMemoCompleteEvent.call()
             }
         }
     }
-    fun onCreateMemoExitClick() {
-
-    }
-    fun onDeleteMemoClick() {
-
+    fun onCreateMemoExitClick() {}
+    fun onDeleteMemoClick(pid: Int) {
+        Log.d("TAG", pid.toString())
+        planViewModel.planRepository.deleteMemo(pid) { code ->
+            if(code == 0) {
+                planViewModel.deleteMemoCompleteEvent.call()
+            }
+        }
     }
     fun onCreatePlanClick() {
         planViewModel.createPlanEvent.call()
