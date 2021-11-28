@@ -57,11 +57,13 @@ class PlanListFragment : Fragment() {
                         planViewModel.planLogic.sortPlanByTime(planViewModel.planListLiveData.value!!)
                     val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
                     planListBinding.RecyclerViewPlanList.adapter = adapter
+                    planViewModel.is_sorted = false
                 } else if (p2 == 1&& planViewModel.planListLiveData.value != null) {
                     planViewModel.planListLiveData.value =
                         planViewModel.planLogic.sortPlanByCategory(planViewModel.planListLiveData.value!!)
                     val adapter = PlanAdapter(planViewModel.planListLiveData.value!!)
                     planListBinding.RecyclerViewPlanList.adapter = adapter
+                    planViewModel.is_sorted = true
                 }
             }
 

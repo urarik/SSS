@@ -80,8 +80,12 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     }
 
     fun onExitGroupClick(gid: Int) {
+        Log.d("TAG", "hi")
         groupViewModel.groupRepository.exitGroup(gid) { code ->
-
+            if (code == 0) {
+                Log.d("TAG", code.toString())
+                groupViewModel.exitGroupCompleteEvent.call()
+            }
         }
     }
 

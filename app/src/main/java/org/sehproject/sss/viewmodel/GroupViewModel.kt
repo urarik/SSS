@@ -1,8 +1,10 @@
 package org.sehproject.sss.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sehproject.sss.datatype.Group
+import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.GroupLogic
 import org.sehproject.sss.repository.FriendRepository
@@ -23,16 +25,20 @@ class GroupViewModel : ViewModel() {
     fun getGroupList()
     {
        groupRepository.getGroupList { i, list ->
-        if(i == 0)
-            groupListLiveData.value = list
+           var mlist: MutableList<Group>? = null
+           if(i == 0) {
+                mlist = list as MutableList<Group>
+                groupListLiveData.value = groupLogic.sortGroupByName(mlist!!)
+           }
         }
     }
     fun setGroup(gid: Int?) {
         if(gid == null) groupLiveData.value = Group()
         else {
             groupRepository.getGroup(gid) { code, group ->
-                if (code == 0)
+                if (code == 0) {
                     groupLiveData.value = group
+                }
             }
             groupRepository.getParticipantList(gid) { code, participants ->
                 if(code ==0)
@@ -55,6 +61,7 @@ class GroupViewModel : ViewModel() {
     val kickOutGroupEvent = SingleLiveEvent<Int>()
     val kickOutGroupCompleteEvent = SingleLiveEvent<Any>()
     val viewGroupDetailsEvent = SingleLiveEvent<Int>()
+    val exitGroupCompleteEvent = SingleLiveEvent<Any>()
     val viewGroupDetailsCompleteEvent = SingleLiveEvent<Any>()
     val viewGroupEvent = SingleLiveEvent<Any>()
     val viewGroupCompleteEvent = SingleLiveEvent<Any>()
