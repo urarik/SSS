@@ -18,7 +18,7 @@ import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.UserViewModel
 
 class GroupInviteDialogFragment: DialogFragment() {
-    private val safeArgs: GroupInviteDialogFragmentArgs by navArgs() //groupid, is_invite
+    private val safeArgs: GroupInviteDialogFragmentArgs by navArgs() //gid, is_invite
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +32,7 @@ class GroupInviteDialogFragment: DialogFragment() {
         if(!safeArgs.isInvite)
             inviteFriendBinding.buttonGroupInviteDone.text = "퇴장"
         inviteFriendBinding.isInvite = safeArgs.isInvite
+        inviteFriendBinding.gid = safeArgs.gid
         inviteFriendBinding.groupLogic = groupViewModel!!.groupLogic
 
 //        var inviteFriendBinding: FragmentInviteFriendBinding? = null
@@ -51,7 +52,7 @@ class GroupInviteDialogFragment: DialogFragment() {
 //            recyclerView = kickOutFriendBinding.searchRecyclerView
 //        }
 
-         planViewModel?.setFriendList()
+         groupViewModel?.setFriendList()
 //        groupViewModel?.setFriendList()
 //        groupViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
 //            adapter = UserAdapter(it)
@@ -59,6 +60,7 @@ class GroupInviteDialogFragment: DialogFragment() {
 //        })
 
         initObserver(recyclerView)
+        Log.d("TAG", inviteFriendBinding.isInvite.toString())
 
         return inviteFriendBinding.root
     }
@@ -66,10 +68,11 @@ class GroupInviteDialogFragment: DialogFragment() {
     fun initObserver(recyclerView: RecyclerView) {
         val navController = findNavController()
         groupViewModel!!.inviteGroupCompleteEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.groupDetailFragment)
+            navController.popBackStack()
         })
         groupViewModel!!.kickOutGroupCompleteEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.groupDetailFragment)
+            val action = GroupInviteDialogFragmentDirections.actionGroupInviteFragmentToGroupDetailFragment(safeArgs.gid)
+            navController.navigate(action)
         })
         groupViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
             adapter = UserAdapter(it)

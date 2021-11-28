@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="group"
-            type="org.sehproject.sss.datatype.Group" />
+            name="gid"
+            type="Integer" />
         <variable
             name="isInvite"
             type="Boolean" />
@@ -111,7 +111,7 @@
                     android:id="@+id/button_group_invite_done"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{()->isInvite == true? groupLogic.onInviteGroupClick(group.gid): groupLogic.onKickOutGroupClick(group.gid)}"
+                    android:onClick="@{()->isInvite == true? groupLogic.onInviteGroupDoneClick(gid): groupLogic.onKickOutGroupCompleteClick(gid)}"
                     android:text="초대"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

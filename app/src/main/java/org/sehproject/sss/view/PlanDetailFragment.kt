@@ -89,6 +89,21 @@ class PlanDetailFragment : Fragment() {
             navController.navigate(R.id.action_planDetailFragment_to_planListFragment)
         })
 
+        planViewModel.cancelPlanEvent.observe(viewLifecycleOwner, {
+            android.app.AlertDialog
+                .Builder(context)
+                .setMessage("약속을 삭제하시겠습니까?")
+                .setPositiveButton("네") { dialogInterface: DialogInterface, i: Int ->
+                    planViewModel.planLogic.onCancelPlanConfirmClick(it)
+                }
+                .setNegativeButton("아니오", null)
+                .show()
+        })
+
+        planViewModel.cancelPlanCompleteEvent.observe(viewLifecycleOwner, {
+            navController.navigate(R.id.action_planDetailFragment_to_planListFragment)
+        })
+
         planViewModel.editPlanEvent.observe(viewLifecycleOwner, {
             val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanEditFragment(it)
             navController.navigate(action)

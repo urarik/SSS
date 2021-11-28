@@ -216,7 +216,7 @@
                 android:id="@+id/cancelPlanFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->planLogic.onCancelPlanClick()}"
+                android:onClick="@{()->planLogic.onCancelPlanClick(plan.pid)}"
                 app:fab_icon="@drawable/delete"
                 app:fab_size="mini"
                 app:fab_title="참석 취소" />
