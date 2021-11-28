@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.mortbay.jetty.Main
 import org.sehproject.sss.R
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.FragmentPlanListBinding
 import org.sehproject.sss.databinding.ItemPlanBinding
 import org.sehproject.sss.databinding.ItemUserBinding
@@ -104,6 +105,8 @@ class PlanListFragment : Fragment() {
         fun bind(plan: Plan) {
             itemPlanBinding.plan = plan
             itemPlanBinding.planLogic = planViewModel.planLogic
+            if(plan.creator == UserInfo.userId)
+                itemPlanBinding.switchPublicPlan.visibility = ViewGroup.VISIBLE
         }
     }
 

@@ -47,6 +47,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         val end = format.parse(plan.endTime)
         if(start <= end) {
             planViewModel.planRepository.createPlan(plan) { code ->
+                Log.d("TAG", code.toString())
                 if (code == 0) {
                     planViewModel.createPlanCompleteEvent.call()
                 }

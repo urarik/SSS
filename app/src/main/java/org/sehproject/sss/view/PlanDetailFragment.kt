@@ -41,7 +41,14 @@ class PlanDetailFragment : Fragment() {
         val view = planDetailBinding.root
         val safeArgs: PlanDetailFragmentArgs by navArgs()
         planViewModel.setPlan(safeArgs.pid)
+        planDetailBinding.plan = planViewModel.planLiveData.value
+        Log.d("TAG", planDetailBinding.plan.toString())
         initObserver(planDetailBinding, safeArgs.pid)
+
+        if(planViewModel.planLiveData.value?.creator == UserInfo.userId) {
+            Log.d("TAG", planViewModel.planLiveData.value.toString())
+            planDetailBinding.editPlanFloatingActionButton.visibility = ViewGroup.VISIBLE
+        }
 
         return view
     }

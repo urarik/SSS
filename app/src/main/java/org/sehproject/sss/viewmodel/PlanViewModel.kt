@@ -46,6 +46,7 @@ class PlanViewModel : ViewModel() {
         planRepository.getPlan(pid) {code, plan ->
             if(code == 0)
                 planLiveData.value = plan
+            Log.d("TAG", planLiveData.value.toString())
        }
         setMemoList(pid)
         planRepository.getParticipantList(pid) {code, participants ->
