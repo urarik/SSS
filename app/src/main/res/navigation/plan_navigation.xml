@@ -83,6 +83,9 @@
         <argument
             android:name="pid"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_planInviteDialogFragment_to_planDetailFragment"
+            app:destination="@id/planDetailFragment" />
     </dialog>
     <fragment
         android:id="@+id/mapFragment"

@@ -146,11 +146,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     fun onTypeDoneClick(planStr: String) {
         val parser = StringParser()
-        planViewModel.planRepository.createPlan(parser.parse(planStr)) { code ->
-            if(code == 0) {
-                planViewModel.createPlanCompleteEvent.call()
-            }
-        }
+        val plan = parser.parse(planStr)
+        if(plan.pid == -1) planViewModel.createPlanTypeFailEvent.value = plan.name
+        else onCreatePlanDoneClick(plan)
     }
     fun onAcceptPlanClick()
     {
@@ -179,8 +177,18 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         planViewModel.uploadImgEvent.call()
     }
     fun onOcrDoneClick() {
-        planViewModel.createPlanCompleteEvent.call()
+        planViewModel.planRepository.getImageOcr(planViewModel.ocrBitmap) {
+                code, string ->
+            if(code == 0) {
+                Log.d("TAG", string.toString())
+                val parser = StringParser()
+                val plan = parser.parse(string!!)
+                if(plan.pid == -1) planViewModel.createPlanOcrFailEvent.value = plan.name
+                else onCreatePlanDoneClick(plan)
+            }
+        }
     }
+
     fun onPreviousPlanListToggle(parent: AdapterView<out Adapter>, pos: Int) {
 
     }

@@ -13,7 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="396dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.PlanCreateTypeFragment">
 
@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/ocr_plan_dsc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +32,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:text="@={planType}"
             android:layout_marginTop="16dp"
+            android:text="@={planType}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ocr_description" />

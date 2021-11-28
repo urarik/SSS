@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="plan"
-            type="org.sehproject.sss.datatype.Plan" />
+            name="pid"
+            type="Integer" />
         <variable
             name="isInvite"
             type="Boolean" />
@@ -111,7 +111,7 @@
                     android:id="@+id/button_plan_invite_done"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{()->isInvite == true? planLogic.onInvitePlanDoneClick(plan.pid): planLogic.onKickOutPlanDoneClick(plan.pid)}"
+                    android:onClick="@{()->isInvite == true? planLogic.onInvitePlanDoneClick(pid): planLogic.onKickOutPlanDoneClick(pid)}"
                     android:text="초대"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
