@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class Profile(var userId: String="",
                    var nickName: String="",
                    var name: String="",
-                   var age: Int=0,
-                   var gender: Boolean=true,
+                   var age: String="",
+                   var gender: Boolean=true, //true면 남자
                    // var image: ByteArray = ByteArray(1)
         ): Parcelable

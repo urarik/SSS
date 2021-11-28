@@ -32,7 +32,7 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
             profile.userId,
             profile.nickName,
             profile.name,
-            profile.age,
+            profile.age.toInt(),
             profile.gender,
         )
         editProfileCall.enqueue(object : CallbackWithRetry<GenericResponse>(editProfileCall) {

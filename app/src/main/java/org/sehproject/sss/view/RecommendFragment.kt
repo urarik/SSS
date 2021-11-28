@@ -52,12 +52,12 @@ class RecommendFragment : Fragment() {
     protected inner class PlaceHolder(private val itemPlaceBinding: ItemPlaceBinding) : RecyclerView.ViewHolder(itemPlaceBinding.root) {
 
         @RequiresApi(Build.VERSION_CODES.Q)
-        fun bind(place: Place) {
+        fun bind(place: String) {
             //itemPlaceBinding.imageRecommendPlace.setImageBitmap(place.image)
-            itemPlaceBinding.textLocationName.text = place.name
+            itemPlaceBinding.textLocationName.text = place
         }
     }
-    protected inner class PlaceAdapter(val places: List<Place>) :
+    protected inner class PlaceAdapter(val places: List<String>) :
         RecyclerView.Adapter<PlaceHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceHolder {

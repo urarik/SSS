@@ -39,19 +39,25 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
     }
 
     fun onEditProfileCompleteClick(profile: Profile) {
-        val file = File(profileViewModel.imageUri?.path)
+        val path = profileViewModel.imageUri?.path
+
 
             profileViewModel.profileRepository.editProfile(profile) { code: Int ->
             if (code == 0) {
-                profileViewModel.profileRepository.editProfileImage(file,
-                    profileViewModel.imageStream!!,
-                    profileViewModel.imageLength,
-                profileViewModel.imageExtension) { code1: Int ->
-                    if (code1 == 0) {
-                        profileViewModel.imageFile = file
-                        profileViewModel.editProfileCompleteEvent.call()
+                path?. run {
+                    val file = File(path)
+                    profileViewModel.profileRepository.editProfileImage(file,
+                        profileViewModel.imageStream!!,
+                        profileViewModel.imageLength,
+                        profileViewModel.imageExtension) { code1: Int ->
+                        if (code1 == 0) {
+                            profileViewModel.imageFile = file
+                            profileViewModel.editProfileCompleteEvent.call()
+                        }
                     }
-                }
+                } ?: profileViewModel.editProfileCompleteEvent.call()
+
+
             }
         }
     }

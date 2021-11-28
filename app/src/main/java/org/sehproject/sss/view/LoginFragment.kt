@@ -132,14 +132,13 @@ class LoginFragment : Fragment(), ActivityNavigation {
             val bundle = activity?.intent?.extras
             if(bundle != null) {
                 val bundleSent = bundleOf()
-
                 bundleSent.putString("invite_type", bundle.get("invite_type").toString())
                 bundleSent.putString("target_name", bundle.get("target_name").toString())
                 bundleSent.putString("inviter", bundle.get("inviter").toString())
-                bundleSent.putInt("inviter", bundle.get("id") as Int)
-
-                startActivity(mainIntent, bundleSent)
-            } else startActivity(mainIntent)
+                bundleSent.putInt("id", bundle.get("id").toString().toInt())
+                mainIntent.putExtras(bundleSent)
+            }
+            startActivity(mainIntent)
             requireActivity().finish()
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
