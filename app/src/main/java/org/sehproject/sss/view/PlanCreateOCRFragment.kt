@@ -12,10 +12,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.functions.FirebaseFunctions
@@ -43,32 +45,22 @@ class PlanCreateOCRFragment : Fragment() {
             false
         )
         planCreateOCRBinding.planLogic = planViewModel.planLogic
-        val view = planCreateOCRBinding.root
 
 
         val register = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == RESULT_OK) {
-
                 val imageBitmap = it.data!!.extras!!
                     .get("data") as Bitmap
                 planCreateOCRBinding.imageOcr.setImageBitmap(imageBitmap)
                 val bitmap = scaleBitmapDown(imageBitmap, 1024)
-                planViewModel.planRepository.getImageOcr(bitmap) {
-                    code, string ->
-                    if(code == 0) {
-                        Log.d("TAG", string.toString())
-                        val parser = StringParser()
-                        val plan = parser.parse(string!!)
-                        planViewModel.createPlanOcrDoneEvent.value = plan
-                    }
-                }
+                planViewModel.ocrBitmap = bitmap
             }
         }
 
         initObserver(planCreateOCRBinding, register)
-        return view
+        return planCreateOCRBinding.root
     }
 
     private fun initObserver(
@@ -79,8 +71,11 @@ class PlanCreateOCRFragment : Fragment() {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             register.launch(intent)
         })
-        planViewModel.createPlanOcrDoneEvent.observe(viewLifecycleOwner, {
-            //TODO
+        planViewModel.createPlanCompleteEvent.observe(viewLifecycleOwner, {
+            findNavController().popBackStack()
+        })
+        planViewModel.createPlanOcrFailEvent.observe(viewLifecycleOwner, {
+            Toast.makeText(context, "약속 생성 실패!\n인식된 문자열 $it", Toast.LENGTH_LONG).show()
         })
     }
 

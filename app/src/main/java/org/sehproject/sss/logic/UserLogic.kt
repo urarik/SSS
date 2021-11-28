@@ -62,6 +62,8 @@ class UserLogic(val userViewModel: UserViewModel) {
     }
     // local
     fun onLoginClick(user: AccountXML) {
+        if(userViewModel.token == "") return
+
         userViewModel.userRepository.login(
             user.userId,
             user.password,

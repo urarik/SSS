@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -57,14 +58,16 @@ class LoginFragment : Fragment(), ActivityNavigation {
         loginBinding.userLogic = userViewModel.userLogic
         loginBinding.user = user
 
-        getToken()
         initObservers()
         initNaverLogin()
         initGoogleLogin()
+        getToken()
+
         getHashKey()
 
         return loginBinding.root
     }
+
     private fun getToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if(!task.isSuccessful) {
@@ -72,14 +75,13 @@ class LoginFragment : Fragment(), ActivityNavigation {
             }
             val mtoken = task.result
             userViewModel.token = mtoken.toString()
+            userViewModel.userLogic.checkLogin(user, mOAuthLoginModule.getState(context))
         }
     }
 
     override fun onStart() {
         super.onStart()
         val auth = FirebaseAuth.getInstance()
-
-        userViewModel.userLogic.checkLogin(user, mOAuthLoginModule.getState(context))
 
         auth.currentUser?: run {
             auth.signInAnonymously()
@@ -127,7 +129,14 @@ class LoginFragment : Fragment(), ActivityNavigation {
         userViewModel.loginEvent.observe(viewLifecycleOwner, Observer {
             val mainIntent = Intent(context, MainActivity::class.java)
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(mainIntent)
+            val bundle = activity?.intent?.extras
+            val bundleSent = bundleOf()
+            if(bundle != null) {
+                bundleSent.putString("invite_type", bundle.get("invite_type").toString())
+                bundleSent.putString("target_name", bundle.get("target_name").toString())
+                bundleSent.putString("inviter", bundle.get("inviter").toString())
+            }
+            startActivity(mainIntent, bundleSent)
             requireActivity().finish()
         })
         userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
@@ -169,6 +178,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
         userViewModel.setGoogleClient(googleSignInClient)
 
         loginBinding.buttonGoogleLogin.setOnClickListener {
+            if(userViewModel.token == "") return@setOnClickListener
             userViewModel.userLogic.onGoogleLoginClick()
         }
         userViewModel.googleLoginEvent.setEventReceiver(this, this)

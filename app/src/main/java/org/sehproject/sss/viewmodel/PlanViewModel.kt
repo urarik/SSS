@@ -1,5 +1,6 @@
 package org.sehproject.sss.viewmodel
 
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -80,9 +81,11 @@ class PlanViewModel : ViewModel() {
     val createPlanEvent = SingleLiveEvent<Any>()
     val createPlanFailEvent = SingleLiveEvent<Int>()
     val createPlanOcrEvent = SingleLiveEvent<Any>()
+    val createPlanOcrFailEvent = SingleLiveEvent<String>()
     val createPlanOcrDoneEvent = SingleLiveEvent<Plan>()
     val uploadImgEvent = SingleLiveEvent<Any>()
     val createPlanTypeEvent = SingleLiveEvent<Any>()
+    val createPlanTypeFailEvent = SingleLiveEvent<String>()
     val createPlanCompleteEvent = SingleLiveEvent<Int>()
     val viewPlanDetailsEvent = SingleLiveEvent<Int>()
     val makePlanPublicCompleteEvent = SingleLiveEvent<Int>()
@@ -100,4 +103,5 @@ class PlanViewModel : ViewModel() {
     val isLastPlan = SingleLiveEvent<Boolean>()
     val selectedPlanUserList = mutableListOf<String>()
     var is_invite: Boolean = true
+    lateinit var ocrBitmap: Bitmap
 }

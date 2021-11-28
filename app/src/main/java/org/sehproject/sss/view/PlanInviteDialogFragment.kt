@@ -32,39 +32,21 @@ class PlanInviteDialogFragment: DialogFragment() {
             inviteFriendBinding.buttonPlanInviteDone.text = "퇴장"
         inviteFriendBinding.isInvite = safeArgs.isInvite
         inviteFriendBinding.planLogic = planViewModel!!.planLogic
-
-//        var inviteFriendBinding: FragmentInviteFriendBinding? = null
-//        var kickOutFriendBinding: FragmentBanBinding? = null
-//        var view: View
-//        var recyclerView: RecyclerView
-//
-//        if (safeArgs.isInvite) {
-//            inviteFriendBinding =
-//                DataBindingUtil.inflate(layoutInflater, R.layout.fragment_invite_friend, container, false)
-//            view = inviteFriendBinding.root
-//            recyclerView = inviteFriendBinding.searchRecyclerView
-//            inviteFriendBinding.planLogic = planViewModel!!.planLogic
-//        } else {
-//            kickOutFriendBinding =
-//                DataBindingUtil.inflate(layoutInflater, R.layout.fragment_ban, container, false)
-//            view = kickOutFriendBinding.root
-//            recyclerView = kickOutFriendBinding.searchRecyclerView
-//            kickOutFriendBinding.planLogic = planViewModel!!.planLogic
-//        }
-
+        inviteFriendBinding.pid = safeArgs.pid
         planViewModel?.setFriendList()
-        initObserver(recyclerView)
+        initObserver(recyclerView, safeArgs.pid)
 
         return inviteFriendBinding.root
     }
 
-    fun initObserver(recyclerView: RecyclerView) {
+    fun initObserver(recyclerView: RecyclerView, pid: Int) {
         val navController = findNavController()
         planViewModel!!.invitePlanCompleteEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.planDetailFragment)
+            navController.popBackStack()
         })
         planViewModel!!.kickOutPlanCompleteEvent.observe(viewLifecycleOwner, {
-            navController.navigate(R.id.planDetailFragment)
+            val action = PlanInviteDialogFragmentDirections.actionPlanInviteDialogFragmentToPlanDetailFragment(pid)
+            navController.navigate(action)
         })
         planViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
             adapter = UserAdapter(it)

@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="plan"
+            type="org.sehproject.sss.datatype.Plan" />
+        <variable
             name="planLogic"
             type="org.sehproject.sss.logic.PlanLogic" />
     </data>
