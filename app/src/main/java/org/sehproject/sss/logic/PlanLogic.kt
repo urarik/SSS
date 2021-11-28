@@ -76,7 +76,11 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     fun onCompletePlanClick(plan: Plan) {
         planViewModel.planRepository.completePlan(plan.pid!!) { code: Int ->
             if(code == 0) {
-                planViewModel.completePlanCompleteEvent.call()
+                planViewModel.planRepository.addPoint(100) { code: Int ->
+                    if(code == 0) {
+                        planViewModel.completePlanCompleteEvent.call()
+                    }
+                }
             }
         }
     }

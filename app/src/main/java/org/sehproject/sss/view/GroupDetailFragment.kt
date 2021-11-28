@@ -51,6 +51,7 @@ class GroupDetailFragment : Fragment() {
 
         groupViewModel.setGroup(safeArgs.gid)
         groupDetailBinding.textViewMemberNumDetails.setText(groupViewModel.groupLiveData.value?.participants?.size.toString() + "명")
+        Log.d("TAG", groupViewModel.groupLiveData.value?.participants.toString())
 
         return groupDetailBinding.root
     }
