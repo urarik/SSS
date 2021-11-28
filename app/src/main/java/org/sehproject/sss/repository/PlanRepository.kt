@@ -329,7 +329,8 @@ class PlanRepository {
                 if (!task.isSuccessful) {
                     onResult(1, null)
                 } else {
-                    val annotation = task.result!!.asJsonArray[0].asJsonObject["fullTextAnnotation"].asJsonObject
+                    val annotation =
+                        task.result!!.asJsonArray[0].asJsonObject["fullTextAnnotation"].asJsonObject
                     val string = annotation["text"].asString
                     onResult(0, string)
                 }
