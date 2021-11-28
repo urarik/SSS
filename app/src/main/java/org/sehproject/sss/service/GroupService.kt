@@ -84,7 +84,7 @@ interface GroupService {
 
     ): Call<GenericResponse>
 
-    @POST("group/kickout")
+    @POST("group/kick")
     @FormUrlEncoded
     fun requestKickOutGroup(
         @Field("gid")

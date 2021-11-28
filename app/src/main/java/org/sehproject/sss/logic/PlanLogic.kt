@@ -165,7 +165,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
 
     fun onPublicPlanClick(plan: Plan, isChecked: Boolean) {
         Log.d("TAG", "plan: $plan\nisChecked: $isChecked")
-        planViewModel.planRepository.setPlanVisibility(plan.pid!!, true) { code ->
+        planViewModel.planRepository.setPlanVisibility(plan.pid!!, isChecked) { code ->
             if(code ==0)
                 planViewModel.makePlanPublicCompleteEvent.call()
         }
