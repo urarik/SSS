@@ -85,6 +85,9 @@ interface PlanService {
         @Field("pid")
         planId: Int,
 
+        @Field("userid")
+        userId: String,
+
         @Field("target_userid_list")
         userIdList: List<String>
     ): Call<GenericResponse>

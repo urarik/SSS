@@ -150,16 +150,20 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         if(plan.pid == -1) planViewModel.createPlanTypeFailEvent.value = plan.name
         else onCreatePlanDoneClick(plan)
     }
-    fun onAcceptPlanClick()
+    fun onAcceptPlanClick(pid: Int)
     {
-        //planViewModel.planRepository.acceptPlan()
-        planViewModel.acceptPlanInviteEvent.call()
+        planViewModel.planRepository.acceptPlan(pid, true) { code ->
+            if(code == 0)
+                planViewModel.acceptPlanInviteEvent.call()
+        }
     }
 
-    fun onRefusePlanClick()
+    fun onRefusePlanClick(pid: Int)
     {
-        //planViewModel.planRepository.acceptPlan()
-        planViewModel.refusePlanInviteEvent.call()
+        planViewModel.planRepository.acceptPlan(pid, false) { code ->
+            if(code == 0)
+                planViewModel.refusePlanInviteEvent.call()
+        }
     }
 
 

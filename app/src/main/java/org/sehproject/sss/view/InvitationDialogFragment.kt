@@ -36,7 +36,9 @@ class InvitationDialogFragment : DialogFragment() {
         // Inflate the layout for this fragment
         val invitationBinding: FragmentInvitationBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_invitation, container, false)
 
-        val invitation = Invitation(requireArguments().getString("invite_type")!!,
+        val invitation = Invitation(
+            requireArguments().getInt("id"),
+            requireArguments().getString("invite_type")!!,
             requireArguments().getString("inviter")!!,
             requireArguments().getString("target_name")!!)
 
