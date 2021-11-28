@@ -160,7 +160,7 @@ class PlanRepository {
     }
 
     fun invitePlan(pid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
-        val invitePlanCall = planService.requestInvitePlan(pid, userIdList)
+        val invitePlanCall = planService.requestInvitePlan(pid, UserInfo.userId, userIdList)
         invitePlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(invitePlanCall) {
             override fun onResponse(
                 call: Call<GenericResponse>,

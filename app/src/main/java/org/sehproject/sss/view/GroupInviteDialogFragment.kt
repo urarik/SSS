@@ -35,29 +35,8 @@ class GroupInviteDialogFragment: DialogFragment() {
         inviteFriendBinding.gid = safeArgs.gid
         inviteFriendBinding.groupLogic = groupViewModel!!.groupLogic
 
-//        var inviteFriendBinding: FragmentInviteFriendBinding? = null
-//        var kickOutFriendBinding: FragmentBanBinding? = null
-//        var view: View
-//        var recyclerView: RecyclerView
-//
-//        if (safeArgs.isInvite) {
-//            inviteFriendBinding =
-//                DataBindingUtil.inflate(layoutInflater, R.layout.fragment_invite_friend, container, false)
-//            view = inviteFriendBinding.root
-//            recyclerView = inviteFriendBinding.searchRecyclerView
-//        } else {
-//            kickOutFriendBinding =
-//                DataBindingUtil.inflate(layoutInflater, R.layout.fragment_ban, container, false)
-//            view = kickOutFriendBinding.root
-//            recyclerView = kickOutFriendBinding.searchRecyclerView
-//        }
 
          groupViewModel?.setFriendList()
-//        groupViewModel?.setFriendList()
-//        groupViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
-//            adapter = UserAdapter(it)
-//            recyclerView.adapter = adapter
-//        })
 
         initObserver(recyclerView)
         Log.d("TAG", inviteFriendBinding.isInvite.toString())
