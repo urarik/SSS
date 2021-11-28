@@ -71,7 +71,7 @@ interface GroupService {
         userIdList: List<String>
     ): Call<GenericResponse>
 
-    @POST("group/accept")
+    @POST("group/invite/accept")
     @FormUrlEncoded
     fun requestAcceptGroup(
         @Field("gid")
@@ -80,7 +80,7 @@ interface GroupService {
         @Field("userid")
         userId: String,
 
-        @Field("accept")
+        @Field("is_accepted")
         isAccept: Boolean
 
     ): Call<GenericResponse>

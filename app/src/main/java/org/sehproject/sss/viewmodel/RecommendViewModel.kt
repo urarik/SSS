@@ -18,7 +18,7 @@ class RecommendViewModel : ViewModel() {
         }
     }
 
-    val popularPlaceLiveData = MutableLiveData<List<Place>>()
+    val popularPlaceLiveData = MutableLiveData<List<String>>()
     val recommendEvent = SingleLiveEvent<Any>()
     val recommendResultEvent = SingleLiveEvent<Any>()
 }
