@@ -23,11 +23,11 @@ class RecommendFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val recommendBinding: FragmentRecommendBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_recommend, container, false)
 
-        recommendBinding.recommendLogic = recommendViewModel.recommendLogic
         initObserver(recommendBinding)
+
         recommendViewModel.setPlaces()
 
         return recommendBinding.root
@@ -41,15 +41,14 @@ class RecommendFragment : Fragment() {
 
 
 
-    protected inner class PlaceHolder(private val itemPlaceBinding: ItemPlaceBinding) : RecyclerView.ViewHolder(itemPlaceBinding.root) {
-
+    private inner class PlaceHolder(private val itemPlaceBinding: ItemPlaceBinding) : RecyclerView.ViewHolder(itemPlaceBinding.root) {
         @RequiresApi(Build.VERSION_CODES.Q)
         fun bind(place: String) {
             //itemPlaceBinding.imageRecommendPlace.setImageBitmap(place.image)
             itemPlaceBinding.textLocationName.text = place
         }
     }
-    protected inner class PlaceAdapter(val places: List<String>) :
+    private inner class PlaceAdapter(val places: List<String>) :
         RecyclerView.Adapter<PlaceHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceHolder {

@@ -1,10 +1,15 @@
 package org.sehproject.sss.logic
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.nhn.android.naverlogin.OAuthLogin
+import com.nhn.android.naverlogin.OAuthLoginHandler
 import com.nhn.android.naverlogin.data.OAuthLoginState
 import org.json.JSONObject
 import org.sehproject.sss.UserInfo
+import org.sehproject.sss.dao.NaverAsyncTask
 import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.viewmodel.UserViewModel
@@ -31,7 +36,6 @@ class UserLogic(val userViewModel: UserViewModel) {
                 }
                 1 -> //Google
                 {
-                    //userViewModel.loginEvent.call()
                     userViewModel.userRepository.apiLogin(account.apiId, userViewModel.token) { code, nickName, id ->
                         if (code == 0) {
                             if (auth.currentUser != null) {
@@ -60,6 +64,7 @@ class UserLogic(val userViewModel: UserViewModel) {
             }
         }
     }
+
     // local
     fun onLoginClick(user: AccountXML) {
         if(userViewModel.token == "") return
@@ -72,16 +77,15 @@ class UserLogic(val userViewModel: UserViewModel) {
             if (code == 0) {
                 updateUserInfo(user.userId, user.password, nickName, 0)
             } else if (code == 1) {
-                userViewModel.loginFailEvent.call()
+                userViewModel.loginFailEvent.value = "ID나 비밀번호가 일치하지 않습니다."
             }
         }
-        // userViewModel.loginEvent.call()
     }
     fun apiLogin(apiId: String, flag: Int) {
         userViewModel.userRepository.apiLogin(apiId, userViewModel.token) {code, nickName, id ->
             if(code == 0)
                 updateUserInfo(id!!, "", nickName, flag, apiId)
-            else Log.d("TAG", "api Login error. code $code")
+            else userViewModel.loginFailEvent.value = "api Login error. code $code"
         }
     }
 
@@ -152,7 +156,7 @@ class UserLogic(val userViewModel: UserViewModel) {
             }
         }
 
-    fun updateUserInfo(id: String, password: String?, nickName: String?, flag: Int, apiId: String = "") {
+    private fun updateUserInfo(id: String, password: String?, nickName: String?, flag: Int, apiId: String = "") {
         UserInfo.isLogin = true
         UserInfo.userId = id
         UserInfo.nickname = nickName

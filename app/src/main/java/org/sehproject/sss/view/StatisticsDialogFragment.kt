@@ -35,12 +35,12 @@ class StatisticsDialogFragment: DialogFragment() {
     ): View {
         val statisticsBinding: FragmentStatisticsPointBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_statistics_point, container, false)
         statisticsBinding.profileLogic = profileViewModel.profileLogic
-        val view = statisticsBinding.root
 
-        profileViewModel.setStatistics()
         initObserver(statisticsBinding)
 
-        return view
+        profileViewModel.setStatistics()
+
+        return statisticsBinding.root
     }
 
     fun initObserver(statisticsBinding: FragmentStatisticsPointBinding) {

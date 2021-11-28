@@ -13,7 +13,6 @@ class FriendLogic(val friendViewModel: FriendViewModel) {
         friendViewModel.searchUserEvent.call()
     }
 
-    // 함수 추가
     fun onSearchUserCompleteClick(name: String) {
         friendViewModel.friendRepository.searchUser(name) {code, list ->
             var cnt = 0
@@ -23,14 +22,13 @@ class FriendLogic(val friendViewModel: FriendViewModel) {
             else
                 mlist = mutableListOf()
             if(code == 0) {
-                if (mlist != null)
-                    for (i in mlist) {
-                        if (i.userId == UserInfo.userId) {
-                            mlist.removeAt(cnt)
-                            break
-                        }
-                        cnt++
+                for (i in mlist) {
+                    if (i.userId == UserInfo.userId) {
+                        mlist.removeAt(cnt)
+                        break
                     }
+                    cnt++
+                }
             }
             friendViewModel.userList.value = mlist
         }
@@ -49,13 +47,11 @@ class FriendLogic(val friendViewModel: FriendViewModel) {
                             friendViewModel.addFriendFailEvent.call()
                         }
                     }
-
-                //addFriendEvent is called when a user adds the user for hiding adding button.
                 //It have to be improved by putting "friend" attribute in User data class
-                //in order to hide adding button latter
+                //in order to hide add button latter
                 if (!isFriend) {
-                    friendViewModel.friendRepository.addFriend(friendId) {code ->
-                        if(code == 0)
+                    friendViewModel.friendRepository.addFriend(friendId) {code2 ->
+                        if(code2 == 0)
                             friendViewModel.addFriendEvent.value = button
                     }
                 }

@@ -33,8 +33,7 @@ class InvitationDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         val invitationBinding: FragmentInvitationBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_invitation, container, false)
         val invitation = Invitation(
             requireArguments().getInt("id"),
@@ -60,18 +59,17 @@ class InvitationDialogFragment : DialogFragment() {
     }
 
     private fun initObserver() {
-        //val navController = findNavController()
         planViewModel.acceptPlanInviteEvent.observe(viewLifecycleOwner, {
-            parentFragmentManager.popBackStack()
+            dismiss()
         })
         planViewModel.refusePlanInviteEvent.observe(viewLifecycleOwner, {
-            parentFragmentManager.popBackStack()
+            dismiss()
         })
         groupViewModel.acceptGroupInviteEvent.observe(viewLifecycleOwner, {
-            parentFragmentManager.popBackStack()
+            dismiss()
         })
         groupViewModel.refuseGroupInviteEvent.observe(viewLifecycleOwner, {
-            parentFragmentManager.popBackStack()
+            dismiss()
         })
     }
 

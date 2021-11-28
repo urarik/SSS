@@ -21,7 +21,9 @@ import com.nhn.android.naverlogin.OAuthLogin
 import org.sehproject.sss.R
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentDialogRegisterBinding
+import org.sehproject.sss.logic.UserLogic
 import org.sehproject.sss.utils.ActivityNavigation
+import org.sehproject.sss.utils.NaverLoginHandler
 import org.sehproject.sss.utils.UserViewModelFactory
 import org.sehproject.sss.viewmodel.UserViewModel
 
@@ -39,7 +41,7 @@ class RegisterChooserFragment: Fragment(), ActivityNavigation {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreate(savedInstanceState)
         val registerDialogBinding : FragmentDialogRegisterBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_dialog_register, container, false)
@@ -48,14 +50,17 @@ class RegisterChooserFragment: Fragment(), ActivityNavigation {
         initGoogleLogin(registerDialogBinding)
         initNaverLogin(registerDialogBinding)
         initObserver()
+
         return registerDialogBinding.root
-        }
+    }
+
     private fun initObserver() {
         val navController = findNavController()
         userViewModel.registerApiEvent.observe(viewLifecycleOwner, {
             val action = RegisterChooserFragmentDirections.actionRegisterChooserFragmentToRegisterFragment(it)
             navController.navigate(action)
         })
+
         userViewModel.registerEvent.observe(viewLifecycleOwner, {
             val action = RegisterChooserFragmentDirections.actionRegisterChooserFragmentToRegisterFragment("")
             navController.navigate(action)
@@ -73,7 +78,7 @@ class RegisterChooserFragment: Fragment(), ActivityNavigation {
         )
 
         val mOAuthLoginHandler =
-            UserViewModel.NaverLoginHandler(
+            NaverLoginHandler(
                 requireActivity().baseContext,
                 mOAuthLoginModule,
                 userViewModel.userLogic::naverRegisterCallback

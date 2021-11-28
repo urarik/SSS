@@ -28,13 +28,18 @@ class PlanInviteDialogFragment: DialogFragment() {
 
         val inviteFriendBinding: FragmentPlanInviteBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_invite, container, false)
         val recyclerView = inviteFriendBinding.searchRecyclerView
+
+        initObserver(recyclerView, safeArgs.pid)
+
         if(!safeArgs.isInvite)
             inviteFriendBinding.buttonPlanInviteDone.text = "퇴장"
         inviteFriendBinding.isInvite = safeArgs.isInvite
         inviteFriendBinding.planLogic = planViewModel!!.planLogic
         inviteFriendBinding.pid = safeArgs.pid
-        planViewModel?.setFriendList()
-        initObserver(recyclerView, safeArgs.pid)
+        if(safeArgs.isInvite)
+            planViewModel?.setFriendList(-1)
+        else
+            planViewModel?.setFriendList(safeArgs.pid)
 
         return inviteFriendBinding.root
     }
@@ -44,10 +49,12 @@ class PlanInviteDialogFragment: DialogFragment() {
         planViewModel!!.invitePlanCompleteEvent.observe(viewLifecycleOwner, {
             navController.popBackStack()
         })
+
         planViewModel!!.kickOutPlanCompleteEvent.observe(viewLifecycleOwner, {
             val action = PlanInviteDialogFragmentDirections.actionPlanInviteDialogFragmentToPlanDetailFragment(pid)
             navController.navigate(action)
         })
+
         planViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
             adapter = UserAdapter(it)
             recyclerView.adapter = adapter

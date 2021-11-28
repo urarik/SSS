@@ -1,9 +1,12 @@
 package org.sehproject.sss.logic
 
 import android.util.Log
+import android.widget.Adapter
+import android.widget.AdapterView
 import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
+import org.sehproject.sss.view.GroupListFragment
 import org.sehproject.sss.viewmodel.GroupViewModel
 
 class GroupLogic(private val groupViewModel: GroupViewModel) {
@@ -37,7 +40,6 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 
     fun onEditGroupClick(group: Group)
     {
-        Log.d("TAG", "edit")
         groupViewModel.editGroupEvent.value = group
     }
 
@@ -74,7 +76,6 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 
     fun onKickOutGroupCompleteClick(gid: Int) {
         groupViewModel.groupRepository.kickOutGroup(gid, groupViewModel.selectedGroupUserList) { code: Int ->
-            Log.d("TAG", code.toString())
             if(code == 0) {
                 groupViewModel.kickOutGroupCompleteEvent.call()
             }
@@ -82,10 +83,8 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     }
 
     fun onExitGroupClick(gid: Int) {
-        Log.d("TAG", "hi")
         groupViewModel.groupRepository.exitGroup(gid) { code ->
             if (code == 0) {
-                Log.d("TAG", code.toString())
                 groupViewModel.exitGroupCompleteEvent.call()
             }
         }
@@ -99,7 +98,6 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     fun onInviteGroupDoneClick(gid: Int)
     {
         groupViewModel.groupRepository.inviteGroup(gid, groupViewModel.selectedGroupUserList) { code: Int ->
-            Log.d("TAG", code.toString() + " " + groupViewModel.selectedGroupUserList.toString())
             if(code == 0) {
                 groupViewModel.inviteGroupCompleteEvent.call()
             }
@@ -112,9 +110,16 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     }
 
 
-    fun getGroup(groupid: Int)
-    {
-
+    fun onSortingClick(pos: Int) {
+        if (pos == 0 && groupViewModel.groupListLiveData.value != null) {
+            groupViewModel.groupListLiveData.value =
+                sortGroupByName(groupViewModel.groupListLiveData.value!!)
+            groupViewModel.sortEvent.call()
+        } else if (pos == 1 && groupViewModel.groupListLiveData.value != null) {
+            groupViewModel.groupListLiveData.value =
+                sortGroupByMembers(groupViewModel.groupListLiveData.value!!)
+            groupViewModel.sortEvent.call()
+        }
     }
 
     fun onItemClick(user: User) {

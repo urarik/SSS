@@ -38,7 +38,7 @@ class UserSearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val userSearchBinding: FragmentUserSearchBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_user_search, container, false)
         userSearchBinding.friendLogic = friendViewModel.friendLogic
 
@@ -62,6 +62,7 @@ class UserSearchFragment : Fragment() {
         friendViewModel.addFriendEvent.observe(viewLifecycleOwner, {
             it.visibility = ViewGroup.GONE
         })
+
         friendViewModel.addFriendFailEvent.observe(viewLifecycleOwner, {
             Toast.makeText(context, "이미 친구인 사용자입니다.", Toast.LENGTH_SHORT).show()
         })

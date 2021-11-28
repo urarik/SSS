@@ -32,7 +32,7 @@ class FriendProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val friendProfileBinding: FragmentFriendProfileBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_friend_profile,
@@ -42,12 +42,11 @@ class FriendProfileFragment : Fragment() {
         friendProfileBinding.profileLogic = profileViewModel.profileLogic
 
         val safeArgs: FriendProfileFragmentArgs by navArgs()
-        profileViewModel.setProfile(safeArgs.userId)
-        Log.d("TAG", safeArgs.userId)
-
-        planViewModel.setPlanList(true, safeArgs.userId)
 
         initObserver(friendProfileBinding)
+
+        profileViewModel.setProfile(safeArgs.userId)
+        planViewModel.setPlanList(true, safeArgs.userId)
 
         return friendProfileBinding.root
     }
@@ -58,7 +57,7 @@ class FriendProfileFragment : Fragment() {
         })
 
         profileViewModel.imageBitmapLiveData.observe(viewLifecycleOwner, {
-            var imageView = friendProfileBinding.imageView
+            val imageView = friendProfileBinding.imageView
             imageView.setImageBitmap(profileViewModel.imageBitmapLiveData.value)
         })
 

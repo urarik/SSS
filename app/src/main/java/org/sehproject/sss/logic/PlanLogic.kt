@@ -4,16 +4,12 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Adapter
 import android.widget.AdapterView
-import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.model.Event
-import com.google.api.services.calendar.model.EventDateTime
-import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.utils.StringParser
 import org.sehproject.sss.viewmodel.PlanViewModel
 import java.text.SimpleDateFormat
 import com.google.api.services.calendar.Calendar
-import java.util.Collections.list
 
 class PlanLogic(val planViewModel: PlanViewModel) {
 
@@ -38,7 +34,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     @SuppressLint("SimpleDateFormat")
     fun onCreatePlanDoneClick(plan: Plan) {
-        //테스트용. 테스트 완료 시 craetePlan의 callback에 넣자
         val format = SimpleDateFormat("yyyy-MM-dd hh:mm")
 
         if(plan.group.name == "그룹 없음") plan.group = Group()
@@ -46,10 +41,10 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         val end = format.parse(plan.endTime)
         if(start <= end) {
             planViewModel.planRepository.createPlan(plan) { code ->
-                Log.d("TAG", code.toString())
                 if (code == 0) {
                     planViewModel.createPlanCompleteEvent.call()
-                }
+                } else
+                    planViewModel.createPlanFailEvent.value = code
             }
         } else planViewModel.createPlanFailEvent.value = 1
     }
@@ -71,7 +66,20 @@ class PlanLogic(val planViewModel: PlanViewModel) {
             }
         }
     }
-    fun onDeletePlanRejectClick() {}
+    fun onSortingClick(pos: Int) {
+        if (pos == 0 && planViewModel.planListLiveData.value != null) {
+            planViewModel.planListLiveData.value =
+                planViewModel.planLogic.sortPlanByTime(planViewModel.planListLiveData.value!!)
+            planViewModel.sortEvent.call()
+            planViewModel.isSorted = false
+        } else if (pos == 1&& planViewModel.planListLiveData.value != null) {
+            planViewModel.planListLiveData.value =
+                planViewModel.planLogic.sortPlanByCategory(planViewModel.planListLiveData.value!!)
+            planViewModel.sortEvent.call()
+            planViewModel.isSorted = true
+        }
+    }
+
     fun onCompletePlanClick(plan: Plan) {
         planViewModel.planRepository.completePlan(plan.pid!!) { code: Int ->
             if(code == 0) {
@@ -85,23 +93,19 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         }
     }
     fun onInvitePlanClick(pid: Int) {
-        planViewModel.is_invite = true
+        planViewModel.isInvite = true
         planViewModel.invitePlanEvent.value = pid
     }
     fun onInvitePlanDoneClick(pid: Int) {
-        Log.d("TAG", pid.toString())
-        Log.d("TAG", planViewModel.selectedPlanUserList.toString())
         planViewModel.planRepository.invitePlan(pid, planViewModel.selectedPlanUserList) { code: Int ->
             if(code == 0) {
                 planViewModel.invitePlanCompleteEvent.call()
             }
         }
     }
-    fun onInvitePlanExitClick() {
-        planViewModel.invitePlanCompleteEvent.call()
-    }
+
     fun onKickOutPlanClick(pid: Int) {
-        planViewModel.is_invite = false
+        planViewModel.isInvite = false
         planViewModel.kickOutPlanEvent.value = pid
     }
     fun onKickOutPlanDoneClick(pid: Int) {
@@ -111,7 +115,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
             }
         }
     }
-    fun onKickOutPlanExitClick() {}
     fun onCancelPlanClick(pid: Int) {
         planViewModel.cancelPlanEvent.value = pid
     }
@@ -122,7 +125,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
             }
         }
     }
-    fun onTrackClick() {}
     fun onCreateMemoClick() {
         planViewModel.createMemoEvent.call()
     }
@@ -138,7 +140,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
             }
         }
     }
-    fun onCreateMemoExitClick() {}
     fun onDeleteMemoClick(pid: Int) {
         Log.d("TAG", pid.toString())
         planViewModel.planRepository.deleteMemo(pid) { code ->
@@ -200,10 +201,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
                 else onCreatePlanDoneClick(plan)
             }
         }
-    }
-
-    fun onPreviousPlanListToggle(parent: AdapterView<out Adapter>, pos: Int) {
-
     }
     @SuppressLint("SimpleDateFormat")
     fun onViewPlanClick(pid: Int, endTime: String) {

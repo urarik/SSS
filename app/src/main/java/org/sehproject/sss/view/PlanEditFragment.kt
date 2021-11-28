@@ -40,17 +40,17 @@ class PlanEditFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val planEditBinding: FragmentPlanEditBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_edit, container, false)
         planEditBinding.planLogic = planViewModel.planLogic
 
         val safeArgs: PlanEditFragmentArgs by navArgs()
-        //plan id가 null이면 create else edit
-        planEditBinding.plan = safeArgs.plan
-        groupViewModel.setGroupList()
 
         initObserver(planEditBinding, safeArgs.plan)
+
+        planEditBinding.plan = safeArgs.plan
+        groupViewModel.setGroupList()
 
         return planEditBinding.root
     }
@@ -61,6 +61,7 @@ class PlanEditFragment : Fragment() {
             Log.d("TAG", "hi")
             navController.popBackStack()
         })
+
         planViewModel.createPlanCompleteEvent.observe(viewLifecycleOwner, {
             navController.popBackStack()
         })
@@ -68,9 +69,11 @@ class PlanEditFragment : Fragment() {
         planViewModel.startDatePickEvent.observe(viewLifecycleOwner, {
             pickDateTime(it, true, planEditBinding)
         })
+
         planViewModel.endDatePickEvent.observe(viewLifecycleOwner, {
             pickDateTime(it, false, planEditBinding)
         })
+
         groupViewModel.groupListLiveData.observe(viewLifecycleOwner, {
             val listWithEmpty = it.toMutableList()
             listWithEmpty.add(0, Group(name = "그룹 없음"))
@@ -105,6 +108,7 @@ class PlanEditFragment : Fragment() {
             ).setApplicationName("Test").build()
             planViewModel.planLogic.syncCalendar(mService, it)
         })
+
         planViewModel.createPlanFailEvent.observe(viewLifecycleOwner, {
             Toast.makeText(context, when(it) {
                 1 -> "시작 시간이 종료 시간보다 미래입니다."

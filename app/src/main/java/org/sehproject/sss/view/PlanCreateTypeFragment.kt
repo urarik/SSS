@@ -21,7 +21,7 @@ class PlanCreateTypeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val planCreateTypeBinding: FragmentPlanCreateTypeBinding = DataBindingUtil.inflate(
             layoutInflater,
@@ -29,6 +29,8 @@ class PlanCreateTypeFragment : Fragment() {
             container,
             false
         )
+        initObserver()
+
         planCreateTypeBinding.planLogic = planViewModel.planLogic
         planCreateTypeBinding.planType = ""
 
