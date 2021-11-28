@@ -118,7 +118,7 @@ class GroupRepository {
     }
 
     fun inviteGroup(gid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
-        val inviteGroupCall = groupService.requestInviteGroup(gid, userIdList)
+        val inviteGroupCall = groupService.requestInviteGroup(gid, UserInfo.userId, userIdList)
         inviteGroupCall.enqueue(object : CallbackWithRetry<GenericResponse>(inviteGroupCall) {
             override fun onResponse(
                 call: Call<GenericResponse>,

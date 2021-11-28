@@ -35,6 +35,7 @@ class PlanRepository {
             plan.endTime,
             plan.location,
             plan.category,
+            plan.group.gid,
             UserInfo.userId
         )
         createPlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(createPlanCall) {
@@ -88,7 +89,8 @@ class PlanRepository {
             plan.startTime,
             plan.endTime,
             plan.location,
-            plan.category
+            plan.category,
+            plan.group.gid
         )
         editPlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(editPlanCall) {
             override fun onResponse(
@@ -158,7 +160,7 @@ class PlanRepository {
     }
 
     fun invitePlan(pid: Int, userIdList: List<String>, onResult: (Int) -> Unit) {
-        val invitePlanCall = planService.requestInvitePlan(pid, userIdList)
+        val invitePlanCall = planService.requestInvitePlan(pid, UserInfo.userId, userIdList)
         invitePlanCall.enqueue(object : CallbackWithRetry<GenericResponse>(invitePlanCall) {
             override fun onResponse(
                 call: Call<GenericResponse>,
@@ -442,6 +444,29 @@ class PlanRepository {
             override fun onFailure(call: Call<MemoListResponse>, t: Throwable) {
                 super.onFailure {
                     onResult(-1, null)
+                }
+            }
+        })
+    }
+
+    fun addPoint(point: Int, onResult: (Int) -> Unit) {
+        val addPointCall = planService.requestAddPoint(UserInfo.userId, point)
+        addPointCall.enqueue(object : CallbackWithRetry<GenericResponse>(addPointCall) {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
+            ) {
+                val code = response.body()?.code
+                if (code == 0) {
+                    onResult(0)
+                } else {
+                    onResult(1)
+                }
+            }
+
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+                super.onFailure {
+                    onResult(-1)
                 }
             }
         })

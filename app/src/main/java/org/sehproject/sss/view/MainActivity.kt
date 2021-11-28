@@ -50,14 +50,12 @@ import org.sehproject.sss.utils.ViewPagerPageChangeCallback
 
 class MainActivity : AppCompatActivity() {
     private val PERMISSION = 3333
-    private val sfm = supportFragmentManager
     private lateinit var mOnItemSelectedListener: NavigationBarView.OnItemSelectedListener
     private val mMessageReceiver = object: BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val bundle = intent!!.extras
             processNotification(bundle!!)
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,6 +103,7 @@ class MainActivity : AppCompatActivity() {
         bundleSent.putString("invite_type", bundle.get("invite_type").toString())
         bundleSent.putString("target_name", bundle.get("target_name").toString())
         bundleSent.putString("inviter", bundle.get("inviter").toString())
+        bundleSent.putInt("inviter", bundle.get("id") as Int)
 
         supportFragmentManager.commit {
             setReorderingAllowed(true)

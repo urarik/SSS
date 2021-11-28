@@ -29,6 +29,9 @@ interface PlanService {
         @Field("category")
         category: String,
 
+        @Field("gid")
+        gid: Int?,
+
         @Field("creator")
         creator: String
     ): Call<GenericResponse>
@@ -59,7 +62,10 @@ interface PlanService {
         location: String,
 
         @Field("category")
-        category: String
+        category: String,
+
+        @Field("gid")
+        gid: Int?
     ): Call<GenericResponse>
 
     @POST("plan/complete")
@@ -84,6 +90,9 @@ interface PlanService {
     fun requestInvitePlan(
         @Field("pid")
         planId: Int,
+
+        @Field("userid")
+        userId: String,
 
         @Field("target_userid_list")
         userIdList: List<String>
@@ -176,4 +185,14 @@ interface PlanService {
         @Field("pid")
         planId: Int
     ): Call<MemoListResponse>
+
+    @POST("plan/point")
+    @FormUrlEncoded
+    fun requestAddPoint(
+        @Field("userid")
+        userId: String,
+
+        @Field("point")
+        point: Int
+    ): Call<GenericResponse>
 }

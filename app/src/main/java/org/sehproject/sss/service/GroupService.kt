@@ -65,7 +65,8 @@ interface GroupService {
     fun requestInviteGroup(
         @Field("gid")
         groupId: Int,
-
+        @Field("userid")
+        userId: String,
         @Field("target_userid_list")
         userIdList: List<String>
     ): Call<GenericResponse>
@@ -84,7 +85,7 @@ interface GroupService {
 
     ): Call<GenericResponse>
 
-    @POST("group/kickout")
+    @POST("group/kick")
     @FormUrlEncoded
     fun requestKickOutGroup(
         @Field("gid")

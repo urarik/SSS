@@ -52,16 +52,18 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
         }
     }
 
-    fun onAcceptGroupClick()
+    fun onAcceptGroupClick(gid: Int)
     {
-        //groupViewModel.groupRepository.acceptGroup()
-        groupViewModel.acceptGroupInviteEvent.call()
+        groupViewModel.groupRepository.acceptGroup(gid, true) {code ->
+            groupViewModel.acceptGroupInviteEvent.call()
+        }
     }
 
-    fun onRefuseGroupClick()
+    fun onRefuseGroupClick(gid: Int)
     {
-        //groupViewModel.groupRepository.acceptGroup()
-        groupViewModel.refuseGroupInviteEvent.call()
+        groupViewModel.groupRepository.acceptGroup(gid, false) {code ->
+            groupViewModel.refuseGroupInviteEvent.call()
+        }
     }
 
     fun onKickOutGroupClick(gid: Int) {
