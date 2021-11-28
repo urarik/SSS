@@ -49,7 +49,6 @@ import org.sehproject.sss.utils.ViewPagerAdapter
 import org.sehproject.sss.utils.ViewPagerPageChangeCallback
 
 class MainActivity : AppCompatActivity() {
-    private val PERMISSION = 3333
     private lateinit var mOnItemSelectedListener: NavigationBarView.OnItemSelectedListener
     private val mMessageReceiver = object: BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super<AppCompatActivity>.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.navigation_activity)
 
         val bundle = intent.extras
@@ -86,26 +85,10 @@ class MainActivity : AppCompatActivity() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver)
     }
 
-/*        bottomNav.setOnItemSelectedListener { item ->
-            Log.d("TAG", sfm.backStackEntryCount.toString())
-            navController.navigate(item.itemId)
-            sfm.popBackStackImmediate("약속 목록", 0)
-            true
-        }
-    }*/
-
-    override fun onDestroy() {
-        super<AppCompatActivity>.onDestroy()
-    }
-
     private fun processNotification(bundle: Bundle) {
         val invitationDialogFragment = InvitationDialogFragment()
 
         invitationDialogFragment.arguments = bundle
         invitationDialogFragment.show(supportFragmentManager, "msg")
-//        supportFragmentManager.commit {
-//            setReorderingAllowed(true)
-//            add<InvitationDialogFragment>(R.id.view_pager, args = bundle)
-//        }
     }
 }

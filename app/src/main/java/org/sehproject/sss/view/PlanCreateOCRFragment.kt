@@ -32,12 +32,11 @@ class PlanCreateOCRFragment : Fragment() {
     val planViewModel: PlanViewModel by lazy {
         ViewModelProvider(this).get(PlanViewModel::class.java)
     }
-    val REQUEST_IMAGE_CAPTURE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val planCreateOCRBinding: FragmentPlanCreateOcrBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_plan_create_ocr,
@@ -45,7 +44,6 @@ class PlanCreateOCRFragment : Fragment() {
             false
         )
         planCreateOCRBinding.planLogic = planViewModel.planLogic
-
 
         val register = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -59,12 +57,11 @@ class PlanCreateOCRFragment : Fragment() {
             }
         }
 
-        initObserver(planCreateOCRBinding, register)
+        initObserver(register)
         return planCreateOCRBinding.root
     }
 
     private fun initObserver(
-        planCreateOcrBinding: FragmentPlanCreateOcrBinding,
         register: ActivityResultLauncher<Intent>
     ) {
         planViewModel.uploadImgEvent.observe(viewLifecycleOwner, {

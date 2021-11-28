@@ -10,12 +10,33 @@ import org.sehproject.sss.logic.GroupLogic
 import org.sehproject.sss.repository.FriendRepository
 import org.sehproject.sss.repository.GroupRepository
 import org.sehproject.sss.utils.SingleLiveEvent
+import org.sehproject.sss.view.GroupListFragment
 
 class GroupViewModel : ViewModel() {
     val groupLogic = GroupLogic(this)
     val groupRepository = GroupRepository()
     val friendRepository = FriendRepository()
 
+    val createGroupEvent = SingleLiveEvent<Int>()
+    val setColorEvent = SingleLiveEvent<Group>()
+    val createGroupCompleteEvent = SingleLiveEvent<Group>()
+    val deleteGroupEvent = SingleLiveEvent<Int>()
+    val deleteGroupCompleteEvent = SingleLiveEvent<Any>()
+    val editGroupEvent = SingleLiveEvent<Group>()
+    val editGroupCompleteEvent = SingleLiveEvent<Group>()
+    val inviteGroupEvent = SingleLiveEvent<Int>()
+    val inviteGroupCompleteEvent = SingleLiveEvent<Any>()
+    val kickOutGroupEvent = SingleLiveEvent<Int>()
+    val kickOutGroupCompleteEvent = SingleLiveEvent<Any>()
+    val viewGroupDetailsEvent = SingleLiveEvent<Int>()
+    val exitGroupCompleteEvent = SingleLiveEvent<Any>()
+    val sortEvent = SingleLiveEvent<Any>()
+    val acceptGroupInviteEvent = SingleLiveEvent<Any>()
+    val refuseGroupInviteEvent = SingleLiveEvent<Any>()
+    val friendListLiveData = MutableLiveData<List<User>>()
+    val groupLiveData = MutableLiveData<Group>()
+    val groupListLiveData = MutableLiveData<List<Group>>()
+    val selectedGroupUserList = mutableListOf<String>()
 
     fun setFriendList() {
         friendRepository.getFriendList { _, list ->
@@ -28,7 +49,7 @@ class GroupViewModel : ViewModel() {
            var mlist: MutableList<Group>? = null
            if(i == 0) {
                 mlist = list as MutableList<Group>
-                groupListLiveData.value = groupLogic.sortGroupByName(mlist!!)
+                groupListLiveData.value = groupLogic.sortGroupByName(mlist)
            }
         }
     }
@@ -47,29 +68,4 @@ class GroupViewModel : ViewModel() {
         }
 
     }
-
-
-    val createGroupEvent = SingleLiveEvent<Int>()
-    val setColorEvent = SingleLiveEvent<Group>()
-    val createGroupCompleteEvent = SingleLiveEvent<Group>()
-    val deleteGroupEvent = SingleLiveEvent<Int>()
-    val deleteGroupCompleteEvent = SingleLiveEvent<Any>()
-    val editGroupEvent = SingleLiveEvent<Group>()
-    val editGroupCompleteEvent = SingleLiveEvent<Group>()
-    val inviteGroupEvent = SingleLiveEvent<Int>()
-    val inviteGroupCompleteEvent = SingleLiveEvent<Any>()
-    val kickOutGroupEvent = SingleLiveEvent<Int>()
-    val kickOutGroupCompleteEvent = SingleLiveEvent<Any>()
-    val viewGroupDetailsEvent = SingleLiveEvent<Int>()
-    val exitGroupCompleteEvent = SingleLiveEvent<Any>()
-    val viewGroupDetailsCompleteEvent = SingleLiveEvent<Any>()
-    val viewGroupEvent = SingleLiveEvent<Any>()
-    val viewGroupCompleteEvent = SingleLiveEvent<Any>()
-    val inputGroupInfoProcessEvent = SingleLiveEvent<Any>()
-    val acceptGroupInviteEvent = SingleLiveEvent<Any>()
-    val refuseGroupInviteEvent = SingleLiveEvent<Any>()
-    val friendListLiveData = MutableLiveData<List<User>>()
-    val groupLiveData = MutableLiveData<Group>()
-    val groupListLiveData = MutableLiveData<List<Group>>()
-    val selectedGroupUserList = mutableListOf<String>()
 }

@@ -14,9 +14,6 @@ class FriendViewModel : ViewModel() {
     val friendLogic = FriendLogic(this)
     val friendRepository = FriendRepository()
 
-    val userIdOrNickName = MutableLiveData<String>()
-
-    // ArrayList -> List로 변경
     val userList = MutableLiveData<List<User>>()
     val friendList = MutableLiveData<List<User>>()
     val searchUserEvent = SingleLiveEvent<Any>()
@@ -26,7 +23,6 @@ class FriendViewModel : ViewModel() {
     val listFriendEvent = SingleLiveEvent<String>()
     val addFriendFailEvent = SingleLiveEvent<Any>()
 
-    // Logic에서 ViewModel로 변경, ArrayList -> List로 변경, Return 삭제
     fun setFriendList() {
         friendRepository.getFriendList() {code, list ->
             if(code == 0) {

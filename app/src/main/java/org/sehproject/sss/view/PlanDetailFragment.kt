@@ -2,7 +2,6 @@ package org.sehproject.sss.view
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,6 @@ import org.sehproject.sss.R
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.*
 import org.sehproject.sss.datatype.Memo
-import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.MapViewModel
 import org.sehproject.sss.viewmodel.PlanViewModel
@@ -28,21 +26,21 @@ class PlanDetailFragment : Fragment() {
     val planViewModel: PlanViewModel by lazy {
         ViewModelProvider(this).get(PlanViewModel::class.java)
     }
-    val mapViewModel: MapViewModel by lazy {
+    private val mapViewModel: MapViewModel by lazy {
         ViewModelProvider(this).get(MapViewModel::class.java)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val planDetailBinding: FragmentPlanDetailBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_plan_detail, container, false)
         planDetailBinding.planLogic = planViewModel.planLogic
+        planDetailBinding.mapLogic = mapViewModel.mapLogic
         val view = planDetailBinding.root
         val safeArgs: PlanDetailFragmentArgs by navArgs()
         planViewModel.setPlan(safeArgs.pid)
-        planDetailBinding.plan = planViewModel.planLiveData.value
-        Log.d("TAG", planDetailBinding.plan.toString())
+
         initObserver(planDetailBinding, safeArgs.pid)
 
         return view
@@ -61,14 +59,17 @@ class PlanDetailFragment : Fragment() {
                 planDetailBinding.kickOutPlanFloatingActionButton.visibility = ViewGroup.VISIBLE
             }
         })
+
         planViewModel.userListLiveData.observe(viewLifecycleOwner, {
             planViewModel.concatAdapterLiveData.value =
                 planViewModel.concatAdapterLiveData.value?.plus(1)
         })
+
         planViewModel.memoListLiveData.observe(viewLifecycleOwner, {
             planViewModel.concatAdapterLiveData.value =
                 planViewModel.concatAdapterLiveData.value?.plus(1)
         })
+
         planViewModel.concatAdapterLiveData.observe(viewLifecycleOwner, {
             if(it == 2) {
                 planDetailBinding.recyclerMemoParticipant.adapter = ConcatAdapter(
@@ -77,6 +78,7 @@ class PlanDetailFragment : Fragment() {
                 )
             }
         })
+
         planViewModel.createMemoCompleteEvent.observe(viewLifecycleOwner, {
             planViewModel.concatAdapterLiveData.value =
                 planViewModel.concatAdapterLiveData.value?.minus(1)
@@ -100,6 +102,7 @@ class PlanDetailFragment : Fragment() {
                 .show()
 
         })
+
         planViewModel.deletePlanCompleteEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.action_planDetailFragment_to_planListFragment)
         })
@@ -125,12 +128,12 @@ class PlanDetailFragment : Fragment() {
         })
 
         planViewModel.kickOutPlanEvent.observe(viewLifecycleOwner, {
-            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
+            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanInviteDialogFragment(planViewModel.isInvite, it)
             navController.navigate(action)
         })
 
         planViewModel.invitePlanEvent.observe(viewLifecycleOwner, {
-            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanInviteDialogFragment(planViewModel.is_invite, it)
+            val action = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanInviteDialogFragment(planViewModel.isInvite, it)
             navController.navigate(action)
         })
 
@@ -140,7 +143,6 @@ class PlanDetailFragment : Fragment() {
         })
 
         planViewModel.completePlanCompleteEvent.observe(viewLifecycleOwner, {
-            Log.d("TAG", "event call")
             navController.navigate(R.id.action_planDetailFragment_to_planListFragment)
         })
 
@@ -152,7 +154,6 @@ class PlanDetailFragment : Fragment() {
             builder.setView(editText)
             builder.setPositiveButton("입력", DialogInterface.OnClickListener { dialog, which ->
                 planViewModel.planLogic.onCreateMemoDoneClick(editText.getText().toString())
-                Log.d("TAG", "으ㅏㅇ아ㅏㅏ")
             })
             builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
                 // planViewModel.planLogic.onCreateMemoExitClick()

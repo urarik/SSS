@@ -31,7 +31,7 @@ class GroupListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val groupListBinding: FragmentGroupListBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_group_list,
@@ -39,32 +39,14 @@ class GroupListFragment : Fragment() {
             false
         )
         groupListBinding.groupLogic = groupViewModel.groupLogic
-        groupListBinding.spinnerGroupOrder
+
+        initObserver(groupListBinding)
 
         groupViewModel.setGroupList()
-        initObserver(groupListBinding)
 
         val data = resources.getStringArray(R.array.groupOrder)
         val spinnerAdapter = ArrayAdapter(activity as MainActivity, android.R.layout.simple_list_item_1, data)
         groupListBinding.spinnerGroupOrder.adapter = spinnerAdapter
-
-        groupListBinding.spinnerGroupOrder.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if (p2 == 0 && groupViewModel.groupListLiveData.value != null) {
-                    groupViewModel.groupListLiveData.value =
-                        groupViewModel.groupLogic.sortGroupByName(groupViewModel.groupListLiveData.value!!)
-                    val adapter = GroupAdapter(groupViewModel.groupListLiveData.value!!)
-                    groupListBinding.RecyclerViewGroupList.adapter = adapter
-                } else if (p2 == 1&& groupViewModel.groupListLiveData.value != null) {
-                    groupViewModel.groupListLiveData.value =
-                        groupViewModel.groupLogic.sortGroupByMembers(groupViewModel.groupListLiveData.value!!)
-                    val adapter = GroupAdapter(groupViewModel.groupListLiveData.value!!)
-                    groupListBinding.RecyclerViewGroupList.adapter = adapter
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
 
         return groupListBinding.root
     }
@@ -82,31 +64,31 @@ class GroupListFragment : Fragment() {
             groupListBinding.RecyclerViewGroupList.adapter = adapter
         })
 
-        val buttonMap = groupListBinding.btnMapTest
-        buttonMap?.setOnClickListener {
-            findNavController().navigate(R.id.mapFragment, null)
-         }
+        groupViewModel.sortEvent.observe(viewLifecycleOwner, {
+            val adapter = GroupAdapter(groupViewModel.groupListLiveData.value!!)
+            groupListBinding.RecyclerViewGroupList.adapter = adapter
+        })
         groupViewModel.viewGroupDetailsEvent.observe(this, {
-            Log.d("TAG", "gid: $it")
             val action = GroupListFragmentDirections.actionGroupListFragmentToGroupDetailFragment(it)
             navController.navigate(action)
         })
     }
 
-    protected inner class GroupHolder(private val itemGroupBinding: ItemGroupBinding) : RecyclerView.ViewHolder(itemGroupBinding.root) {
-
+    private inner class GroupHolder(private val itemGroupBinding: ItemGroupBinding) : RecyclerView.ViewHolder(itemGroupBinding.root) {
         @RequiresApi(Build.VERSION_CODES.Q)
         fun bind(group: Group) {
             itemGroupBinding.group = group
             itemGroupBinding.groupLogic = groupViewModel.groupLogic
-            val view = itemGroupBinding.imageGroupColor
-            view.background.colorFilter = BlendModeColorFilter(Color.parseColor("#"+Integer.toHexString(group.color)),
-                BlendMode.SRC_ATOP)
-            //itemGroupBinding.imageGroupColor.setBackgroundColor(group.color)
+            if(group.color != 0) {
+                val view = itemGroupBinding.imageGroupColor
+                view.background.colorFilter = BlendModeColorFilter(
+                    Color.parseColor("#" + Integer.toHexString(group.color)),
+                    BlendMode.SRC_ATOP
+                )
+            }
         }
     }
-
-    protected inner class GroupAdapter(val Groups: List<Group>) :
+    private inner class GroupAdapter(private val Groups: List<Group>) :
         RecyclerView.Adapter<GroupHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupHolder {

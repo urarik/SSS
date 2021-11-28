@@ -21,10 +21,6 @@ class ProfileViewModel(appDatabase: AppDatabase): ViewModel() {
     val profileLogic = ProfileLogic(this)
     val profileRepository = ProfileRepository(appDatabase);
 
-    val viewProfileEvent = SingleLiveEvent<Int>()
-    val viewFriendProfileEvent = SingleLiveEvent<Int>()
-    var planListLiveData = MutableLiveData<List<SimplePlan>>()
-
     // profile -> userId
     val editProfileEvent = SingleLiveEvent<String>()
     val editProfileCompleteEvent = SingleLiveEvent<Int>()

@@ -25,7 +25,7 @@ class SettingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val settingBinding: FragmentSettingBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_setting,
@@ -34,8 +34,8 @@ class SettingFragment : Fragment() {
         )
         settingBinding.profileLogic = profileViewModel.profileLogic
 
-        profileViewModel.setOption()
         initObserver(settingBinding)
+        profileViewModel.setOption()
 
         return settingBinding.root
     }

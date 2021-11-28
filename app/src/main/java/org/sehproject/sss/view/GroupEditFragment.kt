@@ -30,14 +30,14 @@ class GroupEditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val editGroupBinding: FragmentGroupEditBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_group_edit, container, false)
-        val view = editGroupBinding.root
-        val safeArgs: GroupEditFragmentArgs by navArgs() //group
-        //group id가 null이면 create else edit
+        val safeArgs: GroupEditFragmentArgs by navArgs()
 
         editGroupBinding.groupLogic = groupViewModel.groupLogic
         editGroupBinding.group = safeArgs.group
+
         initObserver(editGroupBinding)
-        return view
+
+        return editGroupBinding.root
     }
     private fun initObserver(editGroupBinding: FragmentGroupEditBinding) {
         val navController = findNavController()
@@ -72,17 +72,6 @@ class GroupEditFragment : Fragment() {
         })
         groupViewModel.editGroupCompleteEvent.observe(viewLifecycleOwner, {
             navController.popBackStack()
-//            val action = GroupEditFragmentDirections.actionGroupEditFragmentToGroupDetailFragment(it.gid!!)
-//            navController.navigate(action)
         })
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val button = view.findViewById<Button>(R.id.buttonMakeGroup)
-        button?.setOnClickListener {
-            findNavController().navigate(R.id.action_groupEditFragment_to_groupListFragment, null)
-        }
     }
 }

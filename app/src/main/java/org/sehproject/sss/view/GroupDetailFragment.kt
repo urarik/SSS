@@ -33,7 +33,6 @@ class GroupDetailFragment : Fragment() {
     private val groupViewModel: GroupViewModel by lazy {
         ViewModelProvider(this).get(GroupViewModel::class.java)
     }
-    val safeArgs: GroupDetailFragmentArgs by navArgs()
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
@@ -47,11 +46,14 @@ class GroupDetailFragment : Fragment() {
             container,
             false
         )
+        val safeArgs: GroupDetailFragmentArgs by navArgs()
+
         groupDetailBinding.groupLogic = groupViewModel.groupLogic
+        groupDetailBinding.textViewMemberNumDetails.text = groupViewModel.groupLiveData.value?.participants?.size.toString() + "명"
+
         initObserver(groupDetailBinding)
 
         groupViewModel.setGroup(safeArgs.gid)
-        groupDetailBinding.textViewMemberNumDetails.setText(groupViewModel.groupLiveData.value?.participants?.size.toString() + "명")
 
         return groupDetailBinding.root
     }

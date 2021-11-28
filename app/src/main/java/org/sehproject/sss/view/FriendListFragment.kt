@@ -23,12 +23,13 @@ class FriendListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val friendListBinding: FragmentFriendListBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_friend_list, container, false)
         friendListBinding.friendLogic = friendViewModel.friendLogic
 
-        friendViewModel.setFriendList()
         initObserver(friendListBinding.searchRecyclerView)
+
+        friendViewModel.setFriendList()
 
         return friendListBinding.root
     }

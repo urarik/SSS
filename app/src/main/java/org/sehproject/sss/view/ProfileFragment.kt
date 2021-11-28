@@ -34,15 +34,11 @@ class ProfileFragment : Fragment() {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
         ViewModelProvider(this, ProfileViewModelFactory(appDatabase)).get(ProfileViewModel::class.java)
     }
-    private val userViewModel: UserViewModel by lazy {
-        val appDatabase = AppDatabase.getInstance(requireContext())!!
-        ViewModelProvider(this, UserViewModelFactory(appDatabase)).get(UserViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val profileBinding: FragmentProfileBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_profile,
@@ -51,15 +47,17 @@ class ProfileFragment : Fragment() {
         )
         profileBinding.profileLogic = profileViewModel.profileLogic
         profileBinding.profile = Profile()
+
+        initObserver(profileBinding)
+
+        //for Google logout
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
             .requestEmail()
             .build()
         profileViewModel.googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
-        Log.d("TAG", UserInfo.userId)
         profileViewModel.setProfile(UserInfo.userId)
-        initObserver(profileBinding)
         return profileBinding.root
     }
 
@@ -79,7 +77,6 @@ class ProfileFragment : Fragment() {
         })
 
         profileViewModel.logoutEvent.observe(viewLifecycleOwner, {
-            Log.d("TAG", "logout")
             val loginIntent = Intent(context, LoginActivity::class.java)
             loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(loginIntent)
@@ -91,7 +88,7 @@ class ProfileFragment : Fragment() {
         })
 
         profileViewModel.imageBitmapLiveData.observe(viewLifecycleOwner, {
-            var imageView = profileBinding.imageView
+            val imageView = profileBinding.imageView
             imageView.setImageBitmap(profileViewModel.imageBitmapLiveData.value)
         })
 

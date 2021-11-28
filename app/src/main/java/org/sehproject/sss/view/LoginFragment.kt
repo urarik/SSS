@@ -32,6 +32,8 @@ import com.nhn.android.naverlogin.OAuthLogin
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentLoginBinding
 import org.sehproject.sss.datatype.AccountXML
+import org.sehproject.sss.logic.UserLogic
+import org.sehproject.sss.utils.NaverLoginHandler
 import org.sehproject.sss.utils.UserViewModelFactory
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -51,7 +53,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         super.onCreate(savedInstanceState)
         loginBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
@@ -83,24 +85,22 @@ class LoginFragment : Fragment(), ActivityNavigation {
         super.onStart()
         val auth = FirebaseAuth.getInstance()
 
+        //Anonymous Google sign-in for users who don't use Google sign-in to use OCR.
         auth.currentUser?: run {
             auth.signInAnonymously()
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        //Sign in success, update UI with the signed-in user's information
                         Log.d("TAG", "signInAnonymously:success")
-                        val user = auth.currentUser
-                        //updateUI(user)
                     } else {
-                        //If sign in fails, display a message to the user.
                         Log.d("TAG", "signInAnonymously:failure", task.exception)
-                        //updateUI(null)
                     }
                 }
         }
     }
 
     private fun getHashKey() {
+        //Used for get sha-1 key.
+        //It will be deleted after released.
         var packageInfo: PackageInfo? = null
         try {
             packageInfo =
@@ -123,12 +123,12 @@ class LoginFragment : Fragment(), ActivityNavigation {
         }
     }
 
-
     private fun initObservers() {
         val navController = findNavController()
-        userViewModel.loginEvent.observe(viewLifecycleOwner, Observer {
+        userViewModel.loginEvent.observe(viewLifecycleOwner) {
             val mainIntent = Intent(context, MainActivity::class.java)
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+
             val bundle = activity?.intent?.extras
             if(bundle != null) {
                 val bundleSent = bundleOf()
@@ -136,18 +136,21 @@ class LoginFragment : Fragment(), ActivityNavigation {
                 bundleSent.putString("target_name", bundle.get("target_name").toString())
                 bundleSent.putString("inviter", bundle.get("inviter").toString())
                 bundleSent.putInt("id", bundle.get("id").toString().toInt())
+                //Maybe the bundle can be directly put to mainIntent.
+                //Need to check
                 mainIntent.putExtras(bundleSent)
             }
             startActivity(mainIntent)
             requireActivity().finish()
-        })
-        userViewModel.registerEvent.observe(viewLifecycleOwner, Observer {
-            navController.navigate(R.id.registerChooserFragment, null)
-        })
+        }
 
-        userViewModel.loginFailEvent.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(context, "ID나 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
-        })
+        userViewModel.registerEvent.observe(viewLifecycleOwner) {
+            navController.navigate(R.id.registerChooserFragment, null)
+        }
+
+        userViewModel.loginFailEvent.observe(viewLifecycleOwner) {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initNaverLogin() {
@@ -159,9 +162,8 @@ class LoginFragment : Fragment(), ActivityNavigation {
                 "SSS"
             )
         }
-
         val mOAuthLoginHandler =
-            UserViewModel.NaverLoginHandler(
+            NaverLoginHandler(
                 requireContext(),
                 mOAuthLoginModule,
                 userViewModel.userLogic::naverLogInCallback

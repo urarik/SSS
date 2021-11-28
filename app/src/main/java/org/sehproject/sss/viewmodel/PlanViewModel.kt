@@ -19,57 +19,6 @@ class PlanViewModel : ViewModel() {
     val planRepository = PlanRepository()
     val friendRepository = FriendRepository()
 
-    fun setFriendList() {
-        friendRepository.getFriendList { _, list ->
-            friendListLiveData.value = list
-        }
-    }
-
-    fun setPlanList(isCurrent: Boolean, userId: String = UserInfo.userId) {
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm")
-        val formatted = current.format(formatter)
-        var mlist: MutableList<Plan>? = null
-
-        Log.d("TAG", formatted)
-
-        planRepository.getPlanList(userId, isCurrent) {code, list ->
-            if(code == 0) {
-                mlist = list as MutableList<Plan>
-                if (is_sorted)
-                    planListLiveData.value = planLogic.sortPlanByCategory(mlist!!)
-                else
-                    planListLiveData.value = planLogic.sortPlanByTime(mlist!!)
-            }
-            else if(code == 1) {
-                planListLiveData.value = listOf()
-            }
-        }
-    }
-
-    fun setPlan(pid: Int) {
-        planRepository.getPlan(pid) {code, plan ->
-            if(code == 0)
-                planLiveData.value = plan
-            Log.d("TAG", planLiveData.value.toString())
-       }
-        setMemoList(pid)
-        planRepository.getParticipantList(pid) {code, participants ->
-            if(code == 0)
-                userListLiveData.value = participants
-            else if (code == 1)
-                userListLiveData.value = listOf()
-        }
-    }
-    fun setMemoList(pid: Int) {
-        planRepository.getMemoList(pid) {code, memos ->
-            if(code == 0)
-                memoListLiveData.value = memos
-            else if(code == 1)
-                memoListLiveData.value = listOf()
-        }
-    }
-
     val editPlanEvent = SingleLiveEvent<Plan>()
     val editCompletePlanEvent = SingleLiveEvent<Int>()
     val startDatePickEvent = SingleLiveEvent<Plan>()
@@ -107,8 +56,66 @@ class PlanViewModel : ViewModel() {
     val concatAdapterLiveData = MutableLiveData<Int>(0)
     val syncCalendarEvent = SingleLiveEvent<Event>()
     val isLastPlan = SingleLiveEvent<Boolean>()
+    val sortEvent = SingleLiveEvent<Any>()
     val selectedPlanUserList = mutableListOf<String>()
-    var is_invite: Boolean = true
-    var is_sorted: Boolean = false
+    var isInvite: Boolean = true
+    var isSorted: Boolean = false
     lateinit var ocrBitmap: Bitmap
+
+    fun setFriendList(pid: Int) {
+        if(pid == -1)
+            friendRepository.getFriendList { _, list ->
+                friendListLiveData.value = list
+            }
+        else
+            planRepository.getParticipantList(pid) {code, list ->
+                if(code == 0)
+                    friendListLiveData.value = list
+            }
+    }
+
+    fun setPlanList(isCurrent: Boolean, userId: String = UserInfo.userId) {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm")
+        val formatted = current.format(formatter)
+        var mlist: MutableList<Plan>? = null
+
+        Log.d("TAG", formatted)
+
+        planRepository.getPlanList(userId, isCurrent) {code, list ->
+            if(code == 0) {
+                mlist = list as MutableList<Plan>
+                if (isSorted)
+                    planListLiveData.value = planLogic.sortPlanByCategory(mlist!!)
+                else
+                    planListLiveData.value = planLogic.sortPlanByTime(mlist!!)
+            }
+            else if(code == 1) {
+                planListLiveData.value = listOf()
+            }
+        }
+    }
+
+    fun setPlan(pid: Int) {
+        planRepository.getPlan(pid) {code, plan ->
+            if(code == 0)
+                planLiveData.value = plan
+            Log.d("TAG", planLiveData.value.toString())
+        }
+        setMemoList(pid)
+        planRepository.getParticipantList(pid) {code, participants ->
+            if(code == 0)
+                userListLiveData.value = participants
+            else if (code == 1)
+                userListLiveData.value = listOf()
+        }
+    }
+    fun setMemoList(pid: Int) {
+        planRepository.getMemoList(pid) {code, memos ->
+            if(code == 0)
+                memoListLiveData.value = memos
+            else if(code == 1)
+                memoListLiveData.value = listOf()
+        }
+    }
 }

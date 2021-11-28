@@ -26,11 +26,11 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val registerBinding: FragmentRegisterBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_register, container, false)
-        registerBinding.userLogic = userViewModel.userLogic
-        val view = registerBinding.root
         val safeArgs: RegisterFragmentArgs by navArgs()
+
+        registerBinding.userLogic = userViewModel.userLogic
         registerBinding.apiId = safeArgs.id
 
         if (registerBinding.apiId != "") {
@@ -40,7 +40,7 @@ class RegisterFragment : Fragment() {
 
         initObserver()
 
-        return view
+        return registerBinding.root
     }
 
     private fun initObserver() {

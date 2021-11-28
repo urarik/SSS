@@ -10,27 +10,9 @@ class MapLogic(private val mapViewModel: MapViewModel) {
         mapViewModel.trackEvent.value = pid
     }
 
-    fun onCancelClick()
-    {
-
-    }
-
-    fun onMapViewInitialized()
-    {
-
-    }
-
     fun onCurrentLocationUpdate(coordinate: Coordinate)
     {
-        mapViewModel.mapRepository.setLocation(coordinate) {code ->
-            if(code == 0) {
-
-            }
+        mapViewModel.mapRepository.setLocation(coordinate) {_ ->
         }
-    }
-
-    fun onCurrentLocationUpdateCancelled()
-    {
-
     }
 }

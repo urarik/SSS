@@ -28,7 +28,6 @@ import org.sehproject.sss.viewmodel.MapViewModel
 class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     MapView.MapViewEventListener,
     MapView.CurrentLocationEventListener {
-    private var pid: Int = -1
     private lateinit var job: Job
     private val mapViewModel: MapViewModel by lazy {
         ViewModelProvider(this).get(MapViewModel::class.java)
@@ -50,7 +49,8 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         val mapView = mapLayout.mapView
 
         val safeArgs: MapFragmentArgs by navArgs()
-        pid = safeArgs.pid
+
+        initObserver(mapBinding, mapView)
 
         mapView.setDaumMapApiKey("3549708e5615a6373ce58622aae7434d")
         mapView.setOpenAPIKeyAuthenticationResultListener(this)
@@ -65,9 +65,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         }
         mapBinding.mapView.addView(mapView)
 
-        initObserver(mapBinding, mapView)
-
-        job = repeatRequest()
+        job = repeatRequest(safeArgs.pid)
 
         return mapBinding.root
     }
@@ -87,18 +85,6 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         })
     }
 
-
-    override fun onDaumMapOpenAPIKeyAuthenticationResult(p0: MapView?, p1: Int, p2: String?) {
-        Log.d(
-            "TAG",
-            String.format(
-                "Open API Key Authentication Result : code=%d, message=%s",
-                p1,
-                p2
-            )
-        )
-    }
-
     override fun onCurrentLocationUpdate(p0: MapView?, currentLocation: MapPoint?, accuracy: Float) {
         mapViewModel.mapLogic.onCurrentLocationUpdate(Coordinate(
             currentLocation!!.mapPointGeoCoord.latitude,
@@ -106,7 +92,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         ))
     }
 
-    private fun repeatRequest(): Job {
+    private fun repeatRequest(pid: Int): Job {
         return CoroutineScope(Dispatchers.Main).launch {
             while(isActive) {
                 mapViewModel.setLocationList(pid)
@@ -168,8 +154,11 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {
         TODO("Not yet implemented")
     }
+    override fun onDaumMapOpenAPIKeyAuthenticationResult(p0: MapView?, p1: Int, p2: String?) {
+        TODO("Not yet implemented")
+    }
 
-    protected inner class EtaHolder(private val itemLocationBinding: ItemEtaBinding):
+    private inner class EtaHolder(private val itemLocationBinding: ItemEtaBinding):
         RecyclerView.ViewHolder(itemLocationBinding.root) {
 
         @RequiresApi(Build.VERSION_CODES.Q)
@@ -178,7 +167,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         }
     }
 
-    protected inner class EtaAdapter(private val locations: List<Location>) :
+    private inner class EtaAdapter(private val locations: List<Location>) :
         RecyclerView.Adapter<EtaHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EtaHolder {
@@ -194,7 +183,5 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
             val eta = Eta(location.nickName, location.eta)
             holder.bind(eta)
         }
-
     }
-
 }
