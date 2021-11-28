@@ -29,7 +29,7 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name=".view.MainActivity" />
+                <action android:name=".view.LoginActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>

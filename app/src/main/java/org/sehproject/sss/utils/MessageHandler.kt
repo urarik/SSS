@@ -23,6 +23,7 @@ class MessageHandler: FirebaseMessagingService() {
             intent.putExtra("target_name", remoteMessage.data["target_name"])
             intent.putExtra("invite_type", remoteMessage.data["invite_type"])
             intent.putExtra("inviter", remoteMessage.data["inviter"])
+            intent.putExtra("id", remoteMessage.data["id"]?.toInt())
 
             localBroadcastManager.sendBroadcast(intent)
         }

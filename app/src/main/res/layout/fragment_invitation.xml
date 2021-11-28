@@ -8,6 +8,9 @@
             name="invitation"
             type="org.sehproject.sss.datatype.Invitation" />
         <variable
+            name="invitationstr"
+            type="String" />
+        <variable
             name="planlogic"
             type="org.sehproject.sss.logic.PlanLogic" />
         <variable
@@ -24,8 +27,9 @@
         android:id="@+id/textInvitationTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="88dp"
-        android:hint="홍길동님이 약속초대를 하셨습니다."
+        android:layout_marginEnd="16dp"
         android:text="@{invitation.toString()}"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:onClick="@{_ -> invitation.type==`group`? grouplogic.onAcceptGroupClick(invitation.id): planlogic.onAcceptPlanClick(invitation.id)}"
+        android:onClick="@{_ -> invitation.type.equalsIgnoreCase(`group`)? grouplogic.onAcceptGroupClick(invitation.id): planlogic.onAcceptPlanClick(invitation.id)}"
         android:text="수락"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonInvitationRefuse"
@@ -60,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="거절"
-        android:onClick="@{_ -> invitation.type==`group`? grouplogic.onRefuseGroupClick(invitation.id): planlogic.onRefusePlanClick(invitation.id)}"
+        android:onClick="@{_ -> invitation.type.equalsIgnoreCase(`group`)? grouplogic.onRefuseGroupClick(invitation.id): planlogic.onRefusePlanClick(invitation.id)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

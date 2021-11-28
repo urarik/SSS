@@ -92,7 +92,7 @@ interface PlanService {
         userIdList: List<String>
     ): Call<GenericResponse>
 
-    @POST("plan/accept")
+    @POST("plan/invite/accept")
     @FormUrlEncoded
     fun requestAcceptPlan(
         @Field("pid")
@@ -101,7 +101,7 @@ interface PlanService {
         @Field("userid")
         userId: String,
 
-        @Field("accept")
+        @Field("is_accepted")
         isAccept: Boolean
 
     ): Call<GenericResponse>
