@@ -29,13 +29,6 @@ class MapLogic(private val mapViewModel: MapViewModel) {
         }
     }
 
-    fun getLocationList(pid: Int) {
-        mapViewModel.mapRepository.getLocationList(pid) {code, list ->
-            if(code == 0)
-                mapViewModel.locationListLiveData.value = list
-        }
-    }
-
     fun onCurrentLocationUpdateCancelled()
     {
 

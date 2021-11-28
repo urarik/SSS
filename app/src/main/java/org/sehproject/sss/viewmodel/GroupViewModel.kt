@@ -22,7 +22,7 @@ class GroupViewModel : ViewModel() {
             friendListLiveData.value = list
         }
     }
-    fun getGroupList()
+    fun setGroupList()
     {
        groupRepository.getGroupList { i, list ->
            var mlist: MutableList<Group>? = null

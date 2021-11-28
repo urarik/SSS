@@ -27,7 +27,7 @@ class FriendViewModel : ViewModel() {
     val addFriendFailEvent = SingleLiveEvent<Any>()
 
     // Logic에서 ViewModel로 변경, ArrayList -> List로 변경, Return 삭제
-    fun getFriendList() {
+    fun setFriendList() {
         friendRepository.getFriendList() {code, list ->
             if(code == 0) {
                 friendList.value = list

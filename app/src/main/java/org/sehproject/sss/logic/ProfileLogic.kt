@@ -41,7 +41,6 @@ class ProfileLogic(val profileViewModel: ProfileViewModel) {
     fun onEditProfileCompleteClick(profile: Profile) {
         val path = profileViewModel.imageUri?.path
 
-
             profileViewModel.profileRepository.editProfile(profile) { code: Int ->
             if (code == 0) {
                 path?. run {

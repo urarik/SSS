@@ -186,7 +186,7 @@ interface PlanService {
         planId: Int
     ): Call<MemoListResponse>
 
-    @POST("plan/point")
+    @POST("profile/point/add")
     @FormUrlEncoded
     fun requestAddPoint(
         @Field("userid")

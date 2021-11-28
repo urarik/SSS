@@ -42,6 +42,7 @@ class ProfileRepository(private val appDatabase: AppDatabase) {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
+                    Log.d("TAG", profile.name)
                     onResult(0)
                 } else {
                     onResult(1)

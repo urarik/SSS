@@ -25,7 +25,7 @@ class PlanViewModel : ViewModel() {
         }
     }
 
-    fun getPlanList(isCurrent: Boolean, userId: String = UserInfo.userId) {
+    fun setPlanList(isCurrent: Boolean, userId: String = UserInfo.userId) {
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm")
         val formatted = current.format(formatter)
