@@ -27,11 +27,10 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
 
     fun onEditPlanCompleteClick(plan: Plan) {
-        Log.d("TAG", plan.pid.toString())
         if (plan.pid == null) onCreatePlanDoneClick(plan)
         else {
             planViewModel.planRepository.editPlan(plan) {code ->
-                Log.d("TAG", code.toString())
+                Log.d("TAG", plan.toString())
              if(code == 0)
                  planViewModel.editCompletePlanEvent.call()
             }
@@ -77,6 +76,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         planViewModel.planRepository.completePlan(plan.pid!!) { code: Int ->
             if(code == 0) {
                 planViewModel.planRepository.addPoint(100) { code: Int ->
+                    Log.d("TAG", "code2: " + code.toString())
                     if(code == 0) {
                         planViewModel.completePlanCompleteEvent.call()
                     }

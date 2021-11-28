@@ -1,9 +1,5 @@
 package org.sehproject.sss.view
 
-import android.graphics.Bitmap
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,11 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentRecommendBinding
-import org.sehproject.sss.databinding.FragmentUserSearchBinding
 import org.sehproject.sss.databinding.ItemPlaceBinding
-import org.sehproject.sss.datatype.Place
-import org.sehproject.sss.viewmodel.FriendViewModel
-import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.RecommendViewModel
 
 class RecommendFragment : Fragment() {
@@ -36,7 +28,7 @@ class RecommendFragment : Fragment() {
 
         recommendBinding.recommendLogic = recommendViewModel.recommendLogic
         initObserver(recommendBinding)
-        recommendViewModel.getPlaces()
+        recommendViewModel.setPlaces()
 
         return recommendBinding.root
     }

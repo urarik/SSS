@@ -11,7 +11,7 @@ class RecommendViewModel : ViewModel() {
     val recommendLogic = RecommendLogic(this)
     val recommendRepository = RecommendRepository()
 
-    fun getPlaces() {
+    fun setPlaces() {
         recommendRepository.getPopularityList { code, list ->
             if(code == 0)
                 popularPlaceLiveData.value = list

@@ -1,9 +1,7 @@
 package org.sehproject.sss.view
 
-import android.accounts.Account
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.ContextWrapper
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -24,16 +22,12 @@ import com.google.api.client.json.gson.GsonFactory
 import com.google.api.client.util.ExponentialBackOff
 import com.google.api.services.calendar.CalendarScopes
 import org.sehproject.sss.R
-import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.FragmentPlanEditBinding
 import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.datatype.Plan
-import org.sehproject.sss.utils.CreateEventTask
 import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.PlanViewModel
-import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
-import java.util.*
 
 class PlanEditFragment : Fragment() {
     val planViewModel: PlanViewModel by lazy {
@@ -54,7 +48,7 @@ class PlanEditFragment : Fragment() {
         val safeArgs: PlanEditFragmentArgs by navArgs()
         //plan id가 null이면 create else edit
         planEditBinding.plan = safeArgs.plan
-        groupViewModel.getGroupList()
+        groupViewModel.setGroupList()
 
         initObserver(planEditBinding, safeArgs.plan)
 

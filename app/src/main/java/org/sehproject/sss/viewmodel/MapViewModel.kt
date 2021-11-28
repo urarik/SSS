@@ -17,4 +17,11 @@ class MapViewModel : ViewModel() {
     val trackEvent = SingleLiveEvent<Int>()
     val locationUpdateEvent = SingleLiveEvent<Any>()
     val etaUpdateEvent = SingleLiveEvent<Any>()
+
+    fun setLocationList(pid: Int) {
+        mapRepository.getLocationList(pid) {code, list ->
+            if(code == 0)
+                locationListLiveData.value = list
+        }
+    }
 }

@@ -12,9 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import androidx.annotation.RequiresApi
-import androidx.core.view.marginBottom
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -43,7 +41,7 @@ class GroupListFragment : Fragment() {
         groupListBinding.groupLogic = groupViewModel.groupLogic
         groupListBinding.spinnerGroupOrder
 
-        groupViewModel.getGroupList()
+        groupViewModel.setGroupList()
         initObserver(groupListBinding)
 
         val data = resources.getStringArray(R.array.groupOrder)

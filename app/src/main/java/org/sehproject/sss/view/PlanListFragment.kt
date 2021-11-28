@@ -1,34 +1,23 @@
 package org.sehproject.sss.view
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.mortbay.jetty.Main
 import org.sehproject.sss.R
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.databinding.FragmentPlanListBinding
 import org.sehproject.sss.databinding.ItemPlanBinding
-import org.sehproject.sss.databinding.ItemUserBinding
 import org.sehproject.sss.datatype.Plan
-import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.PlanViewModel
-import org.sehproject.sss.viewmodel.UserViewModel
 
 class PlanListFragment : Fragment() {
     private val planViewModel: PlanViewModel by lazy {
@@ -44,7 +33,7 @@ class PlanListFragment : Fragment() {
         planListBinding.spinnerPlanOrder
 
         initObserver(planListBinding.RecyclerViewPlanList)
-        planViewModel.getPlanList(true)
+        planViewModel.setPlanList(true)
 
         val data = resources.getStringArray(R.array.planOrder)
         val spinnerAdapter = ArrayAdapter(activity as MainActivity, android.R.layout.simple_list_item_1, data)
@@ -98,7 +87,7 @@ class PlanListFragment : Fragment() {
             recyclerView.adapter = adapter
         })
         planViewModel.isLastPlan.observe(viewLifecycleOwner, {
-            planViewModel.getPlanList(it)
+            planViewModel.setPlanList(it)
         })
 
     }

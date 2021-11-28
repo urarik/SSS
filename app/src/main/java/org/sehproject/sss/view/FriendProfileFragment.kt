@@ -1,8 +1,5 @@
 package org.sehproject.sss.view
 
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,11 +14,8 @@ import org.sehproject.sss.R
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.ItemFriendPlanBinding
-import org.sehproject.sss.databinding.ItemPlanBinding
 import org.sehproject.sss.datatype.Plan
-import org.sehproject.sss.logic.FriendLogic
 import org.sehproject.sss.utils.ProfileViewModelFactory
-import org.sehproject.sss.viewmodel.FriendViewModel
 import org.sehproject.sss.viewmodel.PlanViewModel
 import org.sehproject.sss.viewmodel.ProfileViewModel
 
@@ -51,7 +45,7 @@ class FriendProfileFragment : Fragment() {
         profileViewModel.setProfile(safeArgs.userId)
         Log.d("TAG", safeArgs.userId)
 
-        planViewModel.getPlanList(true, safeArgs.userId)
+        planViewModel.setPlanList(true, safeArgs.userId)
 
         initObserver(friendProfileBinding)
 

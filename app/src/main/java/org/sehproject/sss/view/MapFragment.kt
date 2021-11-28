@@ -109,7 +109,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
     private fun repeatRequest(): Job {
         return CoroutineScope(Dispatchers.Main).launch {
             while(isActive) {
-                mapViewModel.mapLogic.getLocationList(pid)
+                mapViewModel.setLocationList(pid)
                 delay(5000)
             }
         }

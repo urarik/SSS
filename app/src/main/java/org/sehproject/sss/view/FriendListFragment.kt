@@ -13,7 +13,6 @@ import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentFriendListBinding
 import org.sehproject.sss.databinding.FriendListItemBinding
 import org.sehproject.sss.datatype.User
-import org.sehproject.sss.view.FriendListFragmentDirections
 import org.sehproject.sss.viewmodel.FriendViewModel
 
 class FriendListFragment : Fragment() {
@@ -28,7 +27,7 @@ class FriendListFragment : Fragment() {
         val friendListBinding: FragmentFriendListBinding =  DataBindingUtil.inflate(layoutInflater, R.layout.fragment_friend_list, container, false)
         friendListBinding.friendLogic = friendViewModel.friendLogic
 
-        friendViewModel.getFriendList()
+        friendViewModel.setFriendList()
         initObserver(friendListBinding.searchRecyclerView)
 
         return friendListBinding.root
@@ -51,10 +50,10 @@ class FriendListFragment : Fragment() {
         })
 
         friendViewModel.deleteFriendEvent.observe(viewLifecycleOwner, {
-            friendViewModel.getFriendList()
+            friendViewModel.setFriendList()
         })
         friendViewModel.blockFriendEvent.observe(viewLifecycleOwner, {
-            friendViewModel.getFriendList()
+            friendViewModel.setFriendList()
         })
     }
 
