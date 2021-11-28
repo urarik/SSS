@@ -93,7 +93,7 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     fun onInviteGroupDoneClick(gid: Int)
     {
         groupViewModel.groupRepository.inviteGroup(gid, groupViewModel.selectedGroupUserList) { code: Int ->
-            Log.d("TAG", code.toString())
+            Log.d("TAG", code.toString() + " " + groupViewModel.selectedGroupUserList.toString())
             if(code == 0) {
                 groupViewModel.inviteGroupCompleteEvent.call()
             }

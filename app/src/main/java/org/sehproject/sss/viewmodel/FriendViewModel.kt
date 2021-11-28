@@ -24,6 +24,7 @@ class FriendViewModel : ViewModel() {
     val deleteFriendEvent = SingleLiveEvent<Any>()
     val blockFriendEvent = SingleLiveEvent<Any>()
     val listFriendEvent = SingleLiveEvent<String>()
+    val addFriendFailEvent = SingleLiveEvent<Any>()
 
     // Logic에서 ViewModel로 변경, ArrayList -> List로 변경, Return 삭제
     fun getFriendList() {

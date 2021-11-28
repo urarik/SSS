@@ -29,12 +29,14 @@ class PlanViewModel : ViewModel() {
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm")
         val formatted = current.format(formatter)
+        var mlist: MutableList<Plan>? = null
 
         Log.d("TAG", formatted)
 
         planRepository.getPlanList(userId, isCurrent) {code, list ->
             if(code == 0) {
-                planListLiveData.value = list
+                mlist = list as MutableList<Plan>
+                planListLiveData.value = planLogic.sortPlanByTime(mlist!!)
             }
             else if(code == 1) {
                 planListLiveData.value = listOf()
@@ -46,6 +48,7 @@ class PlanViewModel : ViewModel() {
         planRepository.getPlan(pid) {code, plan ->
             if(code == 0)
                 planLiveData.value = plan
+            Log.d("TAG", planLiveData.value.toString())
        }
         setMemoList(pid)
         planRepository.getParticipantList(pid) {code, participants ->
