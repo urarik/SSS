@@ -4,12 +4,14 @@ import android.content.DialogInterface
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -30,7 +32,9 @@ class GroupDetailFragment : Fragment() {
     private val groupViewModel: GroupViewModel by lazy {
         ViewModelProvider(this).get(GroupViewModel::class.java)
     }
+    val safeArgs: GroupDetailFragmentArgs by navArgs()
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,11 +49,11 @@ class GroupDetailFragment : Fragment() {
         groupDetailBinding.groupLogic = groupViewModel.groupLogic
         initObserver(groupDetailBinding)
 
-        val safeArgs: GroupDetailFragmentArgs by navArgs()
         groupViewModel.setGroup(safeArgs.gid)
         return groupDetailBinding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun initObserver(groupDetailBinding: FragmentGroupDetailBinding) {
         val navController = findNavController()
         groupViewModel.editGroupEvent.observe(viewLifecycleOwner, {
@@ -57,11 +61,11 @@ class GroupDetailFragment : Fragment() {
             navController.navigate(action)
         })
         groupViewModel.inviteGroupEvent.observe(viewLifecycleOwner, {
-            val action = GroupDetailFragmentDirections.actionGroupDetailFragmentToGroupInviteFragment(it)
+            val action = GroupDetailFragmentDirections.actionGroupDetailFragmentToGroupInviteFragment(it, true)
             navController.navigate(action)
         })
         groupViewModel.kickOutGroupEvent.observe(viewLifecycleOwner, {
-            val action = GroupDetailFragmentDirections.actionGroupDetailFragmentToGroupKickOutFragment(it)
+            val action = GroupDetailFragmentDirections.actionGroupDetailFragmentToGroupInviteFragment(it, false)
             navController.navigate(action)
         })
         groupViewModel.groupLiveData.observe(viewLifecycleOwner, {

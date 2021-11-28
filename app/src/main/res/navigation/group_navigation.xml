@@ -18,25 +18,9 @@
         <action
             android:id="@+id/action_groupDetailFragment_to_groupInviteFragment"
             app:destination="@id/groupInviteFragment" />
-        <action
-            android:id="@+id/action_groupDetailFragment_to_groupKickOutFragment"
-            app:destination="@id/groupKickOutFragment" />
         <argument
             android:name="gid"
             app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/groupKickOutFragment"
-        android:name="org.sehproject.sss.view.GroupInviteDialogFragment"
-        tools:layout="@layout/fragment_invite_friend"
-        android:label="fragment_group_kickout">
-        <argument
-            android:name="gid"
-            app:argType="integer" />
-        <argument
-            android:name="is_invite"
-            android:defaultValue="false"
-            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/groupEditFragment"
@@ -57,7 +41,7 @@
             app:popUpTo="@id/groupDetailFragment"
             app:popUpToInclusive="true" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/groupInviteFragment"
         android:name="org.sehproject.sss.view.GroupInviteDialogFragment"
         tools:layout="@layout/fragment_invite_friend"
@@ -67,9 +51,13 @@
             app:argType="integer" />
         <argument
             android:name="is_invite"
-            android:defaultValue="true"
             app:argType="boolean" />
-    </fragment>
+        <action
+            android:id="@+id/action_groupInviteFragment_to_groupDetailFragment"
+            app:destination="@id/groupDetailFragment"
+            app:popUpTo="@id/groupDetailFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
     <fragment
         android:id="@+id/groupListFragment"
         android:name="org.sehproject.sss.view.GroupListFragment"

@@ -107,10 +107,16 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         }
     }
     fun onKickOutPlanExitClick() {}
-    fun onCancelPlanClick() {
-        planViewModel.cancelPlanEvent.call()
+    fun onCancelPlanClick(pid: Int) {
+        planViewModel.cancelPlanEvent.value = pid
     }
-    fun onCancelPlanConfirmClick() {}
+    fun onCancelPlanConfirmClick(pid: Int) {
+        planViewModel.planRepository.cancelPlan(pid) { code ->
+            if (code == 0) {
+                planViewModel.cancelPlanCompleteEvent.call()
+            }
+        }
+    }
     fun onTrackClick() {}
     fun onCreateMemoClick() {
         planViewModel.createMemoEvent.call()

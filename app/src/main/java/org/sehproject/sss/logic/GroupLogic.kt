@@ -70,6 +70,7 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 
     fun onKickOutGroupCompleteClick(gid: Int) {
         groupViewModel.groupRepository.kickOutGroup(gid, groupViewModel.selectedGroupUserList) { code: Int ->
+            Log.d("TAG", code.toString())
             if(code == 0) {
                 groupViewModel.kickOutGroupCompleteEvent.call()
             }
@@ -90,6 +91,7 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     fun onInviteGroupDoneClick(gid: Int)
     {
         groupViewModel.groupRepository.inviteGroup(gid, groupViewModel.selectedGroupUserList) { code: Int ->
+            Log.d("TAG", code.toString())
             if(code == 0) {
                 groupViewModel.inviteGroupCompleteEvent.call()
             }

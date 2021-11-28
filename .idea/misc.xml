@@ -8,6 +8,7 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_friend_list.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_friend_profile.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_detail.xml" value="0.264" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_invite.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_list.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_invitation.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_invite_friend.xml" value="0.25364583333333335" />
@@ -27,6 +28,7 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/friend_list_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_friend_plan.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_group.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_memo.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_participants.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_place.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_plan.xml" value="0.25364583333333335" />
@@ -49,6 +51,9 @@
         <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_friend_list.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_friend_profile.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_plan_list.xml" value="0.11354166666666667" />
+        <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/item_plan.xml" value="0.1" />
+        <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/user_serach_item.xml" value="0.1609375" />
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/drawable/circle_offline.xml" value="0.24259259259259258" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/drawable/circle_online.xml" value="0.24259259259259258" />
@@ -97,9 +102,6 @@
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/view_place_item.xml" value="0.36614583333333334" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/view_plan_item.xml" value="0.36614583333333334" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_plan_list.xml" value="0.11354166666666667" />
-        <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/item_plan.xml" value="0.1" />
-        <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/user_serach_item.xml" value="0.1609375" />
       </map>
     </option>
   </component>
