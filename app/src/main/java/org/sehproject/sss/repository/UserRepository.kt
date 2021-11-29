@@ -116,31 +116,6 @@ class UserRepository(private val appDatabase: AppDatabase) {
         })
     }
 
-    fun getUser(userId: String, onResult: (Int, User?) -> Unit) {
-        val getUserCall = userService.requestGetUser(userId)
-        getUserCall.enqueue(object :
-            CallbackWithRetry<UserResponse>(getUserCall) {
-            override fun onResponse(
-                call: Call<UserResponse>,
-                response: Response<UserResponse>
-            ) {
-                val code = response.body()?.code
-                if (code == 0) {
-                    val user = response.body()?.user
-                    onResult(0, user)
-                } else {
-                    onResult(1, null)
-                }
-            }
-
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                super.onFailure {
-                    onResult(-1, null)
-                }
-            }
-        })
-    }
-
     fun getSavedAccount(): Account? {
         return appDatabase.userDao().select()
     }
