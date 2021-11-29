@@ -58,10 +58,4 @@ interface UserService {
         nickName: String
     ): Call<GenericResponse>
 
-    @POST("auth/user")
-    @FormUrlEncoded
-    fun requestGetUser(
-        @Field("userid")
-        userId: String
-    ): Call<UserResponse>
 }

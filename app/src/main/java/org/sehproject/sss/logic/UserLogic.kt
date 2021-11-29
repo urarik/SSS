@@ -18,7 +18,7 @@ class UserLogic(val userViewModel: UserViewModel) {
     val RC_SIGN_IN = 9001
 
 
-    fun checkLogin(user: AccountXML, naverLoginState: OAuthLoginState) {
+    fun checkLogin(naverLoginState: OAuthLoginState) {
         val auth = FirebaseAuth.getInstance()
         val account = userViewModel.userRepository.getSavedAccount()
 
