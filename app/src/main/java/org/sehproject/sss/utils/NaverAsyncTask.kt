@@ -1,4 +1,4 @@
-package org.sehproject.sss.dao
+package org.sehproject.sss.utils
 
 import android.content.Context
 import android.util.Log

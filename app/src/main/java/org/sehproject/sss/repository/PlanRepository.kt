@@ -12,7 +12,6 @@ import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.service.PlanService
 import org.sehproject.sss.utils.CallbackWithRetry
-import org.sehproject.sss.utils.CreateEventTask
 import org.sehproject.sss.utils.StringParser
 import retrofit2.Call
 import retrofit2.Response
@@ -471,9 +470,5 @@ class PlanRepository {
                 }
             }
         })
-    }
-
-    fun syncCalendar(mService: Calendar, event: Event) {
-        CreateEventTask(mService, event).execute()
     }
 }

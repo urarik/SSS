@@ -54,7 +54,6 @@ class PlanViewModel : ViewModel() {
     val memoListLiveData = MutableLiveData<List<Memo>>()
     val userListLiveData = MutableLiveData<List<User>>()
     val concatAdapterLiveData = MutableLiveData<Int>(0)
-    val syncCalendarEvent = SingleLiveEvent<Event>()
     val isLastPlan = SingleLiveEvent<Boolean>()
     val sortEvent = SingleLiveEvent<Any>()
     val selectedPlanUserList = mutableListOf<String>()

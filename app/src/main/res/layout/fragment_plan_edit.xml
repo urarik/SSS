@@ -172,16 +172,5 @@
         android:onItemSelected="@{(parent, _, pos, __) -> planLogic.onGroupClick(parent, pos, plan)}"
         />
 
-    <CheckBox
-        android:id="@+id/checkBoxGoogleCalendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="구글 캘린더 연동"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_category" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

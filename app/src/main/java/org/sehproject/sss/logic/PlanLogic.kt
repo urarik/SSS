@@ -48,9 +48,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
             }
         } else planViewModel.createPlanFailEvent.value = 1
     }
-    fun syncCalendar(mService: Calendar, event: Event) {
-        planViewModel.planRepository.syncCalendar(mService, event)
-    }
 
     fun onDeletePlanClick(pid: Int) {
         planViewModel.deletePlanEvent.value = pid
