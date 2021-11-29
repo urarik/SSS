@@ -57,7 +57,6 @@ class LoginFragment : Fragment(), ActivityNavigation {
         loginBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
         loginBinding.userLogic = userViewModel.userLogic
-        loginBinding.user = AccountXML("", "", "", 0)
 
         initObservers()
         initNaverLogin()
