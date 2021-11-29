@@ -9,5 +9,4 @@ class ProfileViewModelFactory(private val appDatabase: AppDatabase): ViewModelPr
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return ProfileViewModel(appDatabase) as T
     }
-
 }

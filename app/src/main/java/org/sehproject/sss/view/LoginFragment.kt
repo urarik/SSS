@@ -43,7 +43,6 @@ class LoginFragment : Fragment(), ActivityNavigation {
     lateinit var loginBinding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var mOAuthLoginModule: OAuthLogin
-    private val user = AccountXML("", "", "", 0)
     private val userViewModel: UserViewModel by lazy {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
         ViewModelProvider(this, UserViewModelFactory(appDatabase)).get(UserViewModel::class.java)
@@ -58,7 +57,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
         loginBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
         loginBinding.userLogic = userViewModel.userLogic
-        loginBinding.user = user
+        loginBinding.user = AccountXML("", "", "", 0)
 
         initObservers()
         initNaverLogin()
@@ -77,7 +76,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
             }
             val mtoken = task.result
             userViewModel.token = mtoken.toString()
-            userViewModel.userLogic.checkLogin(user, mOAuthLoginModule.getState(context))
+            userViewModel.userLogic.checkLogin(mOAuthLoginModule.getState(context))
         }
     }
 

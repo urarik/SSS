@@ -89,26 +89,6 @@ class PlanEditFragment : Fragment() {
             }
         })
 
-        planViewModel.syncCalendarEvent.observe(viewLifecycleOwner, {
-            val scopes = mutableListOf(CalendarScopes.CALENDAR, CalendarScopes.CALENDAR_READONLY)
-            val transport = AndroidHttp.newCompatibleTransport()
-            val jsonFactory = GsonFactory.getDefaultInstance()
-
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .requestIdToken("test1")
-                .build()
-
-            val credential = GoogleAccountCredential.usingOAuth2(context, scopes)
-                .setBackOff(ExponentialBackOff())
-                .setSelectedAccountName("psh6464@gmail.com")
-
-            val mService = com.google.api.services.calendar.Calendar.Builder(
-                transport, jsonFactory, credential
-            ).setApplicationName("Test").build()
-            planViewModel.planLogic.syncCalendar(mService, it)
-        })
-
         planViewModel.createPlanFailEvent.observe(viewLifecycleOwner, {
             Toast.makeText(context, when(it) {
                 1 -> "시작 시간이 종료 시간보다 미래입니다."

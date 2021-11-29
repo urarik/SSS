@@ -32,8 +32,4 @@ class MessageHandler: FirebaseMessagingService() {
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
     }
-
-    companion object {
-
-    }
 }

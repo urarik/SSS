@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.Toast
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
-import org.sehproject.sss.dao.NaverAsyncTask
 
 class NaverLoginHandler(
     private val context: Context,

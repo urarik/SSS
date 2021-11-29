@@ -1,15 +1,9 @@
 package org.sehproject.sss.logic
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.nhn.android.naverlogin.OAuthLogin
-import com.nhn.android.naverlogin.OAuthLoginHandler
 import com.nhn.android.naverlogin.data.OAuthLoginState
 import org.json.JSONObject
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.dao.NaverAsyncTask
 import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.viewmodel.UserViewModel
@@ -18,7 +12,7 @@ class UserLogic(val userViewModel: UserViewModel) {
     val RC_SIGN_IN = 9001
 
 
-    fun checkLogin(user: AccountXML, naverLoginState: OAuthLoginState) {
+    fun checkLogin(naverLoginState: OAuthLoginState) {
         val auth = FirebaseAuth.getInstance()
         val account = userViewModel.userRepository.getSavedAccount()
 
