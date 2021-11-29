@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Adapter
 import android.widget.AdapterView
-import com.google.api.services.calendar.model.Event
-import org.sehproject.sss.datatype.*
+import org.sehproject.sss.datatype.Group
+import org.sehproject.sss.datatype.Memo
+import org.sehproject.sss.datatype.Plan
+import org.sehproject.sss.datatype.User
 import org.sehproject.sss.utils.StringParser
 import org.sehproject.sss.viewmodel.PlanViewModel
 import java.text.SimpleDateFormat
-import com.google.api.services.calendar.Calendar
 
 class PlanLogic(val planViewModel: PlanViewModel) {
 

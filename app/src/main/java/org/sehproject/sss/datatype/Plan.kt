@@ -16,8 +16,9 @@ data class Plan(
     var isPublic: Boolean = true,
     var creator: String? = UserInfo.userId,
     var participants: List<User>? = null,
-    var group: Group = Group(),
-    var sync: Boolean = false): Parcelable {
-  init {
-      participants = mutableListOf()
-              }}
+    var group: Group = Group()
+) : Parcelable {
+    init {
+        participants = mutableListOf()
+    }
+}

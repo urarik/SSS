@@ -14,9 +14,6 @@ interface PlanService {
         @Field("name")
         name: String,
 
-        @Field("date")
-        date: String,
-
         @Field("start_time")
         startTime: String,
 
