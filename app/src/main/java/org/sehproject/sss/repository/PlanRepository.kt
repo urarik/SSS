@@ -29,7 +29,6 @@ class PlanRepository {
     fun createPlan(plan: Plan, onResult: (Int) -> Unit) {
         val createPlanCall = planService.requestCreatePlan(
             plan.name,
-            plan.name,
             plan.startTime,
             plan.endTime,
             plan.location,
