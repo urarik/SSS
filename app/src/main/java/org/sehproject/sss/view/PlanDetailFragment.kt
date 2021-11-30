@@ -2,13 +2,13 @@ package org.sehproject.sss.view
 
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.databinding.*
+import org.sehproject.sss.databinding.FragmentPlanDetailBinding
+import org.sehproject.sss.databinding.ItemMemoBinding
+import org.sehproject.sss.databinding.ItemParticipantsBinding
 import org.sehproject.sss.datatype.Memo
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.MapViewModel

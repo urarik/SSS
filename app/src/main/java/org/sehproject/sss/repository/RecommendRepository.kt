@@ -2,7 +2,9 @@ package org.sehproject.sss.repository
 
 import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.datatype.*
+import org.sehproject.sss.datatype.Coordinate
+import org.sehproject.sss.datatype.KeywordResponse
+import org.sehproject.sss.datatype.PlaceListResponse
 import org.sehproject.sss.service.RecommendService
 import org.sehproject.sss.utils.CallbackWithRetry
 import retrofit2.Call

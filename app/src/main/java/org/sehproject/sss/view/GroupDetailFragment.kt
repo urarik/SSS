@@ -6,27 +6,21 @@ import android.graphics.BlendModeColorFilter
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentGroupDetailBinding
 import org.sehproject.sss.databinding.ItemParticipantsBinding
-import org.sehproject.sss.databinding.ItemPlanBinding
-import org.sehproject.sss.datatype.Group
-import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
-import org.sehproject.sss.viewmodel.FriendViewModel
 import org.sehproject.sss.viewmodel.GroupViewModel
 
 class GroupDetailFragment : Fragment() {

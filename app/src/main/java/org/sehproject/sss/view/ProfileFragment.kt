@@ -1,33 +1,23 @@
 package org.sehproject.sss
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.nhn.android.naverlogin.OAuthLogin
 import org.sehproject.sss.dao.AppDatabase
-import org.sehproject.sss.databinding.FragmentFriendProfileBinding
 import org.sehproject.sss.databinding.FragmentProfileBinding
 import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.utils.ProfileViewModelFactory
-import org.sehproject.sss.utils.UserViewModelFactory
 import org.sehproject.sss.view.LoginActivity
-import org.sehproject.sss.view.MainActivity
 import org.sehproject.sss.viewmodel.ProfileViewModel
-import org.sehproject.sss.viewmodel.UserViewModel
 
 class ProfileFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {

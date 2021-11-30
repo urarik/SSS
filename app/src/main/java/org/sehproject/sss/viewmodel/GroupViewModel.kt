@@ -1,16 +1,13 @@
 package org.sehproject.sss.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sehproject.sss.datatype.Group
-import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.GroupLogic
 import org.sehproject.sss.repository.FriendRepository
 import org.sehproject.sss.repository.GroupRepository
 import org.sehproject.sss.utils.SingleLiveEvent
-import org.sehproject.sss.view.GroupListFragment
 
 class GroupViewModel : ViewModel() {
     val groupLogic = GroupLogic(this)

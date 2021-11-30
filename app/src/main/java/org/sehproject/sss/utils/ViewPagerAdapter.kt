@@ -1,14 +1,15 @@
 package org.sehproject.sss.utils
 
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.commitNow
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import org.sehproject.sss.ProfileFragment
+import androidx.viewpager2.adapter.FragmentStateAdapter.FragmentTransactionCallback.OnPostEventListener
 import org.sehproject.sss.view.PlanContainerFragment
-import org.sehproject.sss.view.container.GroupContainerFragment
 import org.sehproject.sss.view.RecommendFragment
 import org.sehproject.sss.view.container.FriendContainerFragment
+import org.sehproject.sss.view.container.GroupContainerFragment
 import org.sehproject.sss.view.container.ProfileContainerFragment
 
 class ViewPagerAdapter(fa: FragmentActivity, private val count: Int) : FragmentStateAdapter(fa){

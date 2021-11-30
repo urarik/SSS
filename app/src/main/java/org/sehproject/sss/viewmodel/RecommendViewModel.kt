@@ -2,9 +2,7 @@ package org.sehproject.sss.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.sehproject.sss.datatype.Place
 import org.sehproject.sss.repository.RecommendRepository
-import org.sehproject.sss.utils.SingleLiveEvent
 
 class RecommendViewModel : ViewModel() {
     val recommendRepository = RecommendRepository()

@@ -2,7 +2,6 @@ package org.sehproject.sss.utils
 
 import android.content.Context
 import android.util.Log
-import org.sehproject.sss.utils.CoroutinesAsyncTask
 import com.nhn.android.naverlogin.OAuthLogin
 
 class NaverAsyncTask(private var context: Context,

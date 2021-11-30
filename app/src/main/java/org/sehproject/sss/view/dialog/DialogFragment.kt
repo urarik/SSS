@@ -1,13 +1,9 @@
 package org.sehproject.sss.view.dialog
 
 import android.graphics.Point
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.ItemUserBinding
