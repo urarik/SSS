@@ -44,6 +44,12 @@
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_friend_profile.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_plan_list.xml" value="0.11354166666666667" />
         <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_login.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_plan_create_ocr.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_plan_create_type.xml" value="0.358695652173913" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_plan_detail.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_plan_list.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/item_memo.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/item_plan.xml" value="0.17806484295845998" />
       </map>
     </option>
   </component>

@@ -192,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:onClick="@{()->planLogic.onCompletePlanClick(plan)}"
+                android:onClick="@{()->planLogic.onCompletePlanClick(plan.pid)}"
                 app:fab_icon="@drawable/complete"
                 app:fab_size="mini"
                 app:fab_title="약속 완료" />
@@ -229,7 +229,7 @@
                 android:id="@+id/addMemoFloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->planLogic.onCreateMemoClick()}"
+                android:onClick="@{()->planLogic.onCreateMemoClick(plan.pid)}"
                 app:fab_icon="@drawable/memo"
                 app:fab_size="mini"
                 app:fab_title="메모 등록" />

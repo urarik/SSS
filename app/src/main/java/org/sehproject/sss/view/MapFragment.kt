@@ -155,7 +155,7 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
         TODO("Not yet implemented")
     }
     override fun onDaumMapOpenAPIKeyAuthenticationResult(p0: MapView?, p1: Int, p2: String?) {
-        TODO("Not yet implemented")
+        Log.d("TAG",String.format("Open API Key Authentication Result : code=%d, message=%s",p1,p2))
     }
 
     private inner class EtaHolder(private val itemLocationBinding: ItemEtaBinding):

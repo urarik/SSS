@@ -2,6 +2,7 @@ package org.sehproject.sss.view
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -82,13 +83,21 @@ class PlanDetailFragment : Fragment() {
         planViewModel.createMemoCompleteEvent.observe(viewLifecycleOwner, {
             planViewModel.concatAdapterLiveData.value =
                 planViewModel.concatAdapterLiveData.value?.minus(1)
-            planViewModel.setMemoList(pid)
+            val newMemoList = planViewModel.memoListLiveData.value!!.toMutableList().also { list ->
+                list.add(it)
+            }
+
+            planViewModel.memoListLiveData.value = newMemoList
         })
 
         planViewModel.deleteMemoCompleteEvent.observe(viewLifecycleOwner, {
             planViewModel.concatAdapterLiveData.value =
                 planViewModel.concatAdapterLiveData.value?.minus(1)
-            planViewModel.setMemoList(pid)
+            val newMemoList = planViewModel.memoListLiveData.value!!.filter {
+                it.writer != UserInfo.nickname
+            }
+
+            planViewModel.memoListLiveData.value = newMemoList
         })
 
         planViewModel.deletePlanEvent.observe(viewLifecycleOwner, {
@@ -153,7 +162,7 @@ class PlanDetailFragment : Fragment() {
             builder.setTitle("메모")
             builder.setView(editText)
             builder.setPositiveButton("입력", DialogInterface.OnClickListener { dialog, which ->
-                planViewModel.planLogic.onCreateMemoDoneClick(editText.getText().toString())
+                planViewModel.planLogic.onCreateMemoDoneClick(editText.getText().toString(), it)
             })
             builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
                 // planViewModel.planLogic.onCreateMemoExitClick()
