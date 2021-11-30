@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Adapter
 import android.widget.AdapterView
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.datatype.Memo
 import org.sehproject.sss.datatype.Plan
@@ -27,7 +28,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         if (plan.pid == null) onCreatePlanDoneClick(plan)
         else {
             planViewModel.planRepository.editPlan(plan) {code ->
-                Log.d("TAG", plan.toString())
              if(code == 0)
                  planViewModel.editCompletePlanEvent.call()
             }
@@ -78,12 +78,11 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         }
     }
 
-    fun onCompletePlanClick(plan: Plan) {
-        planViewModel.planRepository.completePlan(plan.pid!!) { code: Int ->
+    fun onCompletePlanClick(pid: Int) {
+        planViewModel.planRepository.completePlan(pid) { code: Int ->
             if(code == 0) {
-                planViewModel.planRepository.addPoint(100) { code: Int ->
-                    Log.d("TAG", "code2: " + code.toString())
-                    if(code == 0) {
+                planViewModel.planRepository.addPoint(100) { code2: Int ->
+                    if(code2 == 0) {
                         planViewModel.completePlanCompleteEvent.call()
                     }
                 }
@@ -123,23 +122,21 @@ class PlanLogic(val planViewModel: PlanViewModel) {
             }
         }
     }
-    fun onCreateMemoClick() {
-        planViewModel.createMemoEvent.call()
+    fun onCreateMemoClick(pid: Int) {
+        planViewModel.createMemoEvent.value = pid
     }
-    fun onCreateMemoDoneClick(memoString: String) {
+    fun onCreateMemoDoneClick(memoString: String, pid: Int) {
         val memo = Memo()
         memo.memo = memoString
-        memo.pid = planViewModel.planLiveData.value?.pid!!
+        memo.pid = pid
 
         planViewModel.planRepository.createMemo(memo) { code: Int ->
-            Log.d("TAG", code.toString())
             if(code == 0) {
-                planViewModel.createMemoCompleteEvent.call()
+                planViewModel.createMemoCompleteEvent.value = memo.also { it.writer = UserInfo.nickname }
             }
         }
     }
     fun onDeleteMemoClick(pid: Int) {
-        Log.d("TAG", pid.toString())
         planViewModel.planRepository.deleteMemo(pid) { code ->
             if(code == 0) {
                 planViewModel.deleteMemoCompleteEvent.call()
@@ -175,9 +172,8 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
 
 
-    fun onPublicPlanClick(plan: Plan, isChecked: Boolean) {
-        Log.d("TAG", "plan: $plan\nisChecked: $isChecked")
-        planViewModel.planRepository.setPlanVisibility(plan.pid!!, isChecked) { code ->
+    fun onPublicPlanClick(pid: Int, isChecked: Boolean) {
+        planViewModel.planRepository.setPlanVisibility(pid, isChecked) { code ->
             if(code ==0)
                 planViewModel.makePlanPublicCompleteEvent.call()
         }
@@ -192,7 +188,6 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         planViewModel.planRepository.getImageOcr(planViewModel.ocrBitmap) {
                 code, string ->
             if(code == 0) {
-                Log.d("TAG", string.toString())
                 val parser = StringParser()
                 val plan = parser.parse(string!!)
                 if(plan.pid == -1) planViewModel.createPlanOcrFailEvent.value = plan.name

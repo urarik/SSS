@@ -30,14 +30,13 @@ class PlanViewModel : ViewModel() {
     val kickOutPlanCompleteEvent = SingleLiveEvent<Int>()
     val cancelPlanEvent = SingleLiveEvent<Int>()
     val cancelPlanCompleteEvent = SingleLiveEvent<Int>()
-    val createMemoEvent = SingleLiveEvent<Any>()
-    val createMemoCompleteEvent = SingleLiveEvent<Int>()
+    val createMemoEvent = SingleLiveEvent<Int>()
+    val createMemoCompleteEvent = SingleLiveEvent<Memo>()
     val deleteMemoCompleteEvent = SingleLiveEvent<Any>()
     val createPlanEvent = SingleLiveEvent<Any>()
     val createPlanFailEvent = SingleLiveEvent<Int>()
     val createPlanOcrEvent = SingleLiveEvent<Any>()
     val createPlanOcrFailEvent = SingleLiveEvent<String>()
-    val createPlanOcrDoneEvent = SingleLiveEvent<Plan>()
     val uploadImgEvent = SingleLiveEvent<Any>()
     val createPlanTypeEvent = SingleLiveEvent<Any>()
     val createPlanTypeFailEvent = SingleLiveEvent<String>()
@@ -74,16 +73,10 @@ class PlanViewModel : ViewModel() {
     }
 
     fun setPlanList(isCurrent: Boolean, userId: String = UserInfo.userId) {
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm")
-        val formatted = current.format(formatter)
-        var mlist: MutableList<Plan>? = null
-
-        Log.d("TAG", formatted)
 
         planRepository.getPlanList(userId, isCurrent) {code, list ->
             if(code == 0) {
-                mlist = list as MutableList<Plan>
+                val mlist = list as MutableList<Plan>
                 if (isSorted)
                     planListLiveData.value = planLogic.sortPlanByCategory(mlist!!)
                 else
@@ -99,7 +92,6 @@ class PlanViewModel : ViewModel() {
         planRepository.getPlan(pid) {code, plan ->
             if(code == 0)
                 planLiveData.value = plan
-            Log.d("TAG", planLiveData.value.toString())
         }
         setMemoList(pid)
         planRepository.getParticipantList(pid) {code, participants ->
