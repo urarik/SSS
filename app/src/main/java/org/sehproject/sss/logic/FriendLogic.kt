@@ -1,9 +1,7 @@
 package org.sehproject.sss.logic
 
-import android.util.Log
 import androidx.appcompat.widget.AppCompatButton
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.FriendViewModel
 

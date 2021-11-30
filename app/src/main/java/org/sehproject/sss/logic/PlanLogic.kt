@@ -196,7 +196,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         }
     }
     @SuppressLint("SimpleDateFormat")
-    fun onViewPlanClick(pid: Int, endTime: String) {
+    fun onViewPlanClick(pid: Int) {
         planViewModel.viewPlanDetailsEvent.value = pid
     }
     fun onItemClick(user: User) {

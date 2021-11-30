@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -21,13 +20,10 @@ import com.nhn.android.naverlogin.OAuthLogin
 import org.sehproject.sss.R
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentDialogRegisterBinding
-import org.sehproject.sss.logic.UserLogic
 import org.sehproject.sss.utils.ActivityNavigation
 import org.sehproject.sss.utils.NaverLoginHandler
 import org.sehproject.sss.utils.UserViewModelFactory
 import org.sehproject.sss.viewmodel.UserViewModel
-
-
 
 
 class RegisterChooserFragment: Fragment(), ActivityNavigation {

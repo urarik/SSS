@@ -1,7 +1,6 @@
 package org.sehproject.sss.logic
 
 import org.sehproject.sss.datatype.Coordinate
-import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.viewmodel.MapViewModel
 
 class MapLogic(private val mapViewModel: MapViewModel) {

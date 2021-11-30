@@ -41,7 +41,6 @@ Android Studio 2020.3.1 이상, Android SDK Tools 23 이상, Android 5.0(Lollipo
 + 그룹 목록 보기
 + 그룹 상세 정보 보기
 + 인기 약속 장소 추천
-+ 실시간 위치 추적
 
 ## Technology / 기술
 
@@ -50,6 +49,7 @@ Android Studio 2020.3.1 이상, Android SDK Tools 23 이상, Android 5.0(Lollipo
 + NodeJS Express를 사용한 웹 API 서버
 + Scikit-learn를 사용한 인기 약속 장소 데이터 분석
 + Selenium을 사용한 장소 이미지 크롤링
++ Firebase와 Naver API를 사용한 소설 로그인
 
 ## License / 라이센스
 

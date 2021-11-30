@@ -1,18 +1,16 @@
 package org.sehproject.sss.viewmodel
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import org.sehproject.sss.dao.AppDatabase
-import org.sehproject.sss.datatype.*
-import org.sehproject.sss.logic.PlanLogic
+import org.sehproject.sss.datatype.Option
+import org.sehproject.sss.datatype.Profile
+import org.sehproject.sss.datatype.Statistics
 import org.sehproject.sss.logic.ProfileLogic
 import org.sehproject.sss.repository.ProfileRepository
-import org.sehproject.sss.repository.UserRepository
 import org.sehproject.sss.utils.SingleLiveEvent
 import java.io.File
 import java.io.FileInputStream

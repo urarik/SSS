@@ -1,11 +1,8 @@
 package org.sehproject.sss.utils
 
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationBarView
-import com.google.android.material.navigation.NavigationView
 import org.sehproject.sss.R
 
 class NavigationListener(private val viewPager2: ViewPager2): NavigationBarView.OnItemSelectedListener {

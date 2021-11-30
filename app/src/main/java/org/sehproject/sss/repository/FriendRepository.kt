@@ -2,11 +2,12 @@ package org.sehproject.sss.repository
 
 import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.datatype.*
+import org.sehproject.sss.datatype.GenericResponse
+import org.sehproject.sss.datatype.User
+import org.sehproject.sss.datatype.UserListResponse
 import org.sehproject.sss.service.FriendService
 import org.sehproject.sss.utils.CallbackWithRetry
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

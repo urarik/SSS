@@ -2,32 +2,20 @@ package org.sehproject.sss.view
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import org.sehproject.sss.R
-import org.sehproject.sss.databinding.FragmentFriendListBinding
-import org.sehproject.sss.databinding.FragmentUserSearchBinding
-import org.sehproject.sss.databinding.ItemPlanBinding
-import org.sehproject.sss.databinding.UserSerachItemBinding
-import org.sehproject.sss.datatype.Plan
-import org.sehproject.sss.datatype.User
-import org.sehproject.sss.viewmodel.FriendViewModel
-import android.content.Context.INPUT_METHOD_SERVICE
-import android.opengl.Visibility
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-
-import androidx.core.content.ContextCompat.getSystemService
-
-
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import org.sehproject.sss.R
+import org.sehproject.sss.databinding.FragmentUserSearchBinding
+import org.sehproject.sss.databinding.UserSerachItemBinding
+import org.sehproject.sss.datatype.User
+import org.sehproject.sss.viewmodel.FriendViewModel
 
 
 class UserSearchFragment : Fragment() {

@@ -1,6 +1,5 @@
 package org.sehproject.sss.utils
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.sehproject.sss.dao.AppDatabase

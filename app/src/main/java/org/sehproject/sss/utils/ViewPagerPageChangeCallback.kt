@@ -2,7 +2,6 @@ package org.sehproject.sss.utils
 
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
 import org.sehproject.sss.R
 
 class ViewPagerPageChangeCallback(private val bottomNav: BottomNavigationView): ViewPager2.OnPageChangeCallback() {
