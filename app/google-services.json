@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "719717179769-ffn2e6chlohvnggcj85hhh8shvkc1tvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.sehproject.sss",
+            "certificate_hash": "6a9721652a9cfb7714b70a153b697e2826e57c35"
+          }
+        },
+        {
           "client_id": "719717179769-hioneutqehn7rhma34ekf5rmgl07v0hl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
