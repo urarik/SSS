@@ -20,6 +20,9 @@ import org.sehproject.sss.databinding.FragmentProfileEditBinding
 import org.sehproject.sss.utils.ProfileViewModelFactory
 import org.sehproject.sss.viewmodel.ProfileViewModel
 import java.io.FileInputStream
+import android.provider.OpenableColumns
+import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
 
 class ProfileEditFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
@@ -50,6 +53,7 @@ class ProfileEditFragment : Fragment() {
             profileViewModel.imageLength = getFileLength(uri)
             profileViewModel.imageStream = stream
             profileViewModel.imageExtension = name.substring(name.lastIndexOf("."))
+            Log.d("TAG", "launcher complete")
         }
         initObserver(profileEditBinding, launcher)
 

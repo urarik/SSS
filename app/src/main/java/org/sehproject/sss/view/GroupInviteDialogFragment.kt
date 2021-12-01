@@ -53,5 +53,9 @@ class GroupInviteDialogFragment: DialogFragment() {
             adapter = UserAdapter(it)
             recyclerView.adapter = adapter
         })
+
+        groupViewModel!!.cancelInviteGroupEvent.observe(viewLifecycleOwner, Observer {
+            navController.popBackStack()
+        })
     }
 }

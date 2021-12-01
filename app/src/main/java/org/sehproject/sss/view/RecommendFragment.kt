@@ -58,6 +58,7 @@ class RecommendFragment : Fragment() {
 
         override fun getItemCount(): Int = places.size
 
+        @RequiresApi(Build.VERSION_CODES.Q)
         override fun onBindViewHolder(holder: PlaceHolder, position: Int) {
             val place = places[position]
             holder.bind(place)

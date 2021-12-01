@@ -40,11 +40,17 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 
     fun onEditGroupCompleteClick(group: Group)
     {
-        if(group.gid == null) onCreateGroupCompleteClick(group)
+        if (group.name.length > 20)
+            groupViewModel.editGroupFailEvent.value = "그룹 이름이 너무 깁니다. (20자 초과)"
+        else if (group.explanation.length > 30)
+            groupViewModel.editGroupFailEvent.value = "그룹 설명이 너무 깁니다. (30자 초과)"
         else {
-            groupViewModel.groupRepository.editGroup(group) { code ->
-                if(code == 0)
-                    groupViewModel.editGroupCompleteEvent.call()
+            if(group.gid == null) onCreateGroupCompleteClick(group)
+            else {
+                groupViewModel.groupRepository.editGroup(group) { code ->
+                    if(code == 0)
+                        groupViewModel.editGroupCompleteEvent.call()
+                }
             }
         }
     }
@@ -127,5 +133,9 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
 
     fun sortGroupByMembers(list: List<Group>): List<Group> {
         return list.sortedWith(compareBy({ it.participants?.size }, { it.name }))
+    }
+
+    fun onInviteGroupCancelClick() {
+        groupViewModel.cancelInviteGroupEvent.call()
     }
 }

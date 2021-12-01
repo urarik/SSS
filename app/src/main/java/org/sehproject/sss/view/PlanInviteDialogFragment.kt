@@ -58,5 +58,9 @@ class PlanInviteDialogFragment: DialogFragment() {
             adapter = UserAdapter(it)
             recyclerView.adapter = adapter
         })
+
+        planViewModel!!.cancelInvitePlanEvent.observe(viewLifecycleOwner, Observer {
+            navController.popBackStack()
+        })
     }
 }

@@ -34,6 +34,8 @@ class GroupViewModel : ViewModel() {
     val groupLiveData = MutableLiveData<Group>()
     val groupListLiveData = MutableLiveData<List<Group>>()
     val selectedGroupUserList = mutableListOf<String>()
+    val cancelInviteGroupEvent = SingleLiveEvent<Any>()
+    val editGroupFailEvent = SingleLiveEvent<String>()
 
     fun setFriendList() {
         friendRepository.getFriendList { _, list ->
