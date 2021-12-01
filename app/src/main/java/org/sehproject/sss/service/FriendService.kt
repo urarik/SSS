@@ -12,6 +12,9 @@ interface FriendService {
     @POST("friend/search")
     @FormUrlEncoded
     fun requestSearchUser(
+        @Field("userid")
+        userId: String,
+
         @Field("userid_or_nickname")
         userIdOrNickName: String
     ): Call<UserListResponse>
