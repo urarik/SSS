@@ -14,7 +14,7 @@ SaeHoon's Scheduling System Api Server를 먼저 실행 후 Android Studio로 �
 아래 사항들이 설치가 되어있어야합니다.
 
 ```
-Android Studio 2020.3.1 이상, Android SDK Tools 23 이상, Android 5.0(Lollipop) 이상, SaeHoon's Scheduling System Api Server, Android 5.0(Lollipop) 
+Android Studio 2020.3.1 이상, Android SDK Tools 23 이상, Android 5.0(Lollipop) 이상, SaeHoon's Scheduling System Api Server
 ```
 + [SaeHoon's Scheduling System Server](https://github.com/githubKudoi/sss-api-server)
 
