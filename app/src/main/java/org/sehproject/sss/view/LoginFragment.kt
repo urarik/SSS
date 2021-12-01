@@ -28,6 +28,7 @@ import com.nhn.android.naverlogin.OAuthLogin
 import org.sehproject.sss.R
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentLoginBinding
+import org.sehproject.sss.datatype.AccountXML
 import org.sehproject.sss.utils.ActivityNavigation
 import org.sehproject.sss.utils.NaverLoginHandler
 import org.sehproject.sss.utils.UserViewModelFactory
@@ -54,6 +55,7 @@ class LoginFragment : Fragment(), ActivityNavigation {
         loginBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
         loginBinding.userLogic = userViewModel.userLogic
+        loginBinding.user = AccountXML()
 
         initObservers()
         initNaverLogin()
