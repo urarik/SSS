@@ -192,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:onClick="@{()->planLogic.onCompletePlanClick(plan.pid)}"
+                android:onClick="@{()->planLogic.onCompletePlanClick(plan.pid, plan.startTime)}"
                 app:fab_icon="@drawable/complete"
                 app:fab_size="mini"
                 app:fab_title="약속 완료" />

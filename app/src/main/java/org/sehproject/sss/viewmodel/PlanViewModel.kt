@@ -27,6 +27,7 @@ class PlanViewModel : ViewModel() {
     val deletePlanEvent = SingleLiveEvent<Int>()
     val deletePlanCompleteEvent = SingleLiveEvent<Int>()
     val completePlanCompleteEvent = SingleLiveEvent<Int>()
+    val completePlanFailEvent = SingleLiveEvent<Int>()
     val kickOutPlanEvent = SingleLiveEvent<Int>()
     val kickOutPlanCompleteEvent = SingleLiveEvent<Int>()
     val cancelPlanEvent = SingleLiveEvent<Int>()

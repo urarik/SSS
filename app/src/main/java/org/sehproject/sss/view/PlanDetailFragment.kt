@@ -157,6 +157,9 @@ class PlanDetailFragment : Fragment() {
         planViewModel.completePlanCompleteEvent.observe(viewLifecycleOwner, {
             navController.navigate(R.id.action_planDetailFragment_to_planListFragment)
         })
+        planViewModel.completePlanFailEvent.observe(viewLifecycleOwner, {
+            Toast.makeText(context, "시작시간이 현재보다 느리면 삭제할 수 없습니다!", Toast.LENGTH_SHORT).show()
+        })
 
         planViewModel.createMemoEvent.observe(viewLifecycleOwner, {
             val editText = EditText(context)

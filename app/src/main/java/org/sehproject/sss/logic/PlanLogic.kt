@@ -12,6 +12,7 @@ import org.sehproject.sss.datatype.User
 import org.sehproject.sss.utils.StringParser
 import org.sehproject.sss.viewmodel.PlanViewModel
 import java.text.SimpleDateFormat
+import java.util.*
 
 class PlanLogic(val planViewModel: PlanViewModel) {
 
@@ -82,7 +83,20 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         }
     }
 
-    fun onCompletePlanClick(pid: Int) {
+    fun onCompletePlanClick(pid: Int, startTime: String) {
+        val format = SimpleDateFormat("yyyy-MM-dd hh:mm")
+        try {
+            val start = format.parse(startTime)
+            val now = Calendar.getInstance().time;
+            if (start > now) {
+                planViewModel.completePlanFailEvent.call()
+                return
+            }
+        } catch(e: Error) {
+            Log.e("error!", e.toString())
+        }
+
+
         planViewModel.planRepository.completePlan(pid) { code: Int ->
             if(code == 0) {
                 planViewModel.planRepository.addPoint(100) { code2: Int ->
