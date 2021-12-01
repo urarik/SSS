@@ -27,6 +27,7 @@ import org.sehproject.sss.viewmodel.UserViewModel
 
 
 class RegisterChooserFragment: Fragment(), ActivityNavigation {
+    private lateinit var registerDialogBinding: FragmentDialogRegisterBinding
     private val userViewModel: UserViewModel by lazy {
         val appDatabase = AppDatabase.getInstance(requireContext())!!
         ViewModelProvider(this, UserViewModelFactory(appDatabase)).get(UserViewModel::class.java)
@@ -39,12 +40,12 @@ class RegisterChooserFragment: Fragment(), ActivityNavigation {
         savedInstanceState: Bundle?
     ): View {
         super.onCreate(savedInstanceState)
-        val registerDialogBinding : FragmentDialogRegisterBinding =
+        registerDialogBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_dialog_register, container, false)
         registerDialogBinding.userLogic = userViewModel.userLogic
 
-        initGoogleLogin(registerDialogBinding)
-        initNaverLogin(registerDialogBinding)
+        initGoogleLogin()
+        initNaverLogin()
         initObserver()
 
         return registerDialogBinding.root
@@ -61,10 +62,9 @@ class RegisterChooserFragment: Fragment(), ActivityNavigation {
             val action = RegisterChooserFragmentDirections.actionRegisterChooserFragmentToRegisterFragment("")
             navController.navigate(action)
         })
-
     }
 
-    private fun initNaverLogin(regDialogRegisterBinding: FragmentDialogRegisterBinding) {
+    private fun initNaverLogin() {
         val mOAuthLoginModule = OAuthLogin.getInstance()
         mOAuthLoginModule.init(
             requireActivity().baseContext,
@@ -79,11 +79,11 @@ class RegisterChooserFragment: Fragment(), ActivityNavigation {
                 mOAuthLoginModule,
                 userViewModel.userLogic::naverRegisterCallback
             )
-        regDialogRegisterBinding.buttonNaverRegister.setOAuthLoginHandler(mOAuthLoginHandler)
-        regDialogRegisterBinding.buttonNaverRegister.setBgResourceId(R.drawable.btn_ag)
+        registerDialogBinding.buttonNaverRegister.setOAuthLoginHandler(mOAuthLoginHandler)
+        registerDialogBinding.buttonNaverRegister.setBgResourceId(R.drawable.btn_ag)
     }
 
-    private fun initGoogleLogin(regDialogRegisterBinding: FragmentDialogRegisterBinding) {
+    private fun initGoogleLogin() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
             .requestEmail()
@@ -93,12 +93,12 @@ class RegisterChooserFragment: Fragment(), ActivityNavigation {
         userViewModel.setGoogleClient(googleSignInClient)
 
 
-        regDialogRegisterBinding.buttonGoogleRegister.setOnClickListener {
+        registerDialogBinding.buttonGoogleRegister.setOnClickListener {
             userViewModel.userLogic.onGoogleRegisterClick()
         }
         userViewModel.googleRegisterEvent.setEventReceiver(this, this)
 
-        val textView = regDialogRegisterBinding.buttonGoogleRegister.getChildAt(0) as TextView
+        val textView = registerDialogBinding.buttonGoogleRegister.getChildAt(0) as TextView
         textView.text = getString(R.string.google_login)
     }
 
