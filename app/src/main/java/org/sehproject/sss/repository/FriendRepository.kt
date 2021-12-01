@@ -21,7 +21,7 @@ class FriendRepository {
     private var friendService: FriendService = retrofit.create(FriendService::class.java)
 
     fun searchUser(userIdOrNickName: String, onResult: (Int, List<User>?) -> Unit) {
-        val searchUserCall = friendService.requestSearchUser(userIdOrNickName)
+        val searchUserCall = friendService.requestSearchUser(UserInfo.userId, userIdOrNickName)
         searchUserCall.enqueue(object :
             CallbackWithRetry<UserListResponse>(searchUserCall) {
             override fun onResponse(
