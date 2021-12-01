@@ -89,6 +89,10 @@ class PlanEditFragment : Fragment() {
                 else -> "알 수 없는 오류 code : $it"
             }, Toast.LENGTH_SHORT).show()
         })
+
+        planViewModel.editPlanFailEvent.observe(viewLifecycleOwner, {
+            Toast.makeText(context, "장소를 입력해주세요.", Toast.LENGTH_SHORT).show()
+        })
     }
     private fun pickDateTime(plan: Plan, isStart: Boolean, planEditBinding: FragmentPlanEditBinding) {
         val currentDateTime = Calendar.getInstance()

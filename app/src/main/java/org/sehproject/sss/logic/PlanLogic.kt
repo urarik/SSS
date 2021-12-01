@@ -25,11 +25,15 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
 
     fun onEditPlanCompleteClick(plan: Plan) {
-        if (plan.pid == null) onCreatePlanDoneClick(plan)
+        if (plan.location.isEmpty())
+            planViewModel.editPlanFailEvent.call()
         else {
-            planViewModel.planRepository.editPlan(plan) {code ->
-             if(code == 0)
-                 planViewModel.editCompletePlanEvent.call()
+            if (plan.pid == null) onCreatePlanDoneClick(plan)
+            else {
+                planViewModel.planRepository.editPlan(plan) {code ->
+                    if(code == 0)
+                        planViewModel.editCompletePlanEvent.call()
+                }
             }
         }
     }
