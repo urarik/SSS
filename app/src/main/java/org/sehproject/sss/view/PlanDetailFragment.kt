@@ -60,6 +60,7 @@ class PlanDetailFragment : Fragment() {
                 planDetailBinding.deletePlanTypeFloatingActionButton.visibility = ViewGroup.VISIBLE
                 planDetailBinding.completePlanFloatingActionButton.visibility = ViewGroup.VISIBLE
                 planDetailBinding.kickOutPlanFloatingActionButton.visibility = ViewGroup.VISIBLE
+                planDetailBinding.cancelPlanFloatingActionButton.visibility = ViewGroup.GONE
             }
         })
 
