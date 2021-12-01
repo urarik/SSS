@@ -1,5 +1,6 @@
 package org.sehproject.sss.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.sehproject.sss.datatype.Location
@@ -16,8 +17,14 @@ class MapViewModel : ViewModel() {
 
     fun setLocationList(pid: Int) {
         mapRepository.getLocationList(pid) {code, list ->
+            var mlist = mutableListOf<Location>()
             if(code == 0)
-                locationListLiveData.value = list
+                mlist = if (list == null)
+                    mutableListOf()
+                else
+                    list as MutableList<Location>
+                locationListLiveData.value = mlist
+            Log.d("TAG", list.toString())
         }
     }
 }

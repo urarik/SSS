@@ -21,6 +21,7 @@ import org.sehproject.sss.databinding.FragmentProfileEditBinding
 import org.sehproject.sss.utils.ProfileViewModelFactory
 import org.sehproject.sss.viewmodel.ProfileViewModel
 import java.io.FileInputStream
+import android.util.Log
 
 class ProfileEditFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {

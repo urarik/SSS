@@ -85,6 +85,7 @@ class GroupDetailFragment : Fragment() {
                 groupDetailBinding.editGroupFloatingActionButton.visibility = ViewGroup.VISIBLE
                 groupDetailBinding.deleteGroupFloatingActionButton.visibility = ViewGroup.VISIBLE
                 groupDetailBinding.kickOutGroupFloatingActionButton.visibility = ViewGroup.VISIBLE
+                groupDetailBinding.exitGroupFloatingActionButton.visibility = ViewGroup.GONE
             }
         })
         groupViewModel.friendListLiveData.observe(viewLifecycleOwner, {
