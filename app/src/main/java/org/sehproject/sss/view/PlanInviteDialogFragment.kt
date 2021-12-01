@@ -1,7 +1,6 @@
 package org.sehproject.sss.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +57,10 @@ class PlanInviteDialogFragment: DialogFragment() {
         planViewModel?.friendListLiveData?.observe(viewLifecycleOwner, Observer {
             adapter = UserAdapter(it)
             recyclerView.adapter = adapter
+        })
+
+        planViewModel!!.cancelInvitePlanEvent.observe(viewLifecycleOwner, Observer {
+            navController.popBackStack()
         })
     }
 }

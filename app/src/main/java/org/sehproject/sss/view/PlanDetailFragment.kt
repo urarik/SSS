@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -119,7 +120,7 @@ class PlanDetailFragment : Fragment() {
         planViewModel.cancelPlanEvent.observe(viewLifecycleOwner, {
             android.app.AlertDialog
                 .Builder(context)
-                .setMessage("약속에 참석 취소하시겠습니까?")
+                .setMessage("참석을 취소하시겠습니까?")
                 .setPositiveButton("네") { dialogInterface: DialogInterface, i: Int ->
                     planViewModel.planLogic.onCancelPlanConfirmClick(it)
                 }
@@ -168,6 +169,10 @@ class PlanDetailFragment : Fragment() {
                 // planViewModel.planLogic.onCreateMemoExitClick()
             })
             builder.show()
+        })
+
+        planViewModel.createMemoFailEvent.observe(viewLifecycleOwner, {
+            Toast.makeText(context, "메모 글자 수가 너무 깁니다. (100자 초과)", Toast.LENGTH_SHORT).show()
         })
     }
 

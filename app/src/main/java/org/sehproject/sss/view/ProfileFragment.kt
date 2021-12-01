@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
             .requestIdToken("719717179769-tu7oe94t8beedgs3ee0cgcb5kebe5rqc.apps.googleusercontent.com")
             .requestEmail()
             .build()
-        profileViewModel.googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+        profileViewModel.   googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         profileViewModel.setProfile(UserInfo.userId)
         return profileBinding.root

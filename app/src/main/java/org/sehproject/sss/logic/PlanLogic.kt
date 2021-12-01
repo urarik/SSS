@@ -130,9 +130,14 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         memo.memo = memoString
         memo.pid = pid
 
-        planViewModel.planRepository.createMemo(memo) { code: Int ->
-            if(code == 0) {
-                planViewModel.createMemoCompleteEvent.value = memo.also { it.writer = UserInfo.nickname }
+        if (memoString.length > 100) {
+            planViewModel.createMemoFailEvent.call()
+        }
+        else {
+            planViewModel.planRepository.createMemo(memo) { code: Int ->
+                if(code == 0) {
+                    planViewModel.createMemoCompleteEvent.value = memo.also { it.writer = UserInfo.nickname }
+                }
             }
         }
     }
@@ -214,5 +219,9 @@ class PlanLogic(val planViewModel: PlanViewModel) {
 
     fun onLastPlanToggleClick(isCurrentPlan: Boolean) {
         planViewModel.isLastPlan.value = !isCurrentPlan
+    }
+
+    fun onInvitePlanCancelClick() {
+        planViewModel.cancelInvitePlanEvent.call()
     }
 }

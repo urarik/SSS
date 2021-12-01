@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -72,6 +73,9 @@ class GroupEditFragment : Fragment() {
         })
         groupViewModel.editGroupCompleteEvent.observe(viewLifecycleOwner, {
             navController.popBackStack()
+        })
+        groupViewModel.editGroupFailEvent.observe(viewLifecycleOwner, {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
     }
 }
