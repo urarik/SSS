@@ -1,12 +1,7 @@
 package org.sehproject.sss.logic
 
-import android.util.Log
-import android.widget.Adapter
-import android.widget.AdapterView
 import org.sehproject.sss.datatype.Group
-import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
-import org.sehproject.sss.view.GroupListFragment
 import org.sehproject.sss.viewmodel.GroupViewModel
 
 class GroupLogic(private val groupViewModel: GroupViewModel) {

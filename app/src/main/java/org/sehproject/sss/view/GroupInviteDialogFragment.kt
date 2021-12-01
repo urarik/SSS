@@ -1,7 +1,6 @@
 package org.sehproject.sss.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentGroupInviteBinding
 import org.sehproject.sss.view.dialog.DialogFragment
 import org.sehproject.sss.viewmodel.GroupViewModel
-import org.sehproject.sss.viewmodel.UserViewModel
 
 class GroupInviteDialogFragment: DialogFragment() {
     private val safeArgs: GroupInviteDialogFragmentArgs by navArgs() //gid, is_invite

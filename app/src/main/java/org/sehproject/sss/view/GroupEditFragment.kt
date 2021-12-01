@@ -4,20 +4,18 @@ import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.sehproject.sss.R
 import org.sehproject.sss.databinding.FragmentGroupEditBinding
-import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.viewmodel.GroupViewModel
 import top.defaults.colorpicker.ColorPickerPopup
 

@@ -1,12 +1,9 @@
 package org.sehproject.sss.utils
 
-import android.content.BroadcastReceiver
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import org.sehproject.sss.viewmodel.UserViewModel
 
 class MessageHandler: FirebaseMessagingService() {
     private lateinit var localBroadcastManager: LocalBroadcastManager

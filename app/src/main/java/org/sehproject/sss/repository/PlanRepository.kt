@@ -3,8 +3,6 @@ package org.sehproject.sss.repository
 import android.graphics.Bitmap
 import android.util.Base64
 import com.google.android.gms.tasks.Task
-import com.google.api.services.calendar.Calendar
-import com.google.api.services.calendar.model.Event
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.gson.*
 import org.sehproject.sss.ServerApi
@@ -12,7 +10,6 @@ import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
 import org.sehproject.sss.service.PlanService
 import org.sehproject.sss.utils.CallbackWithRetry
-import org.sehproject.sss.utils.StringParser
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit

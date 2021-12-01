@@ -1,5 +1,6 @@
 package org.sehproject.sss.view
 
+// import org.sehproject.sss.databinding.ActivityLoginBinding
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -14,13 +15,8 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import org.sehproject.sss.R
-// import org.sehproject.sss.databinding.ActivityLoginBinding
-import org.sehproject.sss.utils.ActivityNavigation
-import org.sehproject.sss.viewmodel.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -29,12 +25,13 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nhn.android.idp.common.util.DeviceAppInfo.getPackageName
 import com.nhn.android.naverlogin.OAuthLogin
+import org.sehproject.sss.R
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.databinding.FragmentLoginBinding
-import org.sehproject.sss.datatype.AccountXML
-import org.sehproject.sss.logic.UserLogic
+import org.sehproject.sss.utils.ActivityNavigation
 import org.sehproject.sss.utils.NaverLoginHandler
 import org.sehproject.sss.utils.UserViewModelFactory
+import org.sehproject.sss.viewmodel.UserViewModel
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 

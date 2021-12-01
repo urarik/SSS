@@ -2,16 +2,16 @@ package org.sehproject.sss.repository
 
 import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.datatype.*
+import org.sehproject.sss.datatype.Coordinate
+import org.sehproject.sss.datatype.GenericResponse
+import org.sehproject.sss.datatype.Location
+import org.sehproject.sss.datatype.LocationListResponse
 import org.sehproject.sss.service.MapService
-import org.sehproject.sss.service.PlanService
 import org.sehproject.sss.utils.CallbackWithRetry
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.time.LocalTime
 
 class MapRepository {
     private var retrofit: Retrofit = Retrofit.Builder()

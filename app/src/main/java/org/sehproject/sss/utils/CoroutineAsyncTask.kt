@@ -1,9 +1,7 @@
 package org.sehproject.sss.utils
 
-import android.util.Log
 import kotlinx.coroutines.*
 import org.sehproject.sss.utils.Constant.Status
-import java.util.concurrent.Executors
 
 abstract class CoroutinesAsyncTask<Params, Progress, Result>(val taskName: String) {
 

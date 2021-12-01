@@ -1,35 +1,12 @@
 package org.sehproject.sss.logic
 
-import android.content.ContentResolver
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
-import android.os.Environment
-import android.provider.DocumentsContract
-import android.provider.DocumentsProvider
 import android.util.Log
-import android.widget.CompoundButton
-import android.widget.ImageView
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import com.nhn.android.naverlogin.OAuthLogin
-import kotlinx.coroutines.currentCoroutineContext
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.Profile
 import org.sehproject.sss.viewmodel.ProfileViewModel
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.net.URI
-import javax.xml.parsers.DocumentBuilder
-import android.content.Intent
-import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
-import org.sehproject.sss.view.MainActivity
 
 
 class ProfileLogic(val profileViewModel: ProfileViewModel) {

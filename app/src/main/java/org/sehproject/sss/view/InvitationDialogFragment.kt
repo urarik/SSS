@@ -1,24 +1,15 @@
 package org.sehproject.sss
 
-import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import org.sehproject.sss.databinding.FragmentInvitationBinding
-import org.sehproject.sss.databinding.FragmentPlanDetailBinding
 import org.sehproject.sss.datatype.Invitation
-import org.sehproject.sss.view.GroupInviteDialogFragmentArgs
-import org.sehproject.sss.view.MainActivity
-import org.sehproject.sss.viewmodel.FriendViewModel
 import org.sehproject.sss.viewmodel.GroupViewModel
 import org.sehproject.sss.viewmodel.PlanViewModel
 

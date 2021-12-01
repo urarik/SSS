@@ -4,9 +4,10 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.api.services.calendar.model.Event
 import org.sehproject.sss.UserInfo
-import org.sehproject.sss.datatype.*
+import org.sehproject.sss.datatype.Memo
+import org.sehproject.sss.datatype.Plan
+import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.PlanLogic
 import org.sehproject.sss.repository.FriendRepository
 import org.sehproject.sss.repository.PlanRepository

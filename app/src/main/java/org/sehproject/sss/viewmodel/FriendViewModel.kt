@@ -3,8 +3,6 @@ package org.sehproject.sss.viewmodel
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.sehproject.sss.UserInfo
-import org.sehproject.sss.datatype.Plan
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.FriendLogic
 import org.sehproject.sss.repository.FriendRepository

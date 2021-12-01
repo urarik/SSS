@@ -4,7 +4,6 @@ import org.sehproject.sss.ServerApi
 import org.sehproject.sss.dao.AppDatabase
 import org.sehproject.sss.datatype.Account
 import org.sehproject.sss.datatype.GenericResponse
-import org.sehproject.sss.datatype.User
 import org.sehproject.sss.datatype.UserResponse
 import org.sehproject.sss.service.UserService
 import org.sehproject.sss.utils.CallbackWithRetry
