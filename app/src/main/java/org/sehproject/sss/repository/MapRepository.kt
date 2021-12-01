@@ -56,10 +56,10 @@ class MapRepository {
             ) {
                 val code = response.body()?.code
                 if (code == 0) {
-                    val locationList = response.body()?.locationList
-                    onResult(0, locationList)
+                    val location = response.body()?.location
+                    onResult(0, location)
                 } else {
-                    onResult(1, null)
+                    onResult(1, mutableListOf())
                 }
             }
 

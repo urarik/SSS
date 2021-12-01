@@ -45,27 +45,4 @@ class RecommendRepository {
         })
     }
 
-    fun getKeyWord(target: Coordinate, onResult: (Int, String?) -> Unit) {
-        val getKeyWordCall = recommendService.requestKeyword(target.latitude, target.longitude)
-        getKeyWordCall.enqueue(object : CallbackWithRetry<KeywordResponse>(getKeyWordCall) {
-            override fun onResponse(
-                call: Call<KeywordResponse>,
-                listResponse: Response<KeywordResponse>
-            ) {
-                val code = listResponse.body()?.code
-                if (code == 0) {
-                    val keyword = listResponse.body()?.keyword
-                    onResult(0, keyword)
-                } else {
-                    onResult(1, null)
-                }
-            }
-
-            override fun onFailure(call: Call<KeywordResponse>, t: Throwable) {
-                super.onFailure {
-                    onResult(-1, null)
-                }
-            }
-        })
-    }
 }

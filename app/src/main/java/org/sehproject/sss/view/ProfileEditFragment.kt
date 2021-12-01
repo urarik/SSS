@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +21,6 @@ import org.sehproject.sss.databinding.FragmentProfileEditBinding
 import org.sehproject.sss.utils.ProfileViewModelFactory
 import org.sehproject.sss.viewmodel.ProfileViewModel
 import java.io.FileInputStream
-import android.provider.OpenableColumns
-import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
 
 class ProfileEditFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by lazy {
