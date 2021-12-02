@@ -109,7 +109,7 @@ interface GroupService {
         groupId: Int
     ): Call<GroupResponse>
 
-    @POST("group/participants")
+    @POST("group/partlist")
     @FormUrlEncoded
     fun requestGetParticipantList(
         @Field("gid")
