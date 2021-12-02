@@ -241,7 +241,8 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
 
     fun sortPlanByCategory(list: List<Plan>): List<Plan> {
-        return list.sortedWith(compareBy({ it.category }, { it.startTime }))
+        val mlist = list.sortedByDescending { it.startTime }
+        return mlist.sortedBy { it.category }
     }
 
     fun onLastPlanToggleClick(isCurrentPlan: Boolean) {
