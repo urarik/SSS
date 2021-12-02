@@ -37,7 +37,6 @@
                     android:id="@+id/textMyPageUserId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="(아이디)"
                     android:text="@{profile.userId}"
                     android:textColor="@color/gray"
                     android:textSize="20sp"
@@ -52,7 +51,6 @@
                     android:id="@+id/textMyPageNickName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="닉네임"
                     android:text="@{profile.nickName}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
@@ -98,7 +96,6 @@
                     android:id="@+id/textMyPageGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="남"
                     android:text='@{profile.gender? "남": "여"}'
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -111,7 +108,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="48dp"
-                    android:hint="나이: 12"
                     android:text='@{"나이: " + profile.age}'
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -124,7 +120,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="48dp"
-                    android:hint="이름: 123"
                     android:text='@{"이름: " + profile.name}'
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"

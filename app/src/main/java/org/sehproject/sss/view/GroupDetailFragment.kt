@@ -43,7 +43,6 @@ class GroupDetailFragment : Fragment() {
         val safeArgs: GroupDetailFragmentArgs by navArgs()
 
         groupDetailBinding.groupLogic = groupViewModel.groupLogic
-        groupDetailBinding.textViewMemberNumDetails.text = groupViewModel.groupLiveData.value?.participants?.size.toString() + "명"
 
         initObserver(groupDetailBinding)
 
@@ -80,6 +79,7 @@ class GroupDetailFragment : Fragment() {
             view.background.colorFilter = BlendModeColorFilter(
                 Color.parseColor("#"+Integer.toHexString(it.color)),
                 BlendMode.SRC_ATOP)
+            groupDetailBinding.textViewMemberNumDetails.text = groupViewModel.groupLiveData.value?.participants?.size.toString() + "명"
 
             if(groupViewModel.groupLiveData.value?.creator == UserInfo.userId) {
                 groupDetailBinding.editGroupFloatingActionButton.visibility = ViewGroup.VISIBLE

@@ -36,7 +36,6 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="이름"
             android:text="@{user.nickName}"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
