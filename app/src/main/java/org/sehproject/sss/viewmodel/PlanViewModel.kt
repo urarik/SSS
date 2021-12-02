@@ -60,7 +60,7 @@ class PlanViewModel : ViewModel() {
     val selectedPlanUserList = mutableListOf<String>()
     var isInvite: Boolean = true
     var isSorted: Boolean = false
-    lateinit var ocrBitmap: Bitmap
+    var ocrBitmap: Bitmap? = null
     val cancelInvitePlanEvent = SingleLiveEvent<Any>()
     val createMemoFailEvent = SingleLiveEvent<Any>()
     val editPlanFailEvent = SingleLiveEvent<String>()
