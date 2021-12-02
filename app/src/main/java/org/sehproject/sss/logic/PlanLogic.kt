@@ -217,13 +217,14 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         planViewModel.uploadImgEvent.call()
     }
     fun onOcrDoneClick() {
-        planViewModel.planRepository.getImageOcr(planViewModel.ocrBitmap) {
-                code, string ->
-            if(code == 0) {
-                val parser = StringParser()
-                val plan = parser.parse(string!!)
-                if(plan.pid == -1) planViewModel.createPlanOcrFailEvent.value = plan.name
-                else onCreatePlanDoneClick(plan)
+        if (planViewModel.ocrBitmap != null) {
+            planViewModel.planRepository.getImageOcr(planViewModel.ocrBitmap!!) { code, string ->
+                if (code == 0) {
+                    val parser = StringParser()
+                    val plan = parser.parse(string!!)
+                    if (plan.pid == -1) planViewModel.createPlanOcrFailEvent.value = plan.name
+                    else onCreatePlanDoneClick(plan)
+                }
             }
         }
     }
