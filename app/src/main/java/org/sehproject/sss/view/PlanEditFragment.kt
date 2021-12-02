@@ -91,7 +91,7 @@ class PlanEditFragment : Fragment() {
         })
 
         planViewModel.editPlanFailEvent.observe(viewLifecycleOwner, {
-            Toast.makeText(context, "장소를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
     }
     private fun pickDateTime(plan: Plan, isStart: Boolean, planEditBinding: FragmentPlanEditBinding) {
