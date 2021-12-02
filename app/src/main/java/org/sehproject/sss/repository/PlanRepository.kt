@@ -2,6 +2,7 @@ package org.sehproject.sss.repository
 
 import android.graphics.Bitmap
 import android.util.Base64
+import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.gson.*

@@ -25,9 +25,17 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         plan.group = group
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun onEditPlanCompleteClick(plan: Plan) {
+        val format = SimpleDateFormat("yyyy-MM-dd hh:mm")
+        if(plan.group.name == "그룹 없음") plan.group = Group()
+        val start = format.parse(plan.startTime)
+        val end = format.parse(plan.endTime)
+
         if (plan.location.isEmpty())
-            planViewModel.editPlanFailEvent.call()
+            planViewModel.editPlanFailEvent.value = "장소를 입력해주세요."
+        else if (start >= end)
+            planViewModel.editPlanFailEvent.value = "시작 시간이 종료 시간보다 미래입니다."
         else {
             if (plan.pid == null) onCreatePlanDoneClick(plan)
             else {
@@ -48,6 +56,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
         if(start <= end) {
             planViewModel.planRepository.createPlan(plan) { code ->
                 if (code == 0) {
+                    Log.d("TAG", plan.toString())
                     planViewModel.createPlanCompleteEvent.call()
                 } else
                     planViewModel.createPlanFailEvent.value = code

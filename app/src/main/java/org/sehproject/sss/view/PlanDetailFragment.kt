@@ -2,6 +2,7 @@ package org.sehproject.sss.view
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,8 @@ class PlanDetailFragment : Fragment() {
         planViewModel.planLiveData.observe(viewLifecycleOwner, {
             planDetailBinding.plan = it
 
+            Log.d("TAG", planViewModel.planLiveData.value?.creator.toString())
+            Log.d("TAG", planDetailBinding.plan!!.creator.toString())
             if(planViewModel.planLiveData.value?.creator == UserInfo.userId) {
                 planDetailBinding.editPlanFloatingActionButton.visibility = ViewGroup.VISIBLE
                 planDetailBinding.deletePlanTypeFloatingActionButton.visibility = ViewGroup.VISIBLE

@@ -63,7 +63,7 @@ class PlanViewModel : ViewModel() {
     lateinit var ocrBitmap: Bitmap
     val cancelInvitePlanEvent = SingleLiveEvent<Any>()
     val createMemoFailEvent = SingleLiveEvent<Any>()
-    val editPlanFailEvent = SingleLiveEvent<Any>()
+    val editPlanFailEvent = SingleLiveEvent<String>()
 
     fun setFriendList(pid: Int) {
         if(pid == -1)
