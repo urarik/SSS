@@ -350,7 +350,10 @@ class PlanRepository {
 
     // isCurrent true : 현재, false : 과거
     fun getPlanList(userId: String, isCurrent: Boolean, onResult: (Int, List<Plan>?) -> Unit) {
-        val getPlanListCall = planService.requestGetPlanList(userId, isCurrent)
+        var isMine = false;
+        if(userId == UserInfo.userId)
+            isMine = true
+        val getPlanListCall = planService.requestGetPlanList(userId, isCurrent, isMine)
         getPlanListCall.enqueue(object : CallbackWithRetry<PlanListResponse>(getPlanListCall) {
             override fun onResponse(
                 call: Call<PlanListResponse>,
