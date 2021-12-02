@@ -159,7 +159,10 @@ interface PlanService {
         userId: String,
 
         @Field("is_current")
-        isCurrent: Boolean
+        isCurrent: Boolean,
+
+        @Field("is_mine")
+        isMine: Boolean
     ): Call<PlanListResponse>
 
     @POST("plan/details")
