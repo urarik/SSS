@@ -41,7 +41,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="96dp"
-            android:hint="참석자"
             android:text="@{user.nickName}"
             android:textColor="@color/black_87"
             android:textSize="20sp"

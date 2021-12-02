@@ -35,7 +35,6 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="현재 약속 포인트: 100p"
                 android:text='@{"현재 약속 포인트: " + statistics.point + "p"}'
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +77,6 @@
                 android:layout_height="wrap_content"
                 android:text='@{"총 약속 횟수: " + statistics.totalPlanCount + "회"}'
                 android:visibility="@{profileViewModel.isTotalPlanCount? View.VISIBLE: View.GONE}"
-                android:hint="총 약속 횟수: 5회"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +119,6 @@
                 android:layout_height="wrap_content"
                 android:text='@{"참석 횟수: " + statistics.attendPlanCount + "회"}'
                 android:visibility="@{profileViewModel.isAttendPlanCount? View.VISIBLE: View.GONE}"
-                android:hint="참석 횟수: 4회"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -163,7 +160,6 @@
                 android:layout_height="wrap_content"
                 android:text='@{"불참석 횟수: " + profileViewModel.abscentPlanCountLiveData + "회"}'
                 android:visibility="@{profileViewModel.isAbscentPlanCount? View.VISIBLE: View.GONE}"
-                android:hint="불참석 횟수: 1회"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -205,7 +201,6 @@
                 android:gravity="center"
                 android:text='@{"약속 참석률: " + profileViewModel.attendPercentLiveData + "%"}'
                 android:visibility="@{profileViewModel.isAttendPercent? View.VISIBLE: View.GONE}"
-                android:hint="약속 참석률: 100%"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
