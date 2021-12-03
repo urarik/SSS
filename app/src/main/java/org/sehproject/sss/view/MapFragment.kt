@@ -52,7 +52,6 @@ class MapFragment : Fragment(),MapView.OpenAPIKeyAuthenticationResultListener,
 
         initObserver(mapBinding, mapView)
 
-        mapView.setDaumMapApiKey("3549708e5615a6373ce58622aae7434d")
         mapView.setOpenAPIKeyAuthenticationResultListener(this)
         mapView.mapType = MapView.MapType.Standard
         mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading;

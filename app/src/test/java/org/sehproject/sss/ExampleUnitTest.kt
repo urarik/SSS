@@ -18,7 +18,7 @@ class ExampleUnitTest {
 
     @Test
     fun addition_isCorrect() {
-        val result = stringParser.parse("회의, 영남대, 2021-11-15, 13:00, 2021-11-16, 14:00, X")
+        val result = stringParser.parse("회의. 영남대, 2021-11-15, 13:00, 2021-11-16, 14:00, X")
         print(result)
 
 //        val format = SimpleDateFormat("yyyy-MM-dd hh:mm")
