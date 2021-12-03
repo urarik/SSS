@@ -3,16 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/ban_item.xml" value="0.24974358974358973" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_friend_list.xml" value="0.24974358974358973" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_friend_profile.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_detail.xml" value="0.13385416666666666" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_container.xml" value="0.24974358974358973" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_detail.xml" value="0.264" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_edit.xml" value="0.24974358974358973" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_invite.xml" value="0.24974358974358973" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_group_list.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_invitation.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_invite_friend.xml" value="0.24974358974358973" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_create_ocr.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_create_type.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_plan_detail.xml" value="0.25364583333333335" />
@@ -27,15 +25,7 @@
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_statistics_point.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/fragment_user_search.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/friend_list_item.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_eta.xml" value="0.264" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_friend_plan.xml" value="0.24974358974358973" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_group.xml" value="0.24974358974358973" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_memo.xml" value="0.24974358974358973" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_participants.xml" value="0.24974358974358973" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_place.xml" value="0.24974358974358973" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_plan.xml" value="0.24974358974358973" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/item_user.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/user_serach_item.xml" value="0.24974358974358973" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/view_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/view_memo_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/82103/AndroidStudioProjects/SSS-main/app/src/main/res/layout/view_place_item.xml" value="0.20364583333333333" />
@@ -74,6 +64,15 @@
         <entry key="..\:/Users/IT/Desktop/SSS/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_friend_list.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_friend_profile.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/psh32/AndroidStudioProjects/SSS/app/src/main/res/layout/fragment_plan_list.xml" value="0.11354166666666667" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_login.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_map.xml" value="0.19791666666666666" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_plan_create_ocr.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_plan_create_type.xml" value="0.358695652173913" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_plan_detail.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/fragment_plan_list.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/item_memo.xml" value="0.17806484295845998" />
+        <entry key="..\:/school/drive/SSS/app/src/main/res/layout/item_plan.xml" value="0.17806484295845998" />
       </map>
     </option>
   </component>
