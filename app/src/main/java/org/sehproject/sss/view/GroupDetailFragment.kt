@@ -41,12 +41,12 @@ class GroupDetailFragment : Fragment() {
             false
         )
         val safeArgs: GroupDetailFragmentArgs by navArgs()
-
         groupDetailBinding.groupLogic = groupViewModel.groupLogic
 
         initObserver(groupDetailBinding)
 
         groupViewModel.setGroup(safeArgs.gid)
+        groupDetailBinding.textViewMemberNumDetails.text = groupViewModel.groupLiveData.value?.participants?.size.toString() + "명"
 
         return groupDetailBinding.root
     }
@@ -79,7 +79,6 @@ class GroupDetailFragment : Fragment() {
             view.background.colorFilter = BlendModeColorFilter(
                 Color.parseColor("#"+Integer.toHexString(it.color)),
                 BlendMode.SRC_ATOP)
-            groupDetailBinding.textViewMemberNumDetails.text = groupViewModel.groupLiveData.value?.participants?.size.toString() + "명"
 
             if(groupViewModel.groupLiveData.value?.creator == UserInfo.userId) {
                 groupDetailBinding.editGroupFloatingActionButton.visibility = ViewGroup.VISIBLE
@@ -90,7 +89,7 @@ class GroupDetailFragment : Fragment() {
         })
         groupViewModel.friendListLiveData.observe(viewLifecycleOwner, {
             groupDetailBinding.textViewMemberNumDetails.text = it.size.toString()
-            groupDetailBinding.recyclerGroupParticipants.adapter = ParticipantAdapter(it)
+            // groupDetailBinding.recyclerGroupParticipants.adapter = ParticipantAdapter(it)
         })
         groupViewModel.deleteGroupEvent.observe(viewLifecycleOwner, {
             android.app.AlertDialog
