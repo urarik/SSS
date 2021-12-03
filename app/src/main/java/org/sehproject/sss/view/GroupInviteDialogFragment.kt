@@ -34,8 +34,11 @@ class GroupInviteDialogFragment: DialogFragment() {
         inviteFriendBinding.groupLogic = groupViewModel!!.groupLogic
 
         initObserver(recyclerView)
+        if(safeArgs.isInvite)
+            groupViewModel?.setFriendList(-1)
+        else
+            groupViewModel?.setFriendList(safeArgs.gid)
 
-        groupViewModel?.setFriendList()
 
         return inviteFriendBinding.root
     }

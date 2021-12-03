@@ -72,8 +72,23 @@ class PlanViewModel : ViewModel() {
             }
         else
             planRepository.getParticipantList(pid) {code, list ->
-                if(code == 0)
-                    friendListLiveData.value = list
+                var cnt = 0
+                var mlist: MutableList<User>? = null
+                mlist = if (list != null)
+                    list as MutableList<User>
+                else
+                    mutableListOf()
+
+                if(code == 0) {
+                    for (i in mlist) {
+                        if (i.userId == UserInfo.userId) {
+                            mlist.removeAt(cnt)
+                            break
+                        }
+                        cnt++
+                    }
+                    friendListLiveData.value = mlist
+                }
             }
     }
 

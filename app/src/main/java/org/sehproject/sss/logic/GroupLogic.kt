@@ -1,5 +1,6 @@
 package org.sehproject.sss.logic
 
+import android.util.Log
 import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.viewmodel.GroupViewModel
@@ -14,6 +15,7 @@ class GroupLogic(private val groupViewModel: GroupViewModel) {
     {
         groupViewModel.groupRepository.createGroup(group) {code ->
             if(code == 0) {
+                Log.d("TAG", group.toString())
                 groupViewModel.createGroupCompleteEvent.value = group
             }
         }

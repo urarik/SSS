@@ -125,16 +125,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewMemberNumDetails" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerGroupParticipants"
-            android:layout_width="383dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewGroupExplanationDetails" />
-
 
         <ImageView
             android:id="@+id/imageViewGroupColor"

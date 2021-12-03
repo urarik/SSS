@@ -122,6 +122,7 @@ class PlanLogic(val planViewModel: PlanViewModel) {
     }
     fun onInvitePlanDoneClick(pid: Int) {
         planViewModel.planRepository.invitePlan(pid, planViewModel.selectedPlanUserList) { code: Int ->
+            Log.d("TAG", code.toString())
             if(code == 0) {
                 planViewModel.invitePlanCompleteEvent.call()
             }

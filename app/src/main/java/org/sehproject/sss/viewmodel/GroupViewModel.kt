@@ -1,7 +1,9 @@
 package org.sehproject.sss.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.Group
 import org.sehproject.sss.datatype.User
 import org.sehproject.sss.logic.GroupLogic
@@ -37,10 +39,31 @@ class GroupViewModel : ViewModel() {
     val cancelInviteGroupEvent = SingleLiveEvent<Any>()
     val editGroupFailEvent = SingleLiveEvent<String>()
 
-    fun setFriendList() {
-        friendRepository.getFriendList { _, list ->
-            friendListLiveData.value = list
-        }
+    fun setFriendList(gid: Int) {
+        if(gid == -1)
+            friendRepository.getFriendList { _, list ->
+                friendListLiveData.value = list
+            }
+        else
+            groupRepository.getParticipantList(gid) {code, list ->
+                var cnt = 0
+                var mlist: MutableList<User>? = null
+                mlist = if (list != null)
+                    list as MutableList<User>
+                else
+                    mutableListOf()
+
+                if(code == 0) {
+                    for (i in mlist) {
+                        if (i.userId == UserInfo.userId) {
+                            mlist.removeAt(cnt)
+                            break
+                        }
+                        cnt++
+                    }
+                    friendListLiveData.value = mlist
+                }
+            }
     }
     fun setGroupList()
     {
@@ -56,6 +79,7 @@ class GroupViewModel : ViewModel() {
         if(gid == null) groupLiveData.value = Group()
         else {
             groupRepository.getGroup(gid) { code, group ->
+                Log.d("TAG", group.toString())
                 if (code == 0) {
                     groupLiveData.value = group
                 }
@@ -63,6 +87,8 @@ class GroupViewModel : ViewModel() {
             groupRepository.getParticipantList(gid) { code, participants ->
                 if(code ==0)
                     friendListLiveData.value = participants
+                else if (code == 1)
+                    friendListLiveData.value = listOf()
             }
         }
 

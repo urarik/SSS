@@ -1,5 +1,6 @@
 package org.sehproject.sss.repository
 
+import android.util.Log
 import org.sehproject.sss.ServerApi
 import org.sehproject.sss.UserInfo
 import org.sehproject.sss.datatype.*
