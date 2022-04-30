@@ -20,10 +20,10 @@ Android Studio 2020.3.1 이상, Android SDK Tools 23 이상, Android 5.0(Lollipo
 
 ## Built With / 누구랑 만들었나요?
 
-* [금정욱](https://github.com/urarik) - 프로젝트 설계, 어플리케이션 프로트엔드 제작, 데이터 분석
+* [금정욱](https://github.com/urarik) - 프로젝트 설계, 어플리케이션 프로트엔드 제작, 데이터 분석, 데이터베이스 설계
 * [박세훈](https://github.com/psh3253) - 프로젝트 설계, 어플리케이션 백엔드 제작
 * [문빈](https://github.com/githubKudoi) - 프로젝트 설계, API 서버 제작
-* [정수용](https://github.com/shion0202) - 프로젝트 설계, 어플리케이션 프로트엔드 제작
+* [정수용](https://github.com/shion0202) - 프로젝트 설계, 어플리케이션 프로트엔드 제작, 데이터베이스 설계
 * [이소연](https://github.com/닉네임) - 프로젝트 설계, 데이터베이스 설계
 
 ## Function / 기능
